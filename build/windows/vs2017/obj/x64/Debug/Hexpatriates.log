@@ -1,0 +1,16 @@
+﻿  Hexpatriates.cpp
+  Pilot.cpp
+  ScrollMod.cpp
+  Ship.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(8): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(9): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(18): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(21): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(36): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(56): warning C4715: 'hexpatriates::ScrollMod::GetBodyPartByName': not all control paths return a value
+  Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
+  C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll
+  C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
+  C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll
+          3 file(s) copied.

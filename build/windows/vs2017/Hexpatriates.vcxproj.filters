@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{D59D7323-9374-D542-8FF7-C08B1F9FBE43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{1C7F9573-5A6E-F042-ABC0-66A4D9C051B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers">
+      <UniqueIdentifier>{74e8fd6c-5e35-4113-8367-8bcd3dc821e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP">
+      <UniqueIdentifier>{1b1979e7-9f6f-4aa0-b640-c44d089757e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\data\config\CreationTemplate.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Hexpatriates.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Hexpatriatesd.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Hexpatriatesp.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\SettingsTemplate.ini">
+      <Filter>config</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Hexpatriates.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMod.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Hexpatriates.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMod.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
