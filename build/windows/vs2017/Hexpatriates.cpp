@@ -4,8 +4,11 @@
 // Scroll (as follows).
 #define __SCROLL_IMPL__
 #include "Hexpatriates.h"
+#include "Laser.h"
+#include "Orb.h"
 #include "Pilot.h"
 #include "Ship.h"
+#include "Spawner.h"
 #undef __SCROLL_IMPL__
 
 using namespace hexpatriates;
@@ -35,6 +38,9 @@ orxSTATUS Hexpatriates::Init()
 
 void Hexpatriates::BindObjects()
 {
+    ScrollBindObject<Spawner>("O-Spawner");
+    ScrollBindObject<Laser>("O-Laser");
+    ScrollBindObject<Orb>("O-Orb");
     ScrollBindObject<Pilot>("O-Pilot");
     ScrollBindObject<Ship>("O-Ship");
 }

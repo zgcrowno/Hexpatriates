@@ -44,6 +44,18 @@
     <ClCompile Include="ScrollMod.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Orb.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -56,6 +68,18 @@
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="ScrollMod.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Orb.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>

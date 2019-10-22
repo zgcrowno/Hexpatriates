@@ -375,8 +375,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Hexpatriates.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="Orb.cpp" />
     <ClCompile Include="Pilot.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Ship.cpp" />
   </ItemGroup>
@@ -388,8 +392,12 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="Hexpatriates.h" />
+    <ClInclude Include="Laser.h" />
+    <ClInclude Include="Orb.h" />
     <ClInclude Include="Pilot.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>

@@ -64,3 +64,8 @@ void ScrollMod::SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSoli
 {
     orxBody_SetPartSolid(GetBodyPartByName(_partName), _bSolid);
 }
+
+void ScrollMod::Destroy()
+{
+    SetLifeTime(0.0);
+}

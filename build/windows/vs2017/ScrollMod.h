@@ -37,5 +37,7 @@ namespace hexpatriates
         /// <param name="_partName">The name of the body part whose solidity we wish to set.</param>
         /// <param name="_bSolid">The bool value representing the solidity we wish to set.</param>
         void SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSolid);
+        /// <summary>Destroys the ScrollMod immediately.</summary>
+        void Destroy();
     };
 }

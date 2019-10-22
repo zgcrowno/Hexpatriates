@@ -1,5 +1,5 @@
 #include "Pilot.h"
-#include <iostream>
+#include "Projectile.h"
 
 using namespace hexpatriates;
 
@@ -48,7 +48,8 @@ orxBOOL Pilot::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    if (orxString_Compare(_zPartName, "BP-Pilot") == 0 && orxString_Compare(_zColliderPartName, "BP-Partition") == 0)
+    if (orxString_Compare(_zPartName, "BP-Pilot") == 0
+        && orxString_Compare(_zColliderPartName, "BP-Partition") == 0)
     {
         DestroyShip();
     }

@@ -1,17 +1,28 @@
 #include "Ship.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
 void Ship::OnCreate()
 {
-    m_maxNeutral = orxConfig_GetFloat("MaxNeutral");
-    m_maxUpward = orxConfig_GetFloat("MaxUpward");
-    m_maxDownward = orxConfig_GetFloat("MaxDownward");
+    m_clipSizeNeutral = orxConfig_GetFloat("ClipSizeNeutral");
+    m_clipSizeUpward = orxConfig_GetFloat("ClipSizeUpward");
+    m_clipSizeDownward = orxConfig_GetFloat("ClipSizeDownward");
+    m_waveSizeNeutral = orxConfig_GetFloat("WaveSizeNeutral");
+    m_waveSizeUpward = orxConfig_GetFloat("WaveSizeUpward");
+    m_waveSizeDownward = orxConfig_GetFloat("WaveSizeDownward");
+    m_waveSizeSuper = orxConfig_GetFloat("WaveSizeSuper");
+    m_numWavesNeutral = orxConfig_GetFloat("NumWavesNeutral");
+    m_numWavesUpward = orxConfig_GetFloat("NumWavesUpward");
+    m_numWavesDownward = orxConfig_GetFloat("NumWavesDownward");
+    m_numWavesSuper = orxConfig_GetFloat("NumWavesSuper");
     m_maxCooldownNeutral = orxConfig_GetFloat("MaxCooldownNeutral");
     m_maxCooldownUpward = orxConfig_GetFloat("MaxCooldownUpward");
     m_maxCooldownDownward = orxConfig_GetFloat("MaxCooldownDownward");
     m_maxCooldownSuper = orxConfig_GetFloat("MaxCooldownSuper");
+    m_maxWaveDelayNeutral = orxConfig_GetFloat("MaxWaveDelayNeutral");
+    m_maxWaveDelayUpward = orxConfig_GetFloat("MaxWaveDelayUpward");
+    m_maxWaveDelayDownward = orxConfig_GetFloat("MaxWaveDelayDownward");
+    m_maxWaveDelaySuper = orxConfig_GetFloat("MaxWaveDelaySuper");
     m_cooldownSuper = m_maxCooldownSuper;
     m_neutralMeter = static_cast<ScrollMod*>(Hexpatriates::GetInstance().CreateObject("O-NeutralMeter"));
     m_upwardMeter = static_cast<ScrollMod*>(Hexpatriates::GetInstance().CreateObject("O-UpwardMeter"));
@@ -23,14 +34,10 @@ void Ship::OnCreate()
     m_defaultScaleDownward = m_downwardMeter->GetScale(variableScale);
     m_defaultScaleSuper = m_superMeter->GetScale(variableScale);
 
-    m_neutralGun = static_cast<ScrollMod*>(GetChildByName("O-NeutralGun"));
-    m_neutralGun->Enable(orxFALSE);
-    m_upwardGun = static_cast<ScrollMod*>(GetChildByName("O-UpwardGun"));
-    m_upwardGun->Enable(orxFALSE);
-    m_downwardGun = static_cast<ScrollMod*>(GetChildByName("O-DownwardGun"));
-    m_downwardGun->Enable(orxFALSE);
-    m_superGun = static_cast<ScrollMod*>(GetChildByName("O-SuperGun"));
-    m_superGun->Enable(orxFALSE);
+    m_neutralGun = static_cast<Spawner*>(GetChildByName("O-NeutralGun"));
+    m_upwardGun = static_cast<Spawner*>(GetChildByName("O-UpwardGun"));
+    m_downwardGun = static_cast<Spawner*>(GetChildByName("O-DownwardGun"));
+    m_superGun = static_cast<Spawner*>(GetChildByName("O-SuperGun"));
 }
 
 void Ship::OnDelete()
@@ -50,6 +57,79 @@ orxBOOL Ship::OnCollide(
 
 void Ship::Update(const orxCLOCK_INFO &_rstInfo)
 {
+    // Handle Waves
+    if (m_wavesIndexNeutral != 0 && m_wavesIndexNeutral < m_numWavesNeutral)
+    {
+        if (m_waveDelayNeutral > 0)
+        {
+            m_waveDelayNeutral -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireNeutral();
+            m_wavesIndexNeutral++;
+            m_waveDelayNeutral = m_maxWaveDelayNeutral;
+        }
+    }
+    else
+    {
+        m_wavesIndexNeutral = 0;
+        m_waveDelayNeutral = 0;
+    }
+    if (m_wavesIndexUpward != 0 && m_wavesIndexUpward < m_numWavesUpward)
+    {
+        if (m_waveDelayUpward > 0)
+        {
+            m_waveDelayUpward -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireUpward();
+            m_wavesIndexUpward++;
+            m_waveDelayUpward = m_maxWaveDelayUpward;
+        }
+    }
+    else
+    {
+        m_wavesIndexUpward = 0;
+        m_waveDelayUpward = 0;
+    }
+    if (m_wavesIndexDownward != 0 && m_wavesIndexDownward < m_numWavesDownward)
+    {
+        if (m_waveDelayDownward > 0)
+        {
+            m_waveDelayDownward -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireDownward();
+            m_wavesIndexDownward++;
+            m_waveDelayDownward = m_maxWaveDelayDownward;
+        }
+    }
+    else
+    {
+        m_wavesIndexDownward = 0;
+        m_waveDelayDownward = 0;
+    }
+    if (m_wavesIndexSuper != 0 && m_wavesIndexSuper < m_numWavesSuper)
+    {
+        if (m_waveDelaySuper > 0)
+        {
+            m_waveDelaySuper -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireSuper();
+            m_wavesIndexSuper++;
+            m_waveDelaySuper = m_maxWaveDelaySuper;
+        }
+    }
+    else
+    {
+        m_wavesIndexSuper = 0;
+        m_waveDelaySuper = 0;
+    }
     // Handle Cooldowns
     if (m_cooldownNeutral > 0)
     {
@@ -90,7 +170,7 @@ void Ship::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
-        m_neutralMeter->SetScale({ m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * ((float)m_usedNeutral / (float)m_maxNeutral)), m_defaultScaleNeutral.fY, m_defaultScaleNeutral.fZ });
+        m_neutralMeter->SetScale({ m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * ((float)m_clipIndexNeutral / (float)m_clipSizeNeutral)), m_defaultScaleNeutral.fY, m_defaultScaleNeutral.fZ });
     }
     if (m_cooldownUpward > 0)
     {
@@ -98,7 +178,7 @@ void Ship::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
-        m_upwardMeter->SetScale({ m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * ((float)m_usedUpward / (float)m_maxUpward)), m_defaultScaleUpward.fY, m_defaultScaleUpward.fZ });
+        m_upwardMeter->SetScale({ m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * ((float)m_clipIndexUpward / (float)m_clipSizeUpward)), m_defaultScaleUpward.fY, m_defaultScaleUpward.fZ });
     }
     if (m_cooldownDownward > 0)
     {
@@ -106,7 +186,7 @@ void Ship::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
-        m_downwardMeter->SetScale({ m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_usedDownward / (float)m_maxDownward)), m_defaultScaleDownward.fY, m_defaultScaleDownward.fZ });
+        m_downwardMeter->SetScale({ m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_clipIndexDownward / (float)m_clipSizeDownward)), m_defaultScaleDownward.fY, m_defaultScaleDownward.fZ });
     }
     m_superMeter->SetScale({ m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_cooldownSuper / m_maxCooldownSuper)), m_defaultScaleSuper.fY, m_defaultScaleSuper.fZ });
 }
@@ -115,22 +195,21 @@ void Ship::Neutral()
 {
     if (orxInput_HasBeenActivated("Neutral"))
     {
-        if (m_cooldownNeutral <= 0)
+        if (m_cooldownNeutral <= 0 && m_wavesIndexNeutral == 0)
         {
-            m_usedNeutral++;
+            m_waveDelayNeutral = m_maxWaveDelayNeutral;
 
-            m_neutralGun->Enable(orxTRUE);
+            m_clipIndexNeutral++;
+            m_wavesIndexNeutral++;
 
-            if (m_usedNeutral == m_maxNeutral)
+            FireNeutral();
+
+            if (m_clipIndexNeutral == m_clipSizeNeutral)
             {
-                m_usedNeutral = 0;
+                m_clipIndexNeutral = 0;
                 m_cooldownNeutral = m_maxCooldownNeutral;
             }
         }
-    }
-    else if (orxInput_HasBeenDeactivated("Neutral"))
-    {
-        m_neutralGun->Enable(orxFALSE);
     }
 }
 
@@ -138,22 +217,21 @@ void Ship::Upward()
 {
     if (orxInput_HasBeenActivated("Upward"))
     {
-        if (m_cooldownUpward <= 0)
+        if (m_cooldownUpward <= 0 && m_wavesIndexUpward == 0)
         {
-            m_usedUpward++;
+            m_waveDelayUpward = m_maxWaveDelayUpward;
 
-            m_upwardGun->Enable(orxTRUE);
+            m_clipIndexUpward++;
+            m_wavesIndexUpward++;
 
-            if (m_usedUpward == m_maxUpward)
+            FireUpward();
+
+            if (m_clipIndexUpward == m_clipSizeUpward)
             {
-                m_usedUpward = 0;
+                m_clipIndexUpward = 0;
                 m_cooldownUpward = m_maxCooldownUpward;
             }
         }
-    }
-    else if (orxInput_HasBeenDeactivated("Upward"))
-    {
-        m_upwardGun->Enable(orxFALSE);
     }
 }
 
@@ -161,22 +239,21 @@ void Ship::Downward()
 {
     if (orxInput_HasBeenActivated("Downward"))
     {
-        if (m_cooldownDownward <= 0)
+        if (m_cooldownDownward <= 0 && m_wavesIndexDownward == 0)
         {
-            m_usedDownward++;
+            m_waveDelayDownward = m_maxWaveDelayDownward;
 
-            m_downwardGun->Enable(orxTRUE);
+            m_clipIndexDownward++;
+            m_wavesIndexDownward++;
 
-            if (m_usedDownward == m_maxDownward)
+            FireDownward();
+
+            if (m_clipIndexDownward == m_clipSizeDownward)
             {
-                m_usedDownward = 0;
+                m_clipIndexDownward = 0;
                 m_cooldownDownward = m_maxCooldownDownward;
             }
         }
-    }
-    else if (orxInput_HasBeenDeactivated("Downward"))
-    {
-        m_downwardGun->Enable(orxFALSE);
     }
 }
 
@@ -184,13 +261,56 @@ void Ship::Super()
 {
     if (orxInput_HasBeenActivated("Super"))
     {
-        if (m_cooldownSuper <= 0)
+        if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
         {
+            m_wavesIndexSuper++;
+
+            m_waveDelaySuper = m_maxWaveDelaySuper;
+
             m_cooldownSuper = m_maxCooldownSuper;
 
-            m_superGun->Enable(orxTRUE);
+            FireSuper();
 
             m_cooldownSuper = m_maxCooldownSuper;
+        }
+    }
+}
+
+void Ship::FireNeutral()
+{
+    for (int i = 0; i < m_waveSizeNeutral; i++)
+    {
+        m_neutralGun->Spawn(0);
+    }
+}
+
+void Ship::FireUpward()
+{
+    for (int i = 0; i < m_waveSizeUpward; i++)
+    {
+        m_upwardGun->Spawn(-orxMATH_KF_PI_BY_4);
+    }
+}
+
+void Ship::FireDownward()
+{
+    for (int i = 0; i < m_waveSizeDownward; i++)
+    {
+        m_downwardGun->Spawn(orxMath_GetRandomFloat(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_4 / 2.0, orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_4 / 2.0));
+    }
+}
+
+void Ship::FireSuper()
+{
+    for (int i = 0; i < m_waveSizeSuper; i++)
+    {
+        if (m_wavesIndexSuper % 2 == 0)
+        {
+            m_superGun->Spawn(orxMATH_KF_PI_BY_4 * i);
+        }
+        else
+        {
+            m_superGun->Spawn(orxMATH_KF_PI_BY_4 * i + orxMATH_KF_PI_BY_4 / 2);
         }
     }
 }
