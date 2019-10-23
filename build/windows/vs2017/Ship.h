@@ -67,6 +67,8 @@ namespace hexpatriates
         float m_cooldownSuper;
         float m_maxWaveDelaySuper;
         float m_waveDelaySuper;
+        //! The direction in which the Ship's enemy's zone is, measured in radians.
+        float m_enemyDirection;
         Spawner *m_neutralGun;
         Spawner *m_upwardGun;
         Spawner *m_downwardGun;

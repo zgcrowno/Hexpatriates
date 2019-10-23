@@ -35,6 +35,20 @@ ScrollObject *ScrollMod::GetChildByName(const orxSTRING _childName)
     }
 }
 
+ScrollObject *ScrollMod::GetChildByName(const std::vector<orxSTRING> &_childNameList)
+{
+    for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
+    {
+        for (orxSTRING str : _childNameList)
+        {
+            if (orxString_Compare(child->GetModelName(), str) == 0)
+            {
+                return child;
+            }
+        }
+    }
+}
+
 orxVECTOR ScrollMod::GetWorldGravity()
 {
     orxVECTOR worldGravity = orxVECTOR_0;

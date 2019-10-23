@@ -1,15 +1,6 @@
-﻿  Ship.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(7): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(8): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(9): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(11): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(12): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(13): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(14): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(15): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(16): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(17): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+﻿  Pilot.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(18): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(21): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll

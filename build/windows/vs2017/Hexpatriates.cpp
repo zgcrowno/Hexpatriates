@@ -29,7 +29,8 @@ orxSTATUS Hexpatriates::Init()
     orxSTATUS result = orxSTATUS_SUCCESS;
 
     // Instantiate game objects
-    CreateObject("O-Pilot");
+    CreateObject("O-PilotP1");
+    CreateObject("O-PilotP2");
     CreateObject("O-Walls");
     CreateObject("O-Partition");
     

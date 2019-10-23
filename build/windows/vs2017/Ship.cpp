@@ -1,4 +1,5 @@
 #include "Ship.h"
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -34,10 +35,20 @@ void Ship::OnCreate()
     m_defaultScaleDownward = m_downwardMeter->GetScale(variableScale);
     m_defaultScaleSuper = m_superMeter->GetScale(variableScale);
 
-    m_neutralGun = static_cast<Spawner*>(GetChildByName("O-NeutralGun"));
-    m_upwardGun = static_cast<Spawner*>(GetChildByName("O-UpwardGun"));
-    m_downwardGun = static_cast<Spawner*>(GetChildByName("O-DownwardGun"));
-    m_superGun = static_cast<Spawner*>(GetChildByName("O-SuperGun"));
+    m_neutralGun = static_cast<Spawner*>(GetChildByName({ "O-NeutralGunP1", "O-NeutralGunP2" }));
+    m_upwardGun = static_cast<Spawner*>(GetChildByName({ "O-UpwardGunP1", "O-UpwardGunP2" }));
+    m_downwardGun = static_cast<Spawner*>(GetChildByName({ "O-DownwardGunP1", "O-DownwardGunP2" }));
+    m_superGun = static_cast<Spawner*>(GetChildByName({ "O-SuperGunP1", "O-SuperGunP2" }));
+
+    // TODO: I'll probably need to think of a better way to do this at some point, since the names won't always be either "O-ShipP1" or "O-ShipP2".
+    if (orxString_Compare(GetModelName(), "O-ShipP1") == 0)
+    {
+        m_enemyDirection = 0;
+    }
+    else
+    {
+        m_enemyDirection = orxMATH_KF_PI;
+    }
 }
 
 void Ship::OnDelete()
@@ -280,15 +291,16 @@ void Ship::FireNeutral()
 {
     for (int i = 0; i < m_waveSizeNeutral; i++)
     {
-        m_neutralGun->Spawn(0);
+        m_neutralGun->Spawn(m_enemyDirection);
     }
 }
 
 void Ship::FireUpward()
 {
+    std::cout << cosf(m_enemyDirection) << std::endl;
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        m_upwardGun->Spawn(-orxMATH_KF_PI_BY_4);
+        m_upwardGun->Spawn(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));
     }
 }
 
@@ -306,11 +318,11 @@ void Ship::FireSuper()
     {
         if (m_wavesIndexSuper % 2 == 0)
         {
-            m_superGun->Spawn(orxMATH_KF_PI_BY_4 * i);
+            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i);
         }
         else
         {
-            m_superGun->Spawn(orxMATH_KF_PI_BY_4 * i + orxMATH_KF_PI_BY_4 / 2);
+            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i + (m_enemyDirection + orxMATH_KF_PI_BY_4) / 2);
         }
     }
 }

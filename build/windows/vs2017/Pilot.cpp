@@ -33,7 +33,7 @@ void Pilot::OnCreate()
     m_defaultScaleParry = m_parryMeter->GetScale(variableScale);
     m_defaultScaleLives = m_livesMeter->GetScale(variableScale);
     // Set the Character's pilot and ship
-    m_ship = static_cast<Ship*>(GetChildByName("O-Ship"));
+    m_ship = static_cast<Ship*>(GetChildByName({ "O-ShipP1", "O-ShipP2" }));
 }
 
 void Pilot::OnDelete()
@@ -48,7 +48,9 @@ orxBOOL Pilot::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    if (orxString_Compare(_zPartName, "BP-Pilot") == 0
+    // TODO: I'll probably make some sort of zone check instead of this collision, as dashing seems to lessen the accuracy of this.
+    if ((orxString_Compare(_zPartName, "BP-PilotP1") == 0
+        || orxString_Compare(_zPartName, "BP-PilotP2") == 0)
         && orxString_Compare(_zColliderPartName, "BP-Partition") == 0)
     {
         DestroyShip();
@@ -144,22 +146,36 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         {
             speed = m_flyingSpeed;
 
-            if (orxInput_IsActive("Up"))
+            if (orxInput_IsActive("UpDown"))
             {
-                movement.fY -= speed * _rstInfo.fDT;
+                movement.fY += speed * orxInput_GetValue("UpDown") * _rstInfo.fDT;
             }
-            if (orxInput_IsActive("Down"))
+            else
             {
-                movement.fY += speed * _rstInfo.fDT;
+                if (orxInput_IsActive("Up"))
+                {
+                    movement.fY -= speed * _rstInfo.fDT;
+                }
+                if (orxInput_IsActive("Down"))
+                {
+                    movement.fY += speed * _rstInfo.fDT;
+                }
             }
         }
-        if (orxInput_IsActive("Left"))
+        if (orxInput_IsActive("LeftRight"))
         {
-            movement.fX -= speed * _rstInfo.fDT;
+            movement.fX += speed * orxInput_GetValue("LeftRight") * _rstInfo.fDT;
         }
-        if (orxInput_IsActive("Right"))
+        else
         {
-            movement.fX += speed * _rstInfo.fDT;
+            if (orxInput_IsActive("Left"))
+            {
+                movement.fX -= speed * _rstInfo.fDT;
+            }
+            if (orxInput_IsActive("Right"))
+            {
+                movement.fX += speed * _rstInfo.fDT;
+            }
         }
     }
     // Otherwise, execute dash movement
@@ -178,7 +194,15 @@ void Pilot::Dash()
         // Only execute dash input if the Character isn't currently dashing or waiting out a dash cooldown.
         if (m_dashTime <= 0 && m_cooldownDash <= 0)
         {
-            m_dashDirection = { orxInput_GetValue("Right") - orxInput_GetValue("Left"), orxInput_GetValue("Down") - orxInput_GetValue("Up"), 0 };
+            if (orxInput_GetValue("LeftRight") != 0 || orxInput_GetValue("UpDown") != 0)
+            {
+                m_dashDirection = { orxInput_GetValue("LeftRight"), orxInput_GetValue("UpDown") };
+            }
+            else
+            {
+                m_dashDirection = { orxInput_GetValue("Right") - orxInput_GetValue("Left"), orxInput_GetValue("Down") - orxInput_GetValue("Up"), 0 };
+            }
+
             m_dashTime = m_dashDuration;
             m_usedDashes++;
 

@@ -37,6 +37,8 @@ namespace hexpatriates
         //! Moves the Player based on user input and the passed speed
         void Move(const orxCLOCK_INFO &_rstInfo);
     public:
+        //! Flag representing whether or not the Pilot is player 1.
+        bool m_bIsPlayerOne;
         //! Speed of movement
         float m_walkingSpeed;
         float m_flyingSpeed;
