@@ -10,15 +10,6 @@ namespace hexpatriates
     class Ship : public ScrollMod
     {
     protected:
-        orxVECTOR m_defaultScaleNeutral;
-        orxVECTOR m_defaultScaleUpward;
-        orxVECTOR m_defaultScaleDownward;
-        orxVECTOR m_defaultScaleSuper;
-        ScrollMod *m_neutralMeter;
-        ScrollMod *m_upwardMeter;
-        ScrollMod *m_downwardMeter;
-        ScrollMod *m_superMeter;
-
         //! Called on object creation
         virtual void OnCreate();
         //! Called on object deletion

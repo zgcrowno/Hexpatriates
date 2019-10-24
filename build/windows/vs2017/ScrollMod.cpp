@@ -56,7 +56,7 @@ orxVECTOR ScrollMod::GetWorldGravity()
     return *orxPhysics_GetGravity(&worldGravity);
 }
 
-orxBODY_PART *ScrollMod::GetBodyPartByName(const orxSTRING &_partName)
+orxBODY_PART *ScrollMod::GetBodyPartByName(const orxCHAR *_partName)
 {
     orxBODY *body = (orxBODY*)GetStructure(orxSTRUCTURE_ID_BODY);
 
@@ -67,6 +67,11 @@ orxBODY_PART *ScrollMod::GetBodyPartByName(const orxSTRING &_partName)
             return part;
         }
     }
+}
+
+void ScrollMod::SetTargetAnim(const orxCHAR *_animName)
+{
+    orxObject_SetTargetAnim(GetOrxObject(), _animName);
 }
 
 void ScrollMod::SetCustomGravity(orxVECTOR &_customGravity)

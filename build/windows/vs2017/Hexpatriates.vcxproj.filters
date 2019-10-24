@@ -56,6 +56,9 @@
     <ClCompile Include="Spawner.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Arena.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -80,6 +83,9 @@
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Spawner.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Arena.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>

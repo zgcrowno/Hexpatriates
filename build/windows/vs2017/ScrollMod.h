@@ -34,7 +34,10 @@ namespace hexpatriates
         /// <summary>Returns a pointer to the body part, if it exists, which is a part of the ScrollMod's body, and which has the name <paramref name="_partName"/>.</summary>
         /// <param name="_partName">The name by which we're searching for a body part which is a part of the ScrollMod's body.</param>
         /// <returns>A pointer to the body part, if it exists, which is a part of the ScrollMod's body, and which has the name <paramref name="_partName"/>.</returns>
-        orxBODY_PART *GetBodyPartByName(const orxSTRING &_partName);
+        orxBODY_PART *GetBodyPartByName(const orxCHAR *_partName);
+        /// <summary>Sets the ScrollMod's target animation to <paramref name="_animName"/>.</summary>
+        /// <param name="_animName">The animation to which we're setting the ScrollMod's target animation.</param>
+        void SetTargetAnim(const orxCHAR *_animName);
         /// <summary>Sets the ScrollMod's custom gravity to <paramref name="_customGravity"/>.</summary>
         /// <param name="_customGravity">The gravity to which we're setting the ScrollMod's custom gravity.</param>
         void SetCustomGravity(orxVECTOR &_customGravity);

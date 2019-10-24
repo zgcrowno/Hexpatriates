@@ -24,15 +24,6 @@ void Ship::OnCreate()
     m_maxWaveDelayDownward = orxConfig_GetFloat("MaxWaveDelayDownward");
     m_maxWaveDelaySuper = orxConfig_GetFloat("MaxWaveDelaySuper");
     m_cooldownSuper = m_maxCooldownSuper;
-    m_neutralMeter = static_cast<ScrollMod*>(GetChildByName({ "O-NeutralMeterP1", "O-NeutralMeterP2" }));
-    m_upwardMeter = static_cast<ScrollMod*>(GetChildByName({ "O-UpwardMeterP1", "O-UpwardMeterP2" }));
-    m_downwardMeter = static_cast<ScrollMod*>(GetChildByName({ "O-DownwardMeterP1", "O-DownwardMeterP2" }));
-    m_superMeter = static_cast<ScrollMod*>(GetChildByName({ "O-SuperMeterP1", "O-SuperMeterP2" }));
-    orxVECTOR variableScale = orxVECTOR_0;
-    m_defaultScaleNeutral = m_neutralMeter->GetScale(variableScale);
-    m_defaultScaleUpward = m_upwardMeter->GetScale(variableScale);
-    m_defaultScaleDownward = m_downwardMeter->GetScale(variableScale);
-    m_defaultScaleSuper = m_superMeter->GetScale(variableScale);
 
     m_neutralGun = static_cast<Spawner*>(GetChildByName({ "O-NeutralGunP1", "O-NeutralGunP2" }));
     m_upwardGun = static_cast<Spawner*>(GetChildByName({ "O-UpwardGunP1", "O-UpwardGunP2" }));
@@ -181,32 +172,6 @@ void Ship::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_cooldownSuper = 0;
     }
-    // Handle UI appearance
-    if (m_cooldownNeutral > 0)
-    {
-        m_neutralMeter->SetScale({ m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * (m_cooldownNeutral / m_maxCooldownNeutral)), m_defaultScaleNeutral.fY, m_defaultScaleNeutral.fZ });
-    }
-    else
-    {
-        m_neutralMeter->SetScale({ m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * ((float)m_clipIndexNeutral / (float)m_clipSizeNeutral)), m_defaultScaleNeutral.fY, m_defaultScaleNeutral.fZ });
-    }
-    if (m_cooldownUpward > 0)
-    {
-        m_upwardMeter->SetScale({ m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * (m_cooldownUpward / m_maxCooldownUpward)), m_defaultScaleUpward.fY, m_defaultScaleUpward.fZ });
-    }
-    else
-    {
-        m_upwardMeter->SetScale({ m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * ((float)m_clipIndexUpward / (float)m_clipSizeUpward)), m_defaultScaleUpward.fY, m_defaultScaleUpward.fZ });
-    }
-    if (m_cooldownDownward > 0)
-    {
-        m_downwardMeter->SetScale({ m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * (m_cooldownDownward / m_maxCooldownDownward)), m_defaultScaleDownward.fY, m_defaultScaleDownward.fZ });
-    }
-    else
-    {
-        m_downwardMeter->SetScale({ m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_clipIndexDownward / (float)m_clipSizeDownward)), m_defaultScaleDownward.fY, m_defaultScaleDownward.fZ });
-    }
-    m_superMeter->SetScale({ m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_cooldownSuper / m_maxCooldownSuper)), m_defaultScaleSuper.fY, m_defaultScaleSuper.fZ });
 }
 
 void Ship::Neutral()

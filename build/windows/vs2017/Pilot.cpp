@@ -18,6 +18,8 @@ void Pilot::OnCreate()
     m_dashDuration = orxConfig_GetFloat("DashDuration");
     // Get parry duration from config values.
     m_parryDuration = orxConfig_GetFloat("ParryDuration");
+    // Get melee duration from config values.
+    m_meleeDuration = orxConfig_GetFloat("MeleeDuration");
     // Get maximum number of lives.
     m_maxLives = orxConfig_GetFloat("MaxLives");
     m_lives = m_maxLives;
@@ -27,17 +29,12 @@ void Pilot::OnCreate()
     m_maxCooldownDash = orxConfig_GetFloat("MaxCooldownDash");
     m_maxCooldownParry = orxConfig_GetFloat("MaxCooldownParry");
     m_maxCooldownMelee = orxConfig_GetFloat("MaxCooldownMelee");
-    // Create and assign the Pilot's associated UI elements.
-    m_dashMeter = static_cast<ScrollMod*>(GetChildByName({ "O-DashMeterP1", "O-DashMeterP2" }));
-    m_parryMeter = static_cast<ScrollMod*>(GetChildByName({ "O-ParryMeterP1", "O-ParryMeterP2" }));
-    m_livesMeter = static_cast<ScrollMod*>(GetChildByName({ "O-LivesMeterP1", "O-LivesMeterP2" }));
-    // Set the UI elements' default scales
-    orxVECTOR variableScale = orxVECTOR_0;
-    m_defaultScaleDash = m_dashMeter->GetScale(variableScale);
-    m_defaultScaleParry = m_parryMeter->GetScale(variableScale);
-    m_defaultScaleLives = m_livesMeter->GetScale(variableScale);
-    // Set the Character's pilot and ship
+    // Set the Pilot's melee weapon
+    m_meleeWeapon = GetChildByName({ "O-MeleeWeaponP1", "O-MeleeWeaponP2" });
+    // Set the Pilot's ship.
     m_ship = static_cast<Ship*>(GetChildByName({ "O-ShipP1", "O-ShipP2" }));
+    // Ensure that m_meleeWeapon is disabled by default.
+    m_meleeWeapon->Enable(orxFALSE);
 
     if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
     {
@@ -83,6 +80,12 @@ orxBOOL Pilot::OnCollide(
     if (orxString_Compare(_zPartName, "BP-PilotP1") == 0
         || orxString_Compare(_zPartName, "BP-PilotP2") == 0)
     {
+        std::cout << _zColliderPartName << std::endl;
+        if (orxString_Compare(_poCollider->GetModelName(), "O-MeleeWeaponP1") == 0)
+        {
+            std::cout << "something" << std::endl;
+            DestroyShip();
+        }
         if (orxString_Compare(_zColliderPartName, "BP-Partition") == 0)
         {
             DestroyShip();
@@ -90,11 +93,16 @@ orxBOOL Pilot::OnCollide(
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
         {
             m_bIsGrounded = true;
+            m_jumpTime = 0;
+            m_wallJumpTime = 0;
         }
-        if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0
-            || orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
+        if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0)
         {
-            m_bIsAgainstWall = true;
+            m_bIsAgainstLeftWall = true;
+        }
+        else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
+        {
+            m_bIsAgainstRightWall = true;
         }
     }
 
@@ -103,10 +111,17 @@ orxBOOL Pilot::OnCollide(
 
 orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
 {
-    if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0
-        || orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
+    if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
     {
-        m_bIsAgainstWall = false;
+        m_bIsGrounded = false;
+    }
+    if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0)
+    {
+        m_bIsAgainstLeftWall = false;
+    }
+    else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
+    {
+        m_bIsAgainstRightWall = false;
     }
 
     return orxTRUE;
@@ -140,6 +155,15 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_jumpTime = 0;
     }
+    // Handle wall jump time decrement
+    if (m_wallJumpTime > 0)
+    {
+        m_wallJumpTime -= _rstInfo.fDT;
+    }
+    else
+    {
+        m_wallJumpTime = 0;
+    }
     // Handle dash time decrement
     if (m_dashTime > 0)
     {
@@ -157,6 +181,16 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_parryTime = 0;
+    }
+    // Handle melee time decrement
+    if (m_meleeTime > 0)
+    {
+        m_meleeTime -= _rstInfo.fDT;
+    }
+    else
+    {
+        m_meleeTime = 0;
+        m_meleeWeapon->Enable(orxFALSE);
     }
     // Handle cooldowns
     if (m_cooldownDash > 0)
@@ -183,17 +217,12 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_cooldownMelee = 0;
     }
-    // Handle UI appearance
-    if (m_cooldownDash > 0)
-    {
-        m_dashMeter->SetScale({ m_defaultScaleDash.fX - (m_defaultScaleDash.fX * (m_cooldownDash / m_maxCooldownDash)), m_defaultScaleDash.fY, m_defaultScaleDash.fZ });
-    }
-    else
-    {
-        m_dashMeter->SetScale({ m_defaultScaleDash.fX - (m_defaultScaleDash.fX * ((float)m_usedDashes / (float)m_maxDashes)), m_defaultScaleDash.fY, m_defaultScaleDash.fZ });
-    }
-    m_parryMeter->SetScale({ m_defaultScaleParry.fX - (m_defaultScaleParry.fX * (m_cooldownParry / m_maxCooldownParry)), m_defaultScaleParry.fY, m_defaultScaleParry.fZ });
-    m_livesMeter->SetScale({ m_defaultScaleLives.fX * ((float)m_lives / (float)m_maxLives), m_defaultScaleLives.fY, m_defaultScaleLives.fZ });
+}
+
+void Pilot::SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld)
+{
+    ScrollObject::SetScale(_rvScale, _bWorld);
+    SetBodyPartSolid("BP-Ship", _bShipSolid);
 }
 
 void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
@@ -227,7 +256,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         }
         else
         {
-            if (m_bIsAgainstWall)
+            if (m_bIsAgainstLeftWall || m_bIsAgainstRightWall)
             {
                 if (orxInput_IsActive(m_upDownInput))
                 {
@@ -251,23 +280,51 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
 
             if (m_jumpTime > 0)
             {
-                // Multiplying m_jumpingSpeed by its product to make for a more believable "dropping off" of the vertical velocity.
-                movement.fY = (-(GetWorldGravity().fY + m_jumpingSpeed) * (m_jumpTime / m_jumpDuration)) * _rstInfo.fDT;
+                movement.fY = m_jumpDirection.fY * (GetWorldGravity().fY + m_jumpingSpeed) * (m_jumpTime / m_jumpDuration) * _rstInfo.fDT;
+            }
+            if (m_wallJumpTime > 0)
+            {
+                movement.fX = m_jumpDirection.fX * m_jumpingSpeed * (m_wallJumpTime / m_jumpDuration) * _rstInfo.fDT;
+                movement.fY = m_jumpDirection.fY * (GetWorldGravity().fY + m_jumpingSpeed) * (m_wallJumpTime / m_jumpDuration) * _rstInfo.fDT;
             }
         }
         if (orxInput_IsActive(m_leftRightInput))
         {
-            movement.fX += speed * orxInput_GetValue(m_leftRightInput) * _rstInfo.fDT;
+            float leftRightValue = orxInput_GetValue(m_leftRightInput);
+
+            if (leftRightValue > 0)
+            {
+                SetTargetAnim("A-PilotRun");
+                SetScale({ 1, 1, 1 }, m_ship->IsEnabled());
+            }
+            else if (leftRightValue < 0)
+            {
+                SetTargetAnim("A-PilotRun");
+                SetScale({ -1, 1, 1 }, m_ship->IsEnabled());
+            }
+            else
+            {
+                SetTargetAnim("A-PilotIdle");
+            }
+            movement.fX += speed * leftRightValue * _rstInfo.fDT;
         }
         else
         {
             if (orxInput_IsActive(m_leftInput))
             {
+                SetTargetAnim("A-PilotRun");
+                SetScale({ -1, 1, 1 }, m_ship->IsEnabled());
                 movement.fX -= speed * _rstInfo.fDT;
             }
-            if (orxInput_IsActive(m_rightInput))
+            else if (orxInput_IsActive(m_rightInput))
             {
+                SetTargetAnim("A-PilotRun");
+                SetScale({ 1, 1, 1 }, m_ship->IsEnabled());
                 movement.fX += speed * _rstInfo.fDT;
+            }
+            else
+            {
+                SetTargetAnim("A-PilotIdle");
             }
         }
     }
@@ -282,10 +339,23 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
 {
-    if (m_bIsGrounded && orxInput_HasBeenActivated(m_jumpInput))
+    if (orxInput_HasBeenActivated(m_jumpInput))
     {
-        m_jumpTime = m_jumpDuration;
-        m_bIsGrounded = orxFALSE;
+        if (m_bIsGrounded)
+        {
+            m_jumpDirection = { 0, -1, 0 };
+            m_jumpTime = m_jumpDuration;
+        }
+        else if (m_bIsAgainstLeftWall)
+        {
+            m_jumpDirection = { 1.6, -0.8, 0 };
+            m_wallJumpTime = m_jumpDuration;
+        }
+        else if (m_bIsAgainstRightWall)
+        {
+            m_jumpDirection = { -1.6, -0.8, 0 };
+            m_wallJumpTime = m_jumpDuration;
+        }
     }
     else if (orxInput_HasBeenDeactivated(m_jumpInput))
     {
@@ -340,6 +410,8 @@ void Pilot::Melee()
     {
         if (m_cooldownMelee <= 0)
         {
+            m_meleeWeapon->Enable(orxTRUE);
+            m_meleeTime = m_meleeDuration;
             m_cooldownMelee = m_maxCooldownMelee;
         }
     }

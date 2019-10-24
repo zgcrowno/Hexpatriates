@@ -4,6 +4,7 @@
 // Scroll (as follows).
 #define __SCROLL_IMPL__
 #include "Hexpatriates.h"
+#include "Arena.h"
 #include "Laser.h"
 #include "Orb.h"
 #include "Pilot.h"
@@ -29,16 +30,14 @@ orxSTATUS Hexpatriates::Init()
     orxSTATUS result = orxSTATUS_SUCCESS;
 
     // Instantiate game objects
-    CreateObject("O-PilotP1");
-    CreateObject("O-PilotP2");
-    CreateObject("O-Walls");
-    CreateObject("O-Partition");
+    CreateObject("O-Arena");
     
     return result;
 }
 
 void Hexpatriates::BindObjects()
 {
+    ScrollBindObject<Arena>("O-Arena");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
     ScrollBindObject<Orb>("O-Orb");

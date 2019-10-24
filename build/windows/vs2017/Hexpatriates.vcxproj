@@ -375,6 +375,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Arena.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Hexpatriates.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -392,6 +393,7 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arena.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Hexpatriates.h" />
     <ClInclude Include="Laser.h" />
