@@ -1,5 +1,4 @@
 #include "Ship.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
@@ -25,10 +24,10 @@ void Ship::OnCreate()
     m_maxWaveDelayDownward = orxConfig_GetFloat("MaxWaveDelayDownward");
     m_maxWaveDelaySuper = orxConfig_GetFloat("MaxWaveDelaySuper");
     m_cooldownSuper = m_maxCooldownSuper;
-    m_neutralMeter = static_cast<ScrollMod*>(Hexpatriates::GetInstance().CreateObject("O-NeutralMeter"));
-    m_upwardMeter = static_cast<ScrollMod*>(Hexpatriates::GetInstance().CreateObject("O-UpwardMeter"));
-    m_downwardMeter = static_cast<ScrollMod*>(Hexpatriates::GetInstance().CreateObject("O-DownwardMeter"));
-    m_superMeter = static_cast<ScrollMod*>(Hexpatriates::GetInstance().CreateObject("O-SuperMeter"));
+    m_neutralMeter = static_cast<ScrollMod*>(GetChildByName({ "O-NeutralMeterP1", "O-NeutralMeterP2" }));
+    m_upwardMeter = static_cast<ScrollMod*>(GetChildByName({ "O-UpwardMeterP1", "O-UpwardMeterP2" }));
+    m_downwardMeter = static_cast<ScrollMod*>(GetChildByName({ "O-DownwardMeterP1", "O-DownwardMeterP2" }));
+    m_superMeter = static_cast<ScrollMod*>(GetChildByName({ "O-SuperMeterP1", "O-SuperMeterP2" }));
     orxVECTOR variableScale = orxVECTOR_0;
     m_defaultScaleNeutral = m_neutralMeter->GetScale(variableScale);
     m_defaultScaleUpward = m_upwardMeter->GetScale(variableScale);
@@ -41,12 +40,20 @@ void Ship::OnCreate()
     m_superGun = static_cast<Spawner*>(GetChildByName({ "O-SuperGunP1", "O-SuperGunP2" }));
 
     // TODO: I'll probably need to think of a better way to do this at some point, since the names won't always be either "O-ShipP1" or "O-ShipP2".
-    if (orxString_Compare(GetModelName(), "O-ShipP1") == 0)
+    if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
     {
+        m_neutralInput = "NeutralP1";
+        m_upwardInput = "UpwardP1";
+        m_downwardInput = "DownwardP1";
+        m_superInput = "SuperP1";
         m_enemyDirection = 0;
     }
     else
     {
+        m_neutralInput = "NeutralP2";
+        m_upwardInput = "UpwardP2";
+        m_downwardInput = "DownwardP2";
+        m_superInput = "SuperP2";
         m_enemyDirection = orxMATH_KF_PI;
     }
 }
@@ -204,7 +211,7 @@ void Ship::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Ship::Neutral()
 {
-    if (orxInput_HasBeenActivated("Neutral"))
+    if (orxInput_HasBeenActivated(m_neutralInput))
     {
         if (m_cooldownNeutral <= 0 && m_wavesIndexNeutral == 0)
         {
@@ -226,7 +233,7 @@ void Ship::Neutral()
 
 void Ship::Upward()
 {
-    if (orxInput_HasBeenActivated("Upward"))
+    if (orxInput_HasBeenActivated(m_upwardInput))
     {
         if (m_cooldownUpward <= 0 && m_wavesIndexUpward == 0)
         {
@@ -248,7 +255,7 @@ void Ship::Upward()
 
 void Ship::Downward()
 {
-    if (orxInput_HasBeenActivated("Downward"))
+    if (orxInput_HasBeenActivated(m_downwardInput))
     {
         if (m_cooldownDownward <= 0 && m_wavesIndexDownward == 0)
         {
@@ -270,7 +277,7 @@ void Ship::Downward()
 
 void Ship::Super()
 {
-    if (orxInput_HasBeenActivated("Super"))
+    if (orxInput_HasBeenActivated(m_superInput))
     {
         if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
         {
@@ -297,7 +304,6 @@ void Ship::FireNeutral()
 
 void Ship::FireUpward()
 {
-    std::cout << cosf(m_enemyDirection) << std::endl;
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
         m_upwardGun->Spawn(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));

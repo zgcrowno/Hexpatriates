@@ -8,7 +8,7 @@ namespace hexpatriates
 {
     class Pilot : public ScrollMod
     {
-    private:
+    protected:
         //! Associated UI elements' default scales
         // TODO: At least for these default scales, I should probably put together a UI manager to handle data like this. OR, make fully fleshed out classes for these UI elements.
         orxVECTOR m_defaultScaleDash;
@@ -32,18 +32,26 @@ namespace hexpatriates
             const orxSTRING _zColliderPartName,
             const orxVECTOR &_rvPosition,
             const orxVECTOR &_rvNormal);
+        //! Called on object separation
+        virtual orxBOOL OnSeparate(ScrollObject *_poCollider);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
         //! Moves the Player based on user input and the passed speed
         void Move(const orxCLOCK_INFO &_rstInfo);
     public:
-        //! Flag representing whether or not the Pilot is player 1.
-        bool m_bIsPlayerOne;
+        //! Flag representing whether or not the Pilot is on the ground or a platform.
+        bool m_bIsGrounded;
+        //! Flag representing whether or not the Pilot is against a wall (which enables wall running).
+        bool m_bIsAgainstWall;
         //! Speed of movement
         float m_walkingSpeed;
         float m_flyingSpeed;
-        //! Dash speed
+        float m_jumpingSpeed;
         float m_dashSpeed;
+        //! The amount of time, in seconds, the Pilot's jump may last.
+        float m_jumpDuration;
+        //! The amount of time, in seconds, the Pilot has spent jumping.
+        float m_jumpTime;
         //! The amount of time, in seconds, the Pilot's dash lasts.
         float m_dashDuration;
         //! The amount of time, in seconds, the Pilot ought to dash.
@@ -68,9 +76,21 @@ namespace hexpatriates
         float m_parryDuration;
         //! The amount of time, in seconds, the Pilot ought to parry.
         float m_parryTime;
+        orxSTRING m_upInput;
+        orxSTRING m_leftInput;
+        orxSTRING m_downInput;
+        orxSTRING m_rightInput;
+        orxSTRING m_leftRightInput;
+        orxSTRING m_upDownInput;
+        orxSTRING m_dashInput;
+        orxSTRING m_parryInput;
+        orxSTRING m_meleeInput;
+        orxSTRING m_jumpInput;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
 
+        /// <summary>Executes the Pilot's jump maneuver.</summary>
+        void Jump(const orxCLOCK_INFO &_rstInfo);
         /// <summary>Executes the Pilot's dash maneuver.</summary>
         void Dash();
         /// <summary>Executes the Pilot's parry maneuver.</summary>

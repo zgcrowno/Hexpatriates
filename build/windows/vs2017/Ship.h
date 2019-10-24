@@ -9,7 +9,7 @@ namespace hexpatriates
     /// <summary>Represents a vessel which is operated by a Pilot.</summary>
     class Ship : public ScrollMod
     {
-    private:
+    protected:
         orxVECTOR m_defaultScaleNeutral;
         orxVECTOR m_defaultScaleUpward;
         orxVECTOR m_defaultScaleDownward;
@@ -69,6 +69,10 @@ namespace hexpatriates
         float m_waveDelaySuper;
         //! The direction in which the Ship's enemy's zone is, measured in radians.
         float m_enemyDirection;
+        orxSTRING m_neutralInput;
+        orxSTRING m_upwardInput;
+        orxSTRING m_downwardInput;
+        orxSTRING m_superInput;
         Spawner *m_neutralGun;
         Spawner *m_upwardGun;
         Spawner *m_downwardGun;
