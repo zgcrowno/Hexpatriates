@@ -17,6 +17,169 @@ void ScrollMod::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
+ScrollMod *ScrollMod::CreateObject(
+    const orxCHAR *_modelName,
+    std::map<const orxCHAR*, const orxBOOL> _boolParamMap,
+    std::map<const orxCHAR*, const orxFLOAT> _floatParamMap,
+    std::map<const orxCHAR*, const orxVECTOR*> _vectorParamMap,
+    std::map<const orxCHAR*, const orxSTRING> _stringParamMap)
+{
+    for (auto it = _boolParamMap.begin(); it != _boolParamMap.end(); it++)
+    {
+        SetBool(it->first, it->second, _modelName);
+    }
+    for (auto it = _floatParamMap.begin(); it != _floatParamMap.end(); it++)
+    {
+        SetFloat(it->first, it->second, _modelName);
+    }
+    for (auto it = _vectorParamMap.begin(); it != _vectorParamMap.end(); it++)
+    {
+        SetVector(it->first, it->second, _modelName);
+    }
+    for (auto it = _stringParamMap.begin(); it != _stringParamMap.end(); it++)
+    {
+        SetString(it->first, it->second, _modelName);
+    }
+
+    return (ScrollMod*)Hexpatriates::GetInstance().CreateObject(_modelName);
+}
+
+orxBOOL __fastcall ScrollMod::GetBool(const orxCHAR *_key, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    orxBOOL retVal = orxConfig_GetBool(_key);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+orxFLOAT __fastcall ScrollMod::GetFloat(const orxCHAR *_key, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    orxFLOAT retVal = orxConfig_GetFloat(_key);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+orxVECTOR *__fastcall ScrollMod::GetVector(const orxCHAR *_key, orxVECTOR *_passedVector, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    orxVECTOR *retVal = orxConfig_GetVector(_key, _passedVector);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+const orxCHAR *__fastcall ScrollMod::GetString(const orxCHAR *_key, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    const orxCHAR *retVal = orxConfig_GetString(_key);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+orxSTATUS __fastcall ScrollMod::SetBool(const orxCHAR *_key, orxBOOL _value, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    orxSTATUS retVal = orxConfig_SetBool(_key, _value);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+orxSTATUS __fastcall ScrollMod::SetFloat(const orxCHAR *_key, orxFLOAT _value, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    orxSTATUS retVal = orxConfig_SetFloat(_key, _value);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+orxSTATUS __fastcall ScrollMod::SetVector(const orxCHAR *_key, const orxVECTOR *_value, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    orxSTATUS retVal = orxConfig_SetVector(_key, _value);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+orxSTATUS __fastcall ScrollMod::SetString(const orxCHAR *_key, const orxCHAR *_value, const orxCHAR *_sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName);
+    }
+    orxSTATUS retVal = orxConfig_SetString(_key, _value);
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
 orxSTRUCTURE *ScrollMod::GetStructure(orxSTRUCTURE_ID _structureID)
 {
     orxOBJECT *obj = GetOrxObject();

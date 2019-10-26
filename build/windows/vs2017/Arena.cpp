@@ -4,8 +4,8 @@ using namespace hexpatriates;
 
 void Arena::OnCreate()
 {
-    m_pilotP1 = static_cast<Pilot*>(GetChildByName("O-PilotP1"));
-    m_pilotP2 = static_cast<Pilot*>(GetChildByName("O-PilotP2"));
+    m_pilotP1 = (Pilot*)CreateObject("O-PilotP1", { { "IsP2", orxFALSE } });
+    m_pilotP2 = (Pilot*)CreateObject("O-PilotP2", { { "IsP2", orxTRUE } });
     m_dashMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP1"));
     m_parryMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP1"));
     m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));

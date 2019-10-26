@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include "Pilot.h"
 
 using namespace hexpatriates;
 
@@ -6,7 +7,7 @@ void Projectile::OnCreate()
 {
     orxVECTOR speedRef = orxVECTOR_0;
     GetSpeed(speedRef, orxFALSE);
-    SetSpeed({ speedRef.fX * m_speed, speedRef.fY * m_speed}, orxFALSE);
+    SetSpeed({ speedRef.fX * m_speed, speedRef.fY * m_speed});
 }
 
 void Projectile::OnDelete()
@@ -21,6 +22,24 @@ orxBOOL Projectile::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
+    if (orxString_SearchString(_zColliderPartName, "Pilot") != orxNULL)
+    {
+        Pilot *collidedPilot = (Pilot*)_poCollider;
+        if (collidedPilot->m_parryTime > 0)
+        {
+            orxVECTOR speedRef = orxVECTOR_0;
+            GetSpeed(speedRef, orxFALSE);
+            SetSpeed({ -speedRef.fX * m_speed, -speedRef.fY * m_speed });
+        }
+        else if (collidedPilot->m_ship->IsEnabled())
+        {
+            collidedPilot->DestroyShip();
+        }
+        else
+        {
+            collidedPilot->Die();
+        }
+    }
     
     return orxTRUE;
 }

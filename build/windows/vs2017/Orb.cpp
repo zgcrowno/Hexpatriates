@@ -4,14 +4,14 @@ using namespace hexpatriates;
 
 void Orb::OnCreate()
 {
-    m_speed = orxConfig_GetFloat("SpeedOrb");
+    m_speed = GetFloat("SpeedOrb", GetModelName());
 
     Projectile::OnCreate();
 }
 
 void Orb::OnDelete()
 {
-
+    Projectile::OnDelete();
 }
 
 orxBOOL Orb::OnCollide(
@@ -21,11 +21,17 @@ orxBOOL Orb::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
+    Projectile::OnCollide(
+        _poCollider,
+        _zPartName,
+        _zColliderPartName,
+        _rvPosition,
+        _rvNormal);
 
     return orxTRUE;
 }
 
 void Orb::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    
+    Projectile::Update(_rstInfo);
 }

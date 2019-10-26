@@ -27,6 +27,8 @@ namespace hexpatriates
         //! Moves the Player based on user input and the passed speed
         void Move(const orxCLOCK_INFO &_rstInfo);
     public:
+        //! Flag representing whether or not the Pilot is the 2nd player
+        bool m_bIsP2;
         //! Flag representing whether or not the Pilot is on the ground or a platform.
         bool m_bIsGrounded;
         //! Flag representing whether or not the Pilot is against the left wall.
@@ -87,8 +89,6 @@ namespace hexpatriates
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
-        //! The Pilot's melee weapon
-        ScrollObject *m_meleeWeapon;
         //! The Pilot's ship
         Ship *m_ship;
 
@@ -104,5 +104,7 @@ namespace hexpatriates
         void Melee();
         /// <summary>Destroy's the Pilot's ship.</summary>
         void DestroyShip();
+        /// <summary>Kills the Pilot.</summary>
+        void Die();
     };
 }

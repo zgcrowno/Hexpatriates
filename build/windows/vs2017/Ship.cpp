@@ -4,25 +4,25 @@ using namespace hexpatriates;
 
 void Ship::OnCreate()
 {
-    m_clipSizeNeutral = orxConfig_GetFloat("ClipSizeNeutral");
-    m_clipSizeUpward = orxConfig_GetFloat("ClipSizeUpward");
-    m_clipSizeDownward = orxConfig_GetFloat("ClipSizeDownward");
-    m_waveSizeNeutral = orxConfig_GetFloat("WaveSizeNeutral");
-    m_waveSizeUpward = orxConfig_GetFloat("WaveSizeUpward");
-    m_waveSizeDownward = orxConfig_GetFloat("WaveSizeDownward");
-    m_waveSizeSuper = orxConfig_GetFloat("WaveSizeSuper");
-    m_numWavesNeutral = orxConfig_GetFloat("NumWavesNeutral");
-    m_numWavesUpward = orxConfig_GetFloat("NumWavesUpward");
-    m_numWavesDownward = orxConfig_GetFloat("NumWavesDownward");
-    m_numWavesSuper = orxConfig_GetFloat("NumWavesSuper");
-    m_maxCooldownNeutral = orxConfig_GetFloat("MaxCooldownNeutral");
-    m_maxCooldownUpward = orxConfig_GetFloat("MaxCooldownUpward");
-    m_maxCooldownDownward = orxConfig_GetFloat("MaxCooldownDownward");
-    m_maxCooldownSuper = orxConfig_GetFloat("MaxCooldownSuper");
-    m_maxWaveDelayNeutral = orxConfig_GetFloat("MaxWaveDelayNeutral");
-    m_maxWaveDelayUpward = orxConfig_GetFloat("MaxWaveDelayUpward");
-    m_maxWaveDelayDownward = orxConfig_GetFloat("MaxWaveDelayDownward");
-    m_maxWaveDelaySuper = orxConfig_GetFloat("MaxWaveDelaySuper");
+    m_clipSizeNeutral = GetFloat("ClipSizeNeutral", GetModelName());
+    m_clipSizeUpward = GetFloat("ClipSizeUpward", GetModelName());
+    m_clipSizeDownward = GetFloat("ClipSizeDownward", GetModelName());
+    m_waveSizeNeutral = GetFloat("WaveSizeNeutral", GetModelName());
+    m_waveSizeUpward = GetFloat("WaveSizeUpward", GetModelName());
+    m_waveSizeDownward = GetFloat("WaveSizeDownward", GetModelName());
+    m_waveSizeSuper = GetFloat("WaveSizeSuper", GetModelName());
+    m_numWavesNeutral = GetFloat("NumWavesNeutral", GetModelName());
+    m_numWavesUpward = GetFloat("NumWavesUpward", GetModelName());
+    m_numWavesDownward = GetFloat("NumWavesDownward", GetModelName());
+    m_numWavesSuper = GetFloat("NumWavesSuper", GetModelName());
+    m_maxCooldownNeutral = GetFloat("MaxCooldownNeutral", GetModelName());
+    m_maxCooldownUpward = GetFloat("MaxCooldownUpward", GetModelName());
+    m_maxCooldownDownward = GetFloat("MaxCooldownDownward", GetModelName());
+    m_maxCooldownSuper = GetFloat("MaxCooldownSuper", GetModelName());
+    m_maxWaveDelayNeutral = GetFloat("MaxWaveDelayNeutral", GetModelName());
+    m_maxWaveDelayUpward = GetFloat("MaxWaveDelayUpward", GetModelName());
+    m_maxWaveDelayDownward = GetFloat("MaxWaveDelayDownward", GetModelName());
+    m_maxWaveDelaySuper = GetFloat("MaxWaveDelaySuper", GetModelName());
     m_cooldownSuper = m_maxCooldownSuper;
 
     m_neutralGun = static_cast<Spawner*>(GetChildByName({ "O-NeutralGunP1", "O-NeutralGunP2" }));

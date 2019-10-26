@@ -1,55 +1,39 @@
 #include "Pilot.h"
 #include "Projectile.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
 void Pilot::OnCreate()
 {
+    // Get 2nd player flag from config values.
+    m_bIsP2 = GetBool("IsP2", GetModelName());
     // Get movement speed from config values.
-    m_walkingSpeed = orxConfig_GetFloat("WalkingSpeed");
-    m_flyingSpeed = orxConfig_GetFloat("FlyingSpeed");
-    m_jumpingSpeed = orxConfig_GetFloat("JumpingSpeed");
+    m_walkingSpeed = GetFloat("WalkingSpeed", GetModelName());
+    m_flyingSpeed = GetFloat("FlyingSpeed", GetModelName());
+    m_jumpingSpeed = GetFloat("JumpingSpeed", GetModelName());
     // Get jump duration from config values.
-    m_jumpDuration = orxConfig_GetFloat("JumpDuration");
+    m_jumpDuration = GetFloat("JumpDuration", GetModelName());
     // Get dash speed from config values.
-    m_dashSpeed = orxConfig_GetFloat("DashSpeed");
+    m_dashSpeed = GetFloat("DashSpeed", GetModelName());
     // Get dash duration from config values.
-    m_dashDuration = orxConfig_GetFloat("DashDuration");
+    m_dashDuration = GetFloat("DashDuration", GetModelName());
     // Get parry duration from config values.
-    m_parryDuration = orxConfig_GetFloat("ParryDuration");
+    m_parryDuration = GetFloat("ParryDuration", GetModelName());
     // Get melee duration from config values.
-    m_meleeDuration = orxConfig_GetFloat("MeleeDuration");
+    m_meleeDuration = GetFloat("MeleeDuration", GetModelName());
     // Get maximum number of lives.
-    m_maxLives = orxConfig_GetFloat("MaxLives");
+    m_maxLives = GetFloat("MaxLives", GetModelName());
     m_lives = m_maxLives;
     // Get maximum consecutive actions from config values
-    m_maxDashes = orxConfig_GetFloat("MaxDashes");
+    m_maxDashes = GetFloat("MaxDashes", GetModelName());
     // Get maximum cooldowns from config values
-    m_maxCooldownDash = orxConfig_GetFloat("MaxCooldownDash");
-    m_maxCooldownParry = orxConfig_GetFloat("MaxCooldownParry");
-    m_maxCooldownMelee = orxConfig_GetFloat("MaxCooldownMelee");
-    // Set the Pilot's melee weapon
-    m_meleeWeapon = GetChildByName({ "O-MeleeWeaponP1", "O-MeleeWeaponP2" });
+    m_maxCooldownDash = GetFloat("MaxCooldownDash", GetModelName());
+    m_maxCooldownParry = GetFloat("MaxCooldownParry", GetModelName());
+    m_maxCooldownMelee = GetFloat("MaxCooldownMelee", GetModelName());
     // Set the Pilot's ship.
     m_ship = static_cast<Ship*>(GetChildByName({ "O-ShipP1", "O-ShipP2" }));
-    // Ensure that m_meleeWeapon is disabled by default.
-    m_meleeWeapon->Enable(orxFALSE);
 
-    if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
-    {
-        m_upInput = "UpP1";
-        m_leftInput = "LeftP1";
-        m_downInput = "DownP1";
-        m_rightInput = "RightP1";
-        m_leftRightInput = "LeftRightP1";
-        m_upDownInput = "UpDownP1";
-        m_dashInput = "DashP1";
-        m_parryInput = "ParryP1";
-        m_meleeInput = "NeutralP1";
-        m_jumpInput = "DownwardP1";
-    }
-    else
+    if (m_bIsP2)
     {
         m_upInput = "UpP2";
         m_leftInput = "LeftP2";
@@ -61,6 +45,19 @@ void Pilot::OnCreate()
         m_parryInput = "ParryP2";
         m_meleeInput = "NeutralP2";
         m_jumpInput = "DownwardP2";
+    }
+    else
+    {
+        m_upInput = "UpP1";
+        m_leftInput = "LeftP1";
+        m_downInput = "DownP1";
+        m_rightInput = "RightP1";
+        m_leftRightInput = "LeftRightP1";
+        m_upDownInput = "UpDownP1";
+        m_dashInput = "DashP1";
+        m_parryInput = "ParryP1";
+        m_meleeInput = "NeutralP1";
+        m_jumpInput = "DownwardP1";
     }
 }
 
@@ -80,15 +77,17 @@ orxBOOL Pilot::OnCollide(
     if (orxString_Compare(_zPartName, "BP-PilotP1") == 0
         || orxString_Compare(_zPartName, "BP-PilotP2") == 0)
     {
-        std::cout << _zColliderPartName << std::endl;
-        if (orxString_Compare(_poCollider->GetModelName(), "O-MeleeWeaponP1") == 0)
-        {
-            std::cout << "something" << std::endl;
-            DestroyShip();
-        }
         if (orxString_Compare(_zColliderPartName, "BP-Partition") == 0)
         {
             DestroyShip();
+        }
+        if (orxString_SearchString(_zColliderPartName, "Pilot") != orxNULL)
+        {
+            Pilot *collidingPilot = (Pilot*)_poCollider;
+            if (collidingPilot->m_meleeTime > 0)
+            {
+                Die();
+            }
         }
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
         {
@@ -180,6 +179,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
+        RemoveFX("FX-Parry");
         m_parryTime = 0;
     }
     // Handle melee time decrement
@@ -189,8 +189,8 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
+        RemoveFX("FX-Melee");
         m_meleeTime = 0;
-        m_meleeWeapon->Enable(orxFALSE);
     }
     // Handle cooldowns
     if (m_cooldownDash > 0)
@@ -396,8 +396,9 @@ void Pilot::Parry()
 {
     if (orxInput_HasBeenActivated(m_parryInput))
     {
-        if (m_cooldownParry <= 0)
+        if (m_cooldownParry <= 0 && m_meleeTime <= 0)
         {
+            AddFX("FX-Parry");
             m_parryTime = m_parryDuration;
             m_cooldownParry = m_maxCooldownParry;
         }
@@ -408,9 +409,9 @@ void Pilot::Melee()
 {
     if (orxInput_HasBeenActivated(m_meleeInput))
     {
-        if (m_cooldownMelee <= 0)
+        if (m_cooldownMelee <= 0 && m_parryTime <= 0)
         {
-            m_meleeWeapon->Enable(orxTRUE);
+            AddFX("FX-Melee");
             m_meleeTime = m_meleeDuration;
             m_cooldownMelee = m_maxCooldownMelee;
         }
@@ -425,4 +426,13 @@ void Pilot::DestroyShip()
     SetCustomGravity(GetWorldGravity());
     // Set BP-Ship to non-solid so the pilot won't be kept a certain distance from other solid objects.
     SetBodyPartSolid("BP-Ship", orxFALSE);
+}
+
+void Pilot::Die()
+{
+    if (m_ship->IsEnabled())
+    {
+        DestroyShip();
+    }
+    Enable(orxFALSE);
 }
