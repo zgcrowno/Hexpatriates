@@ -30,7 +30,6 @@ void Ship::OnCreate()
     m_downwardGun = static_cast<Spawner*>(GetChildByName({ "O-DownwardGunP1", "O-DownwardGunP2" }));
     m_superGun = static_cast<Spawner*>(GetChildByName({ "O-SuperGunP1", "O-SuperGunP2" }));
 
-    // TODO: I'll probably need to think of a better way to do this at some point, since the names won't always be either "O-ShipP1" or "O-ShipP2".
     if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
     {
         m_neutralInput = "NeutralP1";

@@ -5,8 +5,10 @@ using namespace hexpatriates;
 
 void Pilot::OnCreate()
 {
-    // Get 2nd player flag from config values.
-    m_bIsP2 = GetBool("IsP2", GetModelName());
+    // Set the construction timer to its default value.
+    m_constructionTimer = 10.0;
+    // Set the contamination timer to its default value.
+    m_contaminationTimer = 10.0;
     // Get movement speed from config values.
     m_walkingSpeed = GetFloat("WalkingSpeed", GetModelName());
     m_flyingSpeed = GetFloat("FlyingSpeed", GetModelName());
@@ -30,35 +32,22 @@ void Pilot::OnCreate()
     m_maxCooldownDash = GetFloat("MaxCooldownDash", GetModelName());
     m_maxCooldownParry = GetFloat("MaxCooldownParry", GetModelName());
     m_maxCooldownMelee = GetFloat("MaxCooldownMelee", GetModelName());
+    // Get inputs.
+    m_upInput = GetString("UpInput", GetModelName());
+    m_leftInput = GetString("LeftInput", GetModelName());
+    m_downInput = GetString("DownInput", GetModelName());
+    m_rightInput = GetString("RightInput", GetModelName());
+    m_leftRightInput = GetString("LeftRightInput", GetModelName());
+    m_upDownInput = GetString("UpDownInput", GetModelName());
+    m_dashInput = GetString("DashInput", GetModelName());
+    m_parryInput = GetString("ParryInput", GetModelName());
+    m_meleeInput = GetString("MeleeInput", GetModelName());
+    m_jumpInput = GetString("JumpInput", GetModelName());
+    // Set the Pilot's spawning position
+    orxVECTOR defaultPosition = orxVECTOR_0;
+    m_defaultPosition = GetPosition(defaultPosition);
     // Set the Pilot's ship.
-    m_ship = static_cast<Ship*>(GetChildByName({ "O-ShipP1", "O-ShipP2" }));
-
-    if (m_bIsP2)
-    {
-        m_upInput = "UpP2";
-        m_leftInput = "LeftP2";
-        m_downInput = "DownP2";
-        m_rightInput = "RightP2";
-        m_leftRightInput = "LeftRightP2";
-        m_upDownInput = "UpDownP2";
-        m_dashInput = "DashP2";
-        m_parryInput = "ParryP2";
-        m_meleeInput = "NeutralP2";
-        m_jumpInput = "DownwardP2";
-    }
-    else
-    {
-        m_upInput = "UpP1";
-        m_leftInput = "LeftP1";
-        m_downInput = "DownP1";
-        m_rightInput = "RightP1";
-        m_leftRightInput = "LeftRightP1";
-        m_upDownInput = "UpDownP1";
-        m_dashInput = "DashP1";
-        m_parryInput = "ParryP1";
-        m_meleeInput = "NeutralP1";
-        m_jumpInput = "DownwardP1";
-    }
+    m_ship = static_cast<Ship*>(GetChildByName({ "O-Ship1P1", "O-Ship1P2" }));
 }
 
 void Pilot::OnDelete()
@@ -77,9 +66,18 @@ orxBOOL Pilot::OnCollide(
     if (orxString_Compare(_zPartName, "BP-PilotP1") == 0
         || orxString_Compare(_zPartName, "BP-PilotP2") == 0)
     {
-        if (orxString_Compare(_zColliderPartName, "BP-Partition") == 0)
+        if (orxString_Compare(_zColliderPartName, "BP-Zone") == 0)
         {
-            DestroyShip();
+
+            if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName()) == 0)
+            {
+                m_bIsInOwnZone = orxTRUE;
+            }
+            else
+            {
+                m_bIsInOwnZone = orxFALSE;
+                DestroyShip();
+            }
         }
         if (orxString_SearchString(_zColliderPartName, "Pilot") != orxNULL)
         {
@@ -144,6 +142,26 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         Melee();
         Jump(_rstInfo);
+
+        // Handle construction and contamination decrement and response
+        if (m_bIsInOwnZone)
+        {
+            m_constructionTimer -= _rstInfo.fDT;
+
+            if (m_constructionTimer <= 0)
+            {
+                ConstructShip();
+            }
+        }
+        else
+        {
+            m_contaminationTimer -= _rstInfo.fDT;
+
+            if (m_contaminationTimer <= 0)
+            {
+                Die();
+            }
+        }
     }
     // Handle jump time decrement
     if (m_jumpTime > 0)
@@ -222,7 +240,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 void Pilot::SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld)
 {
     ScrollObject::SetScale(_rvScale, _bWorld);
-    SetBodyPartSolid("BP-Ship", _bShipSolid);
+    SetBodyPartSolid("BP-Ship1", _bShipSolid);
 }
 
 void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
@@ -292,34 +310,42 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         {
             float leftRightValue = orxInput_GetValue(m_leftRightInput);
 
-            if (leftRightValue > 0)
+            if (!m_ship->IsEnabled())
             {
-                SetTargetAnim("A-PilotRun");
-                SetScale({ 1, 1, 1 }, m_ship->IsEnabled());
+                if (leftRightValue > 0)
+                {
+                    SetTargetAnim("A-PilotRun");
+                    SetScale({ 1, 1, 1 }, orxFALSE);
+                }
+                else if (leftRightValue < 0)
+                {
+                    SetTargetAnim("A-PilotRun");
+                    SetScale({ -1, 1, 1 }, orxFALSE);
+                }
             }
-            else if (leftRightValue < 0)
-            {
-                SetTargetAnim("A-PilotRun");
-                SetScale({ -1, 1, 1 }, m_ship->IsEnabled());
-            }
-            else
-            {
-                SetTargetAnim("A-PilotIdle");
-            }
+
             movement.fX += speed * leftRightValue * _rstInfo.fDT;
         }
         else
         {
             if (orxInput_IsActive(m_leftInput))
             {
-                SetTargetAnim("A-PilotRun");
-                SetScale({ -1, 1, 1 }, m_ship->IsEnabled());
+                if (!m_ship->IsEnabled())
+                {
+                    SetTargetAnim("A-PilotRun");
+                    SetScale({ -1, 1, 1 }, orxFALSE);
+                }
+
                 movement.fX -= speed * _rstInfo.fDT;
             }
             else if (orxInput_IsActive(m_rightInput))
             {
-                SetTargetAnim("A-PilotRun");
-                SetScale({ 1, 1, 1 }, m_ship->IsEnabled());
+                if (!m_ship->IsEnabled())
+                {
+                    SetTargetAnim("A-PilotRun");
+                    SetScale({ 1, 1, 1 }, orxFALSE);
+                }
+                
                 movement.fX += speed * _rstInfo.fDT;
             }
             else
@@ -425,7 +451,19 @@ void Pilot::DestroyShip()
     // Set custom gravity to world's gravity
     SetCustomGravity(GetWorldGravity());
     // Set BP-Ship to non-solid so the pilot won't be kept a certain distance from other solid objects.
-    SetBodyPartSolid("BP-Ship", orxFALSE);
+    SetBodyPartSolid("BP-Ship1", orxFALSE);
+}
+
+void Pilot::ConstructShip()
+{
+    m_constructionTimer = 10.0;
+    m_contaminationTimer = 10.0;
+    SetPosition(m_defaultPosition);
+    m_ship->Enable(orxTRUE);
+    orxVECTOR customGravity = { 0, 0, 0 };
+    SetCustomGravity(customGravity);
+    SetBodyPartSolid("BP-Ship1", orxTRUE);
+
 }
 
 void Pilot::Die()

@@ -3,6 +3,7 @@
 #include "Hexpatriates.h"
 #include "ScrollMod.h"
 #include "Ship.h"
+#include "Zone.h"
 
 namespace hexpatriates
 {
@@ -27,14 +28,18 @@ namespace hexpatriates
         //! Moves the Player based on user input and the passed speed
         void Move(const orxCLOCK_INFO &_rstInfo);
     public:
-        //! Flag representing whether or not the Pilot is the 2nd player
-        bool m_bIsP2;
+        //! Flag representing whether or not the Pilot is in their own zone.
+        bool m_bIsInOwnZone;
         //! Flag representing whether or not the Pilot is on the ground or a platform.
         bool m_bIsGrounded;
         //! Flag representing whether or not the Pilot is against the left wall.
         bool m_bIsAgainstLeftWall;
         //! Flag representing whether or not the Pilot is against the right wall.
         bool m_bIsAgainstRightWall;
+        //! The amount of time, in seconds, remaining until the Pilot's ship reconstructs.
+        float m_constructionTimer;
+        //! The amount of time, in seconds, remaining until the Pilot dies of contamination.
+        float m_contaminationTimer;
         //! Speed of movement
         float m_walkingSpeed;
         float m_flyingSpeed;
@@ -75,20 +80,24 @@ namespace hexpatriates
         //! The amount of time, in seconds, the Pilot ought to parry
         float m_parryTime;
         //! The input strings
-        orxSTRING m_upInput;
-        orxSTRING m_leftInput;
-        orxSTRING m_downInput;
-        orxSTRING m_rightInput;
-        orxSTRING m_leftRightInput;
-        orxSTRING m_upDownInput;
-        orxSTRING m_dashInput;
-        orxSTRING m_parryInput;
-        orxSTRING m_meleeInput;
-        orxSTRING m_jumpInput;
+        const orxCHAR *m_upInput;
+        const orxCHAR *m_leftInput;
+        const orxCHAR *m_downInput;
+        const orxCHAR *m_rightInput;
+        const orxCHAR *m_leftRightInput;
+        const orxCHAR *m_upDownInput;
+        const orxCHAR *m_dashInput;
+        const orxCHAR *m_parryInput;
+        const orxCHAR *m_meleeInput;
+        const orxCHAR *m_jumpInput;
+        //! The Pilot's spawning position
+        orxVECTOR m_defaultPosition;
         //! The direction in which the Pilot's jumping
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
+        //! The Pilot's zone
+        Zone *m_zone;
         //! The Pilot's ship
         Ship *m_ship;
 
@@ -104,6 +113,8 @@ namespace hexpatriates
         void Melee();
         /// <summary>Destroy's the Pilot's ship.</summary>
         void DestroyShip();
+        /// <summary>Reconstructs the Pilot's ship.</summary>
+        void ConstructShip();
         /// <summary>Kills the Pilot.</summary>
         void Die();
     };

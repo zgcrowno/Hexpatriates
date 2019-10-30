@@ -10,6 +10,7 @@
 #include "Pilot.h"
 #include "Ship.h"
 #include "Spawner.h"
+#include "Zone.h"
 #undef __SCROLL_IMPL__
 
 using namespace hexpatriates;
@@ -43,6 +44,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Orb>("O-Orb");
     ScrollBindObject<Pilot>("O-Pilot");
     ScrollBindObject<Ship>("O-Ship");
+    ScrollBindObject<Zone>("O-Zone");
 }
 
 orxSTATUS Hexpatriates::Run()

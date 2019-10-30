@@ -180,10 +180,30 @@ orxSTATUS __fastcall ScrollMod::SetString(const orxCHAR *_key, const orxCHAR *_v
     return retVal;
 }
 
+orxU16 __fastcall ScrollMod::GetSelfFlags(const orxBODY_PART *_part)
+{
+    return orxBody_GetPartSelfFlags(_part);
+}
+
+orxU16 __fastcall ScrollMod::GetCheckMask(const orxBODY_PART *_part)
+{
+    return orxBody_GetPartCheckMask(_part);
+}
+
+orxSTATUS __fastcall ScrollMod::SetSelfFlags(orxBODY_PART *_part, orxU16 _selfFlags)
+{
+    return orxBody_SetPartSelfFlags(_part, _selfFlags);
+}
+
+orxSTATUS __fastcall ScrollMod::SetCheckMask(orxBODY_PART *_part, orxU16 _checkMask)
+{
+    return orxBody_SetPartCheckMask(_part, _checkMask);
+}
+
 orxSTRUCTURE *ScrollMod::GetStructure(orxSTRUCTURE_ID _structureID)
 {
     orxOBJECT *obj = GetOrxObject();
-
+    
     return _orxStructure_GetPointer(_orxObject_GetStructure(obj, _structureID), _structureID);
 }
 
@@ -237,9 +257,9 @@ void ScrollMod::SetTargetAnim(const orxCHAR *_animName)
     orxObject_SetTargetAnim(GetOrxObject(), _animName);
 }
 
-void ScrollMod::SetCustomGravity(orxVECTOR &_customGravity)
+orxSTATUS __fastcall ScrollMod::SetCustomGravity(orxVECTOR &_customGravity)
 {
-    orxObject_SetCustomGravity(GetOrxObject(), orxPhysics_GetGravity(&_customGravity));
+    return orxObject_SetCustomGravity(GetOrxObject(), &_customGravity);
 }
 
 void ScrollMod::SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSolid)

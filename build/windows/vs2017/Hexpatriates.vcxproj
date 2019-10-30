@@ -384,6 +384,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Zone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini" />
@@ -402,6 +403,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Zone.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

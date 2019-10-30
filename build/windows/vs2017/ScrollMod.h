@@ -75,6 +75,24 @@ namespace hexpatriates
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
         orxSTATUS __fastcall SetString(const orxCHAR *_key, const orxCHAR *_value, const orxCHAR *_sectionName = "");
+        /// <summary>Gets the SelfFlags attribute of <paramref name="_part"/>.</summary>
+        /// <param name="_part">The body part of which we're getting the SelfFlags attribute.</param>
+        /// <returns>The SelfFlags attribute of <paramref name="_part"/>.</returns>
+        orxU16 __fastcall GetSelfFlags(const orxBODY_PART *_part);
+        /// <summary>Gets the CheckMask attribute of <paramref name="_part"/>.</summary>
+        /// <param name="_part">The body part of which we're getting the CheckMask attribute.</param>
+        /// <returns>The CheckMask attribute of <paramref name="_part"/>.</returns>
+        orxU16 __fastcall GetCheckMask(const orxBODY_PART *_part);
+        /// <summary>Sets the SelfFlags attribute of <paramref name="_part"/> to <paramref name="_selfFlags"/>.</summary>
+        /// <param name="_part">The body part whose SelfFlags attribute we're setting to <paramref name="_selfFlags"/>.</param>
+        /// <param name="_selfFlags">The value to which we're setting <paramref name="_part"/>'s SelfFlags attribute.</param>
+        /// <returns>An orxSTATUS code.</returns>
+        orxSTATUS __fastcall SetSelfFlags(orxBODY_PART *_part, orxU16 _selfFlags);
+        /// <summary>Sets the CheckMask attribute of <paramref name="_part"/> to <paramref name="_checkMask"/>.</summary>
+        /// <param name="_part">The body part whose CheckMask attribute we're setting to <paramref name="_checkMask"/>.</param>
+        /// <param name="_selfFlags">The value to which we're setting <paramref name="_part"/>'s CheckMask attribute.</param>
+        /// <returns>An orxSTATUS code.</returns>
+        orxSTATUS __fastcall SetCheckMask(orxBODY_PART *_part, orxU16 _checkMask);
         /// <summary>Returns the orxSTRUCTURE, if it exists, that matches <paramref name="_structureID"/> and is associated with the ScrollMod.</summary>
         /// <param name="_structureID">The orxSTRUCTURE_ID of the structure we wish to locate within the ScrollMod.</param>
         /// <returns>The orxSTRUCTURE, if it exists, which matches <paramref name="_structureID"/> and is associated with the ScrollMod.</returns>
@@ -99,7 +117,7 @@ namespace hexpatriates
         void SetTargetAnim(const orxCHAR *_animName);
         /// <summary>Sets the ScrollMod's custom gravity to <paramref name="_customGravity"/>.</summary>
         /// <param name="_customGravity">The gravity to which we're setting the ScrollMod's custom gravity.</param>
-        void SetCustomGravity(orxVECTOR &_customGravity);
+        orxSTATUS __fastcall SetCustomGravity(orxVECTOR &_customGravity);
         /// <summary>Sets the body part of the ScrollMod associated with <paramref name="_partName"/>'s solidity to the bool value represented by <paramref name="_bSolid"/>.</summary>
         /// <param name="_partName">The name of the body part whose solidity we wish to set.</param>
         /// <param name="_bSolid">The bool value representing the solidity we wish to set.</param>

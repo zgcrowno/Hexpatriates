@@ -1,11 +1,14 @@
 #include "Arena.h"
+#include "Zone.h"
 
 using namespace hexpatriates;
 
 void Arena::OnCreate()
 {
-    m_pilotP1 = (Pilot*)CreateObject("O-PilotP1", { { "IsP2", orxFALSE } });
-    m_pilotP2 = (Pilot*)CreateObject("O-PilotP2", { { "IsP2", orxTRUE } });
+    m_pilotP1 = (Pilot*)CreateObject("O-Pilot1P1");
+    m_pilotP1->m_zone = (Zone*)CreateObject("O-ZoneP1");
+    m_pilotP2 = (Pilot*)CreateObject("O-Pilot1P2");
+    m_pilotP2->m_zone = (Zone*)CreateObject("O-ZoneP2");
     m_dashMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP1"));
     m_parryMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP1"));
     m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
