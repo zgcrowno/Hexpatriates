@@ -25,6 +25,8 @@ namespace hexpatriates
         virtual orxBOOL OnSeparate(ScrollObject *_poCollider);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+        //! Sets the Pilot's heads up text
+        void SetHeadsUpText();
         //! Moves the Player based on user input and the passed speed
         void Move(const orxCLOCK_INFO &_rstInfo);
     public:
@@ -96,6 +98,8 @@ namespace hexpatriates
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
+        //! The Pilot's construction/contamination text
+        ScrollMod *m_headsUpText;
         //! The Pilot's zone
         Zone *m_zone;
         //! The Pilot's ship

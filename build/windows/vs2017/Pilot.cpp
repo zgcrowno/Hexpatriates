@@ -1,14 +1,17 @@
 #include "Pilot.h"
-#include "Projectile.h"
+#include "Laser.h"
+#include "Orb.h"
+#include <string>
+#include <iostream>
 
 using namespace hexpatriates;
 
 void Pilot::OnCreate()
 {
     // Set the construction timer to its default value.
-    m_constructionTimer = 10.0;
+    m_constructionTimer = 10;
     // Set the contamination timer to its default value.
-    m_contaminationTimer = 10.0;
+    m_contaminationTimer = 10;
     // Get movement speed from config values.
     m_walkingSpeed = GetFloat("WalkingSpeed", GetModelName());
     m_flyingSpeed = GetFloat("FlyingSpeed", GetModelName());
@@ -46,6 +49,9 @@ void Pilot::OnCreate()
     // Set the Pilot's spawning position
     orxVECTOR defaultPosition = orxVECTOR_0;
     m_defaultPosition = GetPosition(defaultPosition);
+    // Set the Pilot's construction/contamination text
+    m_headsUpText = static_cast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
+    m_headsUpText->Enable(orxFALSE);
     // Set the Pilot's ship.
     m_ship = static_cast<Ship*>(GetChildByName({ "O-Ship1P1", "O-Ship1P2" }));
 }
@@ -62,13 +68,13 @@ orxBOOL Pilot::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    // TODO: I'll probably make some sort of zone check instead of this collision, as dashing seems to lessen the accuracy of this.
+    // Check for collisions with pilot body--not ship body
     if (orxString_Compare(_zPartName, "BP-PilotP1") == 0
         || orxString_Compare(_zPartName, "BP-PilotP2") == 0)
     {
-        if (orxString_Compare(_zColliderPartName, "BP-Zone") == 0)
+        // Zone collisions
+        if (dynamic_cast<Zone*>(_poCollider) != orxNULL)
         {
-
             if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName()) == 0)
             {
                 m_bIsInOwnZone = orxTRUE;
@@ -79,24 +85,78 @@ orxBOOL Pilot::OnCollide(
                 DestroyShip();
             }
         }
-        if (orxString_SearchString(_zColliderPartName, "Pilot") != orxNULL)
+        // Laser collisions
+        if (dynamic_cast<Laser*>(_poCollider) != orxNULL)
         {
-            Pilot *collidingPilot = (Pilot*)_poCollider;
+            if (m_parryTime <= 0)
+            {
+                if (m_ship->IsEnabled())
+                {
+                    DestroyShip();
+                }
+                else
+                {
+                    Die();
+                }
+            }
+        }
+        // Orb collisions
+        Orb *collidedOrb = dynamic_cast<Orb*>(_poCollider);
+        if (collidedOrb != orxNULL)
+        {
+            if (m_parryTime > 0)
+            {
+                // Deflect the orb (we're basically replacing the orb with another one of the Pilot's type)
+                // TODO: This should probably be done more efficiently
+                orxCHAR *deflectedOrbModelName;
+                if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
+                {
+                    deflectedOrbModelName = "O-OrbP1";
+                }
+                else
+                {
+                    deflectedOrbModelName = "O-OrbP2";
+                }
+                Orb *deflectedOrb = static_cast<Orb*>(CreateObject(deflectedOrbModelName));
+                orxVECTOR posRef = orxVECTOR_0;
+                deflectedOrb->SetPosition(collidedOrb->GetPosition(posRef));
+                deflectedOrb->SetSpeed({ -deflectedOrb->m_speed * _rvNormal.fX, -deflectedOrb->m_speed * _rvNormal.fY });
+            }
+            else
+            {
+                if (m_ship->IsEnabled())
+                {
+                    DestroyShip();
+                }
+                else
+                {
+                    Die();
+                }
+            }
+            collidedOrb->Destroy();
+        }
+        // Pilot collisions
+        Pilot *collidingPilot = dynamic_cast<Pilot*>(_poCollider);
+        if (collidingPilot != orxNULL)
+        {
             if (collidingPilot->m_meleeTime > 0)
             {
                 Die();
             }
         }
+        // Floor collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
         {
             m_bIsGrounded = true;
             m_jumpTime = 0;
             m_wallJumpTime = 0;
         }
+        // Left wall collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0)
         {
             m_bIsAgainstLeftWall = true;
         }
+        // Right wall collisions
         else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
         {
             m_bIsAgainstRightWall = true;
@@ -148,7 +208,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         {
             m_constructionTimer -= _rstInfo.fDT;
 
-            if (m_constructionTimer <= 0)
+            if (m_constructionTimer <= 0 && IsEnabled())
             {
                 ConstructShip();
             }
@@ -162,6 +222,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
                 Die();
             }
         }
+        SetHeadsUpText();
     }
     // Handle jump time decrement
     if (m_jumpTime > 0)
@@ -243,6 +304,27 @@ void Pilot::SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bW
     SetBodyPartSolid("BP-Ship1", _bShipSolid);
 }
 
+void Pilot::SetHeadsUpText()
+{
+    orxCHAR formattedHeadsUpText[3];
+    orxCOLOR color;
+
+    if (m_bIsInOwnZone)
+    {
+        orxString_Print(formattedHeadsUpText, "%1.0f", m_constructionTimer);
+        color.vRGB = {0, 0.5, 1.0};
+    }
+    else
+    {
+        orxString_Print(formattedHeadsUpText, "%1.0f", m_contaminationTimer);
+        color.vRGB = { 1.0, 0.5, 0 };
+    }
+
+    color.fAlpha = 1.0;
+    orxObject_SetTextString(m_headsUpText->GetOrxObject(), formattedHeadsUpText);
+    orxObject_SetColor(m_headsUpText->GetOrxObject(), &color);
+}
+
 void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
 {
     orxVECTOR movement = orxVECTOR_0;
@@ -315,12 +397,12 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
                 if (leftRightValue > 0)
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetScale({ 1, 1, 1 }, orxFALSE);
+                    SetFlip(orxFALSE, orxFALSE, orxFALSE);
                 }
                 else if (leftRightValue < 0)
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetScale({ -1, 1, 1 }, orxFALSE);
+                    SetFlip(orxTRUE, orxFALSE, orxFALSE);
                 }
             }
 
@@ -333,7 +415,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
                 if (!m_ship->IsEnabled())
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetScale({ -1, 1, 1 }, orxFALSE);
+                    SetFlip(orxTRUE, orxFALSE, orxFALSE);
                 }
 
                 movement.fX -= speed * _rstInfo.fDT;
@@ -343,7 +425,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
                 if (!m_ship->IsEnabled())
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetScale({ 1, 1, 1 }, orxFALSE);
+                    SetFlip(orxFALSE, orxFALSE, orxFALSE);
                 }
                 
                 movement.fX += speed * _rstInfo.fDT;
@@ -452,18 +534,21 @@ void Pilot::DestroyShip()
     SetCustomGravity(GetWorldGravity());
     // Set BP-Ship to non-solid so the pilot won't be kept a certain distance from other solid objects.
     SetBodyPartSolid("BP-Ship1", orxFALSE);
+    // Enable and set construction/contamination text
+    m_headsUpText->Enable(orxTRUE);
+    SetHeadsUpText();
 }
 
 void Pilot::ConstructShip()
 {
-    m_constructionTimer = 10.0;
-    m_contaminationTimer = 10.0;
     SetPosition(m_defaultPosition);
     m_ship->Enable(orxTRUE);
     orxVECTOR customGravity = { 0, 0, 0 };
     SetCustomGravity(customGravity);
     SetBodyPartSolid("BP-Ship1", orxTRUE);
-
+    m_constructionTimer = 10;
+    m_contaminationTimer = 10;
+    m_headsUpText->Enable(orxFALSE);
 }
 
 void Pilot::Die()

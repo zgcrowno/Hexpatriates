@@ -6,7 +6,7 @@ namespace hexpatriates
 {
     class Orb : public Projectile
     {
-    private:
+    protected:
         //! Called on object creation
         virtual void OnCreate();
         //! Called on object deletion
