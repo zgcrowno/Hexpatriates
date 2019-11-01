@@ -397,12 +397,12 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
                 if (leftRightValue > 0)
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetFlip(orxFALSE, orxFALSE, orxFALSE);
+                    //SetFlip(orxFALSE, orxFALSE, orxFALSE);
                 }
                 else if (leftRightValue < 0)
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetFlip(orxTRUE, orxFALSE, orxFALSE);
+                    //SetFlip(orxTRUE, orxFALSE, orxFALSE);
                 }
             }
 
@@ -415,7 +415,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
                 if (!m_ship->IsEnabled())
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetFlip(orxTRUE, orxFALSE, orxFALSE);
+                    //SetFlip(orxTRUE, orxFALSE, orxFALSE);
                 }
 
                 movement.fX -= speed * _rstInfo.fDT;
@@ -425,7 +425,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
                 if (!m_ship->IsEnabled())
                 {
                     SetTargetAnim("A-PilotRun");
-                    SetFlip(orxFALSE, orxFALSE, orxFALSE);
+                    //SetFlip(orxFALSE, orxFALSE, orxFALSE);
                 }
                 
                 movement.fX += speed * _rstInfo.fDT;

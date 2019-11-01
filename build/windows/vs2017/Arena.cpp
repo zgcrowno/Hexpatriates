@@ -33,19 +33,22 @@ void Arena::OnCreate()
     m_defaultScaleDownward = m_downwardMeterP1->GetScale(variableScale);
     m_defaultScaleSuper = m_superMeterP1->GetScale(variableScale);
 
-    // Create and place the meter borders
+    // TODO: This will do for now, but I ought to manage this using the config, eventually.
+    // Create and place the meter borders (and clip dividers)
     CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
     CreateMeterBorder("O-ParryMeterP1", m_parryMeterP1, 1);
     CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_ship->m_clipSizeNeutral);
     CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_ship->m_clipSizeUpward);
     CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_ship->m_clipSizeDownward);
     CreateMeterBorder("O-SuperMeterP1", m_superMeterP1, 1);
+    CreateMeterBorder("O-LivesMeterP1", m_livesMeterP1, m_pilotP1->m_maxLives);
     CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
     CreateMeterBorder("O-ParryMeterP2", m_parryMeterP2, 1);
     CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_ship->m_clipSizeNeutral);
     CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_ship->m_clipSizeUpward);
     CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_ship->m_clipSizeDownward);
     CreateMeterBorder("O-SuperMeterP2", m_superMeterP2, 1);
+    CreateMeterBorder("O-LivesMeterP2", m_livesMeterP2, m_pilotP2->m_maxLives);
 }
 
 void Arena::OnDelete()
@@ -65,7 +68,35 @@ orxBOOL Arena::OnCollide(
 
 void Arena::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    //TODO: I'll probably move this stuff to arrays at some point so as to lessen the possibility of error.
+    // Force Pilots to face each other
+    orxVECTOR posRef;
+    orxFLOAT pilotP1X = m_pilotP1->GetPosition(posRef).fX;
+    orxFLOAT pilotP2X = m_pilotP2->GetPosition(posRef).fX;
+
+    if (pilotP1X <= pilotP2X)
+    {
+        if (!m_pilotP1->m_ship->IsEnabled())
+        {
+            m_pilotP1->SetFlip(orxFALSE, orxFALSE, orxFALSE);
+        }
+        if (!m_pilotP2->m_ship->IsEnabled())
+        {
+            m_pilotP2->SetFlip(orxTRUE, orxFALSE, orxFALSE);
+        }
+    }
+    else
+    {
+        if (!m_pilotP1->m_ship->IsEnabled())
+        {
+            m_pilotP1->SetFlip(orxTRUE, orxFALSE, orxFALSE);
+        }
+        if (!m_pilotP2->m_ship->IsEnabled())
+        {
+            m_pilotP2->SetFlip(orxFALSE, orxFALSE, orxFALSE);
+        }
+    }
+
+    // TODO: I'll probably move this stuff to arrays at some point so as to lessen the possibility of error.
     // Handle UI appearance
     // Pilot-associated UI
     if (m_pilotP1->m_cooldownDash > 0)
@@ -204,20 +235,34 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         m_defaultScaleSuper.fZ });
 }
 
+// TODO: This will do for now, but I ought to manage this using the config, eventually.
 void Arena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter, const int &_clipSize)
 {
     orxBOOL p1 = orxString_SearchString(_meterName, "P1") != orxNULL;
     int playerMultiplier = p1 ? -1 : 1;
     orxVECTOR posRef;
     orxVECTOR scaleRef;
+    orxVECTOR textureSizeRef;
+    orxFLOAT borderThicknessY = _meter->GetScale(scaleRef).fY / 10;
+    orxFLOAT borderThicknessX = borderThicknessY * (_meter->GetSize(scaleRef).fY / _meter->GetSize(scaleRef).fX);
+
+    // Create the top clip border
     ScrollObject *clipBorderTop = CreateObject("O-ClipBorderTop");
-    ScrollObject *clipBorderBottom = CreateObject("O-ClipBorderBottom");
     clipBorderTop->SetPosition({ _meter->GetPosition(posRef).fX + playerMultiplier * (GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
                                        _meter->GetPosition(posRef).fY - (GetVector("Scale", &scaleRef, _meterName)->fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
                                        0 });
+    clipBorderTop->SetScale({ _meter->GetScale(scaleRef).fX,
+                                       borderThicknessY,
+                                       0 });
+    // Create the bottom clip border
+    ScrollObject *clipBorderBottom = CreateObject("O-ClipBorderBottom");
     clipBorderBottom->SetPosition({ _meter->GetPosition(posRef).fX + playerMultiplier * (GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
                                        _meter->GetPosition(posRef).fY + (GetVector("Scale", &scaleRef, _meterName)->fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
                                        0 });
+    clipBorderBottom->SetScale({ _meter->GetScale(scaleRef).fX,
+                                       borderThicknessY,
+                                       0 });
+    // Create all of the clip dividers (if there are any)
     for (int i = 0; i <= _clipSize; i++)
     {
         ScrollObject *clipBorder;
@@ -235,6 +280,9 @@ void Arena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter
         }
         clipBorder->SetPosition({ _meter->GetPosition(posRef).fX + playerMultiplier * (i * ((GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / _clipSize)),
                                        _meter->GetPosition(posRef).fY,
+                                       0 });
+        clipBorder->SetScale({ borderThicknessX,
+                                       _meter->GetScale(scaleRef).fY,
                                        0 });
     }
 }
