@@ -23,6 +23,8 @@ namespace hexpatriates
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+
+        void CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter, const int &_clipSize);
     public:
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;

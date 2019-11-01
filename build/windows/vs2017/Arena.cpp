@@ -1,5 +1,6 @@
 #include "Arena.h"
 #include "Zone.h"
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -31,6 +32,20 @@ void Arena::OnCreate()
     m_defaultScaleUpward = m_upwardMeterP1->GetScale(variableScale);
     m_defaultScaleDownward = m_downwardMeterP1->GetScale(variableScale);
     m_defaultScaleSuper = m_superMeterP1->GetScale(variableScale);
+
+    // Create and place the meter borders
+    CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
+    CreateMeterBorder("O-ParryMeterP1", m_parryMeterP1, 1);
+    CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_ship->m_clipSizeNeutral);
+    CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_ship->m_clipSizeUpward);
+    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_ship->m_clipSizeDownward);
+    CreateMeterBorder("O-SuperMeterP1", m_superMeterP1, 1);
+    CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
+    CreateMeterBorder("O-ParryMeterP2", m_parryMeterP2, 1);
+    CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_ship->m_clipSizeNeutral);
+    CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_ship->m_clipSizeUpward);
+    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_ship->m_clipSizeDownward);
+    CreateMeterBorder("O-SuperMeterP2", m_superMeterP2, 1);
 }
 
 void Arena::OnDelete()
@@ -187,4 +202,39 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP2->m_ship->m_cooldownSuper / m_pilotP2->m_ship->m_maxCooldownSuper)),
         m_defaultScaleSuper.fY,
         m_defaultScaleSuper.fZ });
+}
+
+void Arena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter, const int &_clipSize)
+{
+    orxBOOL p1 = orxString_SearchString(_meterName, "P1") != orxNULL;
+    int playerMultiplier = p1 ? -1 : 1;
+    orxVECTOR posRef;
+    orxVECTOR scaleRef;
+    ScrollObject *clipBorderTop = CreateObject("O-ClipBorderTop");
+    ScrollObject *clipBorderBottom = CreateObject("O-ClipBorderBottom");
+    clipBorderTop->SetPosition({ _meter->GetPosition(posRef).fX + playerMultiplier * (GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
+                                       _meter->GetPosition(posRef).fY - (GetVector("Scale", &scaleRef, _meterName)->fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
+                                       0 });
+    clipBorderBottom->SetPosition({ _meter->GetPosition(posRef).fX + playerMultiplier * (GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
+                                       _meter->GetPosition(posRef).fY + (GetVector("Scale", &scaleRef, _meterName)->fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
+                                       0 });
+    for (int i = 0; i <= _clipSize; i++)
+    {
+        ScrollObject *clipBorder;
+        if (i == 0)
+        {
+            clipBorder = p1 ? CreateObject("O-ClipBorderRight") : CreateObject("O-ClipBorderLeft");
+        }
+        else if (i == _clipSize)
+        {
+            clipBorder = p1 ? CreateObject("O-ClipBorderLeft") : CreateObject("O-ClipBorderRight");
+        }
+        else
+        {
+            clipBorder = CreateObject("O-ClipBorder");
+        }
+        clipBorder->SetPosition({ _meter->GetPosition(posRef).fX + playerMultiplier * (i * ((GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / _clipSize)),
+                                       _meter->GetPosition(posRef).fY,
+                                       0 });
+    }
 }
