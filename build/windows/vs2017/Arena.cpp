@@ -1,15 +1,17 @@
 #include "Arena.h"
 #include "Zone.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
 void Arena::OnCreate()
 {
+    m_timer = 90.0;
     m_pilotP1 = (Pilot*)CreateObject("O-Pilot1P1");
     m_pilotP1->m_zone = (Zone*)CreateObject("O-ZoneP1");
     m_pilotP2 = (Pilot*)CreateObject("O-Pilot1P2");
     m_pilotP2->m_zone = (Zone*)CreateObject("O-ZoneP2");
+    m_pilotP1->m_opposingPilot = m_pilotP2;
+    m_pilotP2->m_opposingPilot = m_pilotP1;
     m_dashMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP1"));
     m_parryMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP1"));
     m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
@@ -24,6 +26,7 @@ void Arena::OnCreate()
     m_upwardMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-UpwardMeterP2"));
     m_downwardMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-DownwardMeterP2"));
     m_superMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-SuperMeterP2"));
+    m_timerText = static_cast<ScrollMod*>(GetChildByName("O-TimerText"));
     orxVECTOR variableScale = orxVECTOR_0;
     m_defaultScaleDash = m_dashMeterP1->GetScale(variableScale);
     m_defaultScaleParry = m_parryMeterP1->GetScale(variableScale);
@@ -68,6 +71,14 @@ orxBOOL Arena::OnCollide(
 
 void Arena::Update(const orxCLOCK_INFO &_rstInfo)
 {
+    // Handle timer decrement and response
+    m_timer -= _rstInfo.fDT;
+    if (m_timer <= 0.0)
+    {
+        Restart();
+    }
+    SetTimerText();
+
     // Force Pilots to face each other
     orxVECTOR posRef;
     orxFLOAT pilotP1X = m_pilotP1->GetPosition(posRef).fX;
@@ -75,24 +86,47 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
 
     if (pilotP1X <= pilotP2X)
     {
+        orxVECTOR vecRef = { 1, 1, 1 };
         if (!m_pilotP1->m_ship->IsEnabled())
         {
-            m_pilotP1->SetFlip(orxFALSE, orxFALSE, orxFALSE);
+            //m_pilotP1->SetFlip(orxFALSE, orxFALSE, orxFALSE);
+            m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
         }
         if (!m_pilotP2->m_ship->IsEnabled())
         {
-            m_pilotP2->SetFlip(orxTRUE, orxFALSE, orxFALSE);
+            //m_pilotP2->SetFlip(orxTRUE, orxFALSE, orxFALSE);
+            m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
         }
     }
     else
     {
+        orxVECTOR vecRef = { -1, 1, 1 };
         if (!m_pilotP1->m_ship->IsEnabled())
         {
-            m_pilotP1->SetFlip(orxTRUE, orxFALSE, orxFALSE);
+            //m_pilotP1->SetFlip(orxTRUE, orxFALSE, orxFALSE);
+            m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
         }
         if (!m_pilotP2->m_ship->IsEnabled())
         {
-            m_pilotP2->SetFlip(orxFALSE, orxFALSE, orxFALSE);
+            //m_pilotP2->SetFlip(orxFALSE, orxFALSE, orxFALSE);
+            m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
+        }
+    }
+
+    // Respond to pilot death(s)
+    if (!m_pilotP1->IsEnabled() || !m_pilotP2->IsEnabled())
+    {
+        if (m_pilotP1->m_lives == 0 || m_pilotP2->m_lives == 0)
+        {
+            Restart();
+        }
+        else
+        {
+            m_pilotP1->Enable(orxTRUE);
+            m_pilotP2->Enable(orxTRUE);
+            m_pilotP1->ConstructShip();
+            m_pilotP2->ConstructShip();
+            m_timer = 90.0;
         }
     }
 
@@ -233,6 +267,26 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP2->m_ship->m_cooldownSuper / m_pilotP2->m_ship->m_maxCooldownSuper)),
         m_defaultScaleSuper.fY,
         m_defaultScaleSuper.fZ });
+}
+
+void Arena::Restart()
+{
+    Arena *restartedArena = static_cast<Arena*>(CreateObject("O-Arena"));
+    m_pilotP1->Destroy();
+    m_pilotP2->Destroy();
+    Destroy();
+}
+
+void Arena::SetTimerText()
+{
+    orxCHAR formattedTimerText[3];
+    orxCOLOR color;
+
+    orxString_Print(formattedTimerText, "%1.0f", m_timer);
+    color.vRGB = { 1.0, 1.0, 1.0 };
+    color.fAlpha = 1.0;
+    orxObject_SetTextString(m_timerText->GetOrxObject(), formattedTimerText);
+    orxObject_SetColor(m_timerText->GetOrxObject(), &color);
 }
 
 // TODO: This will do for now, but I ought to manage this using the config, eventually.

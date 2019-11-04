@@ -2,7 +2,6 @@
 #include "Laser.h"
 #include "Orb.h"
 #include <string>
-#include <iostream>
 
 using namespace hexpatriates;
 
@@ -46,9 +45,10 @@ void Pilot::OnCreate()
     m_parryInput = GetString("ParryInput", GetModelName());
     m_meleeInput = GetString("MeleeInput", GetModelName());
     m_jumpInput = GetString("JumpInput", GetModelName());
-    // Set the Pilot's spawning position
-    orxVECTOR defaultPosition = orxVECTOR_0;
-    m_defaultPosition = GetPosition(defaultPosition);
+    // Set the Pilot's spawning position and scale
+    orxVECTOR default = orxVECTOR_0;
+    m_defaultPosition = GetPosition(default);
+    m_defaultScale = GetScale(default);
     // Set the Pilot's construction/contamination text
     m_headsUpText = static_cast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
     m_headsUpText->Enable(orxFALSE);
@@ -135,15 +135,6 @@ orxBOOL Pilot::OnCollide(
             }
             collidedOrb->Destroy();
         }
-        // Pilot collisions
-        Pilot *collidingPilot = dynamic_cast<Pilot*>(_poCollider);
-        if (collidingPilot != orxNULL)
-        {
-            if (collidingPilot->m_meleeTime > 0)
-            {
-                Die();
-            }
-        }
         // Floor collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
         {
@@ -160,6 +151,20 @@ orxBOOL Pilot::OnCollide(
         else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
         {
             m_bIsAgainstRightWall = true;
+        }
+    }
+    // Check for collisions with melee body
+    else if (orxString_SearchString(_zPartName, "Melee") != orxNULL)
+    {
+        // Pilot collisions
+        Pilot *collidingPilot = dynamic_cast<Pilot*>(_poCollider);
+        if (collidingPilot != orxNULL)
+        {
+            m_bIsInMeleeRange = orxTRUE;
+            if (m_meleeTime > 0)
+            {
+                collidingPilot->Die();
+            }
         }
     }
 
@@ -179,6 +184,10 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
     {
         m_bIsAgainstRightWall = false;
+    }
+    if (orxString_SearchString(_poCollider->GetModelName(), "Pilot") != orxNULL)
+    {
+        m_bIsInMeleeRange = orxFALSE;
     }
 
     return orxTRUE;
@@ -522,6 +531,10 @@ void Pilot::Melee()
             AddFX("FX-Melee");
             m_meleeTime = m_meleeDuration;
             m_cooldownMelee = m_maxCooldownMelee;
+            if (m_bIsInMeleeRange)
+            {
+                m_opposingPilot->Die();
+            }
         }
     }
 }
@@ -542,6 +555,7 @@ void Pilot::DestroyShip()
 void Pilot::ConstructShip()
 {
     SetPosition(m_defaultPosition);
+    SetScale(m_defaultScale, orxTRUE);
     m_ship->Enable(orxTRUE);
     orxVECTOR customGravity = { 0, 0, 0 };
     SetCustomGravity(customGravity);
@@ -557,5 +571,6 @@ void Pilot::Die()
     {
         DestroyShip();
     }
+    m_lives--;
     Enable(orxFALSE);
 }

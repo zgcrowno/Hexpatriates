@@ -9,7 +9,7 @@ void Spawner::OnCreate()
 
 void Spawner::OnDelete()
 {
-
+    
 }
 
 orxBOOL Spawner::OnCollide(

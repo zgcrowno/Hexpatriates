@@ -24,8 +24,11 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
 
+        void SetTimerText();
         void CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter, const int &_clipSize);
     public:
+        //! The amount of time, in seconds, remaining until the round automatically ends.
+        float m_timer;
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;
         ScrollMod *m_dashMeterP1;
@@ -42,6 +45,7 @@ namespace hexpatriates
         ScrollMod *m_upwardMeterP2;
         ScrollMod *m_downwardMeterP2;
         ScrollMod *m_superMeterP2;
+        ScrollMod *m_timerText;
         //! Associated UI elements' default scales
         // TODO: At least for these default scales, I should probably put together a UI manager to handle data like this. OR, make fully fleshed out classes for these UI elements.
         orxVECTOR m_defaultScaleDash;
@@ -51,5 +55,7 @@ namespace hexpatriates
         orxVECTOR m_defaultScaleUpward;
         orxVECTOR m_defaultScaleDownward;
         orxVECTOR m_defaultScaleSuper;
+
+        void Restart();
     };
 }

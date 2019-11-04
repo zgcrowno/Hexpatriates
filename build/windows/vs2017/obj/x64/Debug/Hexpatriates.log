@@ -1,5 +1,5 @@
-﻿  Arena.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\arena.cpp(245): warning C4101: 'textureSizeRef': unreferenced local variable
+﻿  Projectile.cpp
+  Spawner.cpp
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll

@@ -38,6 +38,8 @@ namespace hexpatriates
         bool m_bIsAgainstLeftWall;
         //! Flag representing whether or not the Pilot is against the right wall.
         bool m_bIsAgainstRightWall;
+        //! Flag representing whether or not the Pilot would kill it's enemy when executing a melee attack
+        bool m_bIsInMeleeRange;
         //! The amount of time, in seconds, remaining until the Pilot's ship reconstructs.
         float m_constructionTimer;
         //! The amount of time, in seconds, remaining until the Pilot dies of contamination.
@@ -94,6 +96,8 @@ namespace hexpatriates
         const orxCHAR *m_jumpInput;
         //! The Pilot's spawning position
         orxVECTOR m_defaultPosition;
+        //! The Pilot's default scale;
+        orxVECTOR m_defaultScale;
         //! The direction in which the Pilot's jumping
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
@@ -104,6 +108,8 @@ namespace hexpatriates
         Zone *m_zone;
         //! The Pilot's ship
         Ship *m_ship;
+        //! The opposing pilot
+        Pilot *m_opposingPilot;
 
         // This modified version of ScrollObject's SetScale method is necessary for Pilot, so we can reverse unintended solidification of the Pilot's ship body part.
         void SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld = 0U);

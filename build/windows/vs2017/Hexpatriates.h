@@ -14,7 +14,7 @@ namespace hexpatriates
     class Hexpatriates : public Scroll<Hexpatriates>
     {
     public:
-
+        
     private:
         //! Enforce finding of config files outside of .exe folder
         virtual orxSTATUS Bootstrap() const;
