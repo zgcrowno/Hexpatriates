@@ -1,7 +1,6 @@
 #include "Pilot.h"
 #include "Laser.h"
 #include "Orb.h"
-#include <string>
 
 using namespace hexpatriates;
 
@@ -52,6 +51,11 @@ void Pilot::OnCreate()
     // Set the Pilot's construction/contamination text
     m_headsUpText = static_cast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
     m_headsUpText->Enable(orxFALSE);
+    // TODO: Get rid of these once I've got final animations in order
+    m_parryObject = static_cast<ScrollMod*>(GetChildByName("O-Parry"));
+    m_meleeObject = static_cast<ScrollMod*>(GetChildByName("O-Melee"));
+    m_parryObject->Enable(orxFALSE);
+    m_meleeObject->Enable(orxFALSE);
     // Set the Pilot's ship.
     m_ship = static_cast<Ship*>(GetChildByName({ "O-Ship1P1", "O-Ship1P2" }));
 }
@@ -267,7 +271,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
-        RemoveFX("FX-Parry");
+        m_parryObject->Enable(orxFALSE);
         m_parryTime = 0;
     }
     // Handle melee time decrement
@@ -277,7 +281,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
-        RemoveFX("FX-Melee");
+        m_meleeObject->Enable(orxFALSE);
         m_meleeTime = 0;
     }
     // Handle cooldowns
@@ -515,7 +519,7 @@ void Pilot::Parry()
     {
         if (m_cooldownParry <= 0 && m_meleeTime <= 0)
         {
-            AddFX("FX-Parry");
+            m_parryObject->Enable(orxTRUE);
             m_parryTime = m_parryDuration;
             m_cooldownParry = m_maxCooldownParry;
         }
@@ -528,7 +532,7 @@ void Pilot::Melee()
     {
         if (m_cooldownMelee <= 0 && m_parryTime <= 0)
         {
-            AddFX("FX-Melee");
+            m_meleeObject->Enable(orxTRUE);
             m_meleeTime = m_meleeDuration;
             m_cooldownMelee = m_maxCooldownMelee;
             if (m_bIsInMeleeRange)

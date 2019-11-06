@@ -104,6 +104,9 @@ namespace hexpatriates
         orxVECTOR m_dashDirection;
         //! The Pilot's construction/contamination text
         ScrollMod *m_headsUpText;
+        // TODO: Get rid of these once I've got final animations in order
+        ScrollMod *m_parryObject;
+        ScrollMod *m_meleeObject;
         //! The Pilot's zone
         Zone *m_zone;
         //! The Pilot's ship
