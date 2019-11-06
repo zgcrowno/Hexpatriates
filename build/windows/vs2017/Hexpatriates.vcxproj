@@ -376,6 +376,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="PilotSelectMenu.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Hexpatriates.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -395,6 +398,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arena.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="PilotSelectMenu.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Hexpatriates.h" />
     <ClInclude Include="Laser.h" />

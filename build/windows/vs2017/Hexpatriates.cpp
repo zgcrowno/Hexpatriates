@@ -6,8 +6,11 @@
 #include "Hexpatriates.h"
 #include "Arena.h"
 #include "Laser.h"
+#include "MainMenu.h"
+#include "Menu.h"
 #include "Orb.h"
 #include "Pilot.h"
+#include "PilotSelectMenu.h"
 #include "Ship.h"
 #include "Spawner.h"
 #include "Zone.h"
@@ -31,7 +34,8 @@ orxSTATUS Hexpatriates::Init()
     orxSTATUS result = orxSTATUS_SUCCESS;
 
     // Instantiate game objects
-    CreateObject("O-Arena");
+    CreateObject("O-MainMenu");
+    // CreateObject("O-Arena");
     
     return result;
 }
@@ -41,8 +45,11 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Arena>("O-Arena");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
+    ScrollBindObject<MainMenu>("O-MainMenu");
+    ScrollBindObject<Menu>("O-Menu");
     ScrollBindObject<Orb>("O-Orb");
     ScrollBindObject<Pilot>("O-Pilot");
+    ScrollBindObject<PilotSelectMenu>("O-PilotSelectMenu");
     ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Zone>("O-Zone");
 }

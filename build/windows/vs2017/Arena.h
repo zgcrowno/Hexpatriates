@@ -57,5 +57,6 @@ namespace hexpatriates
         orxVECTOR m_defaultScaleSuper;
 
         void Restart();
+        void CreateMeterBorders();
     };
 }

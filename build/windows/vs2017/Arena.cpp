@@ -6,12 +6,6 @@ using namespace hexpatriates;
 void Arena::OnCreate()
 {
     m_timer = 90.0;
-    m_pilotP1 = (Pilot*)CreateObject("O-Pilot1P1");
-    m_pilotP1->m_zone = (Zone*)CreateObject("O-ZoneP1");
-    m_pilotP2 = (Pilot*)CreateObject("O-Pilot1P2");
-    m_pilotP2->m_zone = (Zone*)CreateObject("O-ZoneP2");
-    m_pilotP1->m_opposingPilot = m_pilotP2;
-    m_pilotP2->m_opposingPilot = m_pilotP1;
     m_dashMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP1"));
     m_parryMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP1"));
     m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
@@ -35,23 +29,6 @@ void Arena::OnCreate()
     m_defaultScaleUpward = m_upwardMeterP1->GetScale(variableScale);
     m_defaultScaleDownward = m_downwardMeterP1->GetScale(variableScale);
     m_defaultScaleSuper = m_superMeterP1->GetScale(variableScale);
-
-    // TODO: This will do for now, but I ought to manage this using the config, eventually.
-    // Create and place the meter borders (and clip dividers)
-    CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
-    CreateMeterBorder("O-ParryMeterP1", m_parryMeterP1, 1);
-    CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_ship->m_clipSizeNeutral);
-    CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_ship->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_ship->m_clipSizeDownward);
-    CreateMeterBorder("O-SuperMeterP1", m_superMeterP1, 1);
-    CreateMeterBorder("O-LivesMeterP1", m_livesMeterP1, m_pilotP1->m_maxLives);
-    CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
-    CreateMeterBorder("O-ParryMeterP2", m_parryMeterP2, 1);
-    CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_ship->m_clipSizeNeutral);
-    CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_ship->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_ship->m_clipSizeDownward);
-    CreateMeterBorder("O-SuperMeterP2", m_superMeterP2, 1);
-    CreateMeterBorder("O-LivesMeterP2", m_livesMeterP2, m_pilotP2->m_maxLives);
 }
 
 void Arena::OnDelete()
@@ -271,7 +248,19 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Arena::Restart()
 {
+    // TODO: I'm calling all of this code here, and in PilotSelectMenu. I'll need to clean this up quite a bit at some point.
     Arena *restartedArena = static_cast<Arena*>(CreateObject("O-Arena"));
+    restartedArena->m_pilotP1 = (Pilot*)CreateObject(m_pilotP1->GetModelName());
+    restartedArena->m_pilotP1->m_zone = (Zone*)CreateObject(m_pilotP1->m_zone->GetModelName());
+    restartedArena->m_pilotP2 = (Pilot*)CreateObject(m_pilotP2->GetModelName());
+    restartedArena->m_pilotP2->m_zone = (Zone*)CreateObject(m_pilotP2->m_zone->GetModelName());
+    restartedArena->m_pilotP1->m_opposingPilot = restartedArena->m_pilotP2;
+    restartedArena->m_pilotP2->m_opposingPilot = restartedArena->m_pilotP1;
+
+    // TODO: This will do for now, but I ought to manage this using the config, eventually.
+    // Create and place the meter borders (and clip dividers)
+    restartedArena->CreateMeterBorders();
+
     m_pilotP1->Destroy();
     m_pilotP2->Destroy();
     Destroy();
@@ -296,7 +285,6 @@ void Arena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter
     int playerMultiplier = p1 ? -1 : 1;
     orxVECTOR posRef;
     orxVECTOR scaleRef;
-    orxVECTOR textureSizeRef;
     orxFLOAT borderThicknessY = _meter->GetScale(scaleRef).fY / 10;
     orxFLOAT borderThicknessX = borderThicknessY * (_meter->GetSize(scaleRef).fY / _meter->GetSize(scaleRef).fX);
 
@@ -339,4 +327,22 @@ void Arena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter
                                        _meter->GetScale(scaleRef).fY,
                                        0 });
     }
+}
+
+void Arena::CreateMeterBorders()
+{
+    CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
+    CreateMeterBorder("O-ParryMeterP1", m_parryMeterP1, 1);
+    CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_ship->m_clipSizeNeutral);
+    CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_ship->m_clipSizeUpward);
+    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_ship->m_clipSizeDownward);
+    CreateMeterBorder("O-SuperMeterP1", m_superMeterP1, 1);
+    CreateMeterBorder("O-LivesMeterP1", m_livesMeterP1, m_pilotP1->m_maxLives);
+    CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
+    CreateMeterBorder("O-ParryMeterP2", m_parryMeterP2, 1);
+    CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_ship->m_clipSizeNeutral);
+    CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_ship->m_clipSizeUpward);
+    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_ship->m_clipSizeDownward);
+    CreateMeterBorder("O-SuperMeterP2", m_superMeterP2, 1);
+    CreateMeterBorder("O-LivesMeterP2", m_livesMeterP2, m_pilotP2->m_maxLives);
 }

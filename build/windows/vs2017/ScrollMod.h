@@ -97,6 +97,9 @@ namespace hexpatriates
         /// <param name="_structureID">The orxSTRUCTURE_ID of the structure we wish to locate within the ScrollMod.</param>
         /// <returns>The orxSTRUCTURE, if it exists, which matches <paramref name="_structureID"/> and is associated with the ScrollMod.</returns>
         orxSTRUCTURE *GetStructure(orxSTRUCTURE_ID _structureID);
+        /// <summary>Returns the number of children the ScrollMod has.</summary>
+        /// <returns>The number of children the ScrollMod has.</returns>
+        int __fastcall GetNumChildren();
         /// <summary>Returns a pointer to the ScrollObject, if it exists, which is a child of the ScrollMod, and which has the name <paramref name="_childName"/>.</summary>
         /// <param name="_childName">The name by which we're searching for a child of the ScrollMod.</param>
         /// <returns>A pointer to the ScrollMod, if it exists, which is a child of the ScrollMod, and which has the name <paramref name="_childName"/>.</returns>

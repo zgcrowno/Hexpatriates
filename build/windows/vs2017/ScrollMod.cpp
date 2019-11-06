@@ -207,6 +207,18 @@ orxSTRUCTURE *ScrollMod::GetStructure(orxSTRUCTURE_ID _structureID)
     return _orxStructure_GetPointer(_orxObject_GetStructure(obj, _structureID), _structureID);
 }
 
+int __fastcall ScrollMod::GetNumChildren()
+{
+    int result;
+
+    for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
+    {
+        result++;
+    }
+
+    return result;
+}
+
 ScrollObject *ScrollMod::GetChildByName(const orxSTRING _childName)
 {
     for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())

@@ -62,6 +62,15 @@
     <ClCompile Include="Zone.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="PilotSelectMenu.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -92,6 +101,15 @@
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Zone.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PilotSelectMenu.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>
