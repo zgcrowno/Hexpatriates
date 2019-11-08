@@ -4,8 +4,6 @@ using namespace hexpatriates;
 
 void Laser::OnCreate()
 {
-    m_speed = GetFloat("SpeedLaser", GetModelName());
-
     Projectile::OnCreate();
 }
 
@@ -27,7 +25,7 @@ orxBOOL Laser::OnCollide(
         _zColliderPartName,
         _rvPosition,
         _rvNormal);
-
+    
     Destroy();
 
     return orxTRUE;

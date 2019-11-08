@@ -31,9 +31,76 @@ void PilotSelectMenu::Update(const orxCLOCK_INFO &_rstInfo)
         if (orxString_Compare(m_nextMenu, "O-Arena") == 0)
         {
             Arena *arena = static_cast<Arena*>(CreateObject("O-Arena"));
-            arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot1P1");
+            if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon1") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot1P1");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon2") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot2P1");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon3") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot3P1");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon4") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot4P1");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon5") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot5P1");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon6") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot6P1");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon7") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot7P1");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-PilotSelectIcon8") == 0)
+            {
+                arena->m_pilotP1 = (Pilot*)CreateObject("O-Pilot8P1");
+            }
+            if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon1") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot1P2");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon2") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot2P2");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon3") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot3P2");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon4") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot4P2");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon5") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot5P2");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon6") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot6P2");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon7") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot7P2");
+            }
+            else if (orxString_Compare(m_menuItems.at(m_selectedItemIndexP2)->GetModelName(), "O-PilotSelectIcon8") == 0)
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot8P2");
+            }
+            // Else if player 2 hasn't chosen anyone
+            else
+            {
+                arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot1P2");
+            }
             arena->m_pilotP1->m_zone = (Zone*)CreateObject("O-ZoneP1");
-            arena->m_pilotP2 = (Pilot*)CreateObject("O-Pilot1P2");
             arena->m_pilotP2->m_zone = (Zone*)CreateObject("O-ZoneP2");
             arena->m_pilotP1->m_opposingPilot = arena->m_pilotP2;
             arena->m_pilotP2->m_opposingPilot = arena->m_pilotP1;

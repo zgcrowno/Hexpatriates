@@ -78,12 +78,12 @@ namespace hexpatriates
         /// <summary>Executes the Ship's super attack.</summary>
         void Super();
         /// <summary>Handles the actual spawning/firing of the Ship's neutral attack.</summary>
-        void FireNeutral();
+        virtual void FireNeutral() = 0;
         /// <summary>Handles the actual spawning/firing of the Ship's upward attack.</summary>
-        void FireUpward();
+        virtual void FireUpward() = 0;
         /// <summary>Handles the actual spawning/firing of the Ship's downward attack.</summary>
-        void FireDownward();
+        virtual void FireDownward() = 0;
         /// <summary>Handles the actual spawning/firing of the Ship's super attack.</summary>
-        void FireSuper();
+        virtual void FireSuper() = 0;
     };
 }

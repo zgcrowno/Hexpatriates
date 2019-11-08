@@ -25,10 +25,74 @@ void Ship::OnCreate()
     m_maxWaveDelaySuper = GetFloat("MaxWaveDelaySuper", GetModelName());
     m_cooldownSuper = m_maxCooldownSuper;
 
-    m_neutralGun = static_cast<Spawner*>(GetChildByName({ "O-NeutralGunP1", "O-NeutralGunP2" }));
-    m_upwardGun = static_cast<Spawner*>(GetChildByName({ "O-UpwardGunP1", "O-UpwardGunP2" }));
-    m_downwardGun = static_cast<Spawner*>(GetChildByName({ "O-DownwardGunP1", "O-DownwardGunP2" }));
-    m_superGun = static_cast<Spawner*>(GetChildByName({ "O-SuperGunP1", "O-SuperGunP2" }));
+    m_neutralGun = static_cast<Spawner*>(GetChildByName({
+        "O-NeutralGun1P1",
+        "O-NeutralGun1P2",
+        "O-NeutralGun2P1",
+        "O-NeutralGun2P2",
+        "O-NeutralGun3P1",
+        "O-NeutralGun3P2",
+        "O-NeutralGun4P1",
+        "O-NeutralGun4P2",
+        "O-NeutralGun5P1",
+        "O-NeutralGun5P2",
+        "O-NeutralGun6P1",
+        "O-NeutralGun6P2",
+        "O-NeutralGun7P1",
+        "O-NeutralGun7P2",
+        "O-NeutralGun8P1",
+        "O-NeutralGun8P2", }));
+    m_upwardGun = static_cast<Spawner*>(GetChildByName({
+        "O-UpwardGun1P1",
+        "O-UpwardGun1P2",
+        "O-UpwardGun2P1",
+        "O-UpwardGun2P2",
+        "O-UpwardGun3P1",
+        "O-UpwardGun3P2",
+        "O-UpwardGun4P1",
+        "O-UpwardGun4P2",
+        "O-UpwardGun5P1",
+        "O-UpwardGun5P2",
+        "O-UpwardGun6P1",
+        "O-UpwardGun6P2",
+        "O-UpwardGun7P1",
+        "O-UpwardGun7P2",
+        "O-UpwardGun8P1",
+        "O-UpwardGun8P2", }));
+    m_downwardGun = static_cast<Spawner*>(GetChildByName({
+        "O-DownwardGun1P1",
+        "O-DownwardGun1P2",
+        "O-DownwardGun2P1",
+        "O-DownwardGun2P2",
+        "O-DownwardGun3P1",
+        "O-DownwardGun3P2",
+        "O-DownwardGun4P1",
+        "O-DownwardGun4P2",
+        "O-DownwardGun5P1",
+        "O-DownwardGun5P2",
+        "O-DownwardGun6P1",
+        "O-DownwardGun6P2",
+        "O-DownwardGun7P1",
+        "O-DownwardGun7P2",
+        "O-DownwardGun8P1",
+        "O-DownwardGun8P2", }));
+    m_superGun = static_cast<Spawner*>(GetChildByName({
+        "O-SuperGun1P1",
+        "O-SuperGun1P2",
+        "O-SuperGun2P1",
+        "O-SuperGun2P2",
+        "O-SuperGun3P1",
+        "O-SuperGun3P2",
+        "O-SuperGun4P1",
+        "O-SuperGun4P2",
+        "O-SuperGun5P1",
+        "O-SuperGun5P2",
+        "O-SuperGun6P1",
+        "O-SuperGun6P2",
+        "O-SuperGun7P1",
+        "O-SuperGun7P2",
+        "O-SuperGun8P1",
+        "O-SuperGun8P2", }));
 
     if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
     {
@@ -254,45 +318,6 @@ void Ship::Super()
             FireSuper();
 
             m_cooldownSuper = m_maxCooldownSuper;
-        }
-    }
-}
-
-void Ship::FireNeutral()
-{
-    for (int i = 0; i < m_waveSizeNeutral; i++)
-    {
-        m_neutralGun->Spawn(m_enemyDirection);
-    }
-}
-
-void Ship::FireUpward()
-{
-    for (int i = 0; i < m_waveSizeUpward; i++)
-    {
-        m_upwardGun->Spawn(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));
-    }
-}
-
-void Ship::FireDownward()
-{
-    for (int i = 0; i < m_waveSizeDownward; i++)
-    {
-        m_downwardGun->Spawn(orxMath_GetRandomFloat(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_4 / 2.0, orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_4 / 2.0));
-    }
-}
-
-void Ship::FireSuper()
-{
-    for (int i = 0; i < m_waveSizeSuper; i++)
-    {
-        if (m_wavesIndexSuper % 2 == 0)
-        {
-            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i);
-        }
-        else
-        {
-            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i + (m_enemyDirection + orxMATH_KF_PI_BY_4) / 2);
         }
     }
 }

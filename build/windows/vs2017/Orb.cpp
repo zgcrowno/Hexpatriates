@@ -4,8 +4,6 @@ using namespace hexpatriates;
 
 void Orb::OnCreate()
 {
-    m_speed = GetFloat("SpeedOrb", GetModelName());
-
     Projectile::OnCreate();
 }
 

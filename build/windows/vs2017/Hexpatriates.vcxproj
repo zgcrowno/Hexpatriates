@@ -376,9 +376,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp" />
+    <ClCompile Include="LaserWall.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PilotSelectMenu.cpp" />
+    <ClCompile Include="Ship1.cpp" />
+    <ClCompile Include="Ship2.cpp" />
+    <ClCompile Include="Ship3.cpp" />
+    <ClCompile Include="Ship4.cpp" />
+    <ClCompile Include="Ship5.cpp" />
+    <ClCompile Include="Ship6.cpp" />
+    <ClCompile Include="Ship7.cpp" />
+    <ClCompile Include="Ship8.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Hexpatriates.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -398,9 +407,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arena.h" />
+    <ClInclude Include="LaserWall.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="PilotSelectMenu.h" />
+    <ClInclude Include="Ship1.h" />
+    <ClInclude Include="Ship2.h" />
+    <ClInclude Include="Ship3.h" />
+    <ClInclude Include="Ship4.h" />
+    <ClInclude Include="Ship5.h" />
+    <ClInclude Include="Ship6.h" />
+    <ClInclude Include="Ship7.h" />
+    <ClInclude Include="Ship8.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Hexpatriates.h" />
     <ClInclude Include="Laser.h" />

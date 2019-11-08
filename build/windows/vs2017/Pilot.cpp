@@ -1,6 +1,8 @@
 #include "Pilot.h"
 #include "Laser.h"
+#include "LaserWall.h"
 #include "Orb.h"
+#include <string>
 
 using namespace hexpatriates;
 
@@ -44,10 +46,10 @@ void Pilot::OnCreate()
     m_parryInput = GetString("ParryInput", GetModelName());
     m_meleeInput = GetString("MeleeInput", GetModelName());
     m_jumpInput = GetString("JumpInput", GetModelName());
-    // Set the Pilot's spawning position and scale
+    // Set the Pilot's spawning position and flip
     orxVECTOR default = orxVECTOR_0;
     m_defaultPosition = GetPosition(default);
-    m_defaultScale = GetScale(default);
+    GetFlip(m_defaultFlipX, m_defaultFlipY);
     // Set the Pilot's construction/contamination text
     m_headsUpText = static_cast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
     m_headsUpText->Enable(orxFALSE);
@@ -57,7 +59,23 @@ void Pilot::OnCreate()
     m_parryObject->Enable(orxFALSE);
     m_meleeObject->Enable(orxFALSE);
     // Set the Pilot's ship.
-    m_ship = static_cast<Ship*>(GetChildByName({ "O-Ship1P1", "O-Ship1P2" }));
+    m_ship = static_cast<Ship*>(GetChildByName({
+        "O-Ship1P1",
+        "O-Ship1P2",
+        "O-Ship2P1",
+        "O-Ship2P2",
+        "O-Ship3P1",
+        "O-Ship3P2",
+        "O-Ship4P1",
+        "O-Ship4P2",
+        "O-Ship5P1",
+        "O-Ship5P2",
+        "O-Ship6P1",
+        "O-Ship6P2",
+        "O-Ship7P1",
+        "O-Ship7P2",
+        "O-Ship8P1",
+        "O-Ship8P2", }));
 }
 
 void Pilot::OnDelete()
@@ -139,6 +157,19 @@ orxBOOL Pilot::OnCollide(
             }
             collidedOrb->Destroy();
         }
+        // Laser wall collisions
+        LaserWall *collidedLaserWall = dynamic_cast<LaserWall*>(_poCollider);
+        if (collidedLaserWall != orxNULL)
+        {
+            if (m_ship->IsEnabled())
+            {
+                DestroyShip();
+            }
+            else
+            {
+                Die();
+            }
+        }
         // Floor collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
         {
@@ -189,6 +220,7 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     {
         m_bIsAgainstRightWall = false;
     }
+    // TODO: I'll probably have to go about this another way, since the melee body part will likely be different from the pilot's body part.
     if (orxString_SearchString(_poCollider->GetModelName(), "Pilot") != orxNULL)
     {
         m_bIsInMeleeRange = orxFALSE;
@@ -311,10 +343,16 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
 }
 
-void Pilot::SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld)
+//void Pilot::SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld)
+//{
+//    ScrollObject::SetScale(_rvScale, _bWorld);
+//    SetBodyPartSolid("BP-Ship1", _bShipSolid);
+//}
+
+void Pilot::SetFlip(orxBOOL _bFlipX, orxBOOL _bFlipY)
 {
-    ScrollObject::SetScale(_rvScale, _bWorld);
-    SetBodyPartSolid("BP-Ship1", _bShipSolid);
+    ScrollObject::SetFlip(_bFlipX, _bFlipY, orxFALSE);
+    m_headsUpText->SetFlip(orxFALSE, orxFALSE, orxFALSE);
 }
 
 void Pilot::SetHeadsUpText()
@@ -550,7 +588,7 @@ void Pilot::DestroyShip()
     // Set custom gravity to world's gravity
     SetCustomGravity(GetWorldGravity());
     // Set BP-Ship to non-solid so the pilot won't be kept a certain distance from other solid objects.
-    SetBodyPartSolid("BP-Ship1", orxFALSE);
+    SetBodyPartSolid(std::string("BP-Ship" + std::string(m_ship->GetModelName()).substr(6, 1)).c_str(), orxFALSE);
     // Enable and set construction/contamination text
     m_headsUpText->Enable(orxTRUE);
     SetHeadsUpText();
@@ -559,11 +597,12 @@ void Pilot::DestroyShip()
 void Pilot::ConstructShip()
 {
     SetPosition(m_defaultPosition);
-    SetScale(m_defaultScale, orxTRUE);
+    //SetScale(m_defaultScale, orxTRUE);
+    SetFlip(m_defaultFlipX, m_defaultFlipY);
     m_ship->Enable(orxTRUE);
     orxVECTOR customGravity = { 0, 0, 0 };
     SetCustomGravity(customGravity);
-    SetBodyPartSolid("BP-Ship1", orxTRUE);
+    SetBodyPartSolid(std::string("BP-Ship" + std::string(m_ship->GetModelName()).substr(6, 1)).c_str(), orxTRUE);
     m_constructionTimer = 10;
     m_contaminationTimer = 10;
     m_headsUpText->Enable(orxFALSE);

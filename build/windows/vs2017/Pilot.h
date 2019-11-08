@@ -94,10 +94,10 @@ namespace hexpatriates
         const orxCHAR *m_parryInput;
         const orxCHAR *m_meleeInput;
         const orxCHAR *m_jumpInput;
+        orxBOOL m_defaultFlipX;
+        orxBOOL m_defaultFlipY;
         //! The Pilot's spawning position
         orxVECTOR m_defaultPosition;
-        //! The Pilot's default scale;
-        orxVECTOR m_defaultScale;
         //! The direction in which the Pilot's jumping
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
@@ -115,7 +115,9 @@ namespace hexpatriates
         Pilot *m_opposingPilot;
 
         // This modified version of ScrollObject's SetScale method is necessary for Pilot, so we can reverse unintended solidification of the Pilot's ship body part.
-        void SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld = 0U);
+        // void SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld = 0U);
+        // This modified version of ScrollObject's SetFlip method is necessary for Pilot, so we can apply selectively recursive flipping.
+        void SetFlip(orxBOOL _bFlipX, orxBOOL _vFlipY);
         /// <summary>Executes the Pilot's jump maneuver.</summary>
         void Jump(const orxCLOCK_INFO &_rstInfo);
         /// <summary>Executes the Pilot's dash maneuver.</summary>

@@ -6,12 +6,20 @@
 #include "Hexpatriates.h"
 #include "Arena.h"
 #include "Laser.h"
+#include "LaserWall.h"
 #include "MainMenu.h"
 #include "Menu.h"
 #include "Orb.h"
 #include "Pilot.h"
 #include "PilotSelectMenu.h"
-#include "Ship.h"
+#include "Ship1.h"
+#include "Ship2.h"
+#include "Ship3.h"
+#include "Ship4.h"
+#include "Ship5.h"
+#include "Ship6.h"
+#include "Ship7.h"
+#include "Ship8.h"
 #include "Spawner.h"
 #include "Zone.h"
 #undef __SCROLL_IMPL__
@@ -45,12 +53,20 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Arena>("O-Arena");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
+    ScrollBindObject<LaserWall>("O-LaserWall");
     ScrollBindObject<MainMenu>("O-MainMenu");
     ScrollBindObject<Menu>("O-Menu");
     ScrollBindObject<Orb>("O-Orb");
     ScrollBindObject<Pilot>("O-Pilot");
     ScrollBindObject<PilotSelectMenu>("O-PilotSelectMenu");
-    ScrollBindObject<Ship>("O-Ship");
+    ScrollBindObject<Ship1>("O-Ship1");
+    ScrollBindObject<Ship2>("O-Ship2");
+    ScrollBindObject<Ship3>("O-Ship3");
+    ScrollBindObject<Ship4>("O-Ship4");
+    ScrollBindObject<Ship5>("O-Ship5");
+    ScrollBindObject<Ship6>("O-Ship6");
+    ScrollBindObject<Ship7>("O-Ship7");
+    ScrollBindObject<Ship8>("O-Ship8");
     ScrollBindObject<Zone>("O-Zone");
 }
 

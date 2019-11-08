@@ -66,13 +66,13 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         orxVECTOR vecRef = { 1, 1, 1 };
         if (!m_pilotP1->m_ship->IsEnabled())
         {
-            //m_pilotP1->SetFlip(orxFALSE, orxFALSE, orxFALSE);
-            m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
+            m_pilotP1->SetFlip(orxFALSE, orxFALSE);
+            //m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
         }
         if (!m_pilotP2->m_ship->IsEnabled())
         {
-            //m_pilotP2->SetFlip(orxTRUE, orxFALSE, orxFALSE);
-            m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
+            m_pilotP2->SetFlip(orxTRUE, orxFALSE);
+            //m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
         }
     }
     else
@@ -80,13 +80,13 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         orxVECTOR vecRef = { -1, 1, 1 };
         if (!m_pilotP1->m_ship->IsEnabled())
         {
-            //m_pilotP1->SetFlip(orxTRUE, orxFALSE, orxFALSE);
-            m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
+            m_pilotP1->SetFlip(orxTRUE, orxFALSE);
+            //m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
         }
         if (!m_pilotP2->m_ship->IsEnabled())
         {
-            //m_pilotP2->SetFlip(orxFALSE, orxFALSE, orxFALSE);
-            m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
+            m_pilotP2->SetFlip(orxFALSE, orxFALSE);
+            //m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
         }
     }
 
