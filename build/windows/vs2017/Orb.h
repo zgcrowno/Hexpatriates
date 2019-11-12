@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Hexpatriates.h"
 #include "Projectile.h"
 
 namespace hexpatriates

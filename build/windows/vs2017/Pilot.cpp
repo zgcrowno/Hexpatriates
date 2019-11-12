@@ -220,6 +220,19 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     {
         m_bIsAgainstRightWall = false;
     }
+    // Zone separations
+    if (dynamic_cast<Zone*>(_poCollider) != orxNULL)
+    {
+        if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName()) == 0)
+        {
+            m_bIsInOwnZone = orxFALSE;
+            DestroyShip();
+        }
+        else
+        {
+            m_bIsInOwnZone = orxTRUE;
+        }
+    }
     // TODO: I'll probably have to go about this another way, since the melee body part will likely be different from the pilot's body part.
     if (orxString_SearchString(_poCollider->GetModelName(), "Pilot") != orxNULL)
     {

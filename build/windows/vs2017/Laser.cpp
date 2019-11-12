@@ -1,4 +1,5 @@
 #include "Laser.h"
+#include "LaserPortalEntrance.h"
 
 using namespace hexpatriates;
 
@@ -25,8 +26,29 @@ orxBOOL Laser::OnCollide(
         _zColliderPartName,
         _rvPosition,
         _rvNormal);
-    
-    Destroy();
+
+    // LaserPortalEntrance Collisions
+    LaserPortalEntrance *laserPortalEntrance = dynamic_cast<LaserPortalEntrance*>(_poCollider);
+    if (laserPortalEntrance != orxNULL)
+    {
+        m_bIsTouchingPortal = true;
+        orxVECTOR posRef;
+        SetPosition(laserPortalEntrance->m_exit->GetPosition(posRef, true), true);
+    }
+    else if (!m_bIsTouchingPortal)
+    {
+        Destroy();
+    }
+
+    return orxTRUE;
+}
+
+orxBOOL Laser::OnSeparate(ScrollObject *_poCollider)
+{
+    if (orxString_SearchString(_poCollider->GetModelName(), "LaserPortalExit") != orxNULL)
+    {
+        m_bIsTouchingPortal = false;
+    }
 
     return orxTRUE;
 }

@@ -5,13 +5,17 @@
 #define __SCROLL_IMPL__
 #include "Hexpatriates.h"
 #include "Arena.h"
+#include "Beam.h"
 #include "Laser.h"
+#include "LaserHeatseeking.h"
+#include "LaserPortalEntrance.h"
 #include "LaserWall.h"
 #include "MainMenu.h"
 #include "Menu.h"
 #include "Orb.h"
 #include "Pilot.h"
 #include "PilotSelectMenu.h"
+#include "Prism.h"
 #include "Ship1.h"
 #include "Ship2.h"
 #include "Ship3.h"
@@ -21,6 +25,7 @@
 #include "Ship7.h"
 #include "Ship8.h"
 #include "Spawner.h"
+#include "Turret.h"
 #include "Zone.h"
 #undef __SCROLL_IMPL__
 
@@ -51,14 +56,18 @@ orxSTATUS Hexpatriates::Init()
 void Hexpatriates::BindObjects()
 {
     ScrollBindObject<Arena>("O-Arena");
+    ScrollBindObject<Beam>("O-Beam");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
+    ScrollBindObject<LaserHeatseeking>("O-LaserHeatseeking");
+    ScrollBindObject<LaserPortalEntrance>("O-LaserPortalEntrance");
     ScrollBindObject<LaserWall>("O-LaserWall");
     ScrollBindObject<MainMenu>("O-MainMenu");
     ScrollBindObject<Menu>("O-Menu");
     ScrollBindObject<Orb>("O-Orb");
     ScrollBindObject<Pilot>("O-Pilot");
     ScrollBindObject<PilotSelectMenu>("O-PilotSelectMenu");
+    ScrollBindObject<Prism>("O-Prism");
     ScrollBindObject<Ship1>("O-Ship1");
     ScrollBindObject<Ship2>("O-Ship2");
     ScrollBindObject<Ship3>("O-Ship3");
@@ -67,6 +76,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Ship6>("O-Ship6");
     ScrollBindObject<Ship7>("O-Ship7");
     ScrollBindObject<Ship8>("O-Ship8");
+    ScrollBindObject<Turret>("O-Turret");
     ScrollBindObject<Zone>("O-Zone");
 }
 
@@ -84,6 +94,19 @@ orxSTATUS Hexpatriates::Run()
 
 void Hexpatriates::Exit()
 {
+}
+
+ScrollObject *Hexpatriates::GetPilotByPlayerType(const orxCHAR *_str)
+{
+    for (Pilot *pilot = GetNextObject<Pilot>(); pilot != orxNULL; pilot = GetNextObject<Pilot>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+
+    return orxNULL;
 }
 
 int main(int argc, char **argv)

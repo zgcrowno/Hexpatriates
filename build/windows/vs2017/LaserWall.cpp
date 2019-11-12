@@ -1,4 +1,5 @@
 #include "LaserWall.h"
+#include "Pilot.h"
 
 using namespace hexpatriates;
 
@@ -26,6 +27,10 @@ orxBOOL LaserWall::OnCollide(
         _rvPosition,
         _rvNormal);
 
+    /*if (dynamic_cast<Pilot*>(_poCollider) != orxNULL)
+    {
+        Destroy();
+    }*/
     Destroy();
 
     return orxTRUE;

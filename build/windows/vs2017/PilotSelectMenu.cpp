@@ -116,7 +116,15 @@ void PilotSelectMenu::Update(const orxCLOCK_INFO &_rstInfo)
     // Handle menu navigation inputs
     if (orxInput_HasBeenActivated("UpP1"))
     {
-        m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        }
         if (m_selectedItemIndex >= m_menuItems.size() / 2)
         {
             m_selectedItemIndex -= m_menuItems.size() / 2;
@@ -125,11 +133,27 @@ void PilotSelectMenu::Update(const orxCLOCK_INFO &_rstInfo)
         {
             m_selectedItemIndex += m_menuItems.size() / 2;
         }
-        m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        }
     }
     else if (orxInput_HasBeenActivated("DownP1"))
     {
-        m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        }
         if (m_selectedItemIndex >= m_menuItems.size() / 2)
         {
             m_selectedItemIndex -= m_menuItems.size() / 2;
@@ -138,11 +162,27 @@ void PilotSelectMenu::Update(const orxCLOCK_INFO &_rstInfo)
         {
             m_selectedItemIndex += m_menuItems.size() / 2;
         }
-        m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        }
     }
     else if (orxInput_HasBeenActivated("LeftP1"))
     {
-        m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        }
         if (m_selectedItemIndex % (m_menuItems.size() / 2) == 0)
         {
             m_selectedItemIndex += (m_menuItems.size() / 2) - 1;
@@ -151,11 +191,27 @@ void PilotSelectMenu::Update(const orxCLOCK_INFO &_rstInfo)
         {
             m_selectedItemIndex--;
         }
-        m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        }
     }
     else if (orxInput_HasBeenActivated("RightP1"))
     {
-        m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP1");
+        }
         if ((m_selectedItemIndex + 1) % (m_menuItems.size() / 2) == 0)
         {
             m_selectedItemIndex -= (m_menuItems.size() / 2) - 1;
@@ -164,7 +220,131 @@ void PilotSelectMenu::Update(const orxCLOCK_INFO &_rstInfo)
         {
             m_selectedItemIndex++;
         }
-        m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndex)->RemoveShader("SH-OutlineP2");
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndex)->AddShader("SH-OutlineP1");
+        }
+    }
+    if (orxInput_HasBeenActivated("UpP2"))
+    {
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP2");
+        }
+        if (m_selectedItemIndexP2 >= m_menuItems.size() / 2)
+        {
+            m_selectedItemIndexP2 -= m_menuItems.size() / 2;
+        }
+        else
+        {
+            m_selectedItemIndexP2 += m_menuItems.size() / 2;
+        }
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP2");
+        }
+    }
+    else if (orxInput_HasBeenActivated("DownP2"))
+    {
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP2");
+        }
+        if (m_selectedItemIndexP2 >= m_menuItems.size() / 2)
+        {
+            m_selectedItemIndexP2 -= m_menuItems.size() / 2;
+        }
+        else
+        {
+            m_selectedItemIndexP2 += m_menuItems.size() / 2;
+        }
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP2");
+        }
+    }
+    else if (orxInput_HasBeenActivated("LeftP2"))
+    {
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP2");
+        }
+        if (m_selectedItemIndexP2 % (m_menuItems.size() / 2) == 0)
+        {
+            m_selectedItemIndexP2 += (m_menuItems.size() / 2) - 1;
+        }
+        else
+        {
+            m_selectedItemIndexP2--;
+        }
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP2");
+        }
+    }
+    else if (orxInput_HasBeenActivated("RightP2"))
+    {
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1AndP2");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP2");
+        }
+        if ((m_selectedItemIndexP2 + 1) % (m_menuItems.size() / 2) == 0)
+        {
+            m_selectedItemIndexP2 -= (m_menuItems.size() / 2) - 1;
+        }
+        else
+        {
+            m_selectedItemIndexP2++;
+        }
+        if (m_selectedItemIndex == m_selectedItemIndexP2)
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->RemoveShader("SH-OutlineP1");
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP1AndP2");
+        }
+        else
+        {
+            m_menuItems.at(m_selectedItemIndexP2)->AddShader("SH-OutlineP2");
+        }
     }
 
     // Handle selection inputs

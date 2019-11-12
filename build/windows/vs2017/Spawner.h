@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Hexpatriates.h"
 #include "ScrollMod.h"
 
 namespace hexpatriates

@@ -13,8 +13,6 @@ namespace hexpatriates
     //! OrxScroll class
     class Hexpatriates : public Scroll<Hexpatriates>
     {
-    public:
-        
     private:
         //! Enforce finding of config files outside of .exe folder
         virtual orxSTATUS Bootstrap() const;
@@ -26,6 +24,8 @@ namespace hexpatriates
         virtual orxSTATUS Run();
         //! Exit the program
         virtual void Exit();
+    public:
+        ScrollObject *GetPilotByPlayerType(const orxCHAR *_str);
     };
 }
 

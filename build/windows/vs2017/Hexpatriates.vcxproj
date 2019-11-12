@@ -376,10 +376,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp" />
+    <ClCompile Include="Beam.cpp" />
+    <ClCompile Include="LaserHeatseeking.cpp" />
+    <ClCompile Include="LaserPortalEntrance.cpp" />
     <ClCompile Include="LaserWall.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PilotSelectMenu.cpp" />
+    <ClCompile Include="Prism.cpp" />
     <ClCompile Include="Ship1.cpp" />
     <ClCompile Include="Ship2.cpp" />
     <ClCompile Include="Ship3.cpp" />
@@ -396,6 +400,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Turret.cpp" />
     <ClCompile Include="Zone.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -407,10 +412,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arena.h" />
+    <ClInclude Include="Beam.h" />
+    <ClInclude Include="LaserHeatseeking.h" />
+    <ClInclude Include="LaserPortalEntrance.h" />
     <ClInclude Include="LaserWall.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="PilotSelectMenu.h" />
+    <ClInclude Include="Prism.h" />
     <ClInclude Include="Ship1.h" />
     <ClInclude Include="Ship2.h" />
     <ClInclude Include="Ship3.h" />
@@ -427,6 +436,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Turret.h" />
     <ClInclude Include="Zone.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

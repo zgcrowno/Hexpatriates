@@ -98,6 +98,21 @@
     <ClCompile Include="LaserWall.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Prism.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Beam.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserHeatseeking.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserPortalEntrance.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -164,6 +179,21 @@
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="LaserWall.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Prism.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Beam.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserHeatseeking.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserPortalEntrance.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>
