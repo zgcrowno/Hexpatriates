@@ -6,6 +6,7 @@
 #include "Hexpatriates.h"
 #include "Arena.h"
 #include "Beam.h"
+#include "Familiar.h"
 #include "Laser.h"
 #include "LaserHeatseeking.h"
 #include "LaserPortalEntrance.h"
@@ -57,6 +58,7 @@ void Hexpatriates::BindObjects()
 {
     ScrollBindObject<Arena>("O-Arena");
     ScrollBindObject<Beam>("O-Beam");
+    ScrollBindObject<Familiar>("O-Familiar");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
     ScrollBindObject<LaserHeatseeking>("O-LaserHeatseeking");

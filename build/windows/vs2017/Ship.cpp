@@ -41,7 +41,7 @@ void Ship::OnCreate()
         "O-NeutralGun7P1",
         "O-NeutralGun7P2",
         "O-NeutralGun8P1",
-        "O-NeutralGun8P2", }));
+        "O-NeutralGun8P2" }));
     m_upwardGun = static_cast<Spawner*>(GetChildByName({
         "O-UpwardGun1P1",
         "O-UpwardGun1P2",
@@ -58,7 +58,7 @@ void Ship::OnCreate()
         "O-UpwardGun7P1",
         "O-UpwardGun7P2",
         "O-UpwardGun8P1",
-        "O-UpwardGun8P2", }));
+        "O-UpwardGun8P2" }));
     m_downwardGun = static_cast<Spawner*>(GetChildByName({
         "O-DownwardGun1P1",
         "O-DownwardGun1P2",
@@ -75,7 +75,7 @@ void Ship::OnCreate()
         "O-DownwardGun7P1",
         "O-DownwardGun7P2",
         "O-DownwardGun8P1",
-        "O-DownwardGun8P2", }));
+        "O-DownwardGun8P2" }));
     m_superGun = static_cast<Spawner*>(GetChildByName({
         "O-SuperGun1P1",
         "O-SuperGun1P2",
@@ -92,7 +92,7 @@ void Ship::OnCreate()
         "O-SuperGun7P1",
         "O-SuperGun7P2",
         "O-SuperGun8P1",
-        "O-SuperGun8P2", }));
+        "O-SuperGun8P2" }));
 
     if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
     {

@@ -2,6 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "Projectile.h"
+#include "Spawner.h"
 
 namespace hexpatriates
 {
@@ -23,6 +24,7 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         bool m_bIsAttached;
-        orxVECTOR m_movementDirection;
+        float m_movementDirection;
+        Spawner *m_turretGun;
     };
 }

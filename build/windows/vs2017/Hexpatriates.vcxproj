@@ -377,6 +377,7 @@
   <ItemGroup>
     <ClCompile Include="Arena.cpp" />
     <ClCompile Include="Beam.cpp" />
+    <ClCompile Include="Familiar.cpp" />
     <ClCompile Include="LaserHeatseeking.cpp" />
     <ClCompile Include="LaserPortalEntrance.cpp" />
     <ClCompile Include="LaserWall.cpp" />
@@ -413,6 +414,7 @@
   <ItemGroup>
     <ClInclude Include="Arena.h" />
     <ClInclude Include="Beam.h" />
+    <ClInclude Include="Familiar.h" />
     <ClInclude Include="LaserHeatseeking.h" />
     <ClInclude Include="LaserPortalEntrance.h" />
     <ClInclude Include="LaserWall.h" />
