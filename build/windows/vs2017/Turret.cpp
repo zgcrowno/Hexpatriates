@@ -1,4 +1,5 @@
 #include "Turret.h"
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -37,12 +38,12 @@ orxBOOL Turret::OnCollide(
         if (m_bIsAttached)
         {
             m_movementDirection += orxMATH_KF_PI;
-            SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) });
+            SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) * m_speed });
         }
         else
         {
             float normalDirection = orxMath_ATan(_rvNormal.fY, _rvNormal.fX);
-            m_movementDirection += orxMATH_KF_2_PI;
+            m_movementDirection = normalDirection - orxMATH_KF_PI_BY_2;
             m_bIsAttached = true;
             SetRotation(normalDirection + orxMATH_KF_PI_BY_2);
             SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) * m_speed });

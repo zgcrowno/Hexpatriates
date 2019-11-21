@@ -356,12 +356,6 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
 }
 
-//void Pilot::SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld)
-//{
-//    ScrollObject::SetScale(_rvScale, _bWorld);
-//    SetBodyPartSolid("BP-Ship1", _bShipSolid);
-//}
-
 void Pilot::SetFlip(orxBOOL _bFlipX, orxBOOL _bFlipY)
 {
     ScrollObject::SetFlip(_bFlipX, _bFlipY, orxFALSE);
@@ -506,7 +500,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         movement.fX = m_dashDirection.fX * m_dashSpeed * _rstInfo.fDT;
         movement.fY = m_dashDirection.fY * m_dashSpeed * _rstInfo.fDT;
     }
-    SetSpeed(movement, orxFALSE);
+    SetSpeed(movement);
 }
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
@@ -600,8 +594,6 @@ void Pilot::DestroyShip()
     m_ship->Enable(orxFALSE);
     // Set custom gravity to world's gravity
     SetCustomGravity(GetWorldGravity());
-    // Set BP-Ship to non-solid so the pilot won't be kept a certain distance from other solid objects.
-    SetBodyPartSolid(std::string("BP-Ship" + std::string(m_ship->GetModelName()).substr(6, 1)).c_str(), orxFALSE);
     // Enable and set construction/contamination text
     m_headsUpText->Enable(orxTRUE);
     SetHeadsUpText();
@@ -615,7 +607,6 @@ void Pilot::ConstructShip()
     m_ship->Enable(orxTRUE);
     orxVECTOR customGravity = { 0, 0, 0 };
     SetCustomGravity(customGravity);
-    SetBodyPartSolid(std::string("BP-Ship" + std::string(m_ship->GetModelName()).substr(6, 1)).c_str(), orxTRUE);
     m_constructionTimer = 10;
     m_contaminationTimer = 10;
     m_headsUpText->Enable(orxFALSE);

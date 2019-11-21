@@ -1,4 +1,5 @@
 #include "Ship3.h"
+#include "Beam.h"
 
 using namespace hexpatriates;
 
@@ -72,7 +73,7 @@ void Ship3::FireDownward()
 {
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
-        m_downwardGun->Spawn(orxMATH_KF_PI_BY_4);
+        m_downwardGun->Spawn(orxMATH_KF_PI_BY_2);
     }
 }
 

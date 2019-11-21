@@ -49,7 +49,6 @@ orxSTATUS Hexpatriates::Init()
 
     // Instantiate game objects
     CreateObject("O-MainMenu");
-    // CreateObject("O-Arena");
     
     return result;
 }
