@@ -17,6 +17,20 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
 
+        /// <summary>Places a substring of <paramref name="_strIn"/> beginning at index <paramref name="_index"/> and having size <paramref name="_size"/> into <paramref name="_strOut"/>.</summary>
+        /// <param name="_strIn">The string from which we're copying a substring.</param>
+        /// <param name="_strOut">The string into which we're placing the copy of a substring from <paramref name="_strIn"/>.</param>
+        /// <param name="_index">The index at which to start copying the substring.</param>
+        /// <param name="_size">The size of the copied substring.</param>
+        static void Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_index, const int &_size);
+        static const float VectorToRadians(const orxVECTOR &_vec);
+        static const std::vector<orxVECTOR> Raycast(
+            const orxVECTOR &_begin,
+            const float &_direction,
+            const int &_checkMask,
+            const int &_selfFlags = 0xFFFF,
+            const float &_distance = 10000.0f,
+            const bool &_bEarlyExit = true);
         /// <summary>A variation on Hexpatriates' CreateObject function which allows the passage of config-appropriate parameters.</summary>
         /// <param name="_modelName">The name of the model we wish to instantiate.</param>
         /// <param name="_boolParamMap">The bool parameters we wish to pass.</param>
@@ -30,6 +44,7 @@ namespace hexpatriates
             std::map<const orxCHAR*, const orxFLOAT> _floatParamMap = {},
             std::map<const orxCHAR*, const orxVECTOR*> _vectorParamMap = {},
             std::map<const orxCHAR*, const orxSTRING> _stringParamMap = {});
+        const orxVECTOR __fastcall GetPosition(const bool &_bWorld = false) const;
         /// <summary>Gets a bool value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the bool we wish to retrieve from config.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>

@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "Projectile.h"
+#include "TetheredProjectile.h"
 
 namespace hexpatriates
 {
-    class Beam : public Projectile
+    class Beam : public TetheredProjectile
     {
     private:
         //! Called on object creation
@@ -21,7 +21,5 @@ namespace hexpatriates
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-    public:
-            orxOBJECT *m_parentGun;
     };
 }

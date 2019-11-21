@@ -401,6 +401,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="TetheredProjectile.cpp" />
     <ClCompile Include="Turret.cpp" />
     <ClCompile Include="Zone.cpp" />
   </ItemGroup>
@@ -438,6 +439,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="TetheredProjectile.h" />
     <ClInclude Include="Turret.h" />
     <ClInclude Include="Zone.h" />
   </ItemGroup>

@@ -43,8 +43,8 @@ void LaserHeatseeking::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Laser::Update(_rstInfo);
 
-    orxVECTOR pos = GetPosition(pos, orxTRUE);
-    orxVECTOR targetPos = m_target->GetPosition(targetPos, orxTRUE);
+    orxVECTOR pos = GetPosition(orxTRUE);
+    orxVECTOR targetPos = m_target->GetPosition(orxTRUE);
     if (!m_bIsOnTarget && orxMath_Abs(pos.fY - targetPos.fY) <= 5.0f)
     {
         m_bIsOnTarget = true;

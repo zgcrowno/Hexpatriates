@@ -1,5 +1,4 @@
 #include "Ship3.h"
-#include "Beam.h"
 
 using namespace hexpatriates;
 
@@ -43,7 +42,7 @@ void Ship3::FireNeutral()
         m_neutralGun->Spawn(shotDirection);
 
         ScrollMod *laserPortalEntrance;
-        orxVECTOR startingPos = m_neutralGun->GetPosition(startingPos, true);
+        orxVECTOR startingPos = m_neutralGun->GetPosition(true);
         // Using 10000 purely to have a huge number which results in the arena being traversed in full.
         orxVECTOR endingPos = { startingPos.fX + orxMath_Cos(shotDirection) * 10000.0f, startingPos.fY + orxMath_Sin(shotDirection) * 10000.0f };
         orxVECTOR hitPos;

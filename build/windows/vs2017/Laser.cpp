@@ -32,8 +32,7 @@ orxBOOL Laser::OnCollide(
     if (laserPortalEntrance != orxNULL)
     {
         m_bIsTouchingPortal = true;
-        orxVECTOR posRef;
-        SetPosition(laserPortalEntrance->m_exit->GetPosition(posRef, true), true);
+        SetPosition(laserPortalEntrance->m_exit->GetPosition(true), true);
     }
     else if (!m_bIsTouchingPortal)
     {

@@ -1,5 +1,4 @@
 #include "Projectile.h"
-#include "Pilot.h"
 
 using namespace hexpatriates;
 

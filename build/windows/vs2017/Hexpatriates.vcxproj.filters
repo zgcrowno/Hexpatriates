@@ -13,6 +13,24 @@
     <Filter Include="src\CPP">
       <UniqueIdentifier>{1b1979e7-9f6f-4aa0-b640-c44d089757e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CPP\Projectiles">
+      <UniqueIdentifier>{aac32bae-107a-423d-a727-27c4f7320730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\Ships">
+      <UniqueIdentifier>{3cd8acae-d7d0-4284-a197-6ff38fba605f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\Ships">
+      <UniqueIdentifier>{0c9d7d58-0518-466c-9607-0fd2aeb0d591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\Projectiles">
+      <UniqueIdentifier>{b81a1faa-08e0-42fa-ae3b-dd64ec059604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\Menus">
+      <UniqueIdentifier>{33bed1cb-68fd-4447-8d43-0258ecd867eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\Menus">
+      <UniqueIdentifier>{618d58bd-001e-455b-9e02-af9a731aedcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -38,19 +56,7 @@
     <ClCompile Include="Pilot.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="Ship.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="ScrollMod.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Laser.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Orb.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="Spawner.cpp">
@@ -62,59 +68,74 @@
     <ClCompile Include="Zone.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="PilotSelectMenu.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship1.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship2.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship3.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship4.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship5.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship6.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship7.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship8.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="LaserWall.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Turret.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Prism.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Beam.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="LaserHeatseeking.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="LaserPortalEntrance.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Beam.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
     <ClCompile Include="Familiar.cpp">
-      <Filter>src\CPP</Filter>
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserHeatseeking.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserWall.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Orb.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Prism.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="TetheredProjectile.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship1.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship2.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship3.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship4.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship5.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship6.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship7.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship8.cpp">
+      <Filter>src\CPP\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>src\CPP\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>src\CPP\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="PilotSelectMenu.cpp">
+      <Filter>src\CPP\Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,19 +145,7 @@
     <ClInclude Include="Pilot.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Ship.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="ScrollMod.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Laser.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Orb.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Spawner.h">
@@ -148,59 +157,74 @@
     <ClInclude Include="Zone.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="PilotSelectMenu.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship1.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship2.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship3.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship4.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship5.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship6.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship7.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship8.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="LaserWall.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Turret.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Prism.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Beam.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="LaserHeatseeking.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="LaserPortalEntrance.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship1.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship2.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship3.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship4.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship5.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship6.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship7.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship8.h">
+      <Filter>src\Headers\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="Beam.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
     <ClInclude Include="Familiar.h">
-      <Filter>src\Headers</Filter>
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserHeatseeking.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserWall.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Orb.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Prism.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TetheredProjectile.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>src\Headers\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>src\Headers\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="PilotSelectMenu.h">
+      <Filter>src\Headers\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

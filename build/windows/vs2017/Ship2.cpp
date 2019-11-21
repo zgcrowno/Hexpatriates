@@ -57,21 +57,21 @@ void Ship2::FireDownward()
         float shotDirection = orxMath_GetRandomFloat(orxMATH_KF_PI_BY_4 / 2.0, orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_4 / 2.0);
         m_downwardGun->Spawn(shotDirection);
 
+        orxVECTOR vecRef;
+        std::vector<orxVECTOR> raycastData = ScrollMod::Raycast(
+            m_downwardGun->GetPosition(),
+            shotDirection,
+            orxPhysics_GetCollisionFlagValue("geometry"));
+        float normalDirection = ScrollMod::VectorToRadians(raycastData.at(1));
+
         ScrollMod *laserPortalEntrance;
-        orxVECTOR startingPos = m_downwardGun->GetPosition(startingPos, true);
-        // Using 10000 purely to have a huge number which results in the arena being traversed in full.
-        orxVECTOR endingPos = { startingPos.fX + orxMath_Cos(shotDirection) * 10000.0f, startingPos.fY + orxMath_Sin(shotDirection) * 10000.0f };
-        orxVECTOR hitPos;
-        orxVECTOR hitNormal;
-        orxObject_Raycast(&startingPos, &endingPos, 0xFFFF, orxPhysics_GetCollisionFlagValue("geometry"), true, &hitPos, &hitNormal);
-        float normalDirection = orxMath_ATan(hitNormal.fY, hitNormal.fX);
         if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
         {
-            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP1", {}, { {"ExitDirection", normalDirection} }, { {"Position", &hitPos} });
+            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP1", {}, { {"ExitDirection", normalDirection} }, { {"Position", &raycastData.at(0)} });
         }
         else
         {
-            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP2", {}, { {"ExitDirection", normalDirection} }, { {"Position", &hitPos} });
+            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP2", {}, { {"ExitDirection", normalDirection} }, { {"Position", &raycastData.at(0)} });
         }
     }
 }

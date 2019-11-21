@@ -47,8 +47,7 @@ void Pilot::OnCreate()
     m_meleeInput = GetString("MeleeInput", GetModelName());
     m_jumpInput = GetString("JumpInput", GetModelName());
     // Set the Pilot's spawning position and flip
-    orxVECTOR default = orxVECTOR_0;
-    m_defaultPosition = GetPosition(default);
+    m_defaultPosition = GetPosition();
     GetFlip(m_defaultFlipX, m_defaultFlipY);
     // Set the Pilot's construction/contamination text
     m_headsUpText = static_cast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
@@ -140,8 +139,7 @@ orxBOOL Pilot::OnCollide(
                     deflectedOrbModelName = "O-OrbP2";
                 }
                 Orb *deflectedOrb = static_cast<Orb*>(CreateObject(deflectedOrbModelName));
-                orxVECTOR posRef = orxVECTOR_0;
-                deflectedOrb->SetPosition(collidedOrb->GetPosition(posRef));
+                deflectedOrb->SetPosition(collidedOrb->GetPosition());
                 deflectedOrb->SetSpeed({ -deflectedOrb->m_speed * _rvNormal.fX, -deflectedOrb->m_speed * _rvNormal.fY });
             }
             else

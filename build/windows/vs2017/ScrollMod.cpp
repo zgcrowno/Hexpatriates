@@ -17,6 +17,40 @@ void ScrollMod::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
+void ScrollMod::Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_index, const int &_size)
+{
+    int i = 0;
+
+    while (i < _size)
+    {
+        _strOut[i] = _strIn[_index + i];
+        i++;
+    }
+
+    _strOut[i] = '\0';
+}
+
+const float ScrollMod::VectorToRadians(const orxVECTOR &_vec)
+{
+    return orxMath_ATan(_vec.fY, _vec.fX);
+}
+
+const std::vector<orxVECTOR> ScrollMod::Raycast(
+    const orxVECTOR &_begin,
+    const float &_direction,
+    const int &_checkMask,
+    const int &_selfFlags,
+    const float &_distance,
+    const bool &_bEarlyExit)
+{
+    orxVECTOR endingPos = { _begin.fX + orxMath_Cos(_direction) * _distance, _begin.fY + orxMath_Sin(_direction) * _distance };
+    orxVECTOR hitPos;
+    orxVECTOR hitNormal;
+    orxObject_Raycast(&_begin, &endingPos, _selfFlags, _checkMask, _bEarlyExit, &hitPos, &hitNormal);
+
+    return std::vector<orxVECTOR> { hitPos, hitNormal };
+}
+
 ScrollMod *ScrollMod::CreateObject(
     const orxCHAR *_modelName,
     std::map<const orxCHAR*, const orxBOOL> _boolParamMap,
@@ -42,6 +76,14 @@ ScrollMod *ScrollMod::CreateObject(
     }
 
     return (ScrollMod*)Hexpatriates::GetInstance().CreateObject(_modelName);
+}
+
+const orxVECTOR __fastcall ScrollMod::GetPosition(const bool &_bWorld) const
+{
+    orxVECTOR vecRef;
+    ScrollObject::GetPosition(vecRef, _bWorld);
+
+    return vecRef;
 }
 
 orxBOOL __fastcall ScrollMod::GetBool(const orxCHAR *_key, const orxCHAR *_sectionName)

@@ -1,4 +1,79 @@
-﻿  Beam.cpp
+﻿  Arena.cpp
+  Beam.cpp
+  Familiar.cpp
+  Hexpatriates.cpp
+  Laser.cpp
+  LaserHeatseeking.cpp
+  LaserPortalEntrance.cpp
+  LaserWall.cpp
+  MainMenu.cpp
+  Menu.cpp
+  Orb.cpp
+  Pilot.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\mainmenu.cpp(40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  PilotSelectMenu.cpp
+  Prism.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(30): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(33): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  Projectile.cpp
+  ScrollMod.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(130): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(134): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(159): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(163): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(188): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(217): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(246): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(250): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(275): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(279): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(304): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilotselectmenu.cpp(333): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+  Ship.cpp
+  Ship1.cpp
+  Ship2.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(258): warning C4700: uninitialized local variable 'result' used
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(287): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(307): warning C4715: 'hexpatriates::ScrollMod::GetBodyPartByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(273): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(7): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(8): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(9): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(11): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(12): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(13): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(14): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(15): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(16): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(17): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(31): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+  Ship3.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(32): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(33): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(133): note: see declaration of 'strcpy'
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(34): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(35): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(133): note: see declaration of 'strcpy'
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(36): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(37): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(133): note: see declaration of 'strcpy'
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(38): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  Ship4.cpp
+  Ship5.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship2.cpp(60): warning C4101: 'vecRef': unreferenced local variable
+  Ship6.cpp
+  Ship7.cpp
+  Ship8.cpp
+  Spawner.cpp
+  TetheredProjectile.cpp
+  Turret.cpp
+  Zone.cpp
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll

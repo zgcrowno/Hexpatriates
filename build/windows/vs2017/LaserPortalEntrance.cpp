@@ -6,7 +6,7 @@ void LaserPortalEntrance::OnCreate()
 {
     m_exitDirection = GetFloat("ExitDirection", GetModelName());
 
-    orxVECTOR startingPos = GetPosition(startingPos, true);
+    orxVECTOR startingPos = GetPosition(true);
     // Using 10000 purely to have a huge number which results in the arena being traversed in full.
     orxVECTOR endingPos = { startingPos.fX + orxMath_Cos(m_exitDirection) * 10000.0f, startingPos.fY + orxMath_Sin(m_exitDirection) * 10000.0f };
     orxVECTOR hitPos;
