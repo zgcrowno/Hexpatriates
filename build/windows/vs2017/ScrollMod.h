@@ -4,6 +4,9 @@
 #include <map>
 #include <vector>
 
+#define orxMATH_KF_PI_BY_8 (orxMATH_KF_PI_BY_4 / 2.0f)
+#define orxMATH_KF_PI_BY_16 (orxMATH_KF_PI_BY_8 / 2.0f)
+
 namespace hexpatriates
 {
     /// <summary>A wrapper for ScrollObject which serves to make ScrollObjects less procedural, and more object-oriented.</summary>
@@ -23,7 +26,18 @@ namespace hexpatriates
         /// <param name="_index">The index at which to start copying the substring.</param>
         /// <param name="_size">The size of the copied substring.</param>
         static void Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_index, const int &_size);
+        /// <summary>Returns the radian interpretation of the passed vector.</summary>
+        /// <param name="_vec">The vector we wish to interpret as radians.</param>
+        /// <returns>The radian interpretation of the passed vector.</returns>
         static const float VectorToRadians(const orxVECTOR &_vec);
+        /// <summary>A simplified version of ORX's built-in raycast function.</summary>
+        /// <param name="_begin">The position from which to start the raycast.</param>
+        /// <param name="_direction">The direction in which to "fire" the raycast.</param>
+        /// <param name="_checkMask">The check mask used for filtering.</param>
+        /// <param name="_selfFlags">The self flags used for filtering.</param>
+        /// <param name="_distance">The distance the raycast should cover.</param>
+        /// <param name="_bEarlyExit">Bool determining whether or not the raycast should cease once a hit has been achieved.</param>
+        /// <returns>A std::vector containing at its first position the position of the raycast hit, and at its second position the normal of the raycast hit.</returns>
         static const std::vector<orxVECTOR> Raycast(
             const orxVECTOR &_begin,
             const float &_direction,
@@ -44,7 +58,17 @@ namespace hexpatriates
             std::map<const orxCHAR*, const orxFLOAT> _floatParamMap = {},
             std::map<const orxCHAR*, const orxVECTOR*> _vectorParamMap = {},
             std::map<const orxCHAR*, const orxSTRING> _stringParamMap = {});
+        /// <summary>A more object-oriented version of ORX's GetPosition function.</summary>
+        /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
+        /// <returns>The ScrollMod's position.</returns>
         const orxVECTOR __fastcall GetPosition(const bool &_bWorld = false) const;
+        /// <summary>A more object-oriented version of ORX's GetScale function.</summary>
+        /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
+        /// <returns>The ScrollMod's scale.</returns>
+        const orxVECTOR __fastcall GetScale(const bool &_bWorld = false) const;
+        /// <summary>A more object-oriented version of ORX's GetSize function.</summary>
+        /// <returns>The ScrollMod's size.</returns>
+        const orxVECTOR __fastcall GetSize() const;
         /// <summary>Gets a bool value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the bool we wish to retrieve from config.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>
@@ -60,7 +84,7 @@ namespace hexpatriates
         /// <param name="_passedVector">The vector to hold the value we're retrieving.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>
         /// <returns>The vector value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        orxVECTOR *__fastcall GetVector(const orxCHAR *_key, orxVECTOR *_passedVector, const orxCHAR *_sectionName = "");
+        orxVECTOR __fastcall GetVector(const orxCHAR *_key, const orxCHAR *_sectionName = "");
         /// <summary>Gets a string value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the string we wish to retrieve from config.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>

@@ -21,14 +21,13 @@ void Arena::OnCreate()
     m_downwardMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-DownwardMeterP2"));
     m_superMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-SuperMeterP2"));
     m_timerText = static_cast<ScrollMod*>(GetChildByName("O-TimerText"));
-    orxVECTOR variableScale = orxVECTOR_0;
-    m_defaultScaleDash = m_dashMeterP1->GetScale(variableScale);
-    m_defaultScaleParry = m_parryMeterP1->GetScale(variableScale);
-    m_defaultScaleLives = m_livesMeterP1->GetScale(variableScale);
-    m_defaultScaleNeutral = m_neutralMeterP1->GetScale(variableScale);
-    m_defaultScaleUpward = m_upwardMeterP1->GetScale(variableScale);
-    m_defaultScaleDownward = m_downwardMeterP1->GetScale(variableScale);
-    m_defaultScaleSuper = m_superMeterP1->GetScale(variableScale);
+    m_defaultScaleDash = m_dashMeterP1->GetScale();
+    m_defaultScaleParry = m_parryMeterP1->GetScale();
+    m_defaultScaleLives = m_livesMeterP1->GetScale();
+    m_defaultScaleNeutral = m_neutralMeterP1->GetScale();
+    m_defaultScaleUpward = m_upwardMeterP1->GetScale();
+    m_defaultScaleDownward = m_downwardMeterP1->GetScale();
+    m_defaultScaleSuper = m_superMeterP1->GetScale();
 }
 
 void Arena::OnDelete()
@@ -62,30 +61,24 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
 
     if (pilotP1X <= pilotP2X)
     {
-        orxVECTOR vecRef = { 1, 1, 1 };
         if (!m_pilotP1->m_ship->IsEnabled())
         {
             m_pilotP1->SetFlip(orxFALSE, orxFALSE);
-            //m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
         }
         if (!m_pilotP2->m_ship->IsEnabled())
         {
             m_pilotP2->SetFlip(orxTRUE, orxFALSE);
-            //m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
         }
     }
     else
     {
-        orxVECTOR vecRef = { -1, 1, 1 };
         if (!m_pilotP1->m_ship->IsEnabled())
         {
             m_pilotP1->SetFlip(orxTRUE, orxFALSE);
-            //m_pilotP1->SetScale(vecRef, m_pilotP1->m_ship->IsEnabled());
         }
         if (!m_pilotP2->m_ship->IsEnabled())
         {
             m_pilotP2->SetFlip(orxFALSE, orxFALSE);
-            //m_pilotP2->SetScale(vecRef, m_pilotP2->m_ship->IsEnabled());
         }
     }
 
@@ -282,24 +275,23 @@ void Arena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter
 {
     orxBOOL p1 = orxString_SearchString(_meterName, "P1") != orxNULL;
     int playerMultiplier = p1 ? -1 : 1;
-    orxVECTOR scaleRef;
-    orxFLOAT borderThicknessY = _meter->GetScale(scaleRef).fY / 10;
-    orxFLOAT borderThicknessX = borderThicknessY * (_meter->GetSize(scaleRef).fY / _meter->GetSize(scaleRef).fX);
+    orxFLOAT borderThicknessY = _meter->GetScale().fY / 10;
+    orxFLOAT borderThicknessX = borderThicknessY * (_meter->GetSize().fY / _meter->GetSize().fX);
 
     // Create the top clip border
     ScrollObject *clipBorderTop = CreateObject("O-ClipBorderTop");
-    clipBorderTop->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
-                                       _meter->GetPosition().fY - (GetVector("Scale", &scaleRef, _meterName)->fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
+    clipBorderTop->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (GetVector("Scale", _meterName).fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
+                                       _meter->GetPosition().fY - (GetVector("Scale", _meterName).fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
                                        0 });
-    clipBorderTop->SetScale({ _meter->GetScale(scaleRef).fX,
+    clipBorderTop->SetScale({ _meter->GetScale().fX,
                                        borderThicknessY,
                                        0 });
     // Create the bottom clip border
     ScrollObject *clipBorderBottom = CreateObject("O-ClipBorderBottom");
-    clipBorderBottom->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
-                                       _meter->GetPosition().fY + (GetVector("Scale", &scaleRef, _meterName)->fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
+    clipBorderBottom->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (GetVector("Scale", _meterName).fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
+                                       _meter->GetPosition().fY + (GetVector("Scale", _meterName).fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
                                        0 });
-    clipBorderBottom->SetScale({ _meter->GetScale(scaleRef).fX,
+    clipBorderBottom->SetScale({ _meter->GetScale().fX,
                                        borderThicknessY,
                                        0 });
     // Create all of the clip dividers (if there are any)
@@ -318,11 +310,11 @@ void Arena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter
         {
             clipBorder = CreateObject("O-ClipBorder");
         }
-        clipBorder->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (i * ((GetVector("Scale", &scaleRef, _meterName)->fX * GetFloat("FrustumWidth", "MainCamera")) / _clipSize)),
+        clipBorder->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (i * ((GetVector("Scale", _meterName).fX * GetFloat("FrustumWidth", "MainCamera")) / _clipSize)),
                                        _meter->GetPosition().fY,
                                        0 });
         clipBorder->SetScale({ borderThicknessX,
-                                       _meter->GetScale(scaleRef).fY,
+                                       _meter->GetScale().fY,
                                        0 });
     }
 }

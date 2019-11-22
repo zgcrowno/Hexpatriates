@@ -95,9 +95,6 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
-    <ClCompile Include="TetheredProjectile.cpp">
-      <Filter>src\CPP\Projectiles</Filter>
-    </ClCompile>
     <ClCompile Include="Turret.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
@@ -209,9 +206,6 @@
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
-      <Filter>src\Headers\Projectiles</Filter>
-    </ClInclude>
-    <ClInclude Include="TetheredProjectile.h">
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
     <ClInclude Include="Turret.h">

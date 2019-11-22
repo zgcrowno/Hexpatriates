@@ -20,9 +20,11 @@ namespace hexpatriates
             const orxVECTOR &_rvPosition,
             const orxVECTOR &_rvNormal) = 0;
         //! Called on clock update
-        virtual void Update(const orxCLOCK_INFO &_rstInfo) = 0;
+        virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        bool m_tethered;
         float m_speed;
         orxVECTOR direction;
+        orxOBJECT *m_parentGun;
     };
 }

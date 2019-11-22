@@ -4,12 +4,12 @@ using namespace hexpatriates;
 
 void Beam::OnCreate()
 {
-    TetheredProjectile::OnCreate();
+    Projectile::OnCreate();
 }
 
 void Beam::OnDelete()
 {
-    TetheredProjectile::OnDelete();
+    Projectile::OnDelete();
 }
 
 orxBOOL Beam::OnCollide(
@@ -19,7 +19,7 @@ orxBOOL Beam::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    TetheredProjectile::OnCollide(
+    Projectile::OnCollide(
         _poCollider,
         _zPartName,
         _zColliderPartName,
@@ -31,5 +31,5 @@ orxBOOL Beam::OnCollide(
 
 void Beam::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    TetheredProjectile::Update(_rstInfo);
+    Projectile::Update(_rstInfo);
 }

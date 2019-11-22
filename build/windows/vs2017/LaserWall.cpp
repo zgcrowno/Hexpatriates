@@ -41,7 +41,6 @@ void LaserWall::Update(const orxCLOCK_INFO &_rstInfo)
     Projectile::Update(_rstInfo);
 
     // Increase the size of the wall
-    orxVECTOR curScale = orxVECTOR_0;
-    GetScale(curScale);
+    orxVECTOR curScale = GetScale();
     SetScale({ curScale.fX, curScale.fY + _rstInfo.fDT, curScale.fZ });
 }

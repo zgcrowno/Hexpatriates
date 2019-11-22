@@ -54,10 +54,9 @@ void Ship2::FireDownward()
 {
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
-        float shotDirection = orxMath_GetRandomFloat(orxMATH_KF_PI_BY_4 / 2.0, orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_4 / 2.0);
+        float shotDirection = orxMath_GetRandomFloat(orxMATH_KF_PI_BY_8, orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_8);
         m_downwardGun->Spawn(shotDirection);
 
-        orxVECTOR vecRef;
         std::vector<orxVECTOR> raycastData = ScrollMod::Raycast(
             m_downwardGun->GetPosition(),
             shotDirection,
@@ -82,7 +81,7 @@ void Ship2::FireSuper()
     {
         /*if (m_wavesIndexSuper % 2 == 0)
         {*/
-            m_superGun->Spawn(m_enemyDirection - orxMATH_KF_PI_BY_4 / 2 + (i * (orxMATH_KF_PI_BY_4 / 4)));
+            m_superGun->Spawn(m_enemyDirection - orxMATH_KF_PI_BY_8 + (i * orxMATH_KF_PI_BY_16));
         /*}
         else
         {

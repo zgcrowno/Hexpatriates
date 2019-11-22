@@ -58,30 +58,75 @@ ScrollMod *ScrollMod::CreateObject(
     std::map<const orxCHAR*, const orxVECTOR*> _vectorParamMap,
     std::map<const orxCHAR*, const orxSTRING> _stringParamMap)
 {
+    std::map<const orxCHAR*, const orxBOOL> initialBoolMap;
+    std::map<const orxCHAR*, const orxFLOAT> initialFloatMap;
+    std::map<const orxCHAR*, const orxVECTOR*> initialVectorMap;
+    std::map<const orxCHAR*, const orxSTRING> initialStringMap;
+
     for (auto it = _boolParamMap.begin(); it != _boolParamMap.end(); it++)
     {
+        initialBoolMap.insert({it->first, GetBool(it->first, _modelName) });
         SetBool(it->first, it->second, _modelName);
     }
     for (auto it = _floatParamMap.begin(); it != _floatParamMap.end(); it++)
     {
+        initialFloatMap.insert({ it->first, GetFloat(it->first, _modelName) });
         SetFloat(it->first, it->second, _modelName);
     }
     for (auto it = _vectorParamMap.begin(); it != _vectorParamMap.end(); it++)
     {
+        initialVectorMap.insert({ it->first, &GetVector(it->first, _modelName) });
         SetVector(it->first, it->second, _modelName);
     }
     for (auto it = _stringParamMap.begin(); it != _stringParamMap.end(); it++)
     {
+        initialStringMap.insert({ it->first, GetString(it->first, _modelName) });
         SetString(it->first, it->second, _modelName);
     }
 
-    return (ScrollMod*)Hexpatriates::GetInstance().CreateObject(_modelName);
+    ScrollMod *retVal = (ScrollMod*)Hexpatriates::GetInstance().CreateObject(_modelName);
+
+    // Reset config values so as not to muck up future object creation.
+    for (auto it = initialBoolMap.begin(); it != initialBoolMap.end(); it++)
+    {
+        SetBool(it->first, it->second, _modelName);
+    }
+    for (auto it = initialFloatMap.begin(); it != initialFloatMap.end(); it++)
+    {
+        SetFloat(it->first, it->second, _modelName);
+    }
+    for (auto it = initialVectorMap.begin(); it != initialVectorMap.end(); it++)
+    {
+        SetVector(it->first, it->second, _modelName);
+    }
+    for (auto it = initialStringMap.begin(); it != initialStringMap.end(); it++)
+    {
+        SetString(it->first, it->second, _modelName);
+    }
+
+    return retVal;
 }
 
 const orxVECTOR __fastcall ScrollMod::GetPosition(const bool &_bWorld) const
 {
     orxVECTOR vecRef;
     ScrollObject::GetPosition(vecRef, _bWorld);
+
+    return vecRef;
+}
+
+const orxVECTOR __fastcall ScrollMod::GetScale(const bool &_bWorld) const
+{
+    orxVECTOR vecRef;
+    ScrollObject::GetScale(vecRef, _bWorld);
+
+    return vecRef;
+}
+
+const orxVECTOR __fastcall ScrollMod::GetSize() const
+{
+    orxVECTOR vecRef;
+    ScrollObject::GetSize(vecRef);
 
     return vecRef;
 }
@@ -120,15 +165,17 @@ orxFLOAT __fastcall ScrollMod::GetFloat(const orxCHAR *_key, const orxCHAR *_sec
     return retVal;
 }
 
-orxVECTOR *__fastcall ScrollMod::GetVector(const orxCHAR *_key, orxVECTOR *_passedVector, const orxCHAR *_sectionName)
+orxVECTOR __fastcall ScrollMod::GetVector(const orxCHAR *_key, const orxCHAR *_sectionName)
 {
+    orxVECTOR vecRef = orxVECTOR_0;
     orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
 
     if (sectionPassed)
     {
         orxConfig_PushSection(_sectionName);
     }
-    orxVECTOR *retVal = orxConfig_GetVector(_key, _passedVector);
+    orxVECTOR *vec = orxConfig_GetVector(_key, &vecRef);
+    orxVECTOR retVal = vec == NULL ? orxVECTOR_0 : *vec;
     if (sectionPassed)
     {
         orxConfig_PopSection();

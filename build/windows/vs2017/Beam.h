@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "TetheredProjectile.h"
+#include "Projectile.h"
 
 namespace hexpatriates
 {
-    class Beam : public TetheredProjectile
+    class Beam : public Projectile
     {
     private:
         //! Called on object creation

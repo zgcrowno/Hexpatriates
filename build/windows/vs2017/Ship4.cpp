@@ -36,10 +36,10 @@ void Ship4::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Ship4::FireNeutral()
 {
-    /*for (int i = 0; i < m_waveSizeNeutral; i++)
+    for (int i = 0; i < m_waveSizeNeutral; i++)
     {
-        m_neutralGun->Spawn(m_enemyDirection);
-    }*/
+        m_neutralGun->Spawn((m_enemyDirection - orxMATH_KF_PI_BY_8) + (i * orxMATH_KF_PI_BY_8));
+    }
 }
 
 void Ship4::FireUpward()
@@ -52,10 +52,11 @@ void Ship4::FireUpward()
 
 void Ship4::FireDownward()
 {
-    /*for (int i = 0; i < m_waveSizeDownward; i++)
+    for (int i = 0; i < m_waveSizeDownward; i++)
     {
-        m_downwardGun->Spawn(orxMath_GetRandomFloat(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_4 / 2.0, orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_4 / 2.0));
-    }*/
+        float shotDirection = (m_enemyDirection + orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8) - (i * orxMATH_KF_PI_BY_8);
+        m_downwardGun->Spawn(shotDirection, false);
+    }
 }
 
 void Ship4::FireSuper()
