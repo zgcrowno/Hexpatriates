@@ -2,6 +2,7 @@
 #include "Laser.h"
 #include "LaserWall.h"
 #include "Orb.h"
+#include "Ship6.h"
 #include <string>
 
 using namespace hexpatriates;
@@ -120,6 +121,10 @@ orxBOOL Pilot::OnCollide(
                     Die();
                 }
             }
+            else if (m_ship->IsEnabled())
+            {
+                SpawnFamiliar();
+            }
         }
         // Orb collisions
         Orb *collidedOrb = dynamic_cast<Orb*>(_poCollider);
@@ -127,6 +132,8 @@ orxBOOL Pilot::OnCollide(
         {
             if (m_parryTime > 0)
             {
+                SpawnFamiliar();
+
                 // Deflect the orb (we're basically replacing the orb with another one of the Pilot's type)
                 // TODO: This should probably be done more efficiently
                 orxCHAR *deflectedOrbModelName;
@@ -499,6 +506,19 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         movement.fY = m_dashDirection.fY * m_dashSpeed * _rstInfo.fDT;
     }
     SetSpeed(movement);
+    // If the Pilot is associated with a Ship that has familiars, ensure those familiars are correctly positioned upon movement
+    Ship6 *familiarShip = dynamic_cast<Ship6*>(m_ship);
+    if ((movement.fX != orxVECTOR_0.fX || movement.fY != orxVECTOR_0.fY) && familiarShip != NULL)
+    {
+        for (Familiar *familiar : familiarShip->m_familiars)
+        {
+            if (familiar->m_upcomingPositions.size() == familiar->m_framesBehind - 1)
+            {
+                familiar->Move();
+            }
+            familiar->m_upcomingPositions.push(GetPosition());
+        }
+    }
 }
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
@@ -583,6 +603,21 @@ void Pilot::Melee()
                 m_opposingPilot->Die();
             }
         }
+    }
+}
+
+void Pilot::SpawnFamiliar()
+{
+    Ship6 *familiarShip = dynamic_cast<Ship6*>(m_ship);
+    if (familiarShip != NULL && familiarShip->m_familiars.size() < familiarShip->m_maxFamiliars - 1)
+    {
+        int typeLength = strlen("P1");
+        orxCHAR familiarText[512] = "O-Familiar";
+        orxCHAR pilotTypeText[512];
+        ScrollMod::Substring(GetModelName(), pilotTypeText, strlen(GetModelName()) - typeLength, typeLength);
+        orxVECTOR spawnPosition = {GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ};
+
+        familiarShip->m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, pilotTypeText), {}, {}, { { "Position", &spawnPosition } })));
     }
 }
 

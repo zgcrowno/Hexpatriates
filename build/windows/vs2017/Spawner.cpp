@@ -28,29 +28,51 @@ void Spawner::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void Spawner::Spawn(const float _rotation, const bool &_bSpawnAtPosition)
+void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
 {
+    orxSpawner_SetRotation(m_spawner, _rotation);
+
+    if (_tethered)
+    {
+        const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+        CreateObject(spawnObjectModelName, { { "Tethered", _tethered } });
+    }
+    else
+    {
+        orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
+
+        orxSpawner_SetObjectSpeed(m_spawner, &initialSpeed);
+        orxSpawner_Spawn(m_spawner, 1);
+    }
+}
+
+void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
+{
+    const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
     orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
 
     orxSpawner_SetObjectSpeed(m_spawner, &initialSpeed);
+    ScrollMod *projectile = CreateObject(
+        spawnObjectModelName,
+        { {"Tethered", false} },
+        { { "Rotation", _rotation * orxMATH_KF_RAD_TO_DEG } },
+        { { "Position", &_position }, { "Speed", &initialSpeed } });
+}
 
-    if (_bSpawnAtPosition)
-    {
-        orxSpawner_SetRotation(m_spawner, _rotation);
-        orxSpawner_Spawn(m_spawner, 1);
-    }
-    // The Spawner is spawning the object outside of itself, so we'll spawn it using raycasts, and make sure that the object is untethered.
-    else
-    {
-        const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
-        bool initialTetheredValue = GetBool("Tethered", spawnObjectModelName);
+void Spawner::SpawnAtRaycast(const float _direction)
+{
+    const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+    std::vector<orxVECTOR> raycastData = Raycast(
+        GetPosition(),
+        _direction,
+        orxPhysics_GetCollisionFlagValue("geometry"));
+    // TODO: Keep an eye on this, as I'll likely not want to add 90 degrees to every object spawned this way.
+    float initialRotation = orxMATH_KF_RAD_TO_DEG * ScrollMod::VectorToRadians(raycastData.at(1)) + 90.0f;
+    orxVECTOR initialSpeed = { orxMath_Cos(initialRotation), orxMath_Sin(initialRotation) };
 
-        std::vector<orxVECTOR> raycastData = Raycast(
-            GetPosition(),
-            _rotation,
-            orxPhysics_GetCollisionFlagValue("geometry"));
-
-        // TODO: Keep an eye on this, as I'll likely not want to add 90 degrees to every object spawned this way.
-        CreateObject(spawnObjectModelName, { { "Tethered", false } }, { { "Rotation", orxMATH_KF_RAD_TO_DEG * ScrollMod::VectorToRadians(raycastData.at(1)) + 90.0f } }, { { "Position", &raycastData.at(0) } });
-    }
+    ScrollMod *projectile = CreateObject(
+        spawnObjectModelName,
+        { {"Tethered", false} },
+        { { "Rotation", initialRotation * orxMATH_KF_RAD_TO_DEG } },
+        { { "Position", &raycastData.at(0) }, { "Speed", &initialSpeed } });
 }

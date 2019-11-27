@@ -27,6 +27,8 @@ namespace hexpatriates
         float m_firingTime;
         orxSPAWNER *m_spawner;
 
-        void Spawn(const float _rotation, const bool &_bSpawnAtPosition = true);
+        void SpawnAtSelf(const float _rotation, const bool _tethered = false);
+        void SpawnAtPosition(const float _rotation, const orxVECTOR _position);
+        void SpawnAtRaycast(const float _direction);
     };
 }

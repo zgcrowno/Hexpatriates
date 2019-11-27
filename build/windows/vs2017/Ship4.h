@@ -23,6 +23,7 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        orxVECTOR m_upwardOrigin = orxVECTOR_0;
         /// <summary>Handles the actual spawning/firing of the Ship's neutral attack.</summary>
         virtual void FireNeutral();
         /// <summary>Handles the actual spawning/firing of the Ship's upward attack.</summary>

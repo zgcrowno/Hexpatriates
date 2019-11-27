@@ -38,7 +38,7 @@ void Ship2::FireNeutral()
 {
     for (int i = 0; i < m_waveSizeNeutral; i++)
     {
-        m_neutralGun->Spawn(m_enemyDirection);
+        m_neutralGun->SpawnAtSelf(m_enemyDirection);
     }
 }
 
@@ -46,7 +46,7 @@ void Ship2::FireUpward()
 {
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        m_upwardGun->Spawn(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));
+        m_upwardGun->SpawnAtSelf(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));
     }
 }
 
@@ -55,7 +55,7 @@ void Ship2::FireDownward()
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
         float shotDirection = orxMath_GetRandomFloat(orxMATH_KF_PI_BY_8, orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_8);
-        m_downwardGun->Spawn(shotDirection);
+        m_downwardGun->SpawnAtSelf(shotDirection);
 
         std::vector<orxVECTOR> raycastData = ScrollMod::Raycast(
             m_downwardGun->GetPosition(),
@@ -81,7 +81,7 @@ void Ship2::FireSuper()
     {
         /*if (m_wavesIndexSuper % 2 == 0)
         {*/
-            m_superGun->Spawn(m_enemyDirection - orxMATH_KF_PI_BY_8 + (i * orxMATH_KF_PI_BY_16));
+            m_superGun->SpawnAtSelf(m_enemyDirection - orxMATH_KF_PI_BY_8 + (i * orxMATH_KF_PI_BY_16));
         /*}
         else
         {

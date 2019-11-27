@@ -38,16 +38,31 @@ void Ship4::FireNeutral()
 {
     for (int i = 0; i < m_waveSizeNeutral; i++)
     {
-        m_neutralGun->Spawn((m_enemyDirection - orxMATH_KF_PI_BY_8) + (i * orxMATH_KF_PI_BY_8));
+        m_neutralGun->SpawnAtSelf((m_enemyDirection - orxMATH_KF_PI_BY_8) + (i * orxMATH_KF_PI_BY_8));
     }
 }
 
 void Ship4::FireUpward()
 {
-    /*for (int i = 0; i < m_waveSizeUpward; i++)
+    for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        m_upwardGun->Spawn(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));
-    }*/
+        const orxCHAR *spawnObjectModelName = m_upwardGun->GetString("Object", m_upwardGun->GetString("Spawner", m_upwardGun->GetModelName()));
+        ScrollMod *projectile = CreateObject(spawnObjectModelName);
+        if (m_upwardOrigin.fY == orxVECTOR_0.fY)
+        {
+            m_upwardOrigin = Raycast(GetPosition(), -orxMATH_KF_PI_BY_2, orxPhysics_GetCollisionFlagValue("geometry")).at(0);
+        }
+        else
+        {
+            float projectileDistance = projectile->GetSize().fX * projectile->GetScale().fX;
+            m_upwardOrigin.fX += projectileDistance;
+        }
+        projectile->SetPosition(m_upwardOrigin);
+        if (m_wavesIndexUpward == m_numWavesUpward - 1)
+        {
+            m_upwardOrigin = orxVECTOR_0;
+        }
+    }
 }
 
 void Ship4::FireDownward()
@@ -55,21 +70,28 @@ void Ship4::FireDownward()
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
         float shotDirection = (m_enemyDirection + orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8) - (i * orxMATH_KF_PI_BY_8);
-        m_downwardGun->Spawn(shotDirection, false);
+        m_downwardGun->SpawnAtRaycast(shotDirection);
     }
 }
 
 void Ship4::FireSuper()
 {
-    /*for (int i = 0; i < m_waveSizeSuper; i++)
+    for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        if (m_wavesIndexSuper % 2 == 0)
+        const orxCHAR *spawnObjectModelName = m_upwardGun->GetString("Object", m_upwardGun->GetString("Spawner", m_upwardGun->GetModelName()));
+        float projectileDistance;
+        if (i < m_waveSizeSuper / 2)
         {
-            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i);
+            projectileDistance = 100.0f;
         }
         else
         {
-            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i + (m_enemyDirection + orxMATH_KF_PI_BY_4) / 2);
+            projectileDistance = 400.0f;
         }
-    }*/
+
+        m_superGun->SpawnAtPosition(
+            (m_enemyDirection + orxMATH_KF_PI_BY_2) + (i * orxMATH_KF_PI_BY_4),
+            { GetPosition().fX + (orxMath_Cos(m_enemyDirection + (i * orxMATH_KF_PI_BY_4)) * projectileDistance),
+            GetPosition().fY + (orxMath_Sin(m_enemyDirection + (i * orxMATH_KF_PI_BY_4)) * projectileDistance) });
+    }
 }

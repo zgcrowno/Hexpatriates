@@ -236,6 +236,120 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP2->m_ship->m_cooldownSuper / m_pilotP2->m_ship->m_maxCooldownSuper)),
         m_defaultScaleSuper.fY,
         m_defaultScaleSuper.fZ });
+
+    //Disable meters with scales of 0 (and enable meters with scales greater than 0) so as to prevent the renderer from complaining.
+    if (m_dashMeterP1->GetScale().fX <= 0)
+    {
+        m_dashMeterP1->Enable(false);
+    }
+    else
+    {
+        m_dashMeterP1->Enable(true);
+    }
+    if (m_parryMeterP1->GetScale().fX <= 0)
+    {
+        m_parryMeterP1->Enable(false);
+    }
+    else
+    {
+        m_parryMeterP1->Enable(true);
+    }
+    if (m_livesMeterP1->GetScale().fX <= 0)
+    {
+        m_livesMeterP1->Enable(false);
+    }
+    else
+    {
+        m_livesMeterP1->Enable(true);
+    }
+    if (m_neutralMeterP1->GetScale().fX <= 0)
+    {
+        m_neutralMeterP1->Enable(false);
+    }
+    else
+    {
+        m_neutralMeterP1->Enable(true);
+    }
+    if (m_upwardMeterP1->GetScale().fX <= 0)
+    {
+        m_upwardMeterP1->Enable(false);
+    }
+    else
+    {
+        m_upwardMeterP1->Enable(true);
+    }
+    if (m_downwardMeterP1->GetScale().fX <= 0)
+    {
+        m_downwardMeterP1->Enable(false);
+    }
+    else
+    {
+        m_downwardMeterP1->Enable(true);
+    }
+    if (m_superMeterP1->GetScale().fX <= 0)
+    {
+        m_superMeterP1->Enable(false);
+    }
+    else
+    {
+        m_superMeterP1->Enable(true);
+    }
+    if (m_dashMeterP2->GetScale().fX <= 0)
+    {
+        m_dashMeterP2->Enable(false);
+    }
+    else
+    {
+        m_dashMeterP2->Enable(true);
+    }
+    if (m_parryMeterP2->GetScale().fX <= 0)
+    {
+        m_parryMeterP2->Enable(false);
+    }
+    else
+    {
+        m_parryMeterP2->Enable(true);
+    }
+    if (m_livesMeterP2->GetScale().fX <= 0)
+    {
+        m_livesMeterP2->Enable(false);
+    }
+    else
+    {
+        m_livesMeterP2->Enable(true);
+    }
+    if (m_neutralMeterP2->GetScale().fX <= 0)
+    {
+        m_neutralMeterP2->Enable(false);
+    }
+    else
+    {
+        m_neutralMeterP2->Enable(true);
+    }
+    if (m_upwardMeterP2->GetScale().fX <= 0)
+    {
+        m_upwardMeterP2->Enable(false);
+    }
+    else
+    {
+        m_upwardMeterP2->Enable(true);
+    }
+    if (m_downwardMeterP2->GetScale().fX <= 0)
+    {
+        m_downwardMeterP2->Enable(false);
+    }
+    else
+    {
+        m_downwardMeterP2->Enable(true);
+    }
+    if (m_superMeterP2->GetScale().fX <= 0)
+    {
+        m_superMeterP2->Enable(false);
+    }
+    else
+    {
+        m_superMeterP2->Enable(true);
+    }
 }
 
 void Arena::Restart()

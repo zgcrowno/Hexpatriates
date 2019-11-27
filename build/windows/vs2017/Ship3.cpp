@@ -39,7 +39,7 @@ void Ship3::FireNeutral()
     for (int i = 0; i < m_waveSizeNeutral; i++)
     {
         float shotDirection = m_enemyDirection - orxMATH_KF_PI;
-        m_neutralGun->Spawn(shotDirection);
+        m_neutralGun->SpawnAtSelf(shotDirection);
 
         ScrollMod *laserPortalEntrance;
         orxVECTOR startingPos = m_neutralGun->GetPosition(true);
@@ -64,7 +64,7 @@ void Ship3::FireUpward()
 {
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        m_upwardGun->Spawn(orxMath_GetRandomFloat(-orxMATH_KF_PI_BY_4 / 2.0, -orxMATH_KF_PI_BY_4 - orxMATH_KF_PI_BY_4 / 2.0));
+        m_upwardGun->SpawnAtSelf(orxMath_GetRandomFloat(-orxMATH_KF_PI_BY_4 / 2.0, -orxMATH_KF_PI_BY_4 - orxMATH_KF_PI_BY_4 / 2.0));
     }
 }
 
@@ -72,7 +72,7 @@ void Ship3::FireDownward()
 {
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
-        m_downwardGun->Spawn(orxMATH_KF_PI_BY_2);
+        m_downwardGun->SpawnAtSelf(orxMATH_KF_PI_BY_2);
     }
 }
 
@@ -82,7 +82,7 @@ void Ship3::FireSuper()
     {
         /*if (m_wavesIndexSuper % 2 == 0)
         {*/
-        m_superGun->Spawn(m_enemyDirection - orxMATH_KF_PI_BY_4 / 2 + (i * (orxMATH_KF_PI_BY_4 / 4)));
+        m_superGun->SpawnAtSelf(m_enemyDirection - orxMATH_KF_PI_BY_4 / 2 + (i * (orxMATH_KF_PI_BY_4 / 4)));
         /*}
         else
         {

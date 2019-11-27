@@ -1,10 +1,21 @@
 #include "Ship6.h"
+#include <iostream>
 
 using namespace hexpatriates;
 
 void Ship6::OnCreate()
 {
     Ship::OnCreate();
+
+    m_maxFamiliars = GetFloat("MaxFamiliars", GetModelName());
+
+    // TODO: Get rid of this once I've done sufficient testing.
+    int typeLength = strlen("P1");
+    orxCHAR familiarText[512] = "O-Familiar";
+    orxCHAR shipTypeText[512];
+    ScrollMod::Substring(GetModelName(), shipTypeText, strlen(GetModelName()) - typeLength, typeLength);
+    orxVECTOR spawnPosition = { GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ };
+    m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, shipTypeText), {}, {}, { { "Position", &spawnPosition } })));
 }
 
 void Ship6::OnDelete()
@@ -36,10 +47,14 @@ void Ship6::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Ship6::FireNeutral()
 {
-    /*for (int i = 0; i < m_waveSizeNeutral; i++)
+    for (int i = 0; i < m_waveSizeNeutral; i++)
     {
-        m_neutralGun->Spawn(m_enemyDirection);
-    }*/
+        m_neutralGun->SpawnAtSelf(m_enemyDirection);
+        for (Familiar *familiar : m_familiars)
+        {
+            familiar->m_gun->SpawnAtSelf(m_enemyDirection);
+        }
+    }
 }
 
 void Ship6::FireUpward()

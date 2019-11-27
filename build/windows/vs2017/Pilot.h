@@ -126,6 +126,8 @@ namespace hexpatriates
         void Parry();
         /// <summary>Executes the Pilot's melee attack.</summary>
         void Melee();
+        /// <summary>Spawns a Familiar, if m_ship is of the correct type to allow for it.</summary>
+        void SpawnFamiliar();
         /// <summary>Destroy's the Pilot's ship.</summary>
         void DestroyShip();
         /// <summary>Reconstructs the Pilot's ship.</summary>

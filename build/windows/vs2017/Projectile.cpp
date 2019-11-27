@@ -10,6 +10,7 @@ void Projectile::OnCreate()
     GetSpeed(speedRef, orxFALSE);
     SetSpeed({ speedRef.fX * m_speed, speedRef.fY * m_speed});
 
+    //TODO: Instead of using joints, I may just adopt the projectile's parent's speed in the update function.
     if (m_tethered)
     {
         // Attach the Projectile and its associated gun together with a joint.

@@ -2,6 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "Ship.h"
+#include "Familiar.h"
 
 namespace hexpatriates
 {
@@ -23,6 +24,8 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        int m_maxFamiliars;
+        std::vector<Familiar*> m_familiars;
         /// <summary>Handles the actual spawning/firing of the Ship's neutral attack.</summary>
         virtual void FireNeutral();
         /// <summary>Handles the actual spawning/firing of the Ship's upward attack.</summary>
