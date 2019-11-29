@@ -506,6 +506,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         movement.fY = m_dashDirection.fY * m_dashSpeed * _rstInfo.fDT;
     }
     SetSpeed(movement);
+    // TODO: I'll probably get rid of all of the ship classes I have, and make the same number of pilot classes, so these sorts of checks are unnecessary.
     // If the Pilot is associated with a Ship that has familiars, ensure those familiars are correctly positioned upon movement
     Ship6 *familiarShip = dynamic_cast<Ship6*>(m_ship);
     if ((movement.fX != orxVECTOR_0.fX || movement.fY != orxVECTOR_0.fY) && familiarShip != NULL)
@@ -618,6 +619,7 @@ void Pilot::SpawnFamiliar()
         orxVECTOR spawnPosition = {GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ};
 
         familiarShip->m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, pilotTypeText), {}, {}, { { "Position", &spawnPosition } })));
+        familiarShip->m_familiars.at(familiarShip->m_familiars.size() - 1)->m_framesBehind *= familiarShip->m_familiars.size();
     }
 }
 

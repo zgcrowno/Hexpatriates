@@ -26,6 +26,7 @@ namespace hexpatriates
         virtual void Exit();
     public:
         ScrollObject *GetPilotByPlayerType(const orxCHAR *_str);
+        ScrollObject *GetFamiliarByPlayerType(const orxCHAR *_str);
     };
 }
 

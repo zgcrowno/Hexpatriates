@@ -131,6 +131,14 @@ const orxVECTOR __fastcall ScrollMod::GetSize() const
     return vecRef;
 }
 
+const orxVECTOR __fastcall ScrollMod::GetSpeed(const bool &_bRelative) const
+{
+    orxVECTOR vecRef;
+    ScrollObject::GetSpeed(vecRef, _bRelative);
+
+    return vecRef;
+}
+
 orxBOOL __fastcall ScrollMod::GetBool(const orxCHAR *_key, const orxCHAR *_sectionName)
 {
     orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;

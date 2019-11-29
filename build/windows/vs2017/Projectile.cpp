@@ -6,8 +6,7 @@ void Projectile::OnCreate()
 {
     m_tethered = GetBool("Tethered", GetModelName());
     m_speed = GetFloat("Speed", GetModelName());
-    orxVECTOR speedRef = orxVECTOR_0;
-    GetSpeed(speedRef, orxFALSE);
+    orxVECTOR speedRef = GetSpeed();
     SetSpeed({ speedRef.fX * m_speed, speedRef.fY * m_speed});
 
     //TODO: Instead of using joints, I may just adopt the projectile's parent's speed in the update function.

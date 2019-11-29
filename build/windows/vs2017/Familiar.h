@@ -7,6 +7,12 @@
 
 namespace hexpatriates
 {
+    enum FamiliarType
+    {
+        ETurret,
+        ERemoteDetonation
+    };
+
     class Familiar : public Projectile
     {
     private:
@@ -24,10 +30,16 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        FamiliarType m_type;
+        bool m_bIsFired;
+        bool m_bIsAttached;
         int m_framesBehind;
+        float m_attachedMovementDirection;
         std::queue<orxVECTOR> m_upcomingPositions;
         Spawner *m_gun;
 
         void Move();
+        void FireSelf(const float _direction, const FamiliarType _type);
+        void Detonate();
     };
 }

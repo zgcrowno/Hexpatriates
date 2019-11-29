@@ -69,6 +69,10 @@ namespace hexpatriates
         /// <summary>A more object-oriented version of ORX's GetSize function.</summary>
         /// <returns>The ScrollMod's size.</returns>
         const orxVECTOR __fastcall GetSize() const;
+        /// <summary>A more object-oriented version of ORX's GetSpeed function.</summary>
+        /// <param name="_bRelative">Whether or not we're getting the ScrollMod's parent-relative speed.</param>
+        /// <returns>The ScrollMod's speed.</returns>
+        const orxVECTOR __fastcall GetSpeed(const bool &_bRelative = false) const;
         /// <summary>Gets a bool value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the bool we wish to retrieve from config.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>

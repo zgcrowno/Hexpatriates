@@ -34,5 +34,6 @@ namespace hexpatriates
         virtual void FireDownward();
         /// <summary>Handles the actual spawning/firing of the Ship's super attack.</summary>
         virtual void FireSuper();
+        void FireFamiliar(const float _direction, const FamiliarType _type);
     };
 }

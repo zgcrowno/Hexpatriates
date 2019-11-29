@@ -1,5 +1,4 @@
 #include "Ship6.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
@@ -59,31 +58,45 @@ void Ship6::FireNeutral()
 
 void Ship6::FireUpward()
 {
-    /*for (int i = 0; i < m_waveSizeUpward; i++)
+    for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        m_upwardGun->Spawn(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));
-    }*/
+        FireFamiliar(-orxMATH_KF_PI_BY_4, ETurret);
+    }
 }
 
 void Ship6::FireDownward()
 {
-    /*for (int i = 0; i < m_waveSizeDownward; i++)
+    for (int i = 0; i < m_waveSizeDownward; i++)
     {
-        m_downwardGun->Spawn(orxMath_GetRandomFloat(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_4 / 2.0, orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_4 / 2.0));
-    }*/
+        FireFamiliar(orxMATH_KF_PI_BY_4, ETurret);
+    }
 }
 
 void Ship6::FireSuper()
 {
-    /*for (int i = 0; i < m_waveSizeSuper; i++)
+    for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        if (m_wavesIndexSuper % 2 == 0)
+        int typeLength = strlen("P1");
+        orxCHAR familiarTypeText[512];
+        ScrollMod::Substring(GetModelName(), familiarTypeText, strlen(GetModelName()) - typeLength, typeLength);
+        Familiar *extantSuper = static_cast<Familiar*>(Hexpatriates::GetInstance().GetFamiliarByPlayerType(familiarTypeText));
+
+        if (extantSuper != NULL && extantSuper->m_bIsFired && extantSuper->m_type == ERemoteDetonation)
         {
-            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i);
+            extantSuper->Detonate();
         }
         else
         {
-            m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i + (m_enemyDirection + orxMATH_KF_PI_BY_4) / 2);
+            FireFamiliar(m_enemyDirection, ERemoteDetonation);
         }
-    }*/
+    }
+}
+
+void Ship6::FireFamiliar(const float _direction, const FamiliarType _type)
+{
+    if (m_familiars.size() > 0)
+    {
+        m_familiars.at(m_familiars.size() - 1)->FireSelf(_direction, _type);
+        m_familiars.pop_back();
+    }
 }

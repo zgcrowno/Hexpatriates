@@ -6,6 +6,7 @@
 #include "Hexpatriates.h"
 #include "Arena.h"
 #include "Beam.h"
+#include "Explosion.h"
 #include "Familiar.h"
 #include "Laser.h"
 #include "LaserHeatseeking.h"
@@ -57,6 +58,7 @@ void Hexpatriates::BindObjects()
 {
     ScrollBindObject<Arena>("O-Arena");
     ScrollBindObject<Beam>("O-Beam");
+    ScrollBindObject<Explosion>("O-Explosion");
     ScrollBindObject<Familiar>("O-Familiar");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
@@ -104,6 +106,19 @@ ScrollObject *Hexpatriates::GetPilotByPlayerType(const orxCHAR *_str)
         if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
         {
             return pilot;
+        }
+    }
+
+    return orxNULL;
+}
+
+ScrollObject *Hexpatriates::GetFamiliarByPlayerType(const orxCHAR *_str)
+{
+    for (Familiar *familiar = GetNextObject<Familiar>(); familiar != orxNULL; familiar = GetNextObject<Familiar>(familiar))
+    {
+        if (orxString_SearchString(familiar->GetModelName(), _str) != orxNULL)
+        {
+            return familiar;
         }
     }
 

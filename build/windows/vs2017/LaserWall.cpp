@@ -6,6 +6,8 @@ using namespace hexpatriates;
 void LaserWall::OnCreate()
 {
     Projectile::OnCreate();
+
+    m_growthSpeed = GetFloat("GrowthSpeed", GetModelName());
 }
 
 void LaserWall::OnDelete()
@@ -41,6 +43,7 @@ void LaserWall::Update(const orxCLOCK_INFO &_rstInfo)
     Projectile::Update(_rstInfo);
 
     // Increase the size of the wall
+    float growthAmount = m_growthSpeed * _rstInfo.fDT;
     orxVECTOR curScale = GetScale();
-    SetScale({ curScale.fX, curScale.fY + _rstInfo.fDT, curScale.fZ });
+    SetScale({ curScale.fX, curScale.fY + growthAmount, curScale.fZ });
 }

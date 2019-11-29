@@ -134,6 +134,9 @@
     <ClCompile Include="PilotSelectMenu.cpp">
       <Filter>src\CPP\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -219,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="PilotSelectMenu.h">
       <Filter>src\Headers\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
