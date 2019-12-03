@@ -7,14 +7,6 @@ void Ship6::OnCreate()
     Ship::OnCreate();
 
     m_maxFamiliars = GetFloat("MaxFamiliars", GetModelName());
-
-    // TODO: Get rid of this once I've done sufficient testing.
-    int typeLength = strlen("P1");
-    orxCHAR familiarText[512] = "O-Familiar";
-    orxCHAR shipTypeText[512];
-    ScrollMod::Substring(GetModelName(), shipTypeText, strlen(GetModelName()) - typeLength, typeLength);
-    orxVECTOR spawnPosition = { GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ };
-    m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, shipTypeText), {}, {}, { { "Position", &spawnPosition } })));
 }
 
 void Ship6::OnDelete()
@@ -76,12 +68,26 @@ void Ship6::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
+        bool bSuperInPlay = false;
+        Familiar *extantSuper;
+
         int typeLength = strlen("P1");
         orxCHAR familiarTypeText[512];
         ScrollMod::Substring(GetModelName(), familiarTypeText, strlen(GetModelName()) - typeLength, typeLength);
-        Familiar *extantSuper = static_cast<Familiar*>(Hexpatriates::GetInstance().GetFamiliarByPlayerType(familiarTypeText));
+        std::vector<ScrollObject*> extantFamiliars = Hexpatriates::GetInstance().GetFamiliarsByPlayerType(familiarTypeText);
 
-        if (extantSuper != NULL && extantSuper->m_bIsFired && extantSuper->m_type == ERemoteDetonation)
+        for (int i = 0; i < extantFamiliars.size(); i++)
+        {
+            extantSuper = static_cast<Familiar*>(extantFamiliars.at(i));
+
+            if (extantSuper != NULL && extantSuper->m_bIsFired && extantSuper->m_type == ERemoteDetonation)
+            {
+                bSuperInPlay = true;
+                break;
+            }
+        }
+
+        if (bSuperInPlay)
         {
             extantSuper->Detonate();
         }

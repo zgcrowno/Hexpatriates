@@ -49,7 +49,7 @@ orxBOOL Turret::OnCollide(
             SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) * m_speed });
             orxSpawner_Enable(m_turretGun->m_spawner, true);
             // TODO: The speed needs to be determined by O-Laser's Speed attribute, but since I don't have access to _rstInfo.fDT here, I'll need to figure out
-            // how to do that without these lasers attaining unreasonably high speeds. Does Orx handle fDT multiplication in the background? Do I even need to
+            // how to do that without these lasers attaining unreasonably high speeds. Does Orx handle fDT multiplication in the background (IT DOES)? Do I even need to
             // worry about fDT when calling SetSpeed?
             orxVECTOR turretLaserSpeed = { orxMath_Cos(normalDirection), orxMath_Sin(normalDirection) };
             orxSpawner_SetObjectSpeed(m_turretGun->m_spawner, &turretLaserSpeed);

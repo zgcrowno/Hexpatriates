@@ -1,5 +1,6 @@
 #include "Laser.h"
 #include "LaserPortalEntrance.h"
+#include "Prism.h"
 
 using namespace hexpatriates;
 
@@ -34,7 +35,8 @@ orxBOOL Laser::OnCollide(
         m_bIsTouchingPortal = true;
         SetPosition(laserPortalEntrance->m_exit->GetPosition(true), true);
     }
-    else if (!m_bIsTouchingPortal)
+    // Only destroy the laser if it's not touching a portal, and is colliding with something that's either not a projectile or is a prism.
+    else if (!m_bIsTouchingPortal && (dynamic_cast<Projectile*>(_poCollider) == NULL || dynamic_cast<Prism*>(_poCollider) != NULL))
     {
         Destroy();
     }

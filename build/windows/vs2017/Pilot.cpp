@@ -610,7 +610,7 @@ void Pilot::Melee()
 void Pilot::SpawnFamiliar()
 {
     Ship6 *familiarShip = dynamic_cast<Ship6*>(m_ship);
-    if (familiarShip != NULL && familiarShip->m_familiars.size() < familiarShip->m_maxFamiliars - 1)
+    if (familiarShip != NULL && familiarShip->m_familiars.size() < familiarShip->m_maxFamiliars)
     {
         int typeLength = strlen("P1");
         orxCHAR familiarText[512] = "O-Familiar";

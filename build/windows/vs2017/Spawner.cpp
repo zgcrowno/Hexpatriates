@@ -5,6 +5,8 @@ using namespace hexpatriates;
 void Spawner::OnCreate()
 {
     m_spawner = (orxSPAWNER*)GetStructure(orxSTRUCTURE_ID_SPAWNER);
+
+    m_defaultSpawnerRotation = GetFloat("Rotation", orxSpawner_GetName(m_spawner)) * orxMATH_KF_DEG_TO_RAD;
 }
 
 void Spawner::OnDelete()
@@ -30,8 +32,9 @@ void Spawner::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
 {
-    orxSpawner_SetRotation(m_spawner, _rotation);
-
+    // We add the m_defaultSpawnerRotation value here so we can make spawned item rotation independent of parent rotation.
+    orxSpawner_SetRotation(m_spawner, _rotation + m_defaultSpawnerRotation);
+    
     if (_tethered)
     {
         const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));

@@ -394,6 +394,7 @@
     <ClCompile Include="Ship6.cpp" />
     <ClCompile Include="Ship7.cpp" />
     <ClCompile Include="Ship8.cpp" />
+    <ClCompile Include="Spacer.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Hexpatriates.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -432,6 +433,7 @@
     <ClInclude Include="Ship6.h" />
     <ClInclude Include="Ship7.h" />
     <ClInclude Include="Ship8.h" />
+    <ClInclude Include="Spacer.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Hexpatriates.h" />
     <ClInclude Include="Laser.h" />

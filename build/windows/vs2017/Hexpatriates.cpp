@@ -26,6 +26,7 @@
 #include "Ship6.h"
 #include "Ship7.h"
 #include "Ship8.h"
+#include "Spacer.h"
 #include "Spawner.h"
 #include "Turret.h"
 #include "Zone.h"
@@ -79,6 +80,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Ship6>("O-Ship6");
     ScrollBindObject<Ship7>("O-Ship7");
     ScrollBindObject<Ship8>("O-Ship8");
+    ScrollBindObject<Spacer>("O-Spacer");
     ScrollBindObject<Turret>("O-Turret");
     ScrollBindObject<Zone>("O-Zone");
 }
@@ -112,17 +114,19 @@ ScrollObject *Hexpatriates::GetPilotByPlayerType(const orxCHAR *_str)
     return orxNULL;
 }
 
-ScrollObject *Hexpatriates::GetFamiliarByPlayerType(const orxCHAR *_str)
+std::vector<ScrollObject*> Hexpatriates::GetFamiliarsByPlayerType(const orxCHAR *_str)
 {
+    std::vector<ScrollObject*> retVal;
+
     for (Familiar *familiar = GetNextObject<Familiar>(); familiar != orxNULL; familiar = GetNextObject<Familiar>(familiar))
     {
         if (orxString_SearchString(familiar->GetModelName(), _str) != orxNULL)
         {
-            return familiar;
+            retVal.push_back(familiar);
         }
     }
 
-    return orxNULL;
+    return retVal;
 }
 
 int main(int argc, char **argv)

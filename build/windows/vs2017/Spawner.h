@@ -25,6 +25,7 @@ namespace hexpatriates
         float m_fireRate;
         float m_maxFiringTime;
         float m_firingTime;
+        float m_defaultSpawnerRotation;
         orxSPAWNER *m_spawner;
 
         void SpawnAtSelf(const float _rotation, const bool _tethered = false);

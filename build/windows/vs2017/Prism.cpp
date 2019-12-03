@@ -1,10 +1,19 @@
 #include "Prism.h"
+#include "Laser.h"
 
 using namespace hexpatriates;
 
 void Prism::OnCreate()
 {
     Projectile::OnCreate();
+
+    m_waveSize = GetFloat("WaveSize", GetModelName());
+
+    int typeLength = strlen("P1");
+    orxCHAR gunTypeText[512] = "O-PrismGun";
+    orxCHAR familiarTypeText[512];
+    ScrollMod::Substring(GetModelName(), familiarTypeText, strlen(GetModelName()) - typeLength, typeLength);
+    m_gun = static_cast<Spawner*>(GetChildByName(strcat(gunTypeText, familiarTypeText)));
 }
 
 void Prism::OnDelete()
@@ -25,6 +34,11 @@ orxBOOL Prism::OnCollide(
         _zColliderPartName,
         _rvPosition,
         _rvNormal);
+    
+    if (dynamic_cast<Laser*>(_poCollider) != NULL)
+    {
+        FireWave();
+    }
 
     return orxTRUE;
 }
@@ -32,4 +46,12 @@ orxBOOL Prism::OnCollide(
 void Prism::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Projectile::Update(_rstInfo);
+}
+
+void Prism::FireWave()
+{
+    for (int i = 0; i < m_waveSize; i++)
+    {
+        m_gun->SpawnAtSelf(GetRotation() + (i * (orxMATH_KF_2_PI / m_waveSize)));
+    }
 }

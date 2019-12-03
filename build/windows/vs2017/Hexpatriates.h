@@ -7,6 +7,7 @@
 // The following define skips compilation of ScrollEd (map editor) for now
 #define __NO_SCROLLED__
 #include "Scroll.h"
+#include <vector>
 
 namespace hexpatriates
 {
@@ -26,7 +27,7 @@ namespace hexpatriates
         virtual void Exit();
     public:
         ScrollObject *GetPilotByPlayerType(const orxCHAR *_str);
-        ScrollObject *GetFamiliarByPlayerType(const orxCHAR *_str);
+        std::vector<ScrollObject*> GetFamiliarsByPlayerType(const orxCHAR *_str);
     };
 }
 

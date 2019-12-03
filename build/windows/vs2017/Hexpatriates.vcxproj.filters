@@ -137,6 +137,9 @@
     <ClCompile Include="Explosion.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="Spacer.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -224,6 +227,9 @@
       <Filter>src\Headers\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Spacer.h">
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
