@@ -30,6 +30,7 @@ void Spawner::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
+// TODO: I don't think I'm ever using an instance of this with _tethered set to true, so maybe I should just get rid of that parameter and its associated behavior?
 void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
 {
     // We add the m_defaultSpawnerRotation value here so we can make spawned item rotation independent of parent rotation.

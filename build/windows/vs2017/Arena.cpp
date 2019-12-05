@@ -6,6 +6,7 @@ using namespace hexpatriates;
 void Arena::OnCreate()
 {
     m_timer = 90.0;
+    m_bounds = static_cast<ArenaBounds*>(GetChildByName("O-Walls"));
     m_dashMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP1"));
     m_parryMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP1"));
     m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
@@ -144,96 +145,96 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         m_defaultScaleLives.fZ });
 
     // Ship-associated UI
-    if (m_pilotP1->m_ship->m_cooldownNeutral > 0)
+    if (m_pilotP1->m_cooldownNeutral > 0)
     {
         m_neutralMeterP1->SetScale({
-            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * (m_pilotP1->m_ship->m_cooldownNeutral / m_pilotP1->m_ship->m_maxCooldownNeutral)),
+            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * (m_pilotP1->m_cooldownNeutral / m_pilotP1->m_maxCooldownNeutral)),
             m_defaultScaleNeutral.fY,
             m_defaultScaleNeutral.fZ });
     }
     else
     {
         m_neutralMeterP1->SetScale({
-            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * ((float)m_pilotP1->m_ship->m_clipIndexNeutral / (float)m_pilotP1->m_ship->m_clipSizeNeutral)),
+            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * ((float)m_pilotP1->m_clipIndexNeutral / (float)m_pilotP1->m_clipSizeNeutral)),
             m_defaultScaleNeutral.fY,
             m_defaultScaleNeutral.fZ });
     }
-    if (m_pilotP1->m_ship->m_cooldownUpward > 0)
+    if (m_pilotP1->m_cooldownUpward > 0)
     {
         m_upwardMeterP1->SetScale({
-            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * (m_pilotP1->m_ship->m_cooldownUpward / m_pilotP1->m_ship->m_maxCooldownUpward)),
+            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * (m_pilotP1->m_cooldownUpward / m_pilotP1->m_maxCooldownUpward)),
             m_defaultScaleUpward.fY,
             m_defaultScaleUpward.fZ });
     }
     else
     {
         m_upwardMeterP1->SetScale({
-            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * ((float)m_pilotP1->m_ship->m_clipIndexUpward / (float)m_pilotP1->m_ship->m_clipSizeUpward)),
+            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * ((float)m_pilotP1->m_clipIndexUpward / (float)m_pilotP1->m_clipSizeUpward)),
             m_defaultScaleUpward.fY,
             m_defaultScaleUpward.fZ });
     }
-    if (m_pilotP1->m_ship->m_cooldownDownward > 0)
+    if (m_pilotP1->m_cooldownDownward > 0)
     {
         m_downwardMeterP1->SetScale({
-            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * (m_pilotP1->m_ship->m_cooldownDownward / m_pilotP1->m_ship->m_maxCooldownDownward)),
+            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * (m_pilotP1->m_cooldownDownward / m_pilotP1->m_maxCooldownDownward)),
             m_defaultScaleDownward.fY,
             m_defaultScaleDownward.fZ });
     }
     else
     {
         m_downwardMeterP1->SetScale({
-            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_pilotP1->m_ship->m_clipIndexDownward / (float)m_pilotP1->m_ship->m_clipSizeDownward)),
+            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_pilotP1->m_clipIndexDownward / (float)m_pilotP1->m_clipSizeDownward)),
             m_defaultScaleDownward.fY,
             m_defaultScaleDownward.fZ });
     }
     m_superMeterP1->SetScale({
-        m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP1->m_ship->m_cooldownSuper / m_pilotP1->m_ship->m_maxCooldownSuper)),
+        m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP1->m_cooldownSuper / m_pilotP1->m_maxCooldownSuper)),
         m_defaultScaleSuper.fY,
         m_defaultScaleSuper.fZ });
-    if (m_pilotP2->m_ship->m_cooldownNeutral > 0)
+    if (m_pilotP2->m_cooldownNeutral > 0)
     {
         m_neutralMeterP2->SetScale({
-            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * (m_pilotP2->m_ship->m_cooldownNeutral / m_pilotP2->m_ship->m_maxCooldownNeutral)),
+            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * (m_pilotP2->m_cooldownNeutral / m_pilotP2->m_maxCooldownNeutral)),
             m_defaultScaleNeutral.fY,
             m_defaultScaleNeutral.fZ });
     }
     else
     {
         m_neutralMeterP2->SetScale({
-            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * ((float)m_pilotP2->m_ship->m_clipIndexNeutral / (float)m_pilotP2->m_ship->m_clipSizeNeutral)),
+            m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * ((float)m_pilotP2->m_clipIndexNeutral / (float)m_pilotP2->m_clipSizeNeutral)),
             m_defaultScaleNeutral.fY,
             m_defaultScaleNeutral.fZ });
     }
-    if (m_pilotP2->m_ship->m_cooldownUpward > 0)
+    if (m_pilotP2->m_cooldownUpward > 0)
     {
         m_upwardMeterP2->SetScale({
-            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * (m_pilotP2->m_ship->m_cooldownUpward / m_pilotP2->m_ship->m_maxCooldownUpward)),
+            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * (m_pilotP2->m_cooldownUpward / m_pilotP2->m_maxCooldownUpward)),
             m_defaultScaleUpward.fY,
             m_defaultScaleUpward.fZ });
     }
     else
     {
         m_upwardMeterP2->SetScale({
-            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * ((float)m_pilotP2->m_ship->m_clipIndexUpward / (float)m_pilotP2->m_ship->m_clipSizeUpward)),
+            m_defaultScaleUpward.fX - (m_defaultScaleUpward.fX * ((float)m_pilotP2->m_clipIndexUpward / (float)m_pilotP2->m_clipSizeUpward)),
             m_defaultScaleUpward.fY,
             m_defaultScaleUpward.fZ });
     }
-    if (m_pilotP2->m_ship->m_cooldownDownward > 0)
+    if (m_pilotP2->m_cooldownDownward > 0)
     {
         m_downwardMeterP2->SetScale({
-            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * (m_pilotP2->m_ship->m_cooldownDownward / m_pilotP2->m_ship->m_maxCooldownDownward)),
+            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * (m_pilotP2->m_cooldownDownward / m_pilotP2->m_maxCooldownDownward)),
             m_defaultScaleDownward.fY,
             m_defaultScaleDownward.fZ });
     }
     else
     {
         m_downwardMeterP2->SetScale({
-            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_pilotP2->m_ship->m_clipIndexDownward / (float)m_pilotP2->m_ship->m_clipSizeDownward)),
+            m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_pilotP2->m_clipIndexDownward / (float)m_pilotP2->m_clipSizeDownward)),
             m_defaultScaleDownward.fY,
             m_defaultScaleDownward.fZ });
     }
     m_superMeterP2->SetScale({
-        m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP2->m_ship->m_cooldownSuper / m_pilotP2->m_ship->m_maxCooldownSuper)),
+        m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP2->m_cooldownSuper / m_pilotP2->m_maxCooldownSuper)),
         m_defaultScaleSuper.fY,
         m_defaultScaleSuper.fZ });
 
@@ -437,16 +438,16 @@ void Arena::CreateMeterBorders()
 {
     CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
     CreateMeterBorder("O-ParryMeterP1", m_parryMeterP1, 1);
-    CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_ship->m_clipSizeNeutral);
-    CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_ship->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_ship->m_clipSizeDownward);
+    CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_clipSizeNeutral);
+    CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_clipSizeUpward);
+    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_clipSizeDownward);
     CreateMeterBorder("O-SuperMeterP1", m_superMeterP1, 1);
     CreateMeterBorder("O-LivesMeterP1", m_livesMeterP1, m_pilotP1->m_maxLives);
     CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
     CreateMeterBorder("O-ParryMeterP2", m_parryMeterP2, 1);
-    CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_ship->m_clipSizeNeutral);
-    CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_ship->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_ship->m_clipSizeDownward);
+    CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_clipSizeNeutral);
+    CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_clipSizeUpward);
+    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_clipSizeDownward);
     CreateMeterBorder("O-SuperMeterP2", m_superMeterP2, 1);
     CreateMeterBorder("O-LivesMeterP2", m_livesMeterP2, m_pilotP2->m_maxLives);
 }

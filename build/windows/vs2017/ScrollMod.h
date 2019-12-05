@@ -62,6 +62,11 @@ namespace hexpatriates
         /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
         /// <returns>The ScrollMod's position.</returns>
         const orxVECTOR __fastcall GetPosition(const bool &_bWorld = false) const;
+        /// <summary>Gets the predicted position of the ScrollMod one frame from when the function is called.</summary>
+        /// <param name="_fDT">The delta time.</param>
+        /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
+        /// <returns>The predicted position of the ScrollMod one frame from when the function is called.</returns>
+        const orxVECTOR __fastcall GetPositionNextFrame(const float &_fDT, const bool &_bWorld = false) const;
         /// <summary>A more object-oriented version of ORX's GetScale function.</summary>
         /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
         /// <returns>The ScrollMod's scale.</returns>
@@ -69,6 +74,10 @@ namespace hexpatriates
         /// <summary>A more object-oriented version of ORX's GetSize function.</summary>
         /// <returns>The ScrollMod's size.</returns>
         const orxVECTOR __fastcall GetSize() const;
+        /// <summary>Returns the size of the ScrollMod after taking its scale into account.</summary>
+        /// <param name="_bWorld">Bool representing whether or not the object's scale is considered in world space (as opposed to local space).</param>
+        /// <returns>The size of the ScrollMod after taking its scale into account.</returns>
+        const orxVECTOR __fastcall GetScaledSize(const bool &_bWorld = false) const;
         /// <summary>A more object-oriented version of ORX's GetSpeed function.</summary>
         /// <param name="_bRelative">Whether or not we're getting the ScrollMod's parent-relative speed.</param>
         /// <returns>The ScrollMod's speed.</returns>

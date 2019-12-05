@@ -3,6 +3,7 @@
 #include "Hexpatriates.h"
 #include "Pilot.h"
 #include "ScrollMod.h"
+#include "ArenaBounds.h"
 
 namespace hexpatriates
 {
@@ -29,6 +30,7 @@ namespace hexpatriates
     public:
         //! The amount of time, in seconds, remaining until the round automatically ends.
         float m_timer;
+        ArenaBounds *m_bounds;
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;
         ScrollMod *m_dashMeterP1;

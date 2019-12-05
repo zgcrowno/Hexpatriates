@@ -5,27 +5,31 @@
 #define __SCROLL_IMPL__
 #include "Hexpatriates.h"
 #include "Arena.h"
+#include "ArenaBound.h"
+#include "ArenaBounds.h"
 #include "Beam.h"
+#include "Ember.h"
 #include "Explosion.h"
 #include "Familiar.h"
 #include "Laser.h"
+#include "LaserGate.h"
 #include "LaserHeatseeking.h"
 #include "LaserPortalEntrance.h"
 #include "LaserWall.h"
 #include "MainMenu.h"
 #include "Menu.h"
 #include "Orb.h"
-#include "Pilot.h"
+#include "Pilot1.h"
+#include "Pilot2.h"
+#include "Pilot3.h"
+#include "Pilot4.h"
+#include "Pilot5.h"
+#include "Pilot6.h"
+#include "Pilot7.h"
+#include "Pilot8.h"
 #include "PilotSelectMenu.h"
 #include "Prism.h"
-#include "Ship1.h"
-#include "Ship2.h"
-#include "Ship3.h"
-#include "Ship4.h"
-#include "Ship5.h"
-#include "Ship6.h"
-#include "Ship7.h"
-#include "Ship8.h"
+#include "Ship.h"
 #include "Spacer.h"
 #include "Spawner.h"
 #include "Turret.h"
@@ -58,28 +62,32 @@ orxSTATUS Hexpatriates::Init()
 void Hexpatriates::BindObjects()
 {
     ScrollBindObject<Arena>("O-Arena");
+    ScrollBindObject<ArenaBound>("O-Wall");
+    ScrollBindObject<ArenaBounds>("O-Walls");
     ScrollBindObject<Beam>("O-Beam");
+    ScrollBindObject<Ember>("O-Ember");
     ScrollBindObject<Explosion>("O-Explosion");
     ScrollBindObject<Familiar>("O-Familiar");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
+    ScrollBindObject<LaserGate>("O-LaserGate");
     ScrollBindObject<LaserHeatseeking>("O-LaserHeatseeking");
     ScrollBindObject<LaserPortalEntrance>("O-LaserPortalEntrance");
     ScrollBindObject<LaserWall>("O-LaserWall");
     ScrollBindObject<MainMenu>("O-MainMenu");
     ScrollBindObject<Menu>("O-Menu");
     ScrollBindObject<Orb>("O-Orb");
-    ScrollBindObject<Pilot>("O-Pilot");
+    ScrollBindObject<Pilot1>("O-Pilot1");
+    ScrollBindObject<Pilot2>("O-Pilot2");
+    ScrollBindObject<Pilot3>("O-Pilot3");
+    ScrollBindObject<Pilot4>("O-Pilot4");
+    ScrollBindObject<Pilot5>("O-Pilot5");
+    ScrollBindObject<Pilot6>("O-Pilot6");
+    ScrollBindObject<Pilot7>("O-Pilot7");
+    ScrollBindObject<Pilot8>("O-Pilot8");
     ScrollBindObject<PilotSelectMenu>("O-PilotSelectMenu");
     ScrollBindObject<Prism>("O-Prism");
-    ScrollBindObject<Ship1>("O-Ship1");
-    ScrollBindObject<Ship2>("O-Ship2");
-    ScrollBindObject<Ship3>("O-Ship3");
-    ScrollBindObject<Ship4>("O-Ship4");
-    ScrollBindObject<Ship5>("O-Ship5");
-    ScrollBindObject<Ship6>("O-Ship6");
-    ScrollBindObject<Ship7>("O-Ship7");
-    ScrollBindObject<Ship8>("O-Ship8");
+    ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Spacer>("O-Spacer");
     ScrollBindObject<Turret>("O-Turret");
     ScrollBindObject<Zone>("O-Zone");
@@ -101,9 +109,64 @@ void Hexpatriates::Exit()
 {
 }
 
+ScrollObject *Hexpatriates::GetArenaBounds()
+{
+    return GetNextObject<ArenaBounds>();
+}
+
 ScrollObject *Hexpatriates::GetPilotByPlayerType(const orxCHAR *_str)
 {
-    for (Pilot *pilot = GetNextObject<Pilot>(); pilot != orxNULL; pilot = GetNextObject<Pilot>(pilot))
+    // Doing it this way because I can't explicitly return a pointer to an abstract class (Pilot).
+    for (Pilot1 *pilot = GetNextObject<Pilot1>(); pilot != orxNULL; pilot = GetNextObject<Pilot1>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+    for (Pilot2 *pilot = GetNextObject<Pilot2>(); pilot != orxNULL; pilot = GetNextObject<Pilot2>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+    for (Pilot3 *pilot = GetNextObject<Pilot3>(); pilot != orxNULL; pilot = GetNextObject<Pilot3>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+    for (Pilot4 *pilot = GetNextObject<Pilot4>(); pilot != orxNULL; pilot = GetNextObject<Pilot4>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+    for (Pilot5 *pilot = GetNextObject<Pilot5>(); pilot != orxNULL; pilot = GetNextObject<Pilot5>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+    for (Pilot6 *pilot = GetNextObject<Pilot6>(); pilot != orxNULL; pilot = GetNextObject<Pilot6>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+    for (Pilot7 *pilot = GetNextObject<Pilot7>(); pilot != orxNULL; pilot = GetNextObject<Pilot7>(pilot))
+    {
+        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        {
+            return pilot;
+        }
+    }
+    for (Pilot8 *pilot = GetNextObject<Pilot8>(); pilot != orxNULL; pilot = GetNextObject<Pilot8>(pilot))
     {
         if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
         {

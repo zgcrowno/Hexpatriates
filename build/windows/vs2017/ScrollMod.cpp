@@ -115,6 +115,14 @@ const orxVECTOR __fastcall ScrollMod::GetPosition(const bool &_bWorld) const
     return vecRef;
 }
 
+const orxVECTOR __fastcall ScrollMod::GetPositionNextFrame(const float &_fDT, const bool &_bWorld) const
+{
+    orxVECTOR curPos = GetPosition(_bWorld);
+    orxVECTOR curSpeed = GetSpeed();
+
+    return { curPos.fX + curSpeed.fX * _fDT, curPos.fY + curSpeed.fY * _fDT, curPos.fZ + curSpeed.fZ * _fDT };
+}
+
 const orxVECTOR __fastcall ScrollMod::GetScale(const bool &_bWorld) const
 {
     orxVECTOR vecRef;
@@ -129,6 +137,14 @@ const orxVECTOR __fastcall ScrollMod::GetSize() const
     ScrollObject::GetSize(vecRef);
 
     return vecRef;
+}
+
+const orxVECTOR __fastcall ScrollMod::GetScaledSize(const bool &_bWorld) const
+{
+    orxVECTOR size = GetSize();
+    orxVECTOR scale = GetScale(_bWorld);
+
+    return { size.fX * scale.fX, size.fY * scale.fY, size.fZ * scale.fZ };
 }
 
 const orxVECTOR __fastcall ScrollMod::GetSpeed(const bool &_bRelative) const

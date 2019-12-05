@@ -26,6 +26,7 @@ namespace hexpatriates
         //! Exit the program
         virtual void Exit();
     public:
+        ScrollObject *GetArenaBounds();
         ScrollObject *GetPilotByPlayerType(const orxCHAR *_str);
         std::vector<ScrollObject*> GetFamiliarsByPlayerType(const orxCHAR *_str);
     };

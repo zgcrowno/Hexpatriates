@@ -2,7 +2,6 @@
 #include "Laser.h"
 #include "LaserWall.h"
 #include "Orb.h"
-#include "Ship6.h"
 #include <string>
 
 using namespace hexpatriates;
@@ -36,6 +35,26 @@ void Pilot::OnCreate()
     m_maxCooldownDash = GetFloat("MaxCooldownDash", GetModelName());
     m_maxCooldownParry = GetFloat("MaxCooldownParry", GetModelName());
     m_maxCooldownMelee = GetFloat("MaxCooldownMelee", GetModelName());
+    m_clipSizeNeutral = GetFloat("ClipSizeNeutral", GetModelName());
+    m_clipSizeUpward = GetFloat("ClipSizeUpward", GetModelName());
+    m_clipSizeDownward = GetFloat("ClipSizeDownward", GetModelName());
+    m_waveSizeNeutral = GetFloat("WaveSizeNeutral", GetModelName());
+    m_waveSizeUpward = GetFloat("WaveSizeUpward", GetModelName());
+    m_waveSizeDownward = GetFloat("WaveSizeDownward", GetModelName());
+    m_waveSizeSuper = GetFloat("WaveSizeSuper", GetModelName());
+    m_numWavesNeutral = GetFloat("NumWavesNeutral", GetModelName());
+    m_numWavesUpward = GetFloat("NumWavesUpward", GetModelName());
+    m_numWavesDownward = GetFloat("NumWavesDownward", GetModelName());
+    m_numWavesSuper = GetFloat("NumWavesSuper", GetModelName());
+    m_maxCooldownNeutral = GetFloat("MaxCooldownNeutral", GetModelName());
+    m_maxCooldownUpward = GetFloat("MaxCooldownUpward", GetModelName());
+    m_maxCooldownDownward = GetFloat("MaxCooldownDownward", GetModelName());
+    m_maxCooldownSuper = GetFloat("MaxCooldownSuper", GetModelName());
+    m_maxWaveDelayNeutral = GetFloat("MaxWaveDelayNeutral", GetModelName());
+    m_maxWaveDelayUpward = GetFloat("MaxWaveDelayUpward", GetModelName());
+    m_maxWaveDelayDownward = GetFloat("MaxWaveDelayDownward", GetModelName());
+    m_maxWaveDelaySuper = GetFloat("MaxWaveDelaySuper", GetModelName());
+    m_cooldownSuper = m_maxCooldownSuper;
     // Get inputs.
     m_upInput = GetString("UpInput", GetModelName());
     m_leftInput = GetString("LeftInput", GetModelName());
@@ -47,6 +66,22 @@ void Pilot::OnCreate()
     m_parryInput = GetString("ParryInput", GetModelName());
     m_meleeInput = GetString("MeleeInput", GetModelName());
     m_jumpInput = GetString("JumpInput", GetModelName());
+    if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
+    {
+        m_neutralInput = "NeutralP1";
+        m_upwardInput = "UpwardP1";
+        m_downwardInput = "DownwardP1";
+        m_superInput = "SuperP1";
+        m_enemyDirection = 0;
+    }
+    else
+    {
+        m_neutralInput = "NeutralP2";
+        m_upwardInput = "UpwardP2";
+        m_downwardInput = "DownwardP2";
+        m_superInput = "SuperP2";
+        m_enemyDirection = orxMATH_KF_PI;
+    }
     // Set the Pilot's spawning position and flip
     m_defaultPosition = GetPosition();
     GetFlip(m_defaultFlipX, m_defaultFlipY);
@@ -121,10 +156,6 @@ orxBOOL Pilot::OnCollide(
                     Die();
                 }
             }
-            else if (m_ship->IsEnabled())
-            {
-                SpawnFamiliar();
-            }
         }
         // Orb collisions
         Orb *collidedOrb = dynamic_cast<Orb*>(_poCollider);
@@ -132,8 +163,6 @@ orxBOOL Pilot::OnCollide(
         {
             if (m_parryTime > 0)
             {
-                SpawnFamiliar();
-
                 // Deflect the orb (we're basically replacing the orb with another one of the Pilot's type)
                 // TODO: This should probably be done more efficiently
                 orxCHAR *deflectedOrbModelName;
@@ -256,10 +285,10 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     Parry();
     if (m_ship->IsEnabled())
     {
-        m_ship->Neutral();
-        m_ship->Upward();
-        m_ship->Downward();
-        m_ship->Super();
+        Neutral();
+        Upward();
+        Downward();
+        Super();
     }
     else
     {
@@ -358,6 +387,111 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_cooldownMelee = 0;
+    }
+    if (m_cooldownNeutral > 0)
+    {
+        m_cooldownNeutral -= _rstInfo.fDT;
+    }
+    else
+    {
+        m_cooldownNeutral = 0;
+    }
+    if (m_cooldownUpward > 0)
+    {
+        m_cooldownUpward -= _rstInfo.fDT;
+    }
+    else
+    {
+        m_cooldownUpward = 0;
+    }
+    if (m_cooldownDownward > 0)
+    {
+        m_cooldownDownward -= _rstInfo.fDT;
+    }
+    else
+    {
+        m_cooldownDownward = 0;
+    }
+    if (m_cooldownSuper > 0)
+    {
+        m_cooldownSuper -= _rstInfo.fDT;
+    }
+    else
+    {
+        m_cooldownSuper = 0;
+    }
+    // Handle Waves
+    if (m_wavesIndexNeutral != 0 && m_wavesIndexNeutral < m_numWavesNeutral)
+    {
+        if (m_waveDelayNeutral > 0)
+        {
+            m_waveDelayNeutral -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireNeutral();
+            m_wavesIndexNeutral++;
+            m_waveDelayNeutral = m_maxWaveDelayNeutral;
+        }
+    }
+    else
+    {
+        m_wavesIndexNeutral = 0;
+        m_waveDelayNeutral = 0;
+    }
+    if (m_wavesIndexUpward != 0 && m_wavesIndexUpward < m_numWavesUpward)
+    {
+        if (m_waveDelayUpward > 0)
+        {
+            m_waveDelayUpward -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireUpward();
+            m_wavesIndexUpward++;
+            m_waveDelayUpward = m_maxWaveDelayUpward;
+        }
+    }
+    else
+    {
+        m_wavesIndexUpward = 0;
+        m_waveDelayUpward = 0;
+    }
+    if (m_wavesIndexDownward != 0 && m_wavesIndexDownward < m_numWavesDownward)
+    {
+        if (m_waveDelayDownward > 0)
+        {
+            m_waveDelayDownward -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireDownward();
+            m_wavesIndexDownward++;
+            m_waveDelayDownward = m_maxWaveDelayDownward;
+        }
+    }
+    else
+    {
+        m_wavesIndexDownward = 0;
+        m_waveDelayDownward = 0;
+    }
+    if (m_wavesIndexSuper != 0 && m_wavesIndexSuper < m_numWavesSuper)
+    {
+        if (m_waveDelaySuper > 0)
+        {
+            m_waveDelaySuper -= _rstInfo.fDT;
+        }
+        else
+        {
+            FireSuper();
+            m_wavesIndexSuper++;
+            m_waveDelaySuper = m_maxWaveDelaySuper;
+        }
+    }
+    else
+    {
+        m_wavesIndexSuper = 0;
+        m_waveDelaySuper = 0;
     }
 }
 
@@ -506,20 +640,6 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         movement.fY = m_dashDirection.fY * m_dashSpeed * _rstInfo.fDT;
     }
     SetSpeed(movement);
-    // TODO: I'll probably get rid of all of the ship classes I have, and make the same number of pilot classes, so these sorts of checks are unnecessary.
-    // If the Pilot is associated with a Ship that has familiars, ensure those familiars are correctly positioned upon movement
-    Ship6 *familiarShip = dynamic_cast<Ship6*>(m_ship);
-    if ((movement.fX != orxVECTOR_0.fX || movement.fY != orxVECTOR_0.fY) && familiarShip != NULL)
-    {
-        for (Familiar *familiar : familiarShip->m_familiars)
-        {
-            if (familiar->m_upcomingPositions.size() == familiar->m_framesBehind - 1)
-            {
-                familiar->Move();
-            }
-            familiar->m_upcomingPositions.push(GetPosition());
-        }
-    }
 }
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
@@ -607,22 +727,6 @@ void Pilot::Melee()
     }
 }
 
-void Pilot::SpawnFamiliar()
-{
-    Ship6 *familiarShip = dynamic_cast<Ship6*>(m_ship);
-    if (familiarShip != NULL && familiarShip->m_familiars.size() < familiarShip->m_maxFamiliars)
-    {
-        int typeLength = strlen("P1");
-        orxCHAR familiarText[512] = "O-Familiar";
-        orxCHAR pilotTypeText[512];
-        ScrollMod::Substring(GetModelName(), pilotTypeText, strlen(GetModelName()) - typeLength, typeLength);
-        orxVECTOR spawnPosition = {GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ};
-
-        familiarShip->m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, pilotTypeText), {}, {}, { { "Position", &spawnPosition } })));
-        familiarShip->m_familiars.at(familiarShip->m_familiars.size() - 1)->m_framesBehind *= familiarShip->m_familiars.size();
-    }
-}
-
 void Pilot::DestroyShip()
 {
     // Disable the ship
@@ -655,4 +759,89 @@ void Pilot::Die()
     }
     m_lives--;
     Enable(orxFALSE);
+}
+
+void Pilot::Neutral()
+{
+    if (orxInput_HasBeenActivated(m_neutralInput))
+    {
+        if (m_cooldownNeutral <= 0 && m_wavesIndexNeutral == 0)
+        {
+            m_waveDelayNeutral = m_maxWaveDelayNeutral;
+
+            m_clipIndexNeutral++;
+            m_wavesIndexNeutral++;
+
+            FireNeutral();
+
+            if (m_clipIndexNeutral == m_clipSizeNeutral)
+            {
+                m_clipIndexNeutral = 0;
+                m_cooldownNeutral = m_maxCooldownNeutral;
+            }
+        }
+    }
+}
+
+void Pilot::Upward()
+{
+    if (orxInput_HasBeenActivated(m_upwardInput))
+    {
+        if (m_cooldownUpward <= 0 && m_wavesIndexUpward == 0)
+        {
+            m_waveDelayUpward = m_maxWaveDelayUpward;
+
+            m_clipIndexUpward++;
+            m_wavesIndexUpward++;
+
+            FireUpward();
+
+            if (m_clipIndexUpward == m_clipSizeUpward)
+            {
+                m_clipIndexUpward = 0;
+                m_cooldownUpward = m_maxCooldownUpward;
+            }
+        }
+    }
+}
+
+void Pilot::Downward()
+{
+    if (orxInput_HasBeenActivated(m_downwardInput))
+    {
+        if (m_cooldownDownward <= 0 && m_wavesIndexDownward == 0)
+        {
+            m_waveDelayDownward = m_maxWaveDelayDownward;
+
+            m_clipIndexDownward++;
+            m_wavesIndexDownward++;
+
+            FireDownward();
+
+            if (m_clipIndexDownward == m_clipSizeDownward)
+            {
+                m_clipIndexDownward = 0;
+                m_cooldownDownward = m_maxCooldownDownward;
+            }
+        }
+    }
+}
+
+void Pilot::Super()
+{
+    if (orxInput_HasBeenActivated(m_superInput))
+    {
+        if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
+        {
+            m_wavesIndexSuper++;
+
+            m_waveDelaySuper = m_maxWaveDelaySuper;
+
+            m_cooldownSuper = m_maxCooldownSuper;
+
+            FireSuper();
+
+            m_cooldownSuper = m_maxCooldownSuper;
+        }
+    }
 }

@@ -16,12 +16,6 @@
     <Filter Include="src\CPP\Projectiles">
       <UniqueIdentifier>{aac32bae-107a-423d-a727-27c4f7320730}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\CPP\Ships">
-      <UniqueIdentifier>{3cd8acae-d7d0-4284-a197-6ff38fba605f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Headers\Ships">
-      <UniqueIdentifier>{0c9d7d58-0518-466c-9607-0fd2aeb0d591}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Headers\Projectiles">
       <UniqueIdentifier>{b81a1faa-08e0-42fa-ae3b-dd64ec059604}</UniqueIdentifier>
     </Filter>
@@ -30,6 +24,18 @@
     </Filter>
     <Filter Include="src\Headers\Menus">
       <UniqueIdentifier>{618d58bd-001e-455b-9e02-af9a731aedcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\Geometry">
+      <UniqueIdentifier>{b6900541-902a-43ae-b1c9-d849dd7373fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\Geometry">
+      <UniqueIdentifier>{452abd86-e39a-4c94-a95c-feb903f8c728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\Pilots">
+      <UniqueIdentifier>{11e4208c-9fd8-4b04-a22b-324c0815668f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\Pilots">
+      <UniqueIdentifier>{79ed77ce-e844-4fde-8096-ca4fa63999f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,9 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Hexpatriates.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Pilot.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="ScrollMod.cpp">
@@ -98,33 +101,6 @@
     <ClCompile Include="Turret.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
-    <ClCompile Include="Ship.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship1.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship2.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship3.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship4.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship5.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship6.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship7.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship8.cpp">
-      <Filter>src\CPP\Ships</Filter>
-    </ClCompile>
     <ClCompile Include="MainMenu.cpp">
       <Filter>src\CPP\Menus</Filter>
     </ClCompile>
@@ -140,12 +116,51 @@
     <ClCompile Include="Spacer.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="LaserGate.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="ArenaBounds.cpp">
+      <Filter>src\CPP\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="ArenaBound.cpp">
+      <Filter>src\CPP\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Ember.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot1.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot2.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot3.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot4.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot5.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot6.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot7.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot8.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilot.cpp">
+      <Filter>src\CPP\Pilots</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Pilot.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="ScrollMod.h">
@@ -162,33 +177,6 @@
     </ClInclude>
     <ClInclude Include="LaserPortalEntrance.h">
       <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship1.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship2.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship3.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship4.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship5.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship6.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship7.h">
-      <Filter>src\Headers\Ships</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship8.h">
-      <Filter>src\Headers\Ships</Filter>
     </ClInclude>
     <ClInclude Include="Beam.h">
       <Filter>src\Headers\Projectiles</Filter>
@@ -231,6 +219,48 @@
     </ClInclude>
     <ClInclude Include="Spacer.h">
       <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserGate.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="ArenaBounds.h">
+      <Filter>src\Headers\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="ArenaBound.h">
+      <Filter>src\Headers\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Ember.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot1.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot2.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot3.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot4.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot5.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot6.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot7.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot8.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Pilot.h">
+      <Filter>src\Headers\Pilots</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

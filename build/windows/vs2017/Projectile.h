@@ -24,7 +24,6 @@ namespace hexpatriates
     public:
         bool m_tethered;
         float m_speed;
-        orxVECTOR direction;
         orxOBJECT *m_parentGun;
     };
 }

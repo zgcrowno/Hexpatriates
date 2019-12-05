@@ -45,7 +45,7 @@ orxBOOL Familiar::OnCollide(
         }
         else
         {
-            if (m_type == ETurret)
+            if (m_type == Turret)
             {
                 float normalDirection = orxMath_ATan(_rvNormal.fY, _rvNormal.fX);
                 m_attachedMovementDirection = normalDirection - orxMATH_KF_PI_BY_2;
@@ -80,7 +80,7 @@ void Familiar::Move()
     m_upcomingPositions.pop();
 }
 
-void Familiar::FireSelf(const float _direction, const FamiliarType _type)
+void Familiar::FireSelf(const float _direction, const Type _type)
 {
     orxVECTOR initialSpeed = { orxMath_Cos(_direction), orxMath_Sin(_direction) };
     SetRotation(_direction);
