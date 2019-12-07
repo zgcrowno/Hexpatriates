@@ -5,6 +5,8 @@ using namespace hexpatriates;
 void Pilot5::OnCreate()
 {
     Pilot::OnCreate();
+
+    m_shipPoundSpeed = GetFloat("ShipPoundSpeed", GetModelName());
 }
 
 void Pilot5::OnDelete()
@@ -32,42 +34,73 @@ orxBOOL Pilot5::OnCollide(
 void Pilot5::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Pilot::Update(_rstInfo);
+
+    // Handle ShipPoundShockwave behavior
+    if (m_ship->m_bIsAgainstFloor && m_bIsShipPounding)
+    {
+        ShipPoundShockwave();
+    }
+}
+
+void Pilot5::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement)
+{
+    if (m_bIsShipPounding)
+    {
+        SetSpeed({ 0, m_shipPoundSpeed });
+    }
+    else
+    {
+        Pilot::Move(_rstInfo, m_stance != Grounded);
+    }
 }
 
 void Pilot5::FireNeutral()
 {
     for (int i = 0; i < m_waveSizeNeutral; i++)
     {
+        if (m_stance == Stance::Airborne)
+        {
+            m_ship->m_neutralGun->SpawnAtSelf(m_enemyDirection);
+        }
+        else // m_stance == Stance::Grounded
+        {
+            CreateObject("O-CrosshairsP1");
+        }
         //m_neutralGun->Spawn(m_enemyDirection);
     }
 }
 
 void Pilot5::FireUpward()
 {
-    for (int i = 0; i < m_waveSizeUpward; i++)
+    if (m_stance == Stance::Grounded)
     {
-        if (m_stance == Stance::CloseRange)
+        SwitchStance();
+        // Resetting this here so the base class doesn't keep iterating as if the upward gun was fired.
+        m_wavesIndexUpward = 0;
+    }
+    else // m_stance == Stance::Airborne
+    {
+        for (int i = 0; i < m_waveSizeUpward; i++)
         {
-            m_stance == Stance::LongRange;
-        }
-        else
-        {
-            //m_upwardGun->Spawn(-orxMATH_KF_PI_BY_2 + (copysignf(1, cosf(m_enemyDirection)) * orxMATH_KF_PI_BY_4));
+            float shotDirection = orxMath_GetRandomFloat(-orxMATH_KF_PI_BY_8, -orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_8);
+            m_ship->m_upwardGun->SpawnAtSelf(shotDirection);
         }
     }
 }
 
 void Pilot5::FireDownward()
 {
-    for (int i = 0; i < m_waveSizeDownward; i++)
+    if (m_stance == Stance::Airborne)
     {
-        if (m_stance == Stance::LongRange)
+        SwitchStance();
+        // Resetting this here so the base class doesn't keep iterating as if the downward gun was fired.
+        m_wavesIndexDownward = 0;
+    }
+    else // m_stance == Stance::Grounded
+    {
+        for (int i = 0; i < m_waveSizeDownward; i++)
         {
-            m_stance == Stance::CloseRange;
-        }
-        else
-        {
-            //m_downwardGun->Spawn(orxMath_GetRandomFloat(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_4 / 2.0, orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_4 / 2.0));
+            m_ship->m_downwardGun->SpawnAtSelf(orxMATH_KF_PI_BY_8 - (m_wavesIndexDownward * (orxMATH_KF_PI_BY_8 / m_numWavesDownward)));
         }
     }
 }
@@ -85,4 +118,31 @@ void Pilot5::FireSuper()
             //m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i + (m_enemyDirection + orxMATH_KF_PI_BY_4) / 2);
         }
     }
+}
+
+void Pilot5::SwitchStance()
+{
+    if (m_stance == Stance::Airborne)
+    {
+        m_stance = Stance::Grounded;
+        m_bIsShipPounding = true;
+        SetCustomGravity(GetWorldGravity());
+    }
+    else // m_stance == Stance::Grounded
+    {
+        m_stance = Stance::Airborne;
+        SetCustomGravity(GetVector("CustomGravity", GetModelName()));
+    }
+}
+
+void Pilot5::ShipPoundShockwave()
+{
+    m_bIsShipPounding = false;
+
+    ScrollMod *shockwaveLeft = CreateObject("O-ShockwaveP1");
+    ScrollMod *shockwaveRight = CreateObject("O-ShockwaveP1");
+    shockwaveLeft->SetPosition({ GetPosition().fX, GetPosition().fY + GetScaledSize().fY / 2 });
+    shockwaveRight->SetPosition({ GetPosition().fX, GetPosition().fY + GetScaledSize().fY / 2 });
+    shockwaveLeft->SetSpeed({ -GetFloat("Speed", shockwaveLeft->GetModelName()), 0 });
+    shockwaveRight->SetSpeed({ GetFloat("Speed", shockwaveLeft->GetModelName()), 0 });
 }

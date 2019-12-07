@@ -60,9 +60,9 @@ void Pilot6::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot6::Move(const orxCLOCK_INFO &_rstInfo)
+void Pilot6::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement)
 {
-    Pilot::Move(_rstInfo);
+    Pilot::Move(_rstInfo, _bAllowVerticalMovement);
 
     orxVECTOR speedVector = GetSpeed();
     if (speedVector.fX != orxVECTOR_0.fX || speedVector.fY != orxVECTOR_0.fY)

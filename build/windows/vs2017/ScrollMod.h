@@ -177,6 +177,11 @@ namespace hexpatriates
         /// <param name="_partName">The name of the body part whose solidity we wish to set.</param>
         /// <param name="_bSolid">The bool value representing the solidity we wish to set.</param>
         void SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSolid);
+        /// <summary>Moves The ScrollMod from its current position to <paramref name="_destination"/> at a speed of <paramref name="_speed"/>, and with a deceleration distance of <paramref name="decelerationDistance"/>.</summary>
+        /// <param name="_destination">The position to which we're moving the ScrollMod.</param>
+        /// <param name="_speed">The speed at which we're moving the ScrollMod to <paramref name="_destination"/>.</param>
+        /// <param name="_decelerationDistance">The distance between the ScrollMod and <paramref name="_destination"/> at which the movement of the ScrollMod will begin to slow, so as to avoid "jittering" upon reaching the destination.</param>
+        void MoveTo(const orxVECTOR &_destination, const float &_speed, const float &_decelerationDistance);
         /// <summary>Destroys the ScrollMod immediately.</summary>
         void Destroy();
     };

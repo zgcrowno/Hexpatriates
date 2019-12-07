@@ -392,6 +392,16 @@ void ScrollMod::SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSoli
     orxBody_SetPartSolid(GetBodyPartByName(_partName), _bSolid);
 }
 
+void ScrollMod::MoveTo(const orxVECTOR &_destination, const float &_speed, const float &_decelerationDistance)
+{
+    orxVECTOR position = GetPosition();
+    float angleBetweenSelfAndTarget = atan2f(_destination.fY - position.fY, _destination.fX - position.fX);
+    orxVECTOR normalizedSpeed = { orxMath_Cos(angleBetweenSelfAndTarget), orxMath_Sin(angleBetweenSelfAndTarget) };
+    float distance = orxVector_GetDistance(&position, &_destination);
+    float speed = distance <= _decelerationDistance ? _speed * (distance / _decelerationDistance) : _speed;
+    SetSpeed({ normalizedSpeed.fX * speed, normalizedSpeed.fY * speed });
+}
+
 void ScrollMod::Destroy()
 {
     SetLifeTime(0.0);

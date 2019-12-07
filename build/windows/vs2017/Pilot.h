@@ -28,7 +28,7 @@ namespace hexpatriates
         //! Sets the Pilot's heads up text
         void SetHeadsUpText();
         //! Moves the Player based on user input and the passed speed
-        virtual void Move(const orxCLOCK_INFO &_rstInfo);
+        virtual void Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement);
     public:
         //! Flag representing whether or not the Pilot is in their own zone.
         bool m_bIsInOwnZone;

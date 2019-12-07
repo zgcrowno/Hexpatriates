@@ -280,7 +280,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // Movement inputs.
     Dash();
-    Move(_rstInfo);
+    Move(_rstInfo, true);
     // Action inputs.
     Parry();
     if (m_ship->IsEnabled())
@@ -522,7 +522,7 @@ void Pilot::SetHeadsUpText()
     orxObject_SetColor(m_headsUpText->GetOrxObject(), &color);
 }
 
-void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
+void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement)
 {
     orxVECTOR movement = orxVECTOR_0;
 
@@ -535,11 +535,11 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo)
         {
             speed = m_flyingSpeed;
 
-            if (orxInput_IsActive(m_upDownInput))
+            if (orxInput_IsActive(m_upDownInput) && _bAllowVerticalMovement)
             {
                 movement.fY += speed * orxInput_GetValue(m_upDownInput) * _rstInfo.fDT;
             }
-            else
+            else if (_bAllowVerticalMovement)
             {
                 if (orxInput_IsActive(m_upInput))
                 {

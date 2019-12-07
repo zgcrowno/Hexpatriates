@@ -8,15 +8,18 @@
 #include "ArenaBound.h"
 #include "ArenaBounds.h"
 #include "Beam.h"
+#include "Crosshairs.h"
 #include "Ember.h"
 #include "Explosion.h"
 #include "Familiar.h"
+#include "Grenade.h"
 #include "Laser.h"
 #include "LaserGate.h"
 #include "LaserHeatseeking.h"
 #include "LaserPortalEntrance.h"
 #include "LaserWall.h"
 #include "MainMenu.h"
+#include "MedussaHead.h"
 #include "Menu.h"
 #include "Orb.h"
 #include "Pilot1.h"
@@ -30,6 +33,7 @@
 #include "PilotSelectMenu.h"
 #include "Prism.h"
 #include "Ship.h"
+#include "Shrapnel.h"
 #include "Spacer.h"
 #include "Spawner.h"
 #include "Turret.h"
@@ -65,9 +69,11 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<ArenaBound>("O-Wall");
     ScrollBindObject<ArenaBounds>("O-Walls");
     ScrollBindObject<Beam>("O-Beam");
+    ScrollBindObject<Crosshairs>("O-Crosshairs");
     ScrollBindObject<Ember>("O-Ember");
     ScrollBindObject<Explosion>("O-Explosion");
     ScrollBindObject<Familiar>("O-Familiar");
+    ScrollBindObject<Grenade>("O-Grenade");
     ScrollBindObject<Spawner>("O-Spawner");
     ScrollBindObject<Laser>("O-Laser");
     ScrollBindObject<LaserGate>("O-LaserGate");
@@ -75,6 +81,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<LaserPortalEntrance>("O-LaserPortalEntrance");
     ScrollBindObject<LaserWall>("O-LaserWall");
     ScrollBindObject<MainMenu>("O-MainMenu");
+    ScrollBindObject<MedussaHead>("O-MedussaHead");
     ScrollBindObject<Menu>("O-Menu");
     ScrollBindObject<Orb>("O-Orb");
     ScrollBindObject<Pilot1>("O-Pilot1");
@@ -88,6 +95,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<PilotSelectMenu>("O-PilotSelectMenu");
     ScrollBindObject<Prism>("O-Prism");
     ScrollBindObject<Ship>("O-Ship");
+    ScrollBindObject<Shrapnel>("O-Shrapnel");
     ScrollBindObject<Spacer>("O-Spacer");
     ScrollBindObject<Turret>("O-Turret");
     ScrollBindObject<Zone>("O-Zone");

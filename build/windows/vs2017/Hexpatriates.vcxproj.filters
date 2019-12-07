@@ -158,6 +158,18 @@
     <ClCompile Include="Ship.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Grenade.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Shrapnel.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="MedussaHead.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Crosshairs.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -260,6 +272,18 @@
       <Filter>src\Headers\Pilots</Filter>
     </ClInclude>
     <ClInclude Include="Ship.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Grenade.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Shrapnel.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="MedussaHead.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Crosshairs.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>
