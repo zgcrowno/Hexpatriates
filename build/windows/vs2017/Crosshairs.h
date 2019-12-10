@@ -24,6 +24,8 @@ namespace hexpatriates
     public:
         float m_speed;
         float m_decelerationDistance;
+        float m_maxMissileSpawnInterval;
+        float m_missileSpawnTime;
         ScrollMod *m_target;
     };
 }

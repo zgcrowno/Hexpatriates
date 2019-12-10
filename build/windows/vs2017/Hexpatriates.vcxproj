@@ -391,6 +391,8 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MedussaHead.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="MissileShield.cpp" />
     <ClCompile Include="Pilot1.cpp" />
     <ClCompile Include="Pilot2.cpp" />
     <ClCompile Include="Pilot3.cpp" />
@@ -438,6 +440,8 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MedussaHead.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Missile.h" />
+    <ClInclude Include="MissileShield.h" />
     <ClInclude Include="Pilot1.h" />
     <ClInclude Include="Pilot2.h" />
     <ClInclude Include="Pilot3.h" />

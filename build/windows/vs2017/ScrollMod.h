@@ -26,10 +26,28 @@ namespace hexpatriates
         /// <param name="_index">The index at which to start copying the substring.</param>
         /// <param name="_size">The size of the copied substring.</param>
         static void Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_index, const int &_size);
+        /// <summary>Returns a radian representation of the angle between <paramref name="_from"/> and <paramref name="_to"/>.</summary>
+        /// <param name="_from">The vector at which we're starting the angle calculation.</param>
+        /// <param name="_to">The vector at which we're finishing the angle calculation.</param>
+        /// <returns>A radian representation of the angle between <paramref name="_from"/> and <paramref name="_to"/>.</returns>
+        static const float inline AngleBetween(orxVECTOR _from, orxVECTOR _to);
+        /// <summary>Returns the normalized form of <paramref name="_vec"/>.</summary>
+        /// <param name="_vec">The vector to normalize.</param>
+        /// <returns>The normalized form of <paramref name="_vec"/>.</returns>
+        static const orxVECTOR NormalizeVector(const orxVECTOR &_vec);
         /// <summary>Returns the radian interpretation of the passed vector.</summary>
         /// <param name="_vec">The vector we wish to interpret as radians.</param>
         /// <returns>The radian interpretation of the passed vector.</returns>
         static const float VectorToRadians(const orxVECTOR &_vec);
+        /// <summary>Returns an inherently normalized vector representation of <paramref name="_angle"/>.</summary>
+        /// <param name="_angle">The angle (in radians) from which we're deriving a normalized vector.</param>
+        /// <returns>An inherently normalized vector representation of <paramref name="_angle"/>.</returns>
+        static const orxVECTOR RadiansToVector(const float &_angle);
+        /// <summary>Returns the reflection vector of <paramref name="_hit"/> about <paramref name="_normal"/>.</summary>
+        /// <param name="_hit">The vector to be reflected about <paramref name="_normal"/>.</param>
+        /// <param name="_normal">The vector about which <paramref name="_hit"/> is to be reflected.</param>
+        /// <returns>The reflection vector of <paramref name="_hit"/> about <paramref name="_normal"/>.</returns>
+        static const orxVECTOR ReflectionVector(const orxVECTOR &_hit, const orxVECTOR &_normal);
         /// <summary>A simplified version of ORX's built-in raycast function.</summary>
         /// <param name="_begin">The position from which to start the raycast.</param>
         /// <param name="_direction">The direction in which to "fire" the raycast.</param>

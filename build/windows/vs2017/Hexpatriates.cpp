@@ -21,6 +21,8 @@
 #include "MainMenu.h"
 #include "MedussaHead.h"
 #include "Menu.h"
+#include "Missile.h"
+#include "MissileShield.h"
 #include "Orb.h"
 #include "Pilot1.h"
 #include "Pilot2.h"
@@ -83,6 +85,8 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<MainMenu>("O-MainMenu");
     ScrollBindObject<MedussaHead>("O-MedussaHead");
     ScrollBindObject<Menu>("O-Menu");
+    ScrollBindObject<Missile>("O-Missile");
+    ScrollBindObject<MissileShield>("O-MissileShield");
     ScrollBindObject<Orb>("O-Orb");
     ScrollBindObject<Pilot1>("O-Pilot1");
     ScrollBindObject<Pilot2>("O-Pilot2");

@@ -1,4 +1,5 @@
 #include "Pilot5.h"
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -64,9 +65,15 @@ void Pilot5::FireNeutral()
         }
         else // m_stance == Stance::Grounded
         {
-            CreateObject("O-CrosshairsP1");
+            int typeLength = strlen("P1");
+            orxCHAR crosshairsText[512] = "O-Crosshairs";
+            orxCHAR crosshairsTypeText[512];
+            ScrollMod::Substring(GetModelName(), crosshairsTypeText, strlen(GetModelName()) - typeLength, typeLength);
+
+            orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+            orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-Crosshairs").fZ };
+            CreateObject(strcat(crosshairsText, crosshairsTypeText), {}, {}, { {"Position", &spawnPosition} });
         }
-        //m_neutralGun->Spawn(m_enemyDirection);
     }
 }
 
@@ -109,14 +116,14 @@ void Pilot5::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        if (m_wavesIndexSuper % 2 == 0)
-        {
-            //m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i);
-        }
-        else
-        {
-            //m_superGun->Spawn((m_enemyDirection + orxMATH_KF_PI_BY_4) * i + (m_enemyDirection + orxMATH_KF_PI_BY_4) / 2);
-        }
+        int typeLength = strlen("P1");
+        orxCHAR missileShieldText[512] = "O-MissileShield";
+        orxCHAR missileShieldTypeText[512];
+        ScrollMod::Substring(GetModelName(), missileShieldTypeText, strlen(GetModelName()) - typeLength, typeLength);
+
+        orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+        orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield").fZ };
+        CreateObject(strcat(missileShieldText, missileShieldTypeText), {}, {}, { {"Position", &spawnPosition} });
     }
 }
 

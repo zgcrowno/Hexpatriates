@@ -30,9 +30,34 @@ void ScrollMod::Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_i
     _strOut[i] = '\0';
 }
 
+const float inline ScrollMod::AngleBetween(orxVECTOR _from, orxVECTOR _to)
+{
+    return atan2f(_to.fY - _from.fY, _to.fX - _from.fX);
+}
+
+const orxVECTOR ScrollMod::NormalizeVector(const orxVECTOR &_vec)
+{
+    orxVECTOR normalizedVector = orxVECTOR_0;
+
+    return *orxVector_Normalize(&normalizedVector, &_vec);
+}
+
 const float ScrollMod::VectorToRadians(const orxVECTOR &_vec)
 {
     return orxMath_ATan(_vec.fY, _vec.fX);
+}
+
+const orxVECTOR ScrollMod::RadiansToVector(const float &_angle)
+{
+    return { orxMath_Cos(_angle), orxMath_Sin(_angle) };
+}
+
+const orxVECTOR ScrollMod::ReflectionVector(const orxVECTOR &_hit, const orxVECTOR &_normal)
+{
+    float dot = orxVector_2DDot(&_hit, &_normal);
+    orxVECTOR subtrahend = { 2 * dot * _normal.fX, 2 * dot * _normal.fY };
+
+    return { _hit.fX - subtrahend.fX, _hit.fY - subtrahend.fY };
 }
 
 const std::vector<orxVECTOR> ScrollMod::Raycast(
@@ -395,8 +420,8 @@ void ScrollMod::SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSoli
 void ScrollMod::MoveTo(const orxVECTOR &_destination, const float &_speed, const float &_decelerationDistance)
 {
     orxVECTOR position = GetPosition();
-    float angleBetweenSelfAndTarget = atan2f(_destination.fY - position.fY, _destination.fX - position.fX);
-    orxVECTOR normalizedSpeed = { orxMath_Cos(angleBetweenSelfAndTarget), orxMath_Sin(angleBetweenSelfAndTarget) };
+    float angleBetweenSelfAndTarget = AngleBetween(position, _destination);
+    orxVECTOR normalizedSpeed = RadiansToVector(angleBetweenSelfAndTarget);
     float distance = orxVector_GetDistance(&position, &_destination);
     float speed = distance <= _decelerationDistance ? _speed * (distance / _decelerationDistance) : _speed;
     SetSpeed({ normalizedSpeed.fX * speed, normalizedSpeed.fY * speed });

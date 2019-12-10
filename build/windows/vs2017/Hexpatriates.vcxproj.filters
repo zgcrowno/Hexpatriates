@@ -170,6 +170,12 @@
     <ClCompile Include="Crosshairs.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileShield.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -284,6 +290,12 @@
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
     <ClInclude Include="Crosshairs.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileShield.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>
