@@ -4,7 +4,7 @@ using namespace hexpatriates;
 
 void Zone::OnCreate()
 {
-    
+    PlayerSpecific::OnCreate();
 }
 
 void Zone::OnDelete()

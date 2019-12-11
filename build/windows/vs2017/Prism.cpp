@@ -9,11 +9,8 @@ void Prism::OnCreate()
 
     m_waveSize = GetFloat("WaveSize", GetModelName());
 
-    int typeLength = strlen("P1");
-    orxCHAR gunTypeText[512] = "O-PrismGun";
-    orxCHAR familiarTypeText[512];
-    ScrollMod::Substring(GetModelName(), familiarTypeText, strlen(GetModelName()) - typeLength, typeLength);
-    m_gun = static_cast<Spawner*>(GetChildByName(strcat(gunTypeText, familiarTypeText)));
+    orxCHAR gunText[512] = "O-PrismGun";
+    m_gun = static_cast<Spawner*>(GetChildByName(strcat(gunText, m_typeName)));
 }
 
 void Prism::OnDelete()

@@ -24,6 +24,8 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         bool m_bIsOnTarget;
+        bool m_bInitialXLessThanTarget;
+        bool m_bInitialYLessThanTarget;
         Pilot *m_target;
     };
 }

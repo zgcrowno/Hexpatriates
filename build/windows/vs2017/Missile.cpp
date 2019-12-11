@@ -4,7 +4,7 @@ using namespace hexpatriates;
 
 void Missile::OnCreate()
 {
-    Projectile::OnCreate();
+    Parryable::OnCreate();
 
     m_firingDirection = GetVector("FiringDirection", GetModelName());
 
@@ -13,7 +13,7 @@ void Missile::OnCreate()
 
 void Missile::OnDelete()
 {
-    Projectile::OnDelete();
+    Parryable::OnDelete();
 }
 
 orxBOOL Missile::OnCollide(
@@ -23,7 +23,7 @@ orxBOOL Missile::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    Projectile::OnCollide(
+    Parryable::OnCollide(
         _poCollider,
         _zPartName,
         _zColliderPartName,
@@ -35,5 +35,5 @@ orxBOOL Missile::OnCollide(
 
 void Missile::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    Projectile::Update(_rstInfo);
+    Parryable::Update(_rstInfo);
 }

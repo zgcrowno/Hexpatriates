@@ -1,10 +1,11 @@
 #include "Grenade.h"
+#include "Pilot.h"
 
 using namespace hexpatriates;
 
 void Grenade::OnCreate()
 {
-    Projectile::OnCreate();
+    Parryable::OnCreate();
 
     m_numShrapnel = GetFloat("NumShrapnel", GetModelName());
     m_gun = static_cast<Spawner*>(GetChildByName({ "O-GrenadeGunP1", "O-GrenadeGunP2" }));
@@ -12,7 +13,7 @@ void Grenade::OnCreate()
 
 void Grenade::OnDelete()
 {
-    Projectile::OnDelete();
+    Parryable::OnDelete();
 }
 
 orxBOOL Grenade::OnCollide(
@@ -22,26 +23,31 @@ orxBOOL Grenade::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    Projectile::OnCollide(
+    Parryable::OnCollide(
         _poCollider,
         _zPartName,
         _zColliderPartName,
         _rvPosition,
         _rvNormal);
 
-    float normalInRadians = VectorToRadians(_rvNormal);
-    for (int i = 0; i < m_numShrapnel; i++)
+    // Only expel shrapnel if not colliding with a parrying Pilot.
+    Pilot *pilot = dynamic_cast<Pilot*>(_poCollider);
+    if (pilot == NULL || pilot->m_parryTime <= 0)
     {
-        float shotDirection = orxMath_GetRandomFloat(normalInRadians - orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_8, normalInRadians + orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8);
-        m_gun->SpawnAtSelf(shotDirection);
-    }
+        float normalInRadians = VectorToRadians(_rvNormal);
+        for (int i = 0; i < m_numShrapnel; i++)
+        {
+            float shotDirection = orxMath_GetRandomFloat(normalInRadians - orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_8, normalInRadians + orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8);
+            m_gun->SpawnAtSelf(shotDirection);
+        }
 
-    Destroy();
+        Destroy();
+    }
 
     return orxTRUE;
 }
 
 void Grenade::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    Projectile::Update(_rstInfo);
+    Parryable::Update(_rstInfo);
 }

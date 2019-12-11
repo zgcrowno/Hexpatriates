@@ -1,11 +1,10 @@
 #include "Turret.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
 void Turret::OnCreate()
 {
-    Projectile::OnCreate();
+    Parryable::OnCreate();
 
     m_turretGun = static_cast<Spawner*>(GetChildByName({
         "O-TurretGunP1",
@@ -15,7 +14,7 @@ void Turret::OnCreate()
 
 void Turret::OnDelete()
 {
-    Projectile::OnDelete();
+    Parryable::OnDelete();
 }
 
 orxBOOL Turret::OnCollide(
@@ -25,7 +24,7 @@ orxBOOL Turret::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    Projectile::OnCollide(
+    Parryable::OnCollide(
         _poCollider,
         _zPartName,
         _zColliderPartName,
@@ -61,5 +60,13 @@ orxBOOL Turret::OnCollide(
 
 void Turret::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    Projectile::Update(_rstInfo);
+    Parryable::Update(_rstInfo);
+}
+
+void Turret::ParriedBehavior()
+{
+    if (!m_bIsAttached)
+    {
+        Parryable::ParriedBehavior();
+    }
 }

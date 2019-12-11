@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "ScrollMod.h"
+#include "PlayerSpecific.h"
 #include "Ship.h"
 #include "Zone.h"
 
 namespace hexpatriates
 {
-    class Pilot : public ScrollMod
+    class Pilot : public PlayerSpecific
     {
     protected:
         //! Called on object creation
@@ -30,6 +30,12 @@ namespace hexpatriates
         //! Moves the Player based on user input and the passed speed
         virtual void Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement);
     public:
+        //! The amount of time, in seconds, the Pilot is currently invulnerable.
+        float m_iFrames;
+        //! The maximum amount of time, in seconds, the Pilot is invulnerable after taking damage.
+        float m_maxIFrames;
+        //! Flag representing whether or not the Pilot is touching a MissileShield.
+        bool m_bIsTouchingMissileShield;
         //! Flag representing whether or not the Pilot is in their own zone.
         bool m_bIsInOwnZone;
         //! Flag representing whether or not the Pilot is on the ground or a platform.
@@ -153,10 +159,12 @@ namespace hexpatriates
         //! The opposing pilot
         Pilot *m_opposingPilot;
 
-        // This modified version of ScrollObject's SetScale method is necessary for Pilot, so we can reverse unintended solidification of the Pilot's ship body part.
-        // void SetScale(const orxVECTOR &_rvScale, orxBOOL _bShipSolid, orxBOOL _bWorld = 0U);
+        // Player independent shot direction, where _angle is in radians.
+        const float GetPISD(const float &_angle) const;
         // This modified version of ScrollObject's SetFlip method is necessary for Pilot, so we can apply selectively recursive flipping.
         void SetFlip(orxBOOL _bFlipX, orxBOOL _vFlipY);
+        /// <summary>Applies damage to Pilot.</summary>
+        void TakeDamage();
         /// <summary>Executes the Pilot's jump maneuver.</summary>
         void Jump(const orxCLOCK_INFO &_rstInfo);
         /// <summary>Executes the Pilot's dash maneuver.</summary>

@@ -2,11 +2,11 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "Projectile.h"
+#include "Parryable.h"
 
 namespace hexpatriates
 {
-    class Missile : public Projectile
+    class Missile : public Parryable
     {
     private:
         //! Called on object creation

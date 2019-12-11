@@ -61,18 +61,15 @@ void Pilot5::FireNeutral()
     {
         if (m_stance == Stance::Airborne)
         {
-            m_ship->m_neutralGun->SpawnAtSelf(m_enemyDirection);
+            m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
         }
         else // m_stance == Stance::Grounded
         {
-            int typeLength = strlen("P1");
             orxCHAR crosshairsText[512] = "O-Crosshairs";
-            orxCHAR crosshairsTypeText[512];
-            ScrollMod::Substring(GetModelName(), crosshairsTypeText, strlen(GetModelName()) - typeLength, typeLength);
 
             orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
             orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-Crosshairs").fZ };
-            CreateObject(strcat(crosshairsText, crosshairsTypeText), {}, {}, { {"Position", &spawnPosition} });
+            CreateObject(strcat(crosshairsText, m_typeName), {}, {}, { {"Position", &spawnPosition} });
         }
     }
 }
@@ -89,7 +86,7 @@ void Pilot5::FireUpward()
     {
         for (int i = 0; i < m_waveSizeUpward; i++)
         {
-            float shotDirection = orxMath_GetRandomFloat(-orxMATH_KF_PI_BY_8, -orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_8);
+            float shotDirection = orxMath_GetRandomFloat(GetPISD(-orxMATH_KF_PI_BY_8), GetPISD(-orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_8));
             m_ship->m_upwardGun->SpawnAtSelf(shotDirection);
         }
     }
@@ -107,7 +104,7 @@ void Pilot5::FireDownward()
     {
         for (int i = 0; i < m_waveSizeDownward; i++)
         {
-            m_ship->m_downwardGun->SpawnAtSelf(orxMATH_KF_PI_BY_8 - (m_wavesIndexDownward * (orxMATH_KF_PI_BY_8 / m_numWavesDownward)));
+            m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_8 - (m_wavesIndexDownward * (orxMATH_KF_PI_BY_8 / m_numWavesDownward))));
         }
     }
 }
@@ -116,14 +113,11 @@ void Pilot5::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        int typeLength = strlen("P1");
         orxCHAR missileShieldText[512] = "O-MissileShield";
-        orxCHAR missileShieldTypeText[512];
-        ScrollMod::Substring(GetModelName(), missileShieldTypeText, strlen(GetModelName()) - typeLength, typeLength);
 
         orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
         orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield").fZ };
-        CreateObject(strcat(missileShieldText, missileShieldTypeText), {}, {}, { {"Position", &spawnPosition} });
+        CreateObject(strcat(missileShieldText, m_typeName), {}, {}, { {"Position", &spawnPosition} });
     }
 }
 

@@ -4,6 +4,8 @@ using namespace hexpatriates;
 
 void Ship::OnCreate()
 {
+    PlayerSpecific::OnCreate();
+
     int typeLength = strlen("1P1");
     orxCHAR gunTypeText[512] = "O-NeutralGun";
     orxCHAR shipTypeText[512];

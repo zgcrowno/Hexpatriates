@@ -4,21 +4,18 @@ using namespace hexpatriates;
 
 void Familiar::OnCreate()
 {
-    Projectile::OnCreate();
+    Parryable::OnCreate();
 
     m_framesBehind = GetFloat("FramesBehind", GetModelName());
     SetSpeed(orxVECTOR_0);
 
-    int typeLength = strlen("P1");
     orxCHAR gunTypeText[512] = "O-FamiliarGun";
-    orxCHAR familiarTypeText[512];
-    ScrollMod::Substring(GetModelName(), familiarTypeText, strlen(GetModelName()) - typeLength, typeLength);
-    m_gun = static_cast<Spawner*>(GetChildByName(strcat(gunTypeText, familiarTypeText)));
+    m_gun = static_cast<Spawner*>(GetChildByName(strcat(gunTypeText, m_typeName)));
 }
 
 void Familiar::OnDelete()
 {
-    Projectile::OnDelete();
+    Parryable::OnDelete();
 }
 
 orxBOOL Familiar::OnCollide(
@@ -28,7 +25,7 @@ orxBOOL Familiar::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    Projectile::OnCollide(
+    Parryable::OnCollide(
         _poCollider,
         _zPartName,
         _zColliderPartName,
@@ -70,7 +67,15 @@ orxBOOL Familiar::OnCollide(
 
 void Familiar::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    Projectile::Update(_rstInfo);
+    Parryable::Update(_rstInfo);
+}
+
+void Familiar::ParriedBehavior()
+{
+    if (!m_bIsAttached)
+    {
+        Parryable::ParriedBehavior();
+    }
 }
 
 void Familiar::Move()
@@ -91,11 +96,8 @@ void Familiar::FireSelf(const float _direction, const Type _type)
 
 void Familiar::Detonate()
 {
-    int typeLength = strlen("P1");
     orxCHAR explosionText[512] = "O-Explosion";
-    orxCHAR familiarTypeText[512];
-    ScrollMod::Substring(GetModelName(), familiarTypeText, strlen(GetModelName()) - typeLength, typeLength);
-    CreateObject(strcat(explosionText, familiarTypeText), {}, {}, { { "Position", &GetPosition() } });
+    CreateObject(strcat(explosionText, m_typeName), {}, {}, { { "Position", &GetPosition() } });
 
     Destroy();
 }

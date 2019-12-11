@@ -38,7 +38,7 @@ void Pilot4::FireNeutral()
 {
     for (int i = 0; i < m_waveSizeNeutral; i++)
     {
-        m_ship->m_neutralGun->SpawnAtSelf((m_enemyDirection - orxMATH_KF_PI_BY_8) + (i * orxMATH_KF_PI_BY_8));
+        m_ship->m_neutralGun->SpawnAtSelf(GetPISD((-orxMATH_KF_PI_BY_8) + (i * orxMATH_KF_PI_BY_8)));
     }
 }
 
@@ -50,12 +50,12 @@ void Pilot4::FireUpward()
         ScrollMod *projectile = CreateObject(spawnObjectModelName);
         if (m_upwardOrigin.fY == orxVECTOR_0.fY)
         {
-            m_upwardOrigin = Raycast(GetPosition(), -orxMATH_KF_PI_BY_2, orxPhysics_GetCollisionFlagValue("geometry")).at(0);
+            m_upwardOrigin = Raycast(GetPosition(), GetPISD(-orxMATH_KF_PI_BY_2), orxPhysics_GetCollisionFlagValue("geometry")).at(0);
         }
         else
         {
             float projectileDistance = projectile->GetScaledSize().fX;
-            m_upwardOrigin.fX += projectileDistance;
+            m_upwardOrigin.fX += (copysignf(1, orxMath_Cos(m_enemyDirection)) * projectileDistance);
         }
         projectile->SetPosition(m_upwardOrigin);
         if (m_wavesIndexUpward == m_numWavesUpward - 1)
@@ -69,7 +69,7 @@ void Pilot4::FireDownward()
 {
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
-        float shotDirection = (m_enemyDirection + orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8) - (i * orxMATH_KF_PI_BY_8);
+        float shotDirection = GetPISD((orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8) - (i * orxMATH_KF_PI_BY_8));
         m_ship->m_downwardGun->SpawnAtRaycast(shotDirection);
     }
 }
@@ -90,8 +90,8 @@ void Pilot4::FireSuper()
         }
 
         m_ship->m_superGun->SpawnAtPosition(
-            (m_enemyDirection + orxMATH_KF_PI_BY_2) + (i * orxMATH_KF_PI_BY_4),
-            { GetPosition().fX + (orxMath_Cos(m_enemyDirection + (i * orxMATH_KF_PI_BY_4)) * projectileDistance),
-            GetPosition().fY + (orxMath_Sin(m_enemyDirection + (i * orxMATH_KF_PI_BY_4)) * projectileDistance) });
+            (orxMATH_KF_PI_BY_2) + (i * orxMATH_KF_PI_BY_4),
+            { GetPosition().fX + (orxMath_Cos(i * orxMATH_KF_PI_BY_4) * projectileDistance),
+            GetPosition().fY + (orxMath_Sin(i * orxMATH_KF_PI_BY_4) * projectileDistance) });
     }
 }

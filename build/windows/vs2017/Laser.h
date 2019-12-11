@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "Projectile.h"
+#include "Parryable.h"
 
 namespace hexpatriates
 {
-    class Laser : public Projectile
+    class Laser : public Parryable
     {
     protected:
         //! Called on object creation
@@ -25,5 +25,7 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         bool m_bIsTouchingPortal;
+
+        virtual void ParriedBehavior();
     };
 }

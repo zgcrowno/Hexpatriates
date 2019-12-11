@@ -85,7 +85,7 @@ void Pilot6::FireNeutral()
         m_ship->m_neutralGun->SpawnAtSelf(m_enemyDirection);
         for (Familiar *familiar : m_familiars)
         {
-            familiar->m_gun->SpawnAtSelf(m_enemyDirection);
+            familiar->m_gun->SpawnAtSelf(GetPISD(0));
         }
     }
 }
@@ -94,7 +94,7 @@ void Pilot6::FireUpward()
 {
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        FireFamiliar(-orxMATH_KF_PI_BY_4, Familiar::Type::Turret);
+        FireFamiliar(GetPISD(-orxMATH_KF_PI_BY_4), Familiar::Type::Turret);
     }
 }
 
@@ -102,7 +102,7 @@ void Pilot6::FireDownward()
 {
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
-        FireFamiliar(orxMATH_KF_PI_BY_4, Familiar::Type::Turret);
+        FireFamiliar(GetPISD(orxMATH_KF_PI_BY_4), Familiar::Type::Turret);
     }
 }
 
@@ -112,11 +112,7 @@ void Pilot6::FireSuper()
     {
         bool bSuperInPlay = false;
         Familiar *extantSuper;
-
-        int typeLength = strlen("P1");
-        orxCHAR familiarTypeText[512];
-        ScrollMod::Substring(GetModelName(), familiarTypeText, strlen(GetModelName()) - typeLength, typeLength);
-        std::vector<ScrollObject*> extantFamiliars = Hexpatriates::GetInstance().GetFamiliarsByPlayerType(familiarTypeText);
+        std::vector<ScrollObject*> extantFamiliars = Hexpatriates::GetInstance().GetFamiliarsByPlayerType(m_typeName);
 
         for (int i = 0; i < extantFamiliars.size(); i++)
         {
@@ -135,7 +131,7 @@ void Pilot6::FireSuper()
         }
         else
         {
-            FireFamiliar(m_enemyDirection, Familiar::Type::RemoteDetonation);
+            FireFamiliar(GetPISD(0), Familiar::Type::RemoteDetonation);
         }
     }
 }
@@ -153,13 +149,10 @@ void Pilot6::SpawnFamiliar()
 {
     if (m_familiars.size() < m_maxFamiliars)
     {
-        int typeLength = strlen("P1");
         orxCHAR familiarText[512] = "O-Familiar";
-        orxCHAR pilotTypeText[512];
-        ScrollMod::Substring(GetModelName(), pilotTypeText, strlen(GetModelName()) - typeLength, typeLength);
         orxVECTOR spawnPosition = { GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ };
 
-        m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, pilotTypeText), {}, {}, { { "Position", &spawnPosition } })));
+        m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, m_typeName), {}, {}, { { "Position", &spawnPosition } })));
         m_familiars.at(m_familiars.size() - 1)->m_framesBehind *= m_familiars.size();
     }
 }

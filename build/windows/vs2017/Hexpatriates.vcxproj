@@ -393,6 +393,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="MissileShield.cpp" />
+    <ClCompile Include="Parryable.cpp" />
     <ClCompile Include="Pilot1.cpp" />
     <ClCompile Include="Pilot2.cpp" />
     <ClCompile Include="Pilot3.cpp" />
@@ -402,6 +403,7 @@
     <ClCompile Include="Pilot7.cpp" />
     <ClCompile Include="Pilot8.cpp" />
     <ClCompile Include="PilotSelectMenu.cpp" />
+    <ClCompile Include="PlayerSpecific.cpp" />
     <ClCompile Include="Prism.cpp" />
     <ClCompile Include="Shrapnel.cpp" />
     <ClCompile Include="Spacer.cpp" />
@@ -442,6 +444,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MissileShield.h" />
+    <ClInclude Include="Parryable.h" />
     <ClInclude Include="Pilot1.h" />
     <ClInclude Include="Pilot2.h" />
     <ClInclude Include="Pilot3.h" />
@@ -451,6 +454,7 @@
     <ClInclude Include="Pilot7.h" />
     <ClInclude Include="Pilot8.h" />
     <ClInclude Include="PilotSelectMenu.h" />
+    <ClInclude Include="PlayerSpecific.h" />
     <ClInclude Include="Prism.h" />
     <ClInclude Include="Shrapnel.h" />
     <ClInclude Include="Spacer.h" />

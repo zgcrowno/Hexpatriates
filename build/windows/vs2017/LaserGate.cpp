@@ -6,10 +6,13 @@ void LaserGate::OnCreate()
 {
     Projectile::OnCreate();
 
+    orxCHAR laserGateLaserNearText[512] = "O-LaserGateLaserNear";
+    orxCHAR laserGateLaserFarText[512] = "O-LaserGateLaserFar";
+
     m_openingSize = GetFloat("OpeningSize", GetModelName());
     m_laserExpansionSpeed = GetFloat("LaserExpansionSpeed", GetModelName());
-    m_laserNear = static_cast<Laser*>(CreateObject("O-LaserGateLaserNearP1"));
-    m_laserFar = static_cast<Laser*>(CreateObject("O-LaserGateLaserFarP1"));
+    m_laserNear = static_cast<Laser*>(CreateObject(strcat(laserGateLaserNearText, m_typeName)));
+    m_laserFar = static_cast<Laser*>(CreateObject(strcat(laserGateLaserFarText, m_typeName)));
     m_laserNear->Enable(false);
     m_laserFar->Enable(false);
 }

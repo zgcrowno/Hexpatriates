@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "Projectile.h"
+#include "Parryable.h"
 #include "Spawner.h"
 #include <queue>
 
 namespace hexpatriates
 {
-    class Familiar : public Projectile
+    class Familiar : public Parryable
     {
     private:
         //! Called on object creation
@@ -38,6 +38,7 @@ namespace hexpatriates
         std::queue<orxVECTOR> m_upcomingPositions;
         Spawner *m_gun;
 
+        virtual void ParriedBehavior();
         void Move();
         void FireSelf(const float _direction, const Type _type);
         void Detonate();

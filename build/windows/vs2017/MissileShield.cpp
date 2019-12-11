@@ -34,6 +34,7 @@ orxBOOL MissileShield::OnCollide(
         _rvPosition,
         _rvNormal);
 
+    // Non-Pilot collisions
     if (dynamic_cast<Pilot*>(_poCollider) == NULL)
     {
         orxVECTOR reflectionVector = ReflectionVector(NormalizeVector(GetSpeed()), _rvNormal);
@@ -56,7 +57,7 @@ void MissileShield::Update(const orxCLOCK_INFO &_rstInfo)
         ArenaBounds *arenaBounds = static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
         char *missileModelName;
 
-        if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
+        if (m_bIsP1)
         {
             firingDirection = { 1, 0 };
             spawnPosition = {

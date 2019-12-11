@@ -4,6 +4,8 @@ using namespace hexpatriates;
 
 void Projectile::OnCreate()
 {
+    PlayerSpecific::OnCreate();
+
     m_tethered = GetBool("Tethered", GetModelName());
     m_speed = GetFloat("Speed", GetModelName());
     orxVECTOR speedRef = GetSpeed();

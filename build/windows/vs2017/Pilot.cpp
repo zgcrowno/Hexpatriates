@@ -1,6 +1,8 @@
 #include "Pilot.h"
 #include "Laser.h"
 #include "LaserWall.h"
+#include "Missile.h"
+#include "MissileShield.h"
 #include "Orb.h"
 #include <string>
 
@@ -8,6 +10,10 @@ using namespace hexpatriates;
 
 void Pilot::OnCreate()
 {
+    PlayerSpecific::OnCreate();
+
+    // Set The iFrames.
+    m_maxIFrames = GetFloat("MaxIFrames", GetModelName());
     // Set the construction timer to its default value.
     m_constructionTimer = 10;
     // Set the contamination timer to its default value.
@@ -66,7 +72,7 @@ void Pilot::OnCreate()
     m_parryInput = GetString("ParryInput", GetModelName());
     m_meleeInput = GetString("MeleeInput", GetModelName());
     m_jumpInput = GetString("JumpInput", GetModelName());
-    if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
+    if (m_bIsP1)
     {
         m_neutralInput = "NeutralP1";
         m_upwardInput = "UpwardP1";
@@ -125,10 +131,36 @@ orxBOOL Pilot::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    // Check for collisions with pilot body--not ship body
+    // Check for collisions with pilot body
     if (orxString_Compare(_zPartName, "BP-PilotP1") == 0
         || orxString_Compare(_zPartName, "BP-PilotP2") == 0)
     {
+        // Projectile collisions
+        if (dynamic_cast<Projectile*>(_poCollider) != NULL)
+        {
+            // Non-Parried collisions
+            Parryable *parryable = dynamic_cast<Parryable*>(_poCollider);
+            if (m_parryTime <= 0 || parryable == NULL)
+            {
+                // MissileShield collisions
+                if (dynamic_cast<MissileShield*>(_poCollider) != NULL)
+                {
+                    m_bIsTouchingMissileShield = true;
+                }
+                else
+                {
+                    // Only deal damage if the Pilot isn't currently invincible.
+                    if (m_iFrames <= 0)
+                    {
+                        // Only deal damage if the Pilot isn't both touching a missile shield and colliding with a missile.
+                        if (dynamic_cast<Missile*>(_poCollider) == NULL || !m_bIsTouchingMissileShield)
+                        {
+                            TakeDamage();
+                        }
+                    }
+                }
+            }
+        }
         // Zone collisions
         if (dynamic_cast<Zone*>(_poCollider) != orxNULL)
         {
@@ -140,68 +172,6 @@ orxBOOL Pilot::OnCollide(
             {
                 m_bIsInOwnZone = orxFALSE;
                 DestroyShip();
-            }
-        }
-        // Laser collisions
-        if (dynamic_cast<Laser*>(_poCollider) != orxNULL)
-        {
-            if (m_parryTime <= 0)
-            {
-                if (m_ship->IsEnabled())
-                {
-                    DestroyShip();
-                }
-                else
-                {
-                    Die();
-                }
-            }
-        }
-        // Orb collisions
-        Orb *collidedOrb = dynamic_cast<Orb*>(_poCollider);
-        if (collidedOrb != orxNULL)
-        {
-            if (m_parryTime > 0)
-            {
-                // Deflect the orb (we're basically replacing the orb with another one of the Pilot's type)
-                // TODO: This should probably be done more efficiently
-                orxCHAR *deflectedOrbModelName;
-                if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
-                {
-                    deflectedOrbModelName = "O-OrbP1";
-                }
-                else
-                {
-                    deflectedOrbModelName = "O-OrbP2";
-                }
-                Orb *deflectedOrb = static_cast<Orb*>(CreateObject(deflectedOrbModelName));
-                deflectedOrb->SetPosition(collidedOrb->GetPosition());
-                deflectedOrb->SetSpeed({ -deflectedOrb->m_speed * _rvNormal.fX, -deflectedOrb->m_speed * _rvNormal.fY });
-            }
-            else
-            {
-                if (m_ship->IsEnabled())
-                {
-                    DestroyShip();
-                }
-                else
-                {
-                    Die();
-                }
-            }
-            collidedOrb->Destroy();
-        }
-        // Laser wall collisions
-        LaserWall *collidedLaserWall = dynamic_cast<LaserWall*>(_poCollider);
-        if (collidedLaserWall != orxNULL)
-        {
-            if (m_ship->IsEnabled())
-            {
-                DestroyShip();
-            }
-            else
-            {
-                Die();
             }
         }
         // Floor collisions
@@ -267,6 +237,11 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
             m_bIsInOwnZone = orxTRUE;
         }
     }
+    // MissileShield separations
+    if (dynamic_cast<MissileShield*>(_poCollider) != NULL)
+    {
+        m_bIsTouchingMissileShield = false;
+    }
     // TODO: I'll probably have to go about this another way, since the melee body part will likely be different from the pilot's body part.
     if (orxString_SearchString(_poCollider->GetModelName(), "Pilot") != orxNULL)
     {
@@ -315,6 +290,15 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
             }
         }
         SetHeadsUpText();
+    }
+    // Handle iFrames decrement
+    if (m_iFrames > 0)
+    {
+        m_iFrames -= _rstInfo.fDT;
+    }
+    else
+    {
+        m_iFrames = 0;
     }
     // Handle jump time decrement
     if (m_jumpTime > 0)
@@ -495,6 +479,11 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
 }
 
+const float Pilot::GetPISD(const float &_angle) const
+{
+    return m_bIsP1 ? _angle : orxMATH_KF_PI - _angle;
+}
+
 void Pilot::SetFlip(orxBOOL _bFlipX, orxBOOL _bFlipY)
 {
     ScrollObject::SetFlip(_bFlipX, _bFlipY, orxFALSE);
@@ -640,6 +629,19 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
         movement.fY = m_dashDirection.fY * m_dashSpeed * _rstInfo.fDT;
     }
     SetSpeed(movement);
+}
+
+void Pilot::TakeDamage()
+{
+    if (m_ship->IsEnabled())
+    {
+        DestroyShip();
+    }
+    else
+    {
+        Die();
+    }
+    m_iFrames = m_maxIFrames;
 }
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)

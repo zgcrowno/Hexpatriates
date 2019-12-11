@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "ScrollMod.h"
+#include "PlayerSpecific.h"
 
 namespace hexpatriates
 {
-    class LaserPortalEntrance : public ScrollMod
+    class LaserPortalEntrance : public PlayerSpecific
     {
     private:
         //! Called on object creation

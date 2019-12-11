@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "ScrollMod.h"
+#include "PlayerSpecific.h"
 #include "Spawner.h"
 
 namespace hexpatriates
 {
     /// <summary>Represents a vessel which is operated by a Pilot.</summary>
-    class Ship : public ScrollMod
+    class Ship : public PlayerSpecific
     {
     protected:
         //! Called on object creation

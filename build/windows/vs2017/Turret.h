@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "Projectile.h"
+#include "Parryable.h"
 #include "Spawner.h"
 
 namespace hexpatriates
 {
-    class Turret : public Projectile
+    class Turret : public Parryable
     {
     private:
         //! Called on object creation
@@ -26,5 +26,7 @@ namespace hexpatriates
         bool m_bIsAttached;
         float m_movementDirection;
         Spawner *m_turretGun;
+
+        virtual void ParriedBehavior();
     };
 }

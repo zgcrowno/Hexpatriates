@@ -71,7 +71,7 @@ void Spawner::SpawnAtRaycast(const float _direction)
         _direction,
         orxPhysics_GetCollisionFlagValue("geometry"));
     // TODO: Keep an eye on this, as I'll likely not want to add 90 degrees to every object spawned this way.
-    float initialRotation = orxMATH_KF_RAD_TO_DEG * ScrollMod::VectorToRadians(raycastData.at(1)) + 90.0f;
+    float initialRotation = ScrollMod::VectorToRadians(raycastData.at(1)) + orxMATH_KF_PI_BY_2;
     orxVECTOR initialSpeed = { orxMath_Cos(initialRotation), orxMath_Sin(initialRotation) };
 
     ScrollMod *projectile = CreateObject(

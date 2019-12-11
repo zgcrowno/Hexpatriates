@@ -4,6 +4,8 @@ using namespace hexpatriates;
 
 void LaserPortalEntrance::OnCreate()
 {
+    PlayerSpecific::OnCreate();
+
     m_exitDirection = GetFloat("ExitDirection", GetModelName());
 
     std::vector<orxVECTOR> raycastData = ScrollMod::Raycast(
@@ -11,7 +13,7 @@ void LaserPortalEntrance::OnCreate()
         m_exitDirection,
         orxPhysics_GetCollisionFlagValue("geometry"));
 
-    if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
+    if (m_bIsP1)
     {
         m_exit = CreateObject("O-LaserPortalExitP1", {}, {}, { {"Position", &raycastData.at(0)} });
     }

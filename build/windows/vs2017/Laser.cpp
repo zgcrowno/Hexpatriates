@@ -6,12 +6,12 @@ using namespace hexpatriates;
 
 void Laser::OnCreate()
 {
-    Projectile::OnCreate();
+    Parryable::OnCreate();
 }
 
 void Laser::OnDelete()
 {
-    Projectile::OnDelete();
+    Parryable::OnDelete();
 }
 
 orxBOOL Laser::OnCollide(
@@ -21,7 +21,7 @@ orxBOOL Laser::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    Projectile::OnCollide(
+    Parryable::OnCollide(
         _poCollider,
         _zPartName,
         _zColliderPartName,
@@ -35,8 +35,8 @@ orxBOOL Laser::OnCollide(
         m_bIsTouchingPortal = true;
         SetPosition(laserPortalEntrance->m_exit->GetPosition(true), true);
     }
-    // Only destroy the laser if it's not touching a portal, it's not a LaserGateLaser, and it's colliding with something that's either not a projectile or is a prism.
-    else if (!m_bIsTouchingPortal && orxString_SearchString(GetModelName(), "O-LaserGateLaser") == NULL && (dynamic_cast<Projectile*>(_poCollider) == NULL || dynamic_cast<Prism*>(_poCollider) != NULL))
+    // Only destroy the laser if it's not touching a portal, it's not a LaserGateLaser, it's not colliding with a partition, and it's colliding with something that's either not a projectile or is a prism.
+    else if (!m_bIsTouchingPortal && orxString_SearchString(GetModelName(), "O-LaserGateLaser") == NULL && orxString_SearchString(_poCollider->GetModelName(), "O-Partition") == NULL && (dynamic_cast<Projectile*>(_poCollider) == NULL || dynamic_cast<Prism*>(_poCollider) != NULL))
     {
         Destroy();
     }
@@ -56,5 +56,10 @@ orxBOOL Laser::OnSeparate(ScrollObject *_poCollider)
 
 void Laser::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    Projectile::Update(_rstInfo);
+    Parryable::Update(_rstInfo);
+}
+
+void Laser::ParriedBehavior()
+{
+    // Do nothing, as destruction is handled via collisions
 }

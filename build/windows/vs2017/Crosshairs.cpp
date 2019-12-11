@@ -5,17 +5,12 @@ using namespace hexpatriates;
 
 void Crosshairs::OnCreate()
 {
+    PlayerSpecific::OnCreate();
+
     m_speed = GetFloat("Speed", GetModelName());
     m_decelerationDistance = GetFloat("DecelerationDistance", GetModelName());
     m_maxMissileSpawnInterval = GetFloat("MaxMissileSpawnInterval", GetModelName());
-    if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
-    {
-        m_target = static_cast<ScrollMod*>(Hexpatriates::GetInstance().GetPilotByPlayerType("P2"));
-    }
-    else
-    {
-        m_target = static_cast<ScrollMod*>(Hexpatriates::GetInstance().GetPilotByPlayerType("P1"));
-    }
+    m_target = static_cast<ScrollMod*>(Hexpatriates::GetInstance().GetPilotByPlayerType(m_otherTypeName));
     SetPosition(m_target->GetPosition());
 }
 
@@ -47,7 +42,7 @@ void Crosshairs::Update(const orxCLOCK_INFO &_rstInfo)
         ArenaBounds *arenaBounds = static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
         char *missileModelName;
 
-        if (orxString_SearchString(GetModelName(), "P1") != orxNULL)
+        if (m_bIsP1)
         {
             spawnPosition = {
                 orxMath_GetRandomFloat(arenaBounds->m_leftBound->GetPosition().fX, partitionPosition.fX),

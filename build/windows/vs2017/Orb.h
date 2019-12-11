@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Hexpatriates.h"
-#include "Projectile.h"
+#include "Parryable.h"
 
 namespace hexpatriates
 {
-    class Orb : public Projectile
+    class Orb : public Parryable
     {
     protected:
         //! Called on object creation

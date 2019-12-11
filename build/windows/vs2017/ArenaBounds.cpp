@@ -81,7 +81,8 @@ void ArenaBounds::HandleElectrificationBehavior(float &_electrificationTime, con
     {
         _electrificationTime = 0;
 
-        if (_electrificationTime == m_electrificationTimeP1)
+        // Comparing addresses in case held values are equal
+        if (&_electrificationTime == &m_electrificationTimeP1)
         {
             m_leftBound->m_electricityIconP1->Enable(false);
             m_rightBound->m_electricityIconP1->Enable(false);
