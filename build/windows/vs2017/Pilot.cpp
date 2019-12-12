@@ -5,6 +5,7 @@
 #include "MissileShield.h"
 #include "Orb.h"
 #include <string>
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -155,6 +156,7 @@ orxBOOL Pilot::OnCollide(
                         // Only deal damage if the Pilot isn't both touching a missile shield and colliding with a missile.
                         if (dynamic_cast<Missile*>(_poCollider) == NULL || !m_bIsTouchingMissileShield)
                         {
+                            std::cout << _poCollider->GetModelName() << ", " << m_bIsTouchingMissileShield << std::endl;
                             TakeDamage();
                         }
                     }
@@ -171,7 +173,10 @@ orxBOOL Pilot::OnCollide(
             else
             {
                 m_bIsInOwnZone = orxFALSE;
-                DestroyShip();
+                if (m_ship->IsEnabled())
+                {
+                    TakeDamage();
+                }
             }
         }
         // Floor collisions
@@ -295,10 +300,16 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     if (m_iFrames > 0)
     {
         m_iFrames -= _rstInfo.fDT;
+
+        if (m_iFrames <= 0)
+        {
+            RemoveTrack("TT-IFramesFlash");
+        }
     }
     else
     {
         m_iFrames = 0;
+        
     }
     // Handle jump time decrement
     if (m_jumpTime > 0)
@@ -642,6 +653,7 @@ void Pilot::TakeDamage()
         Die();
     }
     m_iFrames = m_maxIFrames;
+    AddTrack("TT-IFramesFlash");
 }
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
