@@ -5,7 +5,6 @@
 #include "MissileShield.h"
 #include "Orb.h"
 #include <string>
-#include <iostream>
 
 using namespace hexpatriates;
 
@@ -156,7 +155,6 @@ orxBOOL Pilot::OnCollide(
                         // Only deal damage if the Pilot isn't both touching a missile shield and colliding with a missile.
                         if (dynamic_cast<Missile*>(_poCollider) == NULL || !m_bIsTouchingMissileShield)
                         {
-                            std::cout << _poCollider->GetModelName() << ", " << m_bIsTouchingMissileShield << std::endl;
                             TakeDamage();
                         }
                     }

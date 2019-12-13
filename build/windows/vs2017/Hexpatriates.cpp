@@ -41,6 +41,7 @@
 #include "Turret.h"
 #include "Zone.h"
 #undef __SCROLL_IMPL__
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -60,7 +61,8 @@ orxSTATUS Hexpatriates::Init()
     orxSTATUS result = orxSTATUS_SUCCESS;
 
     // Instantiate game objects
-    CreateObject("O-MainMenu");
+    CreateObject("O-SceneMain");
+    //orxInput_SetValue(orxConfig_GetListString("Transitions", 0), orxFLOAT_1);
     
     return result;
 }
@@ -109,9 +111,22 @@ orxSTATUS Hexpatriates::Run()
 {
     orxSTATUS result = orxSTATUS_SUCCESS;
 
+    // Check for quitting out.
     if (orxInput_HasBeenActivated("Quit"))
     {
         result = orxSTATUS_FAILURE;
+    }
+
+    // Handle scene transitions.
+    for (orxS32 i = 0, iCount = ScrollMod::GetListCount("Transitions", "O-Scene"); i < iCount; i++)
+    {
+        const orxSTRING zTransition = ScrollMod::GetListString("Transitions", i, "O-Scene");
+        
+        if (orxInput_HasBeenActivated(zTransition))
+        {
+            orxObject_CreateFromConfig(zTransition);
+            break;
+        }
     }
 
     return result;

@@ -1,5 +1,4 @@
 #include "LaserHeatseeking.h"
-#include <iostream>
 
 using namespace hexpatriates;
 

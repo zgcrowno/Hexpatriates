@@ -92,10 +92,16 @@ void Arena::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else
         {
-            m_pilotP1->Enable(orxTRUE);
-            m_pilotP2->Enable(orxTRUE);
-            m_pilotP1->ConstructShip();
-            m_pilotP2->ConstructShip();
+            if (!m_pilotP1->IsEnabled())
+            {
+                m_pilotP1->Enable(true);
+                m_pilotP1->ConstructShip();
+            }
+            if (!m_pilotP2->IsEnabled())
+            {
+                m_pilotP2->Enable(true);
+                m_pilotP2->ConstructShip();
+            }
             m_timer = 90.0;
         }
     }

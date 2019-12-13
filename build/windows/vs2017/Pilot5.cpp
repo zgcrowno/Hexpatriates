@@ -1,5 +1,4 @@
 #include "Pilot5.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
