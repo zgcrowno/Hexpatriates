@@ -4,7 +4,6 @@
 // Scroll (as follows).
 #define __SCROLL_IMPL__
 #include "Hexpatriates.h"
-#include "Arena.h"
 #include "ArenaBound.h"
 #include "ArenaBounds.h"
 #include "Beam.h"
@@ -18,9 +17,7 @@
 #include "LaserHeatseeking.h"
 #include "LaserPortalEntrance.h"
 #include "LaserWall.h"
-#include "MainMenu.h"
 #include "MedussaHead.h"
-#include "Menu.h"
 #include "Missile.h"
 #include "MissileShield.h"
 #include "Orb.h"
@@ -32,8 +29,11 @@
 #include "Pilot6.h"
 #include "Pilot7.h"
 #include "Pilot8.h"
-#include "PilotSelectMenu.h"
 #include "Prism.h"
+#include "Scene.h"
+#include "SceneArena.h"
+#include "SceneMain.h"
+#include "ScenePilotSelect.h"
 #include "Ship.h"
 #include "Shrapnel.h"
 #include "Spacer.h"
@@ -62,14 +62,12 @@ orxSTATUS Hexpatriates::Init()
 
     // Instantiate game objects
     CreateObject("O-SceneMain");
-    //orxInput_SetValue(orxConfig_GetListString("Transitions", 0), orxFLOAT_1);
     
     return result;
 }
 
 void Hexpatriates::BindObjects()
 {
-    ScrollBindObject<Arena>("O-Arena");
     ScrollBindObject<ArenaBound>("O-Wall");
     ScrollBindObject<ArenaBounds>("O-Walls");
     ScrollBindObject<Beam>("O-Beam");
@@ -84,9 +82,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<LaserHeatseeking>("O-LaserHeatseeking");
     ScrollBindObject<LaserPortalEntrance>("O-LaserPortalEntrance");
     ScrollBindObject<LaserWall>("O-LaserWall");
-    ScrollBindObject<MainMenu>("O-MainMenu");
     ScrollBindObject<MedussaHead>("O-MedussaHead");
-    ScrollBindObject<Menu>("O-Menu");
     ScrollBindObject<Missile>("O-Missile");
     ScrollBindObject<MissileShield>("O-MissileShield");
     ScrollBindObject<Orb>("O-Orb");
@@ -98,8 +94,11 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Pilot6>("O-Pilot6");
     ScrollBindObject<Pilot7>("O-Pilot7");
     ScrollBindObject<Pilot8>("O-Pilot8");
-    ScrollBindObject<PilotSelectMenu>("O-PilotSelectMenu");
     ScrollBindObject<Prism>("O-Prism");
+    ScrollBindObject<Scene>("O-Scene");
+    ScrollBindObject<SceneArena>("O-SceneArena");
+    ScrollBindObject<SceneMain>("O-SceneMain");
+    ScrollBindObject<ScenePilotSelect>("O-ScenePilotSelect");
     ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Shrapnel>("O-Shrapnel");
     ScrollBindObject<Spacer>("O-Spacer");
@@ -115,18 +114,6 @@ orxSTATUS Hexpatriates::Run()
     if (orxInput_HasBeenActivated("Quit"))
     {
         result = orxSTATUS_FAILURE;
-    }
-
-    // Handle scene transitions.
-    for (orxS32 i = 0, iCount = ScrollMod::GetListCount("Transitions", "O-Scene"); i < iCount; i++)
-    {
-        const orxSTRING zTransition = ScrollMod::GetListString("Transitions", i, "O-Scene");
-        
-        if (orxInput_HasBeenActivated(zTransition))
-        {
-            orxObject_CreateFromConfig(zTransition);
-            break;
-        }
     }
 
     return result;

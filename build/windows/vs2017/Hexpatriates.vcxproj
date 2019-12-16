@@ -375,7 +375,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arena.cpp" />
+    <ClCompile Include="SceneArena.cpp" />
     <ClCompile Include="ArenaBound.cpp" />
     <ClCompile Include="ArenaBounds.cpp" />
     <ClCompile Include="Beam.cpp" />
@@ -388,9 +388,9 @@
     <ClCompile Include="LaserHeatseeking.cpp" />
     <ClCompile Include="LaserPortalEntrance.cpp" />
     <ClCompile Include="LaserWall.cpp" />
-    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="MedussaHead.cpp" />
-    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="MissileShield.cpp" />
     <ClCompile Include="Parryable.cpp" />
@@ -402,7 +402,9 @@
     <ClCompile Include="Pilot6.cpp" />
     <ClCompile Include="Pilot7.cpp" />
     <ClCompile Include="Pilot8.cpp" />
-    <ClCompile Include="PilotSelectMenu.cpp" />
+    <ClCompile Include="SceneMenu.cpp" />
+    <ClCompile Include="ScenePause.cpp" />
+    <ClCompile Include="ScenePilotSelect.cpp" />
     <ClCompile Include="PlayerSpecific.cpp" />
     <ClCompile Include="Prism.cpp" />
     <ClCompile Include="Shrapnel.cpp" />
@@ -426,7 +428,7 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arena.h" />
+    <ClInclude Include="SceneArena.h" />
     <ClInclude Include="ArenaBound.h" />
     <ClInclude Include="ArenaBounds.h" />
     <ClInclude Include="Beam.h" />
@@ -439,9 +441,9 @@
     <ClInclude Include="LaserHeatseeking.h" />
     <ClInclude Include="LaserPortalEntrance.h" />
     <ClInclude Include="LaserWall.h" />
-    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="SceneMain.h" />
     <ClInclude Include="MedussaHead.h" />
-    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MissileShield.h" />
     <ClInclude Include="Parryable.h" />
@@ -453,7 +455,9 @@
     <ClInclude Include="Pilot6.h" />
     <ClInclude Include="Pilot7.h" />
     <ClInclude Include="Pilot8.h" />
-    <ClInclude Include="PilotSelectMenu.h" />
+    <ClInclude Include="SceneMenu.h" />
+    <ClInclude Include="ScenePause.h" />
+    <ClInclude Include="ScenePilotSelect.h" />
     <ClInclude Include="PlayerSpecific.h" />
     <ClInclude Include="Prism.h" />
     <ClInclude Include="Shrapnel.h" />

@@ -19,12 +19,6 @@
     <Filter Include="src\Headers\Projectiles">
       <UniqueIdentifier>{b81a1faa-08e0-42fa-ae3b-dd64ec059604}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\CPP\Menus">
-      <UniqueIdentifier>{33bed1cb-68fd-4447-8d43-0258ecd867eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Headers\Menus">
-      <UniqueIdentifier>{618d58bd-001e-455b-9e02-af9a731aedcc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\CPP\Geometry">
       <UniqueIdentifier>{b6900541-902a-43ae-b1c9-d849dd7373fc}</UniqueIdentifier>
     </Filter>
@@ -36,6 +30,12 @@
     </Filter>
     <Filter Include="src\Headers\Pilots">
       <UniqueIdentifier>{79ed77ce-e844-4fde-8096-ca4fa63999f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\Scenes">
+      <UniqueIdentifier>{33bed1cb-68fd-4447-8d43-0258ecd867eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\Scenes">
+      <UniqueIdentifier>{618d58bd-001e-455b-9e02-af9a731aedcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +63,6 @@
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="Spawner.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Arena.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="Zone.cpp">
@@ -100,15 +97,6 @@
     </ClCompile>
     <ClCompile Include="Turret.cpp">
       <Filter>src\CPP\Projectiles</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>src\CPP\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>src\CPP\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="PilotSelectMenu.cpp">
-      <Filter>src\CPP\Menus</Filter>
     </ClCompile>
     <ClCompile Include="Explosion.cpp">
       <Filter>src\CPP\Projectiles</Filter>
@@ -182,6 +170,24 @@
     <ClCompile Include="Parryable.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="SceneMain.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePilotSelect.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMenu.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneArena.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePause.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -191,9 +197,6 @@
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Spawner.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Arena.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Zone.h">
@@ -228,15 +231,6 @@
     </ClInclude>
     <ClInclude Include="Turret.h">
       <Filter>src\Headers\Projectiles</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>src\Headers\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>src\Headers\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="PilotSelectMenu.h">
-      <Filter>src\Headers\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
       <Filter>src\Headers\Projectiles</Filter>
@@ -309,6 +303,24 @@
     </ClInclude>
     <ClInclude Include="Parryable.h">
       <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMain.h">
+      <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePilotSelect.h">
+      <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMenu.h">
+      <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneArena.h">
+      <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePause.h">
+      <Filter>src\Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

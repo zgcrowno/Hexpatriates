@@ -74,6 +74,7 @@ void Pilot::OnCreate()
     m_jumpInput = GetString("JumpInput", GetModelName());
     if (m_bIsP1)
     {
+        m_zone = (Zone*)CreateObject("O-ZoneP1");
         m_neutralInput = "NeutralP1";
         m_upwardInput = "UpwardP1";
         m_downwardInput = "DownwardP1";
@@ -82,6 +83,7 @@ void Pilot::OnCreate()
     }
     else
     {
+        m_zone = (Zone*)CreateObject("O-ZoneP2");
         m_neutralInput = "NeutralP2";
         m_upwardInput = "UpwardP2";
         m_downwardInput = "DownwardP2";
