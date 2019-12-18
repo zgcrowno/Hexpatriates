@@ -6,9 +6,8 @@ void Turret::OnCreate()
 {
     Parryable::OnCreate();
 
-    m_turretGun = static_cast<Spawner*>(GetChildByName({
-        "O-TurretGunP1",
-        "O-TurretGunP2" }));
+    std::string turretGunName = "O-TurretGun" + m_typeName;
+    m_turretGun = static_cast<Spawner*>(GetChildByName(turretGunName));
     orxSpawner_Enable(m_turretGun->m_spawner, false);
 }
 
@@ -32,7 +31,8 @@ orxBOOL Turret::OnCollide(
         _rvNormal);
 
     // Wall collisions
-    if (orxString_SearchString(_zColliderPartName, "Wall") != orxNULL)
+    ArenaBound *arenaBound = dynamic_cast<ArenaBound*>(_poCollider);
+    if (arenaBound != orxNULL)
     {
         if (m_bIsAttached)
         {
@@ -41,17 +41,7 @@ orxBOOL Turret::OnCollide(
         }
         else
         {
-            float normalDirection = orxMath_ATan(_rvNormal.fY, _rvNormal.fX);
-            m_movementDirection = normalDirection - orxMATH_KF_PI_BY_2;
-            m_bIsAttached = true;
-            SetRotation(normalDirection + orxMATH_KF_PI_BY_2);
-            SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) * m_speed });
-            orxSpawner_Enable(m_turretGun->m_spawner, true);
-            // TODO: The speed needs to be determined by O-Laser's Speed attribute, but since I don't have access to _rstInfo.fDT here, I'll need to figure out
-            // how to do that without these lasers attaining unreasonably high speeds. Does Orx handle fDT multiplication in the background (IT DOES)? Do I even need to
-            // worry about fDT when calling SetSpeed?
-            orxVECTOR turretLaserSpeed = { orxMath_Cos(normalDirection), orxMath_Sin(normalDirection) };
-            orxSpawner_SetObjectSpeed(m_turretGun->m_spawner, &turretLaserSpeed);
+            AttachToBound(arenaBound, _rvPosition, _rvNormal);
         }
     }
 
@@ -61,6 +51,20 @@ orxBOOL Turret::OnCollide(
 void Turret::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Parryable::Update(_rstInfo);
+}
+
+void Turret::AttachToBound(const ArenaBound *_arenaBound, const orxVECTOR &_attachPosition, const orxVECTOR &_attachNormal)
+{
+    Projectile::AttachToBound(_arenaBound, _attachPosition, _attachNormal);
+
+    m_bIsAttached = true;
+    float normalDirection = orxMath_ATan(_attachNormal.fY, _attachNormal.fX);
+    m_movementDirection = normalDirection - orxMATH_KF_PI_BY_2;
+    SetRotation(normalDirection + orxMATH_KF_PI_BY_2);
+    SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) * m_speed });
+    orxSpawner_Enable(m_turretGun->m_spawner, true);
+    orxVECTOR turretLaserSpeed = { orxMath_Cos(normalDirection), orxMath_Sin(normalDirection) };
+    orxSpawner_SetObjectSpeed(m_turretGun->m_spawner, &turretLaserSpeed);
 }
 
 void Turret::ParriedBehavior()

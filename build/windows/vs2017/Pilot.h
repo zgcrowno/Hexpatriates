@@ -125,20 +125,21 @@ namespace hexpatriates
         float m_waveDelaySuper;
         float m_enemyDirection;
         //! The input strings
-        const orxCHAR *m_upInput;
-        const orxCHAR *m_leftInput;
-        const orxCHAR *m_downInput;
-        const orxCHAR *m_rightInput;
-        const orxCHAR *m_leftRightInput;
-        const orxCHAR *m_upDownInput;
-        const orxCHAR *m_dashInput;
-        const orxCHAR *m_parryInput;
-        const orxCHAR *m_meleeInput;
-        const orxCHAR *m_jumpInput;
-        orxSTRING m_neutralInput;
-        orxSTRING m_upwardInput;
-        orxSTRING m_downwardInput;
-        orxSTRING m_superInput;
+        std::string m_pauseInput;
+        std::string m_upInput;
+        std::string m_leftInput;
+        std::string m_downInput;
+        std::string m_rightInput;
+        std::string m_leftRightInput;
+        std::string m_upDownInput;
+        std::string m_dashInput;
+        std::string m_parryInput;
+        std::string m_meleeInput;
+        std::string m_jumpInput;
+        std::string m_neutralInput;
+        std::string m_upwardInput;
+        std::string m_downwardInput;
+        std::string m_superInput;
         orxBOOL m_defaultFlipX;
         orxBOOL m_defaultFlipY;
         //! The Pilot's spawning position

@@ -10,7 +10,7 @@ void Prism::OnCreate()
     m_waveSize = GetFloat("WaveSize", GetModelName());
 
     orxCHAR gunText[512] = "O-PrismGun";
-    m_gun = static_cast<Spawner*>(GetChildByName(strcat(gunText, m_typeName)));
+    m_gun = static_cast<Spawner*>(GetChildByName(gunText + m_typeName));
 }
 
 void Prism::OnDelete()

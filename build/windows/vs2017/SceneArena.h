@@ -26,7 +26,7 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
 
         void SetTimerText();
-        void CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter, const int &_clipSize);
+        void CreateMeterBorder(const std::string _meterName, const ScrollMod *_meter, const int &_clipSize);
     public:
         //! The amount of time, in seconds, remaining until the round automatically ends.
         float m_timer;

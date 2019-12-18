@@ -34,8 +34,8 @@ orxBOOL MissileShield::OnCollide(
         _rvPosition,
         _rvNormal);
 
-    // Non-Pilot collisions
-    if (dynamic_cast<Pilot*>(_poCollider) == NULL)
+    // Bounce off of partition
+    if (orxString_Compare(_poCollider->GetModelName(), "O-Partition") == 0)
     {
         orxVECTOR reflectionVector = ReflectionVector(NormalizeVector(GetSpeed()), _rvNormal);
         SetSpeed({ reflectionVector.fX * m_speed, reflectionVector.fY * m_speed });

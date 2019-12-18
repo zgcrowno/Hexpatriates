@@ -33,6 +33,7 @@
 #include "Scene.h"
 #include "SceneArena.h"
 #include "SceneMain.h"
+#include "ScenePause.h"
 #include "ScenePilotSelect.h"
 #include "Ship.h"
 #include "Shrapnel.h"
@@ -98,6 +99,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Scene>("O-Scene");
     ScrollBindObject<SceneArena>("O-SceneArena");
     ScrollBindObject<SceneMain>("O-SceneMain");
+    ScrollBindObject<ScenePause>("O-ScenePause");
     ScrollBindObject<ScenePilotSelect>("O-ScenePilotSelect");
     ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Shrapnel>("O-Shrapnel");
@@ -108,19 +110,16 @@ void Hexpatriates::BindObjects()
 
 orxSTATUS Hexpatriates::Run()
 {
-    orxSTATUS result = orxSTATUS_SUCCESS;
-
-    // Check for quitting out.
-    if (orxInput_HasBeenActivated("Quit"))
-    {
-        result = orxSTATUS_FAILURE;
-    }
-
-    return result;
+    return orxSTATUS_SUCCESS;
 }
 
 void Hexpatriates::Exit()
 {
+}
+
+ScrollObject *Hexpatriates::GetArena()
+{
+    return GetNextObject<SceneArena>();
 }
 
 ScrollObject *Hexpatriates::GetArenaBounds()
@@ -128,61 +127,61 @@ ScrollObject *Hexpatriates::GetArenaBounds()
     return GetNextObject<ArenaBounds>();
 }
 
-ScrollObject *Hexpatriates::GetPilotByPlayerType(const orxCHAR *_str)
+ScrollObject *Hexpatriates::GetPilotByPlayerType(const std::string _str)
 {
     // Doing it this way because I can't explicitly return a pointer to an abstract class (Pilot).
     for (Pilot1 *pilot = GetNextObject<Pilot1>(); pilot != orxNULL; pilot = GetNextObject<Pilot1>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
     }
     for (Pilot2 *pilot = GetNextObject<Pilot2>(); pilot != orxNULL; pilot = GetNextObject<Pilot2>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
     }
     for (Pilot3 *pilot = GetNextObject<Pilot3>(); pilot != orxNULL; pilot = GetNextObject<Pilot3>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
     }
     for (Pilot4 *pilot = GetNextObject<Pilot4>(); pilot != orxNULL; pilot = GetNextObject<Pilot4>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
     }
     for (Pilot5 *pilot = GetNextObject<Pilot5>(); pilot != orxNULL; pilot = GetNextObject<Pilot5>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
     }
     for (Pilot6 *pilot = GetNextObject<Pilot6>(); pilot != orxNULL; pilot = GetNextObject<Pilot6>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
     }
     for (Pilot7 *pilot = GetNextObject<Pilot7>(); pilot != orxNULL; pilot = GetNextObject<Pilot7>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
     }
     for (Pilot8 *pilot = GetNextObject<Pilot8>(); pilot != orxNULL; pilot = GetNextObject<Pilot8>(pilot))
     {
-        if (orxString_SearchString(pilot->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(pilot->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             return pilot;
         }
@@ -191,13 +190,13 @@ ScrollObject *Hexpatriates::GetPilotByPlayerType(const orxCHAR *_str)
     return orxNULL;
 }
 
-std::vector<ScrollObject*> Hexpatriates::GetFamiliarsByPlayerType(const orxCHAR *_str)
+std::vector<ScrollObject*> Hexpatriates::GetFamiliarsByPlayerType(const std::string _str)
 {
     std::vector<ScrollObject*> retVal;
 
     for (Familiar *familiar = GetNextObject<Familiar>(); familiar != orxNULL; familiar = GetNextObject<Familiar>(familiar))
     {
-        if (orxString_SearchString(familiar->GetModelName(), _str) != orxNULL)
+        if (orxString_SearchString(familiar->GetModelName().c_str(), _str.c_str()) != orxNULL)
         {
             retVal.push_back(familiar);
         }

@@ -8,7 +8,8 @@ void Grenade::OnCreate()
     Parryable::OnCreate();
 
     m_numShrapnel = GetFloat("NumShrapnel", GetModelName());
-    m_gun = static_cast<Spawner*>(GetChildByName({ "O-GrenadeGunP1", "O-GrenadeGunP2" }));
+    m_gun = static_cast<Spawner*>(GetChildByName("O-GrenadeGun" + m_typeName));
+    //m_gun = static_cast<Spawner*>(GetChildByName({ "O-GrenadeGunP1", "O-GrenadeGunP2" }));
 }
 
 void Grenade::OnDelete()

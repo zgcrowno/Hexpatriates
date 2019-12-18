@@ -24,7 +24,7 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         int m_selectedItemIndex;
-        orxSTRING m_transition = ""; // The scene transition object we'll use to jump from one SceneMenu to another scene.
+        std::string m_transition = ""; // The scene transition object we'll use to jump from one SceneMenu to another scene.
         std::vector<ScrollMod*> m_menuItems;
     };
 }

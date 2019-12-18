@@ -1,4 +1,6 @@
 #include "Projectile.h"
+#include "ArenaBound.h"
+#include "SceneArena.h"
 
 using namespace hexpatriates;
 
@@ -6,6 +8,7 @@ void Projectile::OnCreate()
 {
     PlayerSpecific::OnCreate();
 
+    m_bIsBouncy = GetBool("IsBouncy", GetModelName());
     m_tethered = GetBool("Tethered", GetModelName());
     m_speed = GetFloat("Speed", GetModelName());
     orxVECTOR speedRef = GetSpeed();
@@ -20,6 +23,12 @@ void Projectile::OnCreate()
         orxBODY *projectileBody = (orxBODY*)GetStructure(orxSTRUCTURE_ID_BODY);
         orxBody_AddJointFromConfig(projectileBody, gunBody, "J-Weld");
     }
+    //else
+    //{
+    //    // Setting parent to arena so the projectiles pause along with it.
+    //    SceneArena *arena = static_cast<SceneArena*>(Hexpatriates::GetInstance().GetArena());
+    //    SetOwner(arena);
+    //}
 }
 
 void Projectile::OnDelete()
@@ -34,6 +43,12 @@ orxBOOL Projectile::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
+    // Bounce off of bounds, if appropriate.
+    if (m_bIsBouncy && dynamic_cast<ArenaBound*>(_poCollider) != NULL)
+    {
+        orxVECTOR reflectionVector = ReflectionVector(NormalizeVector(GetSpeed()), _rvNormal);
+        SetSpeed({ reflectionVector.fX * m_speed, reflectionVector.fY * m_speed });
+    }
     
     return orxTRUE;
 }
@@ -44,5 +59,30 @@ void Projectile::Update(const orxCLOCK_INFO &_rstInfo)
     if (m_tethered && !orxObject_IsEnabled(m_parentGun))
     {
         Destroy();
+    }
+}
+
+// TODO: Keep an eye on this, because once I have final sprites, I'll probably have to change whether I use scaledSize.fY or scaledSize.fX.
+void Projectile::AttachToBound(const ArenaBound *_arenaBound, const orxVECTOR &_attachPosition, const orxVECTOR &_attachNormal)
+{
+    orxVECTOR scaledSize = GetScaledSize();
+    std::string boundName = _arenaBound->GetModelName();
+    orxVECTOR boundPos = _arenaBound->GetPosition();
+    orxVECTOR boundScaledSize = _arenaBound->GetScaledSize();
+    if (orxString_SearchString(boundName.c_str(), "Left") != nullptr)
+    {
+        SetPosition({ boundPos.fX + boundScaledSize.fX / 2 + scaledSize.fY / 2, _attachPosition.fY });
+    }
+    else if (orxString_SearchString(boundName.c_str(), "Right") != nullptr)
+    {
+        SetPosition({ boundPos.fX - boundScaledSize.fX / 2 - scaledSize.fY / 2, _attachPosition.fY });
+    }
+    else if (orxString_SearchString(boundName.c_str(), "Ceiling") != nullptr)
+    {
+        SetPosition({ _attachPosition.fX, boundPos.fY + boundScaledSize.fY / 2 + scaledSize.fY / 2 });
+    }
+    else // orxString_SearchString(boundName.c_str(), "Floor") != nullptr
+    {
+        SetPosition({ _attachPosition.fX, boundPos.fY - boundScaledSize.fY / 2 - scaledSize.fY / 2 });
     }
 }

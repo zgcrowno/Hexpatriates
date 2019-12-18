@@ -23,8 +23,11 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo) = 0;
     public:
         bool m_bIsP1;
-        char m_genericName[512];
+        std::string m_genericName;
+        std::string m_typeName;
+        std::string m_otherTypeName;
+        /*char m_genericName[512];
         char m_typeName[512];
-        char m_otherTypeName[512];
+        char m_otherTypeName[512];*/
     };
 }

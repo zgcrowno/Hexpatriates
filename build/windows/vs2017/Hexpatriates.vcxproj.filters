@@ -161,9 +161,6 @@
     <ClCompile Include="Missile.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
-    <ClCompile Include="MissileShield.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerSpecific.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
@@ -187,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="ScenePause.cpp">
       <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileShield.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,9 +295,6 @@
     <ClInclude Include="Missile.h">
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
-    <ClInclude Include="MissileShield.h">
-      <Filter>src\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerSpecific.h">
       <Filter>src\Headers</Filter>
     </ClInclude>
@@ -321,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="ScenePause.h">
       <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileShield.h">
+      <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

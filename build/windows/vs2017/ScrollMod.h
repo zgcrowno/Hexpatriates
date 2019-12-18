@@ -71,11 +71,14 @@ namespace hexpatriates
         /// <param name="_stringParamMap">The string parameters we wish to pass.</param>
         /// <returns>The freshly constructed ScrollMod instance.</returns>
         static ScrollMod *CreateObject(
-            const orxCHAR *_modelName,
-            std::map<const orxCHAR*, const orxBOOL> _boolParamMap = {},
-            std::map<const orxCHAR*, const orxFLOAT> _floatParamMap = {},
-            std::map<const orxCHAR*, const orxVECTOR*> _vectorParamMap = {},
-            std::map<const orxCHAR*, const orxSTRING> _stringParamMap = {});
+            const std::string _modelName,
+            std::map<std::string, const orxBOOL> _boolParamMap = {},
+            std::map<std::string, const orxFLOAT> _floatParamMap = {},
+            std::map<std::string, const orxVECTOR*> _vectorParamMap = {},
+            std::map<std::string, std::string> _stringParamMap = {});
+        /// <summary>Just like ScrollObject's GetModelName() method, but returns a std::string instead of a char *.</summary>
+        /// <returns>The std::string representation of the ScrollMod's model name.</returns>
+        const std::string GetModelName() const;
         /// <summary>A more object-oriented version of ORX's GetPosition function.</summary>
         /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
         /// <returns>The ScrollMod's position.</returns>
@@ -104,83 +107,83 @@ namespace hexpatriates
         /// <param name="_key">The name of the bool we wish to retrieve from config.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>
         /// <returns>The bool value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static orxBOOL __fastcall GetBool(const orxCHAR *_key, const orxCHAR *_sectionName = "");
+        static orxBOOL __fastcall GetBool(const std::string _key, const std::string _sectionName = "");
         /// <summary>Gets the bool value at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the list from which we wish to retrieve a bool in config.</param>
         /// <param name="_index">The index of the list named <paramref name="_key"/> at which we wish to retrieve a bool.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve a bool in the list named <paramref name="_key"/>.</param>
         /// <returns>The bool value at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static orxBOOL __fastcall GetListBool(const char *_key, const int _index, const char *_sectionName = "");
+        static orxBOOL __fastcall GetListBool(const std::string _key, const int _index, const std::string _sectionName = "");
         /// <summary>Gets a float value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the float we wish to retrieve from config.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>
         /// <returns>The float value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static orxFLOAT __fastcall GetFloat(const orxCHAR *_key, const orxCHAR *_sectionName = "");
+        static orxFLOAT __fastcall GetFloat(const std::string _key, const std::string _sectionName = "");
         /// <summary>Gets the float value at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the list from which we wish to retrieve a float in config.</param>
         /// <param name="_index">The index of the list named <paramref name="_key"/> at which we wish to retrieve a float.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve a float in the list named <paramref name="_key"/>.</param>
         /// <returns>The float value at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static orxFLOAT __fastcall GetListFloat(const char *_key, const int _index, const char *_sectionName = "");
+        static orxFLOAT __fastcall GetListFloat(const std::string _key, const int _index, const std::string _sectionName = "");
         /// <summary>Gets a vector value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the vector we wish to retrieve from config.</param>
         /// <param name="_passedVector">The vector to hold the value we're retrieving.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>
         /// <returns>The vector value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static orxVECTOR __fastcall GetVector(const orxCHAR *_key, const orxCHAR *_sectionName = "");
+        static orxVECTOR __fastcall GetVector(const std::string _key, const std::string _sectionName = "");
         /// <summary>Gets the vector at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the list from which we wish to retrieve a vector in config.</param>
         /// <param name="_index">The index of the list named <paramref name="_key"/> at which we wish to retrieve a vector.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve a vector in the list named <paramref name="_key"/>.</param>
         /// <returns>The vector at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static orxVECTOR __fastcall GetListVector(const char *_key, const int _index, const char *_sectionName = "");
+        static orxVECTOR __fastcall GetListVector(const std::string _key, const int _index, const std::string _sectionName = "");
         /// <summary>Gets a string value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the string we wish to retrieve from config.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>
         /// <returns>The string value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static const orxCHAR *__fastcall GetString(const orxCHAR *_key, const orxCHAR *_sectionName = "");
+        static const std::string __fastcall GetString(const std::string _key, const std::string _sectionName = "");
         /// <summary>Gets the string at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the list from which we wish to retrieve a string in config.</param>
         /// <param name="_index">The index of the list named <paramref name="_key"/> at which we wish to retrieve a string.</param>
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve a string in the list named <paramref name="_key"/>.</param>
         /// <returns>The string at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static const char *__fastcall GetListString(const char *_key, const int _index, const char *_sectionName = "");
+        static const std::string __fastcall GetListString(const std::string _key, const int _index, const std::string _sectionName = "");
         /// <summary>Gets the number of items held by the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the list.</param>
         /// <param name="_sectionName">The section, if any, in which we expect to find the list named <paramref name="_key"/>.</param>
         /// <returns>The number of itemse held by the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
-        static const int __fastcall GetListCount(const char *_key, const char *_sectionName = "");
+        static const int __fastcall GetListCount(const std::string _key, const std::string _sectionName = "");
         /// <summary>Sets a bool value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) to <paramref name="_value"/>.</summary>
         /// <param name="_key">The name of the bool we wish to set in config.</param>
         /// <param name="_value">The value to which we're setting the bool named <paramref name="_key"/>.</param>
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
-        static orxSTATUS __fastcall SetBool(const orxCHAR *_key, orxBOOL _value, const orxCHAR *_sectionName = "");
+        static orxSTATUS __fastcall SetBool(const std::string _key, orxBOOL _value, const std::string _sectionName = "");
         /// <summary>Sets a float value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) to <paramref name="_value"/>.</summary>
         /// <param name="_key">The name of the float we wish to set in config.</param>
         /// <param name="_value">The value to which we're setting the float named <paramref name="_key"/>.</param>
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
-        static orxSTATUS __fastcall SetFloat(const orxCHAR *_key, orxFLOAT _value, const orxCHAR *_sectionName = "");
+        static orxSTATUS __fastcall SetFloat(const std::string _key, orxFLOAT _value, const std::string _sectionName = "");
         /// <summary>Sets a vector value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) to <paramref name="_value"/>.</summary>
         /// <param name="_key">The name of the vector we wish to set in config.</param>
         /// <param name="_value">The value to which we're setting the vector named <paramref name="_key"/>.</param>
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
-        static orxSTATUS __fastcall SetVector(const orxCHAR *_key, const orxVECTOR *_value, const orxCHAR *_sectionName = "");
+        static orxSTATUS __fastcall SetVector(const std::string _key, const orxVECTOR *_value, const std::string _sectionName = "");
         /// <summary>Sets a string value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) to <paramref name="_value"/>.</summary>
         /// <param name="_key">The name of the string we wish to set in config.</param>
         /// <param name="_value">The value to which we're setting the string named <paramref name="_key"/>.</param>
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
-        static orxSTATUS __fastcall SetString(const orxCHAR *_key, const orxCHAR *_value, const orxCHAR *_sectionName = "");
+        static orxSTATUS __fastcall SetString(const std::string _key, const std::string _value, const std::string _sectionName = "");
         /// <summary>Sets a list of strings named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) to <paramref name="_list"/>.</summary>
         /// <param name="_key">The name of the string list we wish to set in config.</param>
         /// <param name="_list">The value to which we're setting the string list named <paramref name="_key"/>.</param>
         /// <param name="_numValues">The number of values in <paramref name="_list"/>.</param>
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
-        static orxSTATUS __fastcall SetListString(const char *_key, const char **_list, int _numValues, const char *_sectionName = "");
+        static orxSTATUS __fastcall SetListString(const std::string _key, const char **_list, int _numValues, const std::string _sectionName = "");
         /// <summary>A more object-oriented version of ORX's orxObject_GetOwner() function.</summary>
         /// <returns>The orxSTRUCTURE which is the owner of the ScrollMod, or NULL if there is none.</returns>
         orxSTRUCTURE *__fastcall GetOwner();
@@ -222,28 +225,28 @@ namespace hexpatriates
         /// <summary>Returns a pointer to the ScrollObject, if it exists, which is a child of the ScrollMod, and which has the name <paramref name="_childName"/>.</summary>
         /// <param name="_childName">The name by which we're searching for a child of the ScrollMod.</param>
         /// <returns>A pointer to the ScrollMod, if it exists, which is a child of the ScrollMod, and which has the name <paramref name="_childName"/>.</returns>
-        ScrollObject *GetChildByName(const orxSTRING _childName);
+        ScrollObject *GetChildByName(const std::string _childName);
         /// <summary>Returns a pointer to the ScrollObject, if it exists, which is a child of the ScrollMod, and which has a name contained within <paramref name="_childNameList"/>.</summary>
         /// <param name="_childName">The names by which we're searching for a child of the ScrollMod.</param>
         /// <returns>A pointer to the ScrollObject, if it exists, which is a child of the ScrollMod, and which has a name contained within <paramref name="_childNameList"/>.</returns>
-        ScrollObject *GetChildByName(const std::vector<orxSTRING> &_childNameList);
+        ScrollObject *GetChildByName(const std::vector<std::string> &_childNameList);
         /// <summary>Returns the world's gravity.</summary>
         /// <returns>The world's gravity.</returns>
         orxVECTOR GetWorldGravity();
         /// <summary>Returns a pointer to the body part, if it exists, which is a part of the ScrollMod's body, and which has the name <paramref name="_partName"/>.</summary>
         /// <param name="_partName">The name by which we're searching for a body part which is a part of the ScrollMod's body.</param>
         /// <returns>A pointer to the body part, if it exists, which is a part of the ScrollMod's body, and which has the name <paramref name="_partName"/>.</returns>
-        orxBODY_PART *GetBodyPartByName(const orxCHAR *_partName);
+        orxBODY_PART *GetBodyPartByName(const std::string _partName);
         /// <summary>Sets the ScrollMod's target animation to <paramref name="_animName"/>.</summary>
         /// <param name="_animName">The animation to which we're setting the ScrollMod's target animation.</param>
-        void SetTargetAnim(const orxCHAR *_animName);
+        void SetTargetAnim(const std::string _animName);
         /// <summary>Sets the ScrollMod's custom gravity to <paramref name="_customGravity"/>.</summary>
         /// <param name="_customGravity">The gravity to which we're setting the ScrollMod's custom gravity.</param>
         orxSTATUS __fastcall SetCustomGravity(orxVECTOR &_customGravity);
         /// <summary>Sets the body part of the ScrollMod associated with <paramref name="_partName"/>'s solidity to the bool value represented by <paramref name="_bSolid"/>.</summary>
         /// <param name="_partName">The name of the body part whose solidity we wish to set.</param>
         /// <param name="_bSolid">The bool value representing the solidity we wish to set.</param>
-        void SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSolid);
+        void SetBodyPartSolid(const std::string _partName, const orxBOOL &_bSolid);
         /// <summary>Moves The ScrollMod from its current position to <paramref name="_destination"/> at a speed of <paramref name="_speed"/>, and with a deceleration distance of <paramref name="decelerationDistance"/>.</summary>
         /// <param name="_destination">The position to which we're moving the ScrollMod.</param>
         /// <param name="_speed">The speed at which we're moving the ScrollMod to <paramref name="_destination"/>.</param>

@@ -6,13 +6,10 @@ void LaserGate::OnCreate()
 {
     Projectile::OnCreate();
 
-    orxCHAR laserGateLaserNearText[512] = "O-LaserGateLaserNear";
-    orxCHAR laserGateLaserFarText[512] = "O-LaserGateLaserFar";
-
     m_openingSize = GetFloat("OpeningSize", GetModelName());
     m_laserExpansionSpeed = GetFloat("LaserExpansionSpeed", GetModelName());
-    m_laserNear = static_cast<Laser*>(CreateObject(strcat(laserGateLaserNearText, m_typeName)));
-    m_laserFar = static_cast<Laser*>(CreateObject(strcat(laserGateLaserFarText, m_typeName)));
+    m_laserNear = static_cast<Laser*>(CreateObject("O-LaserGateLaserNear" + m_typeName));
+    m_laserFar = static_cast<Laser*>(CreateObject("O-LaserGateLaserFar" + m_typeName));
     m_laserNear->Enable(false);
     m_laserFar->Enable(false);
 }
@@ -40,7 +37,8 @@ orxBOOL LaserGate::OnCollide(
         _rvNormal);
 
     // Wall collisions
-    if (orxString_SearchString(_zColliderPartName, "Wall") != orxNULL)
+    ArenaBound *arenaBound = dynamic_cast<ArenaBound*>(_poCollider);
+    if (arenaBound != orxNULL)
     {
         if (m_bIsAttached)
         {
@@ -49,38 +47,7 @@ orxBOOL LaserGate::OnCollide(
         }
         else
         {
-            float normalDirection = orxMath_ATan(_rvNormal.fY, _rvNormal.fX);
-            m_movementDirection = normalDirection - orxMATH_KF_PI_BY_2;
-            m_bIsAttached = true;
-            SetRotation(normalDirection + orxMATH_KF_PI_BY_2);
-            SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) * m_speed });
-            m_laserNear->Enable(true);
-            m_laserFar->Enable(true);
-            m_laserNear->SetRotation(GetRotation());
-            m_laserFar->SetRotation(GetRotation());
-
-            if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0)
-            {
-                m_laserNear->SetRotation(orxMATH_KF_PI_BY_2);
-                m_laserFar->SetRotation(orxMATH_KF_PI_BY_2);
-                m_placement = Placement::Left;
-            }
-            else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
-            {
-                m_laserNear->SetRotation(-orxMATH_KF_PI_BY_2);
-                m_laserFar->SetRotation(-orxMATH_KF_PI_BY_2);
-                m_placement = Placement::Right;
-            }
-            else if (orxString_Compare(_poCollider->GetModelName(), "O-WallCeiling") == 0)
-            {
-                m_laserNear->SetRotation(orxMATH_KF_PI);
-                m_laserFar->SetRotation(orxMATH_KF_PI);
-                m_placement = Placement::Top;
-            }
-            else //orxString_Compare(_poCollider->GetModelName(), "O-WallFloor" == 0)
-            {
-                m_placement = Placement::Bottom;
-            }
+            AttachToBound(arenaBound, _rvPosition, _rvNormal);
         }
     }
 
@@ -145,5 +112,43 @@ void LaserGate::Update(const orxCLOCK_INFO &_rstInfo)
                 m_bExpandingNear = true;
             }
         }
+    }
+}
+
+void LaserGate::AttachToBound(const ArenaBound *_arenaBound, const orxVECTOR &_attachPosition, const orxVECTOR &_attachNormal)
+{
+    Projectile::AttachToBound(_arenaBound, _attachPosition, _attachNormal);
+
+    m_bIsAttached = true;
+    float normalDirection = orxMath_ATan(_attachNormal.fY, _attachNormal.fX);
+    m_movementDirection = normalDirection - orxMATH_KF_PI_BY_2;
+    SetRotation(normalDirection + orxMATH_KF_PI_BY_2);
+    SetSpeed({ orxMath_Cos(m_movementDirection) * m_speed, orxMath_Sin(m_movementDirection) * m_speed });
+    m_laserNear->Enable(true);
+    m_laserFar->Enable(true);
+    m_laserNear->SetRotation(GetRotation());
+    m_laserFar->SetRotation(GetRotation());
+
+    if (orxString_Compare(_arenaBound->GetModelName().c_str(), "O-WallLeftWall") == 0)
+    {
+        m_laserNear->SetRotation(orxMATH_KF_PI_BY_2);
+        m_laserFar->SetRotation(orxMATH_KF_PI_BY_2);
+        m_placement = Placement::Left;
+    }
+    else if (orxString_Compare(_arenaBound->GetModelName().c_str(), "O-WallRightWall") == 0)
+    {
+        m_laserNear->SetRotation(-orxMATH_KF_PI_BY_2);
+        m_laserFar->SetRotation(-orxMATH_KF_PI_BY_2);
+        m_placement = Placement::Right;
+    }
+    else if (orxString_Compare(_arenaBound->GetModelName().c_str(), "O-WallCeiling") == 0)
+    {
+        m_laserNear->SetRotation(orxMATH_KF_PI);
+        m_laserFar->SetRotation(orxMATH_KF_PI);
+        m_placement = Placement::Top;
+    }
+    else //orxString_Compare(_poCollider->GetModelName(), "O-WallFloor" == 0)
+    {
+        m_placement = Placement::Bottom;
     }
 }

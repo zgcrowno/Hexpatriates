@@ -77,16 +77,16 @@ const std::vector<orxVECTOR> ScrollMod::Raycast(
 }
 
 ScrollMod *ScrollMod::CreateObject(
-    const orxCHAR *_modelName,
-    std::map<const orxCHAR*, const orxBOOL> _boolParamMap,
-    std::map<const orxCHAR*, const orxFLOAT> _floatParamMap,
-    std::map<const orxCHAR*, const orxVECTOR*> _vectorParamMap,
-    std::map<const orxCHAR*, const orxSTRING> _stringParamMap)
+    std::string _modelName,
+    std::map<std::string, const orxBOOL> _boolParamMap,
+    std::map<std::string, const orxFLOAT> _floatParamMap,
+    std::map<std::string, const orxVECTOR*> _vectorParamMap,
+    std::map<std::string, std::string> _stringParamMap)
 {
-    std::map<const orxCHAR*, const orxBOOL> initialBoolMap;
-    std::map<const orxCHAR*, const orxFLOAT> initialFloatMap;
-    std::map<const orxCHAR*, const orxVECTOR*> initialVectorMap;
-    std::map<const orxCHAR*, const orxSTRING> initialStringMap;
+    std::map<std::string, const orxBOOL> initialBoolMap;
+    std::map<std::string, const orxFLOAT> initialFloatMap;
+    std::map<std::string, const orxVECTOR*> initialVectorMap;
+    std::map<std::string, std::string> initialStringMap;
 
     for (auto it = _boolParamMap.begin(); it != _boolParamMap.end(); it++)
     {
@@ -109,7 +109,7 @@ ScrollMod *ScrollMod::CreateObject(
         SetString(it->first, it->second, _modelName);
     }
 
-    ScrollMod *retVal = (ScrollMod*)Hexpatriates::GetInstance().CreateObject(_modelName);
+    ScrollMod *retVal = (ScrollMod*)Hexpatriates::GetInstance().CreateObject(_modelName.c_str());
 
     // Reset config values so as not to muck up future object creation.
     for (auto it = initialBoolMap.begin(); it != initialBoolMap.end(); it++)
@@ -128,6 +128,13 @@ ScrollMod *ScrollMod::CreateObject(
     {
         SetString(it->first, it->second, _modelName);
     }
+
+    return retVal;
+}
+
+const std::string ScrollMod::GetModelName() const
+{
+    std::string retVal(ScrollObject::GetModelName());
 
     return retVal;
 }
@@ -180,15 +187,15 @@ const orxVECTOR __fastcall ScrollMod::GetSpeed(const bool &_bRelative) const
     return vecRef;
 }
 
-orxBOOL __fastcall ScrollMod::GetBool(const orxCHAR *_key, const orxCHAR *_sectionName)
+orxBOOL __fastcall ScrollMod::GetBool(const std::string _key, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxBOOL retVal = orxConfig_GetBool(_key);
+    orxBOOL retVal = orxConfig_GetBool(_key.c_str());
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -197,15 +204,15 @@ orxBOOL __fastcall ScrollMod::GetBool(const orxCHAR *_key, const orxCHAR *_secti
     return retVal;
 }
 
-orxBOOL __fastcall ScrollMod::GetListBool(const char *_key, const int _index, const char *_sectionName)
+orxBOOL __fastcall ScrollMod::GetListBool(const std::string _key, const int _index, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxBOOL retVal = orxConfig_GetListBool(_key, _index);
+    orxBOOL retVal = orxConfig_GetListBool(_key.c_str(), _index);
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -214,15 +221,15 @@ orxBOOL __fastcall ScrollMod::GetListBool(const char *_key, const int _index, co
     return retVal;
 }
 
-orxFLOAT __fastcall ScrollMod::GetFloat(const orxCHAR *_key, const orxCHAR *_sectionName)
+orxFLOAT __fastcall ScrollMod::GetFloat(const std::string _key, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxFLOAT retVal = orxConfig_GetFloat(_key);
+    orxFLOAT retVal = orxConfig_GetFloat(_key.c_str());
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -231,15 +238,15 @@ orxFLOAT __fastcall ScrollMod::GetFloat(const orxCHAR *_key, const orxCHAR *_sec
     return retVal;
 }
 
-orxFLOAT __fastcall ScrollMod::GetListFloat(const char *_key, const int _index, const char *_sectionName)
+orxFLOAT __fastcall ScrollMod::GetListFloat(const std::string _key, const int _index, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxFLOAT retVal = orxConfig_GetListFloat(_key, _index);
+    orxFLOAT retVal = orxConfig_GetListFloat(_key.c_str(), _index);
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -248,16 +255,16 @@ orxFLOAT __fastcall ScrollMod::GetListFloat(const char *_key, const int _index, 
     return retVal;
 }
 
-orxVECTOR __fastcall ScrollMod::GetVector(const orxCHAR *_key, const orxCHAR *_sectionName)
+orxVECTOR __fastcall ScrollMod::GetVector(const std::string _key, const std::string _sectionName)
 {
     orxVECTOR vecRef = orxVECTOR_0;
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxVECTOR *vec = orxConfig_GetVector(_key, &vecRef);
+    orxVECTOR *vec = orxConfig_GetVector(_key.c_str(), &vecRef);
     orxVECTOR retVal = vec == NULL ? orxVECTOR_0 : *vec;
     if (sectionPassed)
     {
@@ -267,16 +274,16 @@ orxVECTOR __fastcall ScrollMod::GetVector(const orxCHAR *_key, const orxCHAR *_s
     return retVal;
 }
 
-orxVECTOR __fastcall ScrollMod::GetListVector(const char *_key, const int _index, const char *_sectionName)
+orxVECTOR __fastcall ScrollMod::GetListVector(const std::string _key, const int _index, const std::string _sectionName)
 {
     orxVECTOR vecRef = orxVECTOR_0;
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxVECTOR *vec = orxConfig_GetListVector(_key, _index, &vecRef);
+    orxVECTOR *vec = orxConfig_GetListVector(_key.c_str(), _index, &vecRef);
     orxVECTOR retVal = vec == NULL ? orxVECTOR_0 : *vec;
     if (sectionPassed)
     {
@@ -286,15 +293,15 @@ orxVECTOR __fastcall ScrollMod::GetListVector(const char *_key, const int _index
     return retVal;
 }
 
-const orxCHAR *__fastcall ScrollMod::GetString(const orxCHAR *_key, const orxCHAR *_sectionName)
+const std::string __fastcall ScrollMod::GetString(const std::string _key, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    const orxCHAR *retVal = orxConfig_GetString(_key);
+    const orxCHAR *retVal = orxConfig_GetString(_key.c_str());
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -303,15 +310,15 @@ const orxCHAR *__fastcall ScrollMod::GetString(const orxCHAR *_key, const orxCHA
     return retVal;
 }
 
-const char *__fastcall ScrollMod::GetListString(const char *_key, const int _index, const char *_sectionName)
+const std::string __fastcall ScrollMod::GetListString(const std::string _key, const int _index, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    const orxCHAR *retVal = orxConfig_GetListString(_key, _index);
+    const orxCHAR *retVal = orxConfig_GetListString(_key.c_str(), _index);
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -320,15 +327,15 @@ const char *__fastcall ScrollMod::GetListString(const char *_key, const int _ind
     return retVal;
 }
 
-const int __fastcall ScrollMod::GetListCount(const char *_key, const char *_sectionName)
+const int __fastcall ScrollMod::GetListCount(const std::string _key, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    const int retVal = orxConfig_GetListCount(_key);
+    const int retVal = orxConfig_GetListCount(_key.c_str());
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -337,15 +344,15 @@ const int __fastcall ScrollMod::GetListCount(const char *_key, const char *_sect
     return retVal;
 }
 
-orxSTATUS __fastcall ScrollMod::SetBool(const orxCHAR *_key, orxBOOL _value, const orxCHAR *_sectionName)
+orxSTATUS __fastcall ScrollMod::SetBool(const std::string _key, orxBOOL _value, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxSTATUS retVal = orxConfig_SetBool(_key, _value);
+    orxSTATUS retVal = orxConfig_SetBool(_key.c_str(), _value);
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -354,15 +361,15 @@ orxSTATUS __fastcall ScrollMod::SetBool(const orxCHAR *_key, orxBOOL _value, con
     return retVal;
 }
 
-orxSTATUS __fastcall ScrollMod::SetFloat(const orxCHAR *_key, orxFLOAT _value, const orxCHAR *_sectionName)
+orxSTATUS __fastcall ScrollMod::SetFloat(const std::string _key, orxFLOAT _value, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxSTATUS retVal = orxConfig_SetFloat(_key, _value);
+    orxSTATUS retVal = orxConfig_SetFloat(_key.c_str(), _value);
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -371,15 +378,15 @@ orxSTATUS __fastcall ScrollMod::SetFloat(const orxCHAR *_key, orxFLOAT _value, c
     return retVal;
 }
 
-orxSTATUS __fastcall ScrollMod::SetVector(const orxCHAR *_key, const orxVECTOR *_value, const orxCHAR *_sectionName)
+orxSTATUS __fastcall ScrollMod::SetVector(const std::string _key, const orxVECTOR *_value, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxSTATUS retVal = orxConfig_SetVector(_key, _value);
+    orxSTATUS retVal = orxConfig_SetVector(_key.c_str(), _value);
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -388,15 +395,15 @@ orxSTATUS __fastcall ScrollMod::SetVector(const orxCHAR *_key, const orxVECTOR *
     return retVal;
 }
 
-orxSTATUS __fastcall ScrollMod::SetString(const orxCHAR *_key, const orxCHAR *_value, const orxCHAR *_sectionName)
+orxSTATUS __fastcall ScrollMod::SetString(const std::string _key, const std::string _value, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxSTATUS retVal = orxConfig_SetString(_key, _value);
+    orxSTATUS retVal = orxConfig_SetString(_key.c_str(), _value.c_str());
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -405,15 +412,15 @@ orxSTATUS __fastcall ScrollMod::SetString(const orxCHAR *_key, const orxCHAR *_v
     return retVal;
 }
 
-orxSTATUS __fastcall ScrollMod::SetListString(const char *_key, const char **_list, int _numValues, const char *_sectionName)
+orxSTATUS __fastcall ScrollMod::SetListString(const std::string _key, const char **_list, int _numValues, const std::string _sectionName)
 {
-    orxBOOL sectionPassed = orxString_Compare(_sectionName, "") != 0;
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
 
     if (sectionPassed)
     {
-        orxConfig_PushSection(_sectionName);
+        orxConfig_PushSection(_sectionName.c_str());
     }
-    orxSTATUS retVal = orxConfig_SetListString(_key, _list, _numValues);
+    orxSTATUS retVal = orxConfig_SetListString(_key.c_str(), _list, _numValues);
     if (sectionPassed)
     {
         orxConfig_PopSection();
@@ -434,7 +441,14 @@ orxSTRUCTURE *__fastcall ScrollMod::GetParent()
 
 void __fastcall ScrollMod::SetOwner(const ScrollObject *_owner)
 {
-    orxObject_SetOwner(GetOrxObject(), _owner->GetOrxObject());
+    if (_owner != nullptr)
+    {
+        orxObject_SetOwner(GetOrxObject(), _owner->GetOrxObject());
+    }
+    else
+    {
+        orxObject_SetOwner(GetOrxObject(), nullptr);
+    }
 }
 
 orxSTATUS __fastcall ScrollMod::SetParent(const ScrollObject *_parent)
@@ -481,24 +495,24 @@ int __fastcall ScrollMod::GetNumChildren()
     return result;
 }
 
-ScrollObject *ScrollMod::GetChildByName(const orxSTRING _childName)
+ScrollObject *ScrollMod::GetChildByName(const std::string _childName)
 {
     for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
     {
-        if (orxString_Compare(child->GetModelName(), _childName) == 0)
+        if (orxString_Compare(child->GetModelName(), _childName.c_str()) == 0)
         {
             return child;
         }
     }
 }
 
-ScrollObject *ScrollMod::GetChildByName(const std::vector<orxSTRING> &_childNameList)
+ScrollObject *ScrollMod::GetChildByName(const std::vector<std::string> &_childNameList)
 {
     for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
     {
-        for (orxSTRING str : _childNameList)
+        for (std::string str : _childNameList)
         {
-            if (orxString_Compare(child->GetModelName(), str) == 0)
+            if (orxString_Compare(child->GetModelName(), str.c_str()) == 0)
             {
                 return child;
             }
@@ -513,22 +527,22 @@ orxVECTOR ScrollMod::GetWorldGravity()
     return *orxPhysics_GetGravity(&worldGravity);
 }
 
-orxBODY_PART *ScrollMod::GetBodyPartByName(const orxCHAR *_partName)
+orxBODY_PART *ScrollMod::GetBodyPartByName(const std::string _partName)
 {
     orxBODY *body = (orxBODY*)GetStructure(orxSTRUCTURE_ID_BODY);
 
     for (orxBODY_PART *part = orxBody_GetNextPart(body, orxNULL); part; part = orxBody_GetNextPart(body, part))
     {
-        if (orxString_Compare(orxBody_GetPartName(part), _partName) == 0)
+        if (orxString_Compare(orxBody_GetPartName(part), _partName.c_str()) == 0)
         {
             return part;
         }
     }
 }
 
-void ScrollMod::SetTargetAnim(const orxCHAR *_animName)
+void ScrollMod::SetTargetAnim(const std::string _animName)
 {
-    orxObject_SetTargetAnim(GetOrxObject(), _animName);
+    orxObject_SetTargetAnim(GetOrxObject(), _animName.c_str());
 }
 
 orxSTATUS __fastcall ScrollMod::SetCustomGravity(orxVECTOR &_customGravity)
@@ -536,7 +550,7 @@ orxSTATUS __fastcall ScrollMod::SetCustomGravity(orxVECTOR &_customGravity)
     return orxObject_SetCustomGravity(GetOrxObject(), &_customGravity);
 }
 
-void ScrollMod::SetBodyPartSolid(const orxCHAR *_partName, const orxBOOL &_bSolid)
+void ScrollMod::SetBodyPartSolid(const std::string _partName, const orxBOOL &_bSolid)
 {
     orxBody_SetPartSolid(GetBodyPartByName(_partName), _bSolid);
 }

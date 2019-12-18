@@ -25,7 +25,7 @@ orxBOOL SceneMain::OnCollide(
 void SceneMain::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // Handle menu/scene transitions
-    if (orxString_Compare(m_transition, "") != 0)
+    if (orxString_Compare(m_transition.c_str(), "") != 0)
     {
         CreateObject(m_transition);
     }
@@ -61,11 +61,11 @@ void SceneMain::Update(const orxCLOCK_INFO &_rstInfo)
     // Handle selection inputs
     if (orxInput_HasBeenActivated("DownwardP1"))
     {
-        if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-ArcadeText") == 0)
+        if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-ArcadeText") == 0)
         {
 
         }
-        else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-VersusText") == 0)
+        else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-VersusText") == 0)
         {
             m_transition = "O-ToScenePilotSelect";
         }

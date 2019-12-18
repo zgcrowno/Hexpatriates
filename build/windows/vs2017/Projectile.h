@@ -2,6 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "PlayerSpecific.h"
+#include "ArenaBound.h"
 
 namespace hexpatriates
 {
@@ -18,10 +19,12 @@ namespace hexpatriates
             const orxSTRING _zPartName,
             const orxSTRING _zColliderPartName,
             const orxVECTOR &_rvPosition,
-            const orxVECTOR &_rvNormal) = 0;
+            const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+        virtual void AttachToBound(const ArenaBound *_arenaBound, const orxVECTOR &_attachPosition, const orxVECTOR &_attachNormal);
     public:
+        bool m_bIsBouncy;
         bool m_tethered;
         float m_speed;
         orxOBJECT *m_parentGun;

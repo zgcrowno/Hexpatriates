@@ -9,8 +9,7 @@ void Familiar::OnCreate()
     m_framesBehind = GetFloat("FramesBehind", GetModelName());
     SetSpeed(orxVECTOR_0);
 
-    orxCHAR gunTypeText[512] = "O-FamiliarGun";
-    m_gun = static_cast<Spawner*>(GetChildByName(strcat(gunTypeText, m_typeName)));
+    m_gun = static_cast<Spawner*>(GetChildByName("O-FamiliarGun" + m_typeName));
 }
 
 void Familiar::OnDelete()
@@ -33,7 +32,8 @@ orxBOOL Familiar::OnCollide(
         _rvNormal);
 
     // Wall collisions
-    if (m_bIsFired && orxString_SearchString(_zColliderPartName, "Wall") != orxNULL)
+    ArenaBound *arenaBound = dynamic_cast<ArenaBound*>(_poCollider);
+    if (m_bIsFired && arenaBound != orxNULL)
     {
         if (m_bIsAttached)
         {
@@ -44,16 +44,7 @@ orxBOOL Familiar::OnCollide(
         {
             if (m_type == Turret)
             {
-                float normalDirection = orxMath_ATan(_rvNormal.fY, _rvNormal.fX);
-                m_attachedMovementDirection = normalDirection - orxMATH_KF_PI_BY_2;
-                m_bIsAttached = true;
-                SetRotation(normalDirection + orxMATH_KF_PI_BY_2);
-                SetSpeed({ orxMath_Cos(m_attachedMovementDirection) * m_speed, orxMath_Sin(m_attachedMovementDirection) * m_speed });
-                orxSpawner_SetWaveSize(m_gun->m_spawner, 1);
-                orxSpawner_SetWaveDelay(m_gun->m_spawner, 0.5f);
-                orxVECTOR laserSpeed = { orxMath_Cos(normalDirection), orxMath_Sin(normalDirection) };
-                orxSpawner_SetObjectSpeed(m_gun->m_spawner, &laserSpeed);
-                SetLifeTime(5.0f);
+                AttachToBound(arenaBound, _rvPosition, _rvNormal);
             }
             else // m_type == ERemoteDetonation
             {
@@ -68,6 +59,22 @@ orxBOOL Familiar::OnCollide(
 void Familiar::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Parryable::Update(_rstInfo);
+}
+
+void Familiar::AttachToBound(const ArenaBound *_arenaBound, const orxVECTOR &_attachPosition, const orxVECTOR &_attachNormal)
+{
+    Projectile::AttachToBound(_arenaBound, _attachPosition, _attachNormal);
+
+    m_bIsAttached = true;
+    float normalDirection = orxMath_ATan(_attachNormal.fY, _attachNormal.fX);
+    m_attachedMovementDirection = normalDirection - orxMATH_KF_PI_BY_2;
+    SetRotation(normalDirection + orxMATH_KF_PI_BY_2);
+    SetSpeed({ orxMath_Cos(m_attachedMovementDirection) * m_speed, orxMath_Sin(m_attachedMovementDirection) * m_speed });
+    orxSpawner_SetWaveSize(m_gun->m_spawner, 1);
+    orxSpawner_SetWaveDelay(m_gun->m_spawner, 0.5f);
+    orxVECTOR laserSpeed = { orxMath_Cos(normalDirection), orxMath_Sin(normalDirection) };
+    orxSpawner_SetObjectSpeed(m_gun->m_spawner, &laserSpeed);
+    SetLifeTime(5.0f);
 }
 
 void Familiar::ParriedBehavior()
@@ -96,8 +103,7 @@ void Familiar::FireSelf(const float _direction, const Type _type)
 
 void Familiar::Detonate()
 {
-    orxCHAR explosionText[512] = "O-Explosion";
-    CreateObject(strcat(explosionText, m_typeName), {}, {}, { { "Position", &GetPosition() } });
+    CreateObject("O-Explosion" + m_typeName, {}, {}, { { "Position", &GetPosition() } });
 
     Destroy();
 }

@@ -55,6 +55,14 @@ orxBOOL SceneArena::OnCollide(
 
 void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
 {
+    // Handle pausing.
+    if (orxInput_HasBeenActivated(m_pilotP1->m_pauseInput.c_str()) || orxInput_HasBeenActivated(m_pilotP2->m_pauseInput.c_str()))
+    {
+        //Pause(true);
+        Hexpatriates::GetInstance().PauseGame(true);
+        CreateObject("O-ToScenePause");
+    }
+
     // Handle timer decrement and response
     m_timer -= _rstInfo.fDT;
     if (m_timer <= 0.0)
@@ -379,9 +387,9 @@ void SceneArena::SetTimerText()
 }
 
 // TODO: This will do for now, but I ought to manage this using the config, eventually.
-void SceneArena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_meter, const int &_clipSize)
+void SceneArena::CreateMeterBorder(const std::string _meterName, const ScrollMod *_meter, const int &_clipSize)
 {
-    orxBOOL p1 = orxString_SearchString(_meterName, "P1") != orxNULL;
+    orxBOOL p1 = orxString_SearchString(_meterName.c_str(), "P1") != orxNULL;
     int playerMultiplier = p1 ? -1 : 1;
     orxFLOAT borderThicknessY = _meter->GetScale().fY / 10;
     orxFLOAT borderThicknessX = borderThicknessY * (_meter->GetSize().fY / _meter->GetSize().fX);
@@ -394,6 +402,7 @@ void SceneArena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_
     clipBorderTop->SetScale({ _meter->GetScale().fX,
                                        borderThicknessY,
                                        0 });
+    orxObject_SetOwner(clipBorderTop->GetOrxObject(), GetOrxObject());
     // Create the bottom clip border
     ScrollObject *clipBorderBottom = CreateObject("O-ClipBorderBottom");
     clipBorderBottom->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (GetVector("Scale", _meterName).fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
@@ -402,6 +411,7 @@ void SceneArena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_
     clipBorderBottom->SetScale({ _meter->GetScale().fX,
                                        borderThicknessY,
                                        0 });
+    orxObject_SetOwner(clipBorderBottom->GetOrxObject(), GetOrxObject());
     // Create all of the clip dividers (if there are any)
     for (int i = 0; i <= _clipSize; i++)
     {
@@ -424,6 +434,7 @@ void SceneArena::CreateMeterBorder(const orxCHAR *_meterName, const ScrollMod *_
         clipBorder->SetScale({ borderThicknessX,
                                        _meter->GetScale().fY,
                                        0 });
+        orxObject_SetOwner(clipBorder->GetOrxObject(), GetOrxObject());
     }
 }
 

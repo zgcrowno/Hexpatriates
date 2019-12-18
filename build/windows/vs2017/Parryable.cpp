@@ -44,7 +44,7 @@ void Parryable::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Parryable::ParriedBehavior()
 {
-    ScrollMod *replacementScrollMod = static_cast<ScrollMod*>(CreateObject(strcat(m_genericName, m_otherTypeName)));
+    ScrollMod *replacementScrollMod = static_cast<ScrollMod*>(CreateObject(m_genericName + m_otherTypeName));
     orxVECTOR normalizedSpeed = NormalizeVector(GetSpeed());
     replacementScrollMod->SetPosition(GetPosition());
     replacementScrollMod->SetRotation(-GetRotation());

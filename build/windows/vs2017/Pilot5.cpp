@@ -64,11 +64,9 @@ void Pilot5::FireNeutral()
         }
         else // m_stance == Stance::Grounded
         {
-            orxCHAR crosshairsText[512] = "O-Crosshairs";
-
             orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
             orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-Crosshairs").fZ };
-            CreateObject(strcat(crosshairsText, m_typeName), {}, {}, { {"Position", &spawnPosition} });
+            CreateObject("O-Crosshairs" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
         }
     }
 }
@@ -112,11 +110,9 @@ void Pilot5::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        orxCHAR missileShieldText[512] = "O-MissileShield";
-
         orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
         orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield").fZ };
-        CreateObject(strcat(missileShieldText, m_typeName), {}, {}, { {"Position", &spawnPosition} });
+        CreateObject("O-MissileShield" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
     }
 }
 

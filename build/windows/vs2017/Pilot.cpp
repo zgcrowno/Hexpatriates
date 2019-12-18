@@ -62,6 +62,7 @@ void Pilot::OnCreate()
     m_maxWaveDelaySuper = GetFloat("MaxWaveDelaySuper", GetModelName());
     m_cooldownSuper = m_maxCooldownSuper;
     // Get inputs.
+    m_pauseInput = GetString("PauseInput", GetModelName());
     m_upInput = GetString("UpInput", GetModelName());
     m_leftInput = GetString("LeftInput", GetModelName());
     m_downInput = GetString("DownInput", GetModelName());
@@ -166,7 +167,7 @@ orxBOOL Pilot::OnCollide(
         // Zone collisions
         if (dynamic_cast<Zone*>(_poCollider) != orxNULL)
         {
-            if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName()) == 0)
+            if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName().c_str()) == 0)
             {
                 m_bIsInOwnZone = orxTRUE;
             }
@@ -232,7 +233,7 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     // Zone separations
     if (dynamic_cast<Zone*>(_poCollider) != orxNULL)
     {
-        if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName()) == 0)
+        if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName().c_str()) == 0)
         {
             m_bIsInOwnZone = orxFALSE;
             DestroyShip();
@@ -535,17 +536,17 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
         {
             speed = m_flyingSpeed;
 
-            if (orxInput_IsActive(m_upDownInput) && _bAllowVerticalMovement)
+            if (orxInput_IsActive(m_upDownInput.c_str()) && _bAllowVerticalMovement)
             {
-                movement.fY += speed * orxInput_GetValue(m_upDownInput) * _rstInfo.fDT;
+                movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str()) * _rstInfo.fDT;
             }
             else if (_bAllowVerticalMovement)
             {
-                if (orxInput_IsActive(m_upInput))
+                if (orxInput_IsActive(m_upInput.c_str()))
                 {
                     movement.fY -= speed * _rstInfo.fDT;
                 }
-                if (orxInput_IsActive(m_downInput))
+                if (orxInput_IsActive(m_downInput.c_str()))
                 {
                     movement.fY += speed * _rstInfo.fDT;
                 }
@@ -555,19 +556,19 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
         {
             if (m_bIsAgainstLeftWall || m_bIsAgainstRightWall)
             {
-                if (orxInput_IsActive(m_upDownInput))
+                if (orxInput_IsActive(m_upDownInput.c_str()))
                 {
                     m_jumpTime = 0;
-                    movement.fY += speed * orxInput_GetValue(m_upDownInput) * _rstInfo.fDT;
+                    movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str()) * _rstInfo.fDT;
                 }
                 else
                 {
-                    if (orxInput_IsActive(m_upInput))
+                    if (orxInput_IsActive(m_upInput.c_str()))
                     {
                         m_jumpTime = 0;
                         movement.fY -= (GetWorldGravity().fY + speed) * _rstInfo.fDT;
                     }
-                    if (orxInput_IsActive(m_downInput))
+                    if (orxInput_IsActive(m_downInput.c_str()))
                     {
                         m_jumpTime = 0;
                         movement.fY += speed * _rstInfo.fDT;
@@ -585,9 +586,9 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
                 movement.fY = m_jumpDirection.fY * (GetWorldGravity().fY + m_jumpingSpeed) * (m_wallJumpTime / m_jumpDuration) * _rstInfo.fDT;
             }
         }
-        if (orxInput_IsActive(m_leftRightInput))
+        if (orxInput_IsActive(m_leftRightInput.c_str()))
         {
-            float leftRightValue = orxInput_GetValue(m_leftRightInput);
+            float leftRightValue = orxInput_GetValue(m_leftRightInput.c_str());
 
             if (!m_ship->IsEnabled())
             {
@@ -607,7 +608,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
         }
         else
         {
-            if (orxInput_IsActive(m_leftInput))
+            if (orxInput_IsActive(m_leftInput.c_str()))
             {
                 if (!m_ship->IsEnabled())
                 {
@@ -617,7 +618,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
 
                 movement.fX -= speed * _rstInfo.fDT;
             }
-            else if (orxInput_IsActive(m_rightInput))
+            else if (orxInput_IsActive(m_rightInput.c_str()))
             {
                 if (!m_ship->IsEnabled())
                 {
@@ -658,7 +659,7 @@ void Pilot::TakeDamage()
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
 {
-    if (orxInput_HasBeenActivated(m_jumpInput))
+    if (orxInput_HasBeenActivated(m_jumpInput.c_str()))
     {
         if (m_bIsGrounded)
         {
@@ -676,7 +677,7 @@ void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
             m_wallJumpTime = m_jumpDuration;
         }
     }
-    else if (orxInput_HasBeenDeactivated(m_jumpInput))
+    else if (orxInput_HasBeenDeactivated(m_jumpInput.c_str()))
     {
         m_jumpTime = 0;
     }
@@ -684,18 +685,18 @@ void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
 
 void Pilot::Dash()
 {
-    if (orxInput_HasBeenActivated(m_dashInput))
+    if (orxInput_HasBeenActivated(m_dashInput.c_str()))
     {
         // Only execute dash input if the Character isn't currently dashing or waiting out a dash cooldown.
         if (m_dashTime <= 0 && m_cooldownDash <= 0)
         {
-            if (orxInput_GetValue(m_leftRightInput) != 0 || orxInput_GetValue(m_upDownInput) != 0)
+            if (orxInput_GetValue(m_leftRightInput.c_str()) != 0 || orxInput_GetValue(m_upDownInput.c_str()) != 0)
             {
-                m_dashDirection = { orxInput_GetValue(m_leftRightInput), orxInput_GetValue(m_upDownInput) };
+                m_dashDirection = { orxInput_GetValue(m_leftRightInput.c_str()), orxInput_GetValue(m_upDownInput.c_str()) };
             }
             else
             {
-                m_dashDirection = { orxInput_GetValue(m_rightInput) - orxInput_GetValue(m_leftInput), orxInput_GetValue(m_downInput) - orxInput_GetValue(m_upInput), 0 };
+                m_dashDirection = { orxInput_GetValue(m_rightInput.c_str()) - orxInput_GetValue(m_leftInput.c_str()), orxInput_GetValue(m_downInput.c_str()) - orxInput_GetValue(m_upInput.c_str()), 0 };
             }
 
             m_jumpTime = 0;
@@ -713,7 +714,7 @@ void Pilot::Dash()
 
 void Pilot::Parry()
 {
-    if (orxInput_HasBeenActivated(m_parryInput))
+    if (orxInput_HasBeenActivated(m_parryInput.c_str()))
     {
         if (m_cooldownParry <= 0 && m_meleeTime <= 0)
         {
@@ -726,7 +727,7 @@ void Pilot::Parry()
 
 void Pilot::Melee()
 {
-    if (orxInput_HasBeenActivated(m_meleeInput))
+    if (orxInput_HasBeenActivated(m_meleeInput.c_str()))
     {
         if (m_cooldownMelee <= 0 && m_parryTime <= 0)
         {
@@ -777,7 +778,7 @@ void Pilot::Die()
 
 void Pilot::Neutral()
 {
-    if (orxInput_HasBeenActivated(m_neutralInput))
+    if (orxInput_HasBeenActivated(m_neutralInput.c_str()))
     {
         if (m_cooldownNeutral <= 0 && m_wavesIndexNeutral == 0)
         {
@@ -799,7 +800,7 @@ void Pilot::Neutral()
 
 void Pilot::Upward()
 {
-    if (orxInput_HasBeenActivated(m_upwardInput))
+    if (orxInput_HasBeenActivated(m_upwardInput.c_str()))
     {
         if (m_cooldownUpward <= 0 && m_wavesIndexUpward == 0)
         {
@@ -821,7 +822,7 @@ void Pilot::Upward()
 
 void Pilot::Downward()
 {
-    if (orxInput_HasBeenActivated(m_downwardInput))
+    if (orxInput_HasBeenActivated(m_downwardInput.c_str()))
     {
         if (m_cooldownDownward <= 0 && m_wavesIndexDownward == 0)
         {
@@ -843,7 +844,7 @@ void Pilot::Downward()
 
 void Pilot::Super()
 {
-    if (orxInput_HasBeenActivated(m_superInput))
+    if (orxInput_HasBeenActivated(m_superInput.c_str()))
     {
         if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
         {

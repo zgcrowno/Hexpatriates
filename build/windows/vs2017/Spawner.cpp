@@ -38,7 +38,7 @@ void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
     
     if (_tethered)
     {
-        const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+        const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
         CreateObject(spawnObjectModelName, { { "Tethered", _tethered } });
     }
     else
@@ -52,7 +52,7 @@ void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
 
 void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
 {
-    const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+    const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
     orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
 
     orxSpawner_SetObjectSpeed(m_spawner, &initialSpeed);
@@ -65,7 +65,7 @@ void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
 
 void Spawner::SpawnAtRaycast(const float _direction)
 {
-    const orxCHAR *spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+    const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
     std::vector<orxVECTOR> raycastData = Raycast(
         GetPosition(),
         _direction,

@@ -27,13 +27,6 @@ orxBOOL Orb::OnCollide(
         _rvPosition,
         _rvNormal);
 
-    // ArenaBound Collisions
-    if (dynamic_cast<ArenaBound*>(_poCollider) != NULL)
-    {
-        orxVECTOR reflectionVector = ReflectionVector(NormalizeVector(GetSpeed()), _rvNormal);
-        SetSpeed({ reflectionVector.fX * m_speed, reflectionVector.fY * m_speed });
-    }
-
     return orxTRUE;
 }
 

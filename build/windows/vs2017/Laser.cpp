@@ -36,7 +36,7 @@ orxBOOL Laser::OnCollide(
         SetPosition(laserPortalEntrance->m_exit->GetPosition(true), true);
     }
     // Only destroy the laser if it's not touching a portal, it's not a LaserGateLaser, it's not colliding with a partition, and it's colliding with something that's either not a projectile or is a prism.
-    else if (!m_bIsTouchingPortal && orxString_SearchString(GetModelName(), "O-LaserGateLaser") == NULL && orxString_SearchString(_poCollider->GetModelName(), "O-Partition") == NULL && (dynamic_cast<Projectile*>(_poCollider) == NULL || dynamic_cast<Prism*>(_poCollider) != NULL))
+    else if (!m_bIsTouchingPortal && orxString_SearchString(GetModelName().c_str(), "O-LaserGateLaser") == NULL && orxString_SearchString(_poCollider->GetModelName(), "O-Partition") == NULL && (dynamic_cast<Projectile*>(_poCollider) == NULL || dynamic_cast<Prism*>(_poCollider) != NULL))
     {
         Destroy();
     }

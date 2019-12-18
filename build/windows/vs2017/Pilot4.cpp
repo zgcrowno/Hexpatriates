@@ -46,7 +46,7 @@ void Pilot4::FireUpward()
 {
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        const orxCHAR *spawnObjectModelName = m_ship->m_upwardGun->GetString("Object", m_ship->m_upwardGun->GetString("Spawner", m_ship->m_upwardGun->GetModelName()));
+        const std::string spawnObjectModelName = m_ship->m_upwardGun->GetString("Object", m_ship->m_upwardGun->GetString("Spawner", m_ship->m_upwardGun->GetModelName()));
         ScrollMod *projectile = CreateObject(spawnObjectModelName);
         if (m_upwardOrigin.fY == orxVECTOR_0.fY)
         {
@@ -78,7 +78,7 @@ void Pilot4::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        const orxCHAR *spawnObjectModelName = m_ship->m_upwardGun->GetString("Object", m_ship->m_upwardGun->GetString("Spawner", m_ship->m_upwardGun->GetModelName()));
+        const std::string spawnObjectModelName = m_ship->m_upwardGun->GetString("Object", m_ship->m_upwardGun->GetString("Spawner", m_ship->m_upwardGun->GetModelName()));
         float projectileDistance;
         if (i < m_waveSizeSuper / 2)
         {

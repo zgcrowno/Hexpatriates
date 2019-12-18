@@ -149,10 +149,8 @@ void Pilot6::SpawnFamiliar()
 {
     if (m_familiars.size() < m_maxFamiliars)
     {
-        orxCHAR familiarText[512] = "O-Familiar";
         orxVECTOR spawnPosition = { GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ };
-
-        m_familiars.push_back(static_cast<Familiar*>(CreateObject(strcat(familiarText, m_typeName), {}, {}, { { "Position", &spawnPosition } })));
+        m_familiars.push_back(static_cast<Familiar*>(CreateObject( "O-Familiar" + m_typeName, {}, {}, { { "Position", &spawnPosition } })));
         m_familiars.at(m_familiars.size() - 1)->m_framesBehind *= m_familiars.size();
     }
 }

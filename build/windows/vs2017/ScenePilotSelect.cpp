@@ -35,9 +35,9 @@ orxBOOL ScenePilotSelect::OnCollide(
 void ScenePilotSelect::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // Handle menu/scene transitions
-    if (orxString_Compare(m_transition, "") != 0)
+    if (orxString_Compare(m_transition.c_str(), "") != 0)
     {
-        if (orxString_Compare(m_transition, "O-ToSceneArena") == 0)
+        if (orxString_Compare(m_transition.c_str(), "O-ToSceneArena") == 0)
         {
             std::string pilotBaseName = "O-Pilot";
             std::string p1 = "P1";

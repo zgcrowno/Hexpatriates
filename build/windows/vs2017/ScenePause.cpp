@@ -1,4 +1,5 @@
 #include "ScenePause.h"
+#include "SceneArena.h"
 
 using namespace hexpatriates;
 
@@ -25,7 +26,7 @@ orxBOOL ScenePause::OnCollide(
 void ScenePause::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // Handle menu/scene transitions
-    if (orxString_Compare(m_transition, "") != 0)
+    if (orxString_Compare(m_transition.c_str(), "") != 0)
     {
         CreateObject(m_transition);
     }
@@ -61,13 +62,32 @@ void ScenePause::Update(const orxCLOCK_INFO &_rstInfo)
     // Handle selection inputs
     if (orxInput_HasBeenActivated("DownwardP1"))
     {
-        if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-ArcadeText") == 0)
+        if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-ContinueText") == 0)
         {
-
+            for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
+            {
+                SceneArena *arena = dynamic_cast<SceneArena*>(child);
+                if (arena != nullptr)
+                {
+                    orxObject_SetOwner(arena->GetOrxObject(), orxNULL);
+                    //arena->Pause(false);
+                    Hexpatriates::GetInstance().PauseGame(false);
+                    Destroy();
+                    break;
+                }
+            }
         }
-        else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName(), "O-VersusText") == 0)
+        else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-RestartMatchText") == 0)
         {
-            m_transition = "O-ToScenePilotSelect";
+            m_transition = "O-ToSceneArena";
+        }
+        else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-ExitText") == 0)
+        {
+            m_transition = "O-ToSceneMain";
+        }
+        else // orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-QuitText") == 0
+        {
+            exit(orxSTATUS_FAILURE);
         }
     }
 }
