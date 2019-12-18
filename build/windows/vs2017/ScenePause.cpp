@@ -62,6 +62,8 @@ void ScenePause::Update(const orxCLOCK_INFO &_rstInfo)
     // Handle selection inputs
     if (orxInput_HasBeenActivated("DownwardP1"))
     {
+        Hexpatriates::GetInstance().PauseGame(false);
+
         if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-ContinueText") == 0)
         {
             for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
@@ -69,10 +71,7 @@ void ScenePause::Update(const orxCLOCK_INFO &_rstInfo)
                 SceneArena *arena = dynamic_cast<SceneArena*>(child);
                 if (arena != nullptr)
                 {
-                    orxObject_SetOwner(arena->GetOrxObject(), orxNULL);
-                    //arena->Pause(false);
-                    Hexpatriates::GetInstance().PauseGame(false);
-                    Destroy();
+                    m_transition = "O-ToSceneArenaFromPause";
                     break;
                 }
             }
@@ -87,7 +86,7 @@ void ScenePause::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else // orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-QuitText") == 0
         {
-            exit(orxSTATUS_FAILURE);
+            exit(orxSTATUS_SUCCESS);
         }
     }
 }

@@ -27,5 +27,5 @@ orxBOOL SceneMenu::OnCollide(
 
 void SceneMenu::Update(const orxCLOCK_INFO &_rstInfo)
 {
-
+    
 }

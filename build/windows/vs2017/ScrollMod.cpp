@@ -14,7 +14,7 @@ void ScrollMod::OnDelete()
 
 void ScrollMod::Update(const orxCLOCK_INFO &_rstInfo)
 {
-
+    
 }
 
 void ScrollMod::Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_index, const int &_size)

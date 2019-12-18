@@ -23,12 +23,6 @@ void Projectile::OnCreate()
         orxBODY *projectileBody = (orxBODY*)GetStructure(orxSTRUCTURE_ID_BODY);
         orxBody_AddJointFromConfig(projectileBody, gunBody, "J-Weld");
     }
-    //else
-    //{
-    //    // Setting parent to arena so the projectiles pause along with it.
-    //    SceneArena *arena = static_cast<SceneArena*>(Hexpatriates::GetInstance().GetArena());
-    //    SetOwner(arena);
-    //}
 }
 
 void Projectile::OnDelete()

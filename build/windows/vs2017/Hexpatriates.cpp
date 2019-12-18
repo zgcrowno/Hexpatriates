@@ -117,6 +117,24 @@ void Hexpatriates::Exit()
 {
 }
 
+orxSTATUS Hexpatriates::PauseGame(orxBOOL _bPause)
+{
+    for (ScrollObject *poObject = GetNextObject(); poObject; poObject = GetNextObject(poObject))
+    {
+        if (poObject->TestFlags(ScrollObject::FlagPausable))
+        {
+            poObject->Pause(_bPause);
+        }
+    }
+    orxPhysics_EnableSimulation(!_bPause);
+    if (_bPause)
+    {
+        CreateObject("O-ToScenePause");
+    }
+
+    return orxSTATUS_SUCCESS;
+}
+
 ScrollObject *Hexpatriates::GetArena()
 {
     return GetNextObject<SceneArena>();

@@ -58,9 +58,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     // Handle pausing.
     if (orxInput_HasBeenActivated(m_pilotP1->m_pauseInput.c_str()) || orxInput_HasBeenActivated(m_pilotP2->m_pauseInput.c_str()))
     {
-        //Pause(true);
         Hexpatriates::GetInstance().PauseGame(true);
-        CreateObject("O-ToScenePause");
     }
 
     // Handle timer decrement and response
