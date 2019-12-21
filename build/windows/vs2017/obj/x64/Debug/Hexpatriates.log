@@ -1,5 +1,89 @@
-﻿  ScenePause.cpp
+﻿  ArenaBound.cpp
+  ArenaBounds.cpp
+  Beam.cpp
+  Crosshairs.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\crosshairs.cpp(71): warning C4506: no definition for inline function 'const float hexpatriates::ScrollMod::AngleBetween(orxVECTOR,orxVECTOR)'
+  Ember.cpp
+  Explosion.cpp
+  Familiar.cpp
+  Grenade.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\grenade.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\familiar.cpp(9): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  Hexpatriates.cpp
+  Laser.cpp
+  LaserGate.cpp
+  LaserHeatseeking.cpp
+  LaserPortalEntrance.cpp
+  LaserWall.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\laserheatseeking.cpp(62): warning C4506: no definition for inline function 'const float hexpatriates::ScrollMod::AngleBetween(orxVECTOR,orxVECTOR)'
+  MedussaHead.cpp
+  Missile.cpp
+  MissileShield.cpp
+  Orb.cpp
+  Parryable.cpp
+  Pilot.cpp
+  Pilot1.cpp
+  Pilot2.cpp
+  Pilot3.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(36): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(39): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(44): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(45): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(46): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(47): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(48): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(50): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(51): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(52): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(53): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(54): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  Pilot4.cpp
+  Pilot5.cpp
+  Pilot6.cpp
+  Pilot7.cpp
+  Pilot8.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(11): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(154): warning C4267: '*=': conversion from 'size_t' to 'int', possible loss of data
+  PlayerSpecific.cpp
+  Prism.cpp
+  Projectile.cpp
+  Scene.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\prism.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\playerspecific.cpp(7): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  SceneArena.cpp
+  SceneMain.cpp
+  SceneMenu.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemain.cpp(39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  ScenePause.cpp
+  ScenePilotSelect.cpp
+  ScrollMod.cpp
+  Ship.cpp
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepause.cpp(40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(23): warning C4018: '<': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(38): warning C4018: '<': signed/unsigned mismatch
+  Shrapnel.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(68): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(72): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(97): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(101): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(126): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(155): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(184): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(188): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(213): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(217): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(242): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(271): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(551): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(565): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(585): warning C4715: 'hexpatriates::ScrollMod::GetBodyPartByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(536): warning C4700: uninitialized local variable 'result' used
+  Spacer.cpp
+  Spawner.cpp
+  Turret.cpp
+  Zone.cpp
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll

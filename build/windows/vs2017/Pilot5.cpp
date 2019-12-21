@@ -111,7 +111,7 @@ void Pilot5::FireSuper()
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
         orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
-        orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield").fZ };
+        orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield" + m_typeName).fZ };
         CreateObject("O-MissileShield" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
     }
 }

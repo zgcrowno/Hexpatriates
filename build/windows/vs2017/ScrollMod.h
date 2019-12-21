@@ -20,6 +20,9 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
 
+        static const std::vector<std::string> __fastcall GetObjectSections();
+        static const std::vector<std::string> __fastcall GetDescendentSections(const std::string _parentSectionName);
+        static const bool __fastcall SectionUsesParentSpace(const std::string _sectionName);
         /// <summary>Places a substring of <paramref name="_strIn"/> beginning at index <paramref name="_index"/> and having size <paramref name="_size"/> into <paramref name="_strOut"/>.</summary>
         /// <param name="_strIn">The string from which we're copying a substring.</param>
         /// <param name="_strOut">The string into which we're placing the copy of a substring from <paramref name="_strIn"/>.</param>

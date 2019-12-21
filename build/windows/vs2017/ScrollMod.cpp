@@ -4,7 +4,7 @@ using namespace hexpatriates;
 
 void ScrollMod::OnCreate()
 {
-
+    
 }
 
 void ScrollMod::OnDelete()
@@ -15,6 +15,50 @@ void ScrollMod::OnDelete()
 void ScrollMod::Update(const orxCLOCK_INFO &_rstInfo)
 {
     
+}
+
+const std::vector<std::string> __fastcall ScrollMod::GetObjectSections()
+{
+    std::vector<std::string> retVal;
+    for (int i = 0; i < orxConfig_GetSectionCount(); i++)
+    {
+        const char *sectionName = orxConfig_GetSection(i);
+
+        if (orxString_SearchString(sectionName, "O-") != nullptr)
+        {
+            retVal.push_back(sectionName);
+        }
+    }
+    return retVal;
+}
+
+const std::vector<std::string> __fastcall ScrollMod::GetDescendentSections(const std::string _parentSectionName)
+{
+    std::vector<std::string> retVal;
+    for (int i = 0; i < orxConfig_GetSectionCount(); i++)
+    {
+        const char *sectionName = orxConfig_GetSection(i);
+        const char *parentSectionName = orxConfig_GetParent(sectionName);
+
+        if (parentSectionName != nullptr && orxString_Compare(orxConfig_GetParent(sectionName), _parentSectionName.c_str()) == 0)
+        {
+            retVal.push_back(sectionName);
+            std::vector<std::string> descendentDescendents = GetDescendentSections(sectionName);
+
+            for (std::string str : descendentDescendents)
+            {
+                retVal.push_back(str);
+            }
+        }
+    }
+    return retVal;
+}
+
+const bool __fastcall ScrollMod::SectionUsesParentSpace(const std::string _sectionName)
+{
+    bool usesParentSpaceBool = ScrollMod::GetBool("UseParentSpace", _sectionName);
+    std::string usesParentSpaceString = ScrollMod::GetString("UseParentSpace", _sectionName);
+    return usesParentSpaceBool || orxString_Compare(usesParentSpaceString.c_str(), "position") == 0 || orxString_Compare(usesParentSpaceString.c_str(), "both") == 0;
 }
 
 void ScrollMod::Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_index, const int &_size)

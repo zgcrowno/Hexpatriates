@@ -396,20 +396,20 @@ void SceneArena::CreateMeterBorder(const std::string _meterName, const ScrollMod
     ScrollObject *clipBorderTop = CreateObject("O-ClipBorderTop");
     clipBorderTop->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (GetVector("Scale", _meterName).fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
                                        _meter->GetPosition().fY - (GetVector("Scale", _meterName).fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
-                                       0 });
+                                       GetVector("Position", clipBorderTop->GetModelName()).fZ });
     clipBorderTop->SetScale({ _meter->GetScale().fX,
                                        borderThicknessY,
                                        0 });
-    orxObject_SetOwner(clipBorderTop->GetOrxObject(), GetOrxObject());
+    orxObject_SetOwner(clipBorderTop->GetOrxObject(), _meter->GetOrxObject());
     // Create the bottom clip border
     ScrollObject *clipBorderBottom = CreateObject("O-ClipBorderBottom");
     clipBorderBottom->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (GetVector("Scale", _meterName).fX * GetFloat("FrustumWidth", "MainCamera")) / 2,
                                        _meter->GetPosition().fY + (GetVector("Scale", _meterName).fY * GetFloat("FrustumHeight", "MainCamera")) / 2,
-                                       0 });
+                                       GetVector("Position", clipBorderBottom->GetModelName()).fZ });
     clipBorderBottom->SetScale({ _meter->GetScale().fX,
                                        borderThicknessY,
                                        0 });
-    orxObject_SetOwner(clipBorderBottom->GetOrxObject(), GetOrxObject());
+    orxObject_SetOwner(clipBorderBottom->GetOrxObject(), _meter->GetOrxObject());
     // Create all of the clip dividers (if there are any)
     for (int i = 0; i <= _clipSize; i++)
     {
@@ -428,11 +428,11 @@ void SceneArena::CreateMeterBorder(const std::string _meterName, const ScrollMod
         }
         clipBorder->SetPosition({ _meter->GetPosition().fX + playerMultiplier * (i * ((GetVector("Scale", _meterName).fX * GetFloat("FrustumWidth", "MainCamera")) / _clipSize)),
                                        _meter->GetPosition().fY,
-                                       0 });
+                                       GetVector("Position", clipBorder->GetModelName()).fZ });
         clipBorder->SetScale({ borderThicknessX,
                                        _meter->GetScale().fY,
                                        0 });
-        orxObject_SetOwner(clipBorder->GetOrxObject(), GetOrxObject());
+        orxObject_SetOwner(clipBorder->GetOrxObject(), _meter->GetOrxObject());
     }
 }
 
