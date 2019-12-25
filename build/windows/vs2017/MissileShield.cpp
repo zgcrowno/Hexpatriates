@@ -74,7 +74,8 @@ void MissileShield::Update(const orxCLOCK_INFO &_rstInfo)
             missileModelName = "O-MissileP2";
         }
 
-        CreateObject(missileModelName, {}, {}, { {"Position", &spawnPosition}, {"FiringDirection", &firingDirection} });
+        ScrollMod *missile = CreateObject(missileModelName, {}, {}, { {"Position", &spawnPosition}, {"FiringDirection", &firingDirection} });
+        missile->SetOwner(Hexpatriates::GetInstance().GetArena());
         m_missileSpawnTime = m_maxMissileSpawnInterval;
     }
     else

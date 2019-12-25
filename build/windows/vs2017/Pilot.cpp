@@ -71,8 +71,6 @@ void Pilot::OnCreate()
     m_upDownInput = GetString("UpDownInput", GetModelName());
     m_dashInput = GetString("DashInput", GetModelName());
     m_parryInput = GetString("ParryInput", GetModelName());
-    m_meleeInput = GetString("MeleeInput", GetModelName());
-    m_jumpInput = GetString("JumpInput", GetModelName());
     if (m_bIsP1)
     {
         m_zone = (Zone*)CreateObject("O-ZoneP1");
@@ -91,6 +89,8 @@ void Pilot::OnCreate()
         m_superInput = "SuperP2";
         m_enemyDirection = orxMATH_KF_PI;
     }
+    m_meleeInput = m_neutralInput;
+    m_jumpInput = m_downwardInput;
     // Set the Pilot's spawning position and flip
     m_defaultPosition = GetPosition();
     GetFlip(m_defaultFlipX, m_defaultFlipY);
