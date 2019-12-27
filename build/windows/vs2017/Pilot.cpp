@@ -28,6 +28,8 @@ void Pilot::OnCreate()
     m_dashSpeed = GetFloat("DashSpeed", GetModelName());
     // Get dash duration from config values.
     m_dashDuration = GetFloat("DashDuration", GetModelName());
+    // Get dash icon interval from config values.
+    m_dashIconInterval = GetFloat("DashIconInterval", GetModelName());
     // Get parry duration from config values.
     m_parryDuration = GetFloat("ParryDuration", GetModelName());
     // Get melee duration from config values.
@@ -334,10 +336,23 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     if (m_dashTime > 0)
     {
         m_dashTime -= _rstInfo.fDT;
+
+        //TODO: Maybe I just want to call SpawnDashIcon() every frame? If so, get rid of unused data.
+        SpawnDashIcon();
+        /*if (m_dashIconTime > 0)
+        {
+            m_dashIconTime -= _rstInfo.fDT;
+        }
+        else
+        {
+            SpawnDashIcon();
+            m_dashIconTime = m_dashIconInterval;
+        }*/
     }
     else
     {
         m_dashTime = 0;
+        m_dashIconTime = 0;
     }
     // Handle parry time decrement
     if (m_parryTime > 0)
@@ -538,17 +553,17 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
 
             if (orxInput_IsActive(m_upDownInput.c_str()) && _bAllowVerticalMovement)
             {
-                movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str()) * _rstInfo.fDT;
+                movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str());
             }
             else if (_bAllowVerticalMovement)
             {
                 if (orxInput_IsActive(m_upInput.c_str()))
                 {
-                    movement.fY -= speed * _rstInfo.fDT;
+                    movement.fY -= speed;
                 }
                 if (orxInput_IsActive(m_downInput.c_str()))
                 {
-                    movement.fY += speed * _rstInfo.fDT;
+                    movement.fY += speed;
                 }
             }
         }
@@ -559,31 +574,31 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
                 if (orxInput_IsActive(m_upDownInput.c_str()))
                 {
                     m_jumpTime = 0;
-                    movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str()) * _rstInfo.fDT;
+                    movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str());
                 }
                 else
                 {
                     if (orxInput_IsActive(m_upInput.c_str()))
                     {
                         m_jumpTime = 0;
-                        movement.fY -= (GetWorldGravity().fY + speed) * _rstInfo.fDT;
+                        movement.fY -= m_jumpingSpeed;
                     }
                     if (orxInput_IsActive(m_downInput.c_str()))
                     {
                         m_jumpTime = 0;
-                        movement.fY += speed * _rstInfo.fDT;
+                        movement.fY += m_jumpingSpeed;
                     }
                 }
             }
 
             if (m_jumpTime > 0)
             {
-                movement.fY = m_jumpDirection.fY * (GetWorldGravity().fY + m_jumpingSpeed) * (m_jumpTime / m_jumpDuration) * _rstInfo.fDT;
+                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * (m_jumpTime / m_jumpDuration);
             }
             if (m_wallJumpTime > 0)
             {
-                movement.fX = m_jumpDirection.fX * m_jumpingSpeed * (m_wallJumpTime / m_jumpDuration) * _rstInfo.fDT;
-                movement.fY = m_jumpDirection.fY * (GetWorldGravity().fY + m_jumpingSpeed) * (m_wallJumpTime / m_jumpDuration) * _rstInfo.fDT;
+                movement.fX = m_jumpDirection.fX * m_jumpingSpeed * (m_wallJumpTime / m_jumpDuration);
+                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * (m_wallJumpTime / m_jumpDuration);
             }
         }
         if (orxInput_IsActive(m_leftRightInput.c_str()))
@@ -604,7 +619,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
                 }
             }
 
-            movement.fX += speed * leftRightValue * _rstInfo.fDT;
+            movement.fX += speed * leftRightValue;
         }
         else
         {
@@ -616,7 +631,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
                     //SetFlip(orxTRUE, orxFALSE, orxFALSE);
                 }
 
-                movement.fX -= speed * _rstInfo.fDT;
+                movement.fX -= speed;
             }
             else if (orxInput_IsActive(m_rightInput.c_str()))
             {
@@ -626,7 +641,7 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
                     //SetFlip(orxFALSE, orxFALSE, orxFALSE);
                 }
                 
-                movement.fX += speed * _rstInfo.fDT;
+                movement.fX += speed;
             }
             else
             {
@@ -637,10 +652,36 @@ void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovem
     // Otherwise, execute dash movement
     else
     {
-        movement.fX = m_dashDirection.fX * m_dashSpeed * _rstInfo.fDT;
-        movement.fY = m_dashDirection.fY * m_dashSpeed * _rstInfo.fDT;
+        movement.fX = m_dashDirection.fX * m_dashSpeed;
+        movement.fY = m_dashDirection.fY * m_dashSpeed;
     }
     SetSpeed(movement);
+}
+
+void Pilot::SpawnDashIcon()
+{
+    orxBOOL pilotFlipX;
+    orxBOOL pilotFlipY;
+    int pilotNumberIndex = strlen("O-Pilot");
+    std::string pilotName = GetModelName();
+    std::string pilotNumber = pilotName.substr(pilotNumberIndex, 1);
+    ScrollObject *pilotIcon;
+    GetFlip(pilotFlipX, pilotFlipY);
+    if (m_ship->IsEnabled())
+    {
+        orxBOOL shipFlipX;
+        orxBOOL shipFlipY;
+        ScrollObject *shipIcon;
+        m_ship->GetFlip(shipFlipX, shipFlipY);
+        pilotIcon = CreateObject("O-Pilot" + pilotNumber + "IconDash", {}, {}, { { "Position", &GetPosition() } });
+        shipIcon = pilotIcon->GetOwnedChild();
+        shipIcon->SetFlip(shipFlipX, shipFlipY);
+    }
+    else
+    {
+        pilotIcon = CreateObject("O-Pilot" + pilotNumber + "IconDashSolo", {}, {}, { { "Position", &GetPosition() } });
+    }
+    pilotIcon->SetFlip(pilotFlipX, pilotFlipY, false);
 }
 
 void Pilot::TakeDamage()
@@ -708,6 +749,9 @@ void Pilot::Dash()
                 m_usedDashes = 0;
                 m_cooldownDash = m_maxCooldownDash;
             }
+
+            SpawnDashIcon();
+            m_dashIconTime = m_dashIconInterval;
         }
     }
 }

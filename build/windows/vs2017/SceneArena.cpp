@@ -5,7 +5,10 @@ using namespace hexpatriates;
 
 void SceneArena::OnCreate()
 {
-    m_timer = 90.0;
+    m_matchTime = GetFloat("MatchTime", GetModelName());
+    m_timer = m_matchTime;
+    m_contractionSpeed = GetFloat("ContractionSpeed", GetModelName());
+    m_targetScale = GetScale();
     m_bounds = static_cast<ArenaBounds*>(GetChildByName("O-Walls"));
     m_pilotP1 = static_cast<Pilot*>(CreateObject(GetString("PilotP1", GetModelName())));
     m_pilotP2 = static_cast<Pilot*>(CreateObject(GetString("PilotP2", GetModelName())));
@@ -115,8 +118,29 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
                 m_pilotP2->Enable(true);
                 m_pilotP2->ConstructShip();
             }
-            m_timer = 90.0;
+            m_timer = m_matchTime;
         }
+    }
+
+    // Handle arena contraction.
+    if (m_timer <= m_matchTime / 4)
+    {
+        m_targetScale = { 0.7f, 0.7f, 1.0f };
+    }
+    else if (m_timer <= m_matchTime / 2)
+    {
+        m_targetScale = { 0.8f, 0.8f, 1.0f };
+    }
+    else if (m_timer <= 3 * m_matchTime / 4)
+    {
+        m_targetScale = { 0.9f, 0.9f, 1.0f };
+    }
+    orxVECTOR curScale = GetScale();
+    if (m_targetScale.fX < curScale.fX)
+    {
+        float newScaleX = curScale.fX - m_contractionSpeed * _rstInfo.fDT;
+        float newScaleY = curScale.fY - m_contractionSpeed * _rstInfo.fDT;
+        SetScale({ newScaleX, newScaleY, 1 });
     }
 
     // TODO: I'll probably move this stuff to arrays at some point so as to lessen the possibility of error.
@@ -374,7 +398,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
 
 void SceneArena::SetTimerText()
 {
-    orxCHAR formattedTimerText[3];
+    orxCHAR formattedTimerText[4];
     orxCOLOR color;
 
     orxString_Print(formattedTimerText, "%1.0f", m_timer);

@@ -65,6 +65,10 @@ namespace hexpatriates
         float m_dashDuration;
         //! The amount of time, in seconds, the Pilot ought to dash.
         float m_dashTime;
+        //! The amount of time (when the Pilot is dashing), in seconds, that must pass before spawning dash icons.
+        float m_dashIconInterval;
+        //! The amount of time, in seconds, until the next spawning of a dash icon.
+        float m_dashIconTime;
         //! The amount of time, in seconds, the Pilot's melee attack lasts.
         float m_meleeDuration;
         //! The amount of time, in seconds, the Pilot has to spend melee attacking.
@@ -166,6 +170,8 @@ namespace hexpatriates
         void SetFlip(orxBOOL _bFlipX, orxBOOL _vFlipY);
         /// <summary>Applies damage to Pilot.</summary>
         void TakeDamage();
+        /// <summary>Spawns the appropriate dash icon behind the player.</summary>
+        void SpawnDashIcon();
         /// <summary>Executes the Pilot's jump maneuver.</summary>
         void Jump(const orxCLOCK_INFO &_rstInfo);
         /// <summary>Executes the Pilot's dash maneuver.</summary>

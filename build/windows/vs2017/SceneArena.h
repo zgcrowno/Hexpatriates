@@ -30,6 +30,10 @@ namespace hexpatriates
     public:
         //! The amount of time, in seconds, remaining until the round automatically ends.
         float m_timer;
+        float m_matchTime;
+        float m_contractionSpeed;
+        //! The scale of the arena, to be determined by match time.
+        orxVECTOR m_targetScale;
         ArenaBounds *m_bounds;
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;
