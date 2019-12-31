@@ -4,6 +4,7 @@
 #include "PlayerSpecific.h"
 #include "Ship.h"
 #include "Zone.h"
+#include "ArenaBound.h"
 
 namespace hexpatriates
 {
@@ -28,7 +29,7 @@ namespace hexpatriates
         //! Sets the Pilot's heads up text
         void SetHeadsUpText();
         //! Moves the Player based on user input and the passed speed
-        virtual void Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement);
+        virtual void Move(const bool &_bAllowVerticalMovement);
     public:
         //! The amount of time, in seconds, the Pilot is currently invulnerable.
         float m_iFrames;
@@ -36,8 +37,6 @@ namespace hexpatriates
         float m_maxIFrames;
         //! Flag representing whether or not the Pilot is touching a MissileShield.
         bool m_bIsTouchingMissileShield;
-        //! Flag representing whether or not the Pilot is in their own zone.
-        bool m_bIsInOwnZone;
         //! Flag representing whether or not the Pilot is on the ground or a platform.
         bool m_bIsGrounded;
         //! Flag representing whether or not the Pilot is against the left wall.
@@ -65,10 +64,6 @@ namespace hexpatriates
         float m_dashDuration;
         //! The amount of time, in seconds, the Pilot ought to dash.
         float m_dashTime;
-        //! The amount of time (when the Pilot is dashing), in seconds, that must pass before spawning dash icons.
-        float m_dashIconInterval;
-        //! The amount of time, in seconds, until the next spawning of a dash icon.
-        float m_dashIconTime;
         //! The amount of time, in seconds, the Pilot's melee attack lasts.
         float m_meleeDuration;
         //! The amount of time, in seconds, the Pilot has to spend melee attacking.
@@ -93,8 +88,6 @@ namespace hexpatriates
         float m_parryDuration;
         //! The amount of time, in seconds, the Pilot ought to parry
         float m_parryTime;
-        int m_clipSizeNeutral;
-        int m_clipIndexNeutral;
         int m_waveSizeNeutral;
         int m_numWavesNeutral;
         int m_wavesIndexNeutral;
@@ -102,8 +95,6 @@ namespace hexpatriates
         float m_cooldownNeutral;
         float m_maxWaveDelayNeutral;
         float m_waveDelayNeutral;
-        int m_clipSizeUpward;
-        int m_clipIndexUpward;
         int m_waveSizeUpward;
         int m_numWavesUpward;
         int m_wavesIndexUpward;
@@ -111,8 +102,6 @@ namespace hexpatriates
         float m_cooldownUpward;
         float m_maxWaveDelayUpward;
         float m_waveDelayUpward;
-        int m_clipSizeDownward;
-        int m_clipIndexDownward;
         int m_waveSizeDownward;
         int m_numWavesDownward;
         int m_wavesIndexDownward;
@@ -152,6 +141,8 @@ namespace hexpatriates
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
+        ScrollObject *m_noDashIcon;
+        ScrollObject *m_noParryIcon;
         //! The Pilot's construction/contamination text
         ScrollMod *m_headsUpText;
         // TODO: Get rid of these once I've got final animations in order
@@ -168,6 +159,9 @@ namespace hexpatriates
         const float GetPISD(const float &_angle) const;
         // This modified version of ScrollObject's SetFlip method is necessary for Pilot, so we can apply selectively recursive flipping.
         void SetFlip(orxBOOL _bFlipX, orxBOOL _vFlipY);
+        /// <summary>Returns a bool representing whether or not the Pilot is in their own zone.</summary>
+        /// <returns>A bool representing whether or not the Pilot is in their own zone.</returns>
+        bool IsInOwnZone();
         /// <summary>Applies damage to Pilot.</summary>
         void TakeDamage();
         /// <summary>Spawns the appropriate dash icon behind the player.</summary>

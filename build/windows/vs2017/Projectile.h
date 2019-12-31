@@ -28,5 +28,6 @@ namespace hexpatriates
         bool m_tethered;
         float m_speed;
         orxOBJECT *m_parentGun;
+        orxOBJECT *m_parentPilot;
     };
 }

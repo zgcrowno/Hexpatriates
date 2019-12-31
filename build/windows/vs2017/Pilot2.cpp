@@ -58,7 +58,7 @@ void Pilot2::FireDownward()
         m_ship->m_downwardGun->SpawnAtSelf(shotDirection);
 
         std::vector<orxVECTOR> raycastData = ScrollMod::Raycast(
-            m_ship->m_downwardGun->GetPosition(),
+            m_ship->m_downwardGun->GetPosition(true),
             shotDirection,
             orxPhysics_GetCollisionFlagValue("geometry"));
         float normalDirection = ScrollMod::VectorToRadians(raycastData.at(1));

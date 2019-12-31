@@ -10,18 +10,14 @@ void Projectile::OnCreate()
 
     m_bIsBouncy = GetBool("IsBouncy", GetModelName());
     m_tethered = GetBool("Tethered", GetModelName());
-    m_speed = GetFloat("Speed", GetModelName());
+    m_speed = GetFloat("FSpeed", GetModelName());
     orxVECTOR speedRef = GetSpeed();
     SetSpeed({ speedRef.fX * m_speed, speedRef.fY * m_speed});
 
-    //TODO: Instead of using joints, I may just adopt the projectile's parent's speed in the update function.
     if (m_tethered)
     {
-        // Attach the Projectile and its associated gun together with a joint.
         m_parentGun = orxOBJECT(orxStructure_GetOwner(orxSPAWNER(orxObject_GetOwner(GetOrxObject()))));
-        orxBODY *gunBody = (orxBODY*)_orxStructure_GetPointer(_orxObject_GetStructure(m_parentGun, orxSTRUCTURE_ID_BODY), orxSTRUCTURE_ID_BODY);
-        orxBODY *projectileBody = (orxBODY*)GetStructure(orxSTRUCTURE_ID_BODY);
-        orxBody_AddJointFromConfig(projectileBody, gunBody, "J-Weld");
+        m_parentPilot = orxOBJECT(orxObject_GetParent(orxOBJECT(orxObject_GetParent(m_parentGun))));
     }
 }
 
@@ -50,9 +46,23 @@ orxBOOL Projectile::OnCollide(
 void Projectile::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // If it's tethered, ensure that the Projectile is destroyed if its parent gun is disabled.
-    if (m_tethered && !orxObject_IsEnabled(m_parentGun))
+    if (m_tethered)
     {
-        Destroy();
+        if (!orxObject_IsEnabled(m_parentGun))
+        {
+            Destroy();
+        }
+        else
+        {
+            orxVECTOR parentCurPos = orxVECTOR_0;
+            orxObject_GetWorldPosition(m_parentGun, &parentCurPos);
+            orxVECTOR parentCurSpeed = orxVECTOR_0;
+            // Getting speed of pilot, since speed of gun and ship register as 0.
+            orxObject_GetSpeed(m_parentPilot, &parentCurSpeed);
+            orxVECTOR parentPosNextFrame = { parentCurPos.fX + parentCurSpeed.fX *_rstInfo.fDT, parentCurPos.fY + parentCurSpeed.fY * _rstInfo.fDT, parentCurPos.fZ + parentCurSpeed.fZ * _rstInfo.fDT };
+
+            SetPosition(parentPosNextFrame, true);
+        }
     }
 }
 

@@ -8,7 +8,6 @@ void SceneArena::OnCreate()
     m_matchTime = GetFloat("MatchTime", GetModelName());
     m_timer = m_matchTime;
     m_contractionSpeed = GetFloat("ContractionSpeed", GetModelName());
-    m_targetScale = GetScale();
     m_bounds = static_cast<ArenaBounds*>(GetChildByName("O-Walls"));
     m_pilotP1 = static_cast<Pilot*>(CreateObject(GetString("PilotP1", GetModelName())));
     m_pilotP2 = static_cast<Pilot*>(CreateObject(GetString("PilotP2", GetModelName())));
@@ -16,6 +15,14 @@ void SceneArena::OnCreate()
     m_pilotP2->SetOwner(this);
     m_pilotP1->m_opposingPilot = m_pilotP2;
     m_pilotP2->m_opposingPilot = m_pilotP1;
+    m_targetScalePilotP1 = m_pilotP1->GetScale();
+    m_targetScalePilotP2 = m_pilotP2->GetScale();
+    m_targetScale1PilotP1 = { m_targetScalePilotP1.fX + 0.6f, m_targetScalePilotP1.fY + 0.6f, m_targetScalePilotP1.fZ };
+    m_targetScale2PilotP1 = { m_targetScalePilotP1.fX + 1.2f, m_targetScalePilotP1.fY + 1.2f, m_targetScalePilotP1.fZ };
+    m_targetScale3PilotP1 = { m_targetScalePilotP1.fX + 1.8f, m_targetScalePilotP1.fY + 1.8f, m_targetScalePilotP1.fZ };
+    m_targetScale1PilotP2 = { m_targetScalePilotP2.fX + 0.6f, m_targetScalePilotP2.fY + 0.6f, m_targetScalePilotP2.fZ };
+    m_targetScale2PilotP2 = { m_targetScalePilotP2.fX + 1.2f, m_targetScalePilotP2.fY + 1.2f, m_targetScalePilotP2.fZ };
+    m_targetScale3PilotP2 = { m_targetScalePilotP2.fX + 1.8f, m_targetScalePilotP2.fY + 1.8f, m_targetScalePilotP2.fZ };
     m_dashMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP1"));
     m_parryMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP1"));
     m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
@@ -58,19 +65,16 @@ orxBOOL SceneArena::OnCollide(
 
 void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    // Handle pausing.
-    if (orxInput_HasBeenActivated(m_pilotP1->m_pauseInput.c_str()) || orxInput_HasBeenActivated(m_pilotP2->m_pauseInput.c_str()))
-    {
-        Hexpatriates::GetInstance().PauseGame(true);
-    }
-
     // Handle timer decrement and response
-    m_timer -= _rstInfo.fDT;
-    if (m_timer <= 0.0)
+    if (!m_bIsPausedForContraction)
     {
-        CreateObject("O-ToSceneArena");
+        m_timer -= _rstInfo.fDT;
+        if (m_timer <= 0.0)
+        {
+            CreateObject("O-ToSceneArena");
+        }
+        SetTimerText();
     }
-    SetTimerText();
 
     // Force Pilots to face each other
     orxFLOAT pilotP1X = m_pilotP1->GetPosition().fX;
@@ -122,31 +126,67 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
         }
     }
 
+    // TODO: Make a method for this, so as to avoid repeated code.
     // Handle arena contraction.
     if (m_timer <= m_matchTime / 4)
     {
-        m_targetScale = { 0.7f, 0.7f, 1.0f };
+        m_targetScalePilotP1 = m_targetScale3PilotP1;
+        m_targetScalePilotP2 = m_targetScale3PilotP2;
     }
     else if (m_timer <= m_matchTime / 2)
     {
-        m_targetScale = { 0.8f, 0.8f, 1.0f };
+        m_targetScalePilotP1 = m_targetScale2PilotP1;
+        m_targetScalePilotP2 = m_targetScale2PilotP2;
     }
     else if (m_timer <= 3 * m_matchTime / 4)
     {
-        m_targetScale = { 0.9f, 0.9f, 1.0f };
+        m_targetScalePilotP1 = m_targetScale1PilotP1;
+        m_targetScalePilotP2 = m_targetScale1PilotP2;
     }
-    orxVECTOR curScale = GetScale();
-    if (m_targetScale.fX < curScale.fX)
+    orxVECTOR curPilotP1Scale = m_pilotP1->GetScale();
+    orxVECTOR curPilotP2Scale = m_pilotP2->GetScale();
+    if (m_targetScalePilotP1.fX > curPilotP1Scale.fX || m_targetScalePilotP2.fX > curPilotP2Scale.fX)
     {
-        float newScaleX = curScale.fX - m_contractionSpeed * _rstInfo.fDT;
-        float newScaleY = curScale.fY - m_contractionSpeed * _rstInfo.fDT;
-        SetScale({ newScaleX, newScaleY, 1 });
+        PauseForContraction(true);
+
+        float newPilotP1ScaleX = curPilotP1Scale.fX + m_contractionSpeed * _rstInfo.fDT;
+        float newPilotP1ScaleY = curPilotP1Scale.fY + m_contractionSpeed * _rstInfo.fDT;
+        orxVECTOR newPilotP1Scale = {newPilotP1ScaleX, newPilotP1ScaleY, m_targetScalePilotP1.fZ};
+        float newPilotP2ScaleX = curPilotP2Scale.fX + m_contractionSpeed * _rstInfo.fDT;
+        float newPilotP2ScaleY = curPilotP2Scale.fY + m_contractionSpeed * _rstInfo.fDT;
+        orxVECTOR newPilotP2Scale = {newPilotP2ScaleX, newPilotP2ScaleY, m_targetScalePilotP1.fZ};
+        orxVector_Clamp(&newPilotP1Scale, &newPilotP1Scale, &curPilotP1Scale, &m_targetScalePilotP1);
+        orxVector_Clamp(&newPilotP2Scale, &newPilotP2Scale, &curPilotP2Scale, &m_targetScalePilotP2);
+        m_pilotP1->SetScale({ newPilotP1ScaleX, newPilotP1ScaleY, m_targetScalePilotP1.fZ });
+        m_pilotP2->SetScale({ newPilotP2ScaleX, newPilotP2ScaleY, m_targetScalePilotP2.fZ });
+    }
+    else
+    {
+        if (!m_pilotP1->m_ship->IsEnabled())
+        {
+            std::string shipName = m_pilotP1->GetModelName();
+            std::string shipNumber = shipName.substr(7, 1);
+            m_pilotP1->SetBodyPartSolid("BP-Ship" + shipNumber, false);
+        }
+        if (!m_pilotP2->m_ship->IsEnabled())
+        {
+            std::string shipName = m_pilotP2->GetModelName();
+            std::string shipNumber = shipName.substr(7, 1);
+            m_pilotP2->SetBodyPartSolid("BP-Ship" + shipNumber, false);
+        }
+        PauseForContraction(false);
+
+        // Handle pausing.
+        if (orxInput_HasBeenActivated(m_pilotP1->m_pauseInput.c_str()) || orxInput_HasBeenActivated(m_pilotP2->m_pauseInput.c_str()))
+        {
+            Hexpatriates::GetInstance().PauseGame(true);
+        }
     }
 
     // TODO: I'll probably move this stuff to arrays at some point so as to lessen the possibility of error.
     // Handle UI appearance
     // Pilot-associated UI
-    if (m_pilotP1->m_cooldownDash > 0)
+    /*if (m_pilotP1->m_cooldownDash > 0)
     {
         m_dashMeterP1->SetScale({
             m_defaultScaleDash.fX - (m_defaultScaleDash.fX * (m_pilotP1->m_cooldownDash / m_pilotP1->m_maxCooldownDash)),
@@ -162,11 +202,11 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     }
     m_parryMeterP1->SetScale({ m_defaultScaleParry.fX - (m_defaultScaleParry.fX * (m_pilotP1->m_cooldownParry / m_pilotP1->m_maxCooldownParry)),
         m_defaultScaleParry.fY,
-        m_defaultScaleParry.fZ });
+        m_defaultScaleParry.fZ });*/
     m_livesMeterP1->SetScale({ m_defaultScaleLives.fX * ((float)m_pilotP1->m_lives / (float)m_pilotP1->m_maxLives),
         m_defaultScaleLives.fY,
         m_defaultScaleLives.fZ });
-    if (m_pilotP2->m_cooldownDash > 0)
+    /*if (m_pilotP2->m_cooldownDash > 0)
     {
         m_dashMeterP2->SetScale({
             m_defaultScaleDash.fX - (m_defaultScaleDash.fX * (m_pilotP2->m_cooldownDash / m_pilotP2->m_maxCooldownDash)),
@@ -182,13 +222,13 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     }
     m_parryMeterP2->SetScale({ m_defaultScaleParry.fX - (m_defaultScaleParry.fX * (m_pilotP2->m_cooldownParry / m_pilotP2->m_maxCooldownParry)),
         m_defaultScaleParry.fY,
-        m_defaultScaleParry.fZ });
+        m_defaultScaleParry.fZ });*/
     m_livesMeterP2->SetScale({ m_defaultScaleLives.fX * ((float)m_pilotP2->m_lives / (float)m_pilotP2->m_maxLives),
         m_defaultScaleLives.fY,
         m_defaultScaleLives.fZ });
 
     // Ship-associated UI
-    if (m_pilotP1->m_cooldownNeutral > 0)
+    /*if (m_pilotP1->m_cooldownNeutral > 0)
     {
         m_neutralMeterP1->SetScale({
             m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * (m_pilotP1->m_cooldownNeutral / m_pilotP1->m_maxCooldownNeutral)),
@@ -229,12 +269,12 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
             m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_pilotP1->m_clipIndexDownward / (float)m_pilotP1->m_clipSizeDownward)),
             m_defaultScaleDownward.fY,
             m_defaultScaleDownward.fZ });
-    }
+    }*/
     m_superMeterP1->SetScale({
         m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP1->m_cooldownSuper / m_pilotP1->m_maxCooldownSuper)),
         m_defaultScaleSuper.fY,
         m_defaultScaleSuper.fZ });
-    if (m_pilotP2->m_cooldownNeutral > 0)
+    /*if (m_pilotP2->m_cooldownNeutral > 0)
     {
         m_neutralMeterP2->SetScale({
             m_defaultScaleNeutral.fX - (m_defaultScaleNeutral.fX * (m_pilotP2->m_cooldownNeutral / m_pilotP2->m_maxCooldownNeutral)),
@@ -275,14 +315,14 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
             m_defaultScaleDownward.fX - (m_defaultScaleDownward.fX * ((float)m_pilotP2->m_clipIndexDownward / (float)m_pilotP2->m_clipSizeDownward)),
             m_defaultScaleDownward.fY,
             m_defaultScaleDownward.fZ });
-    }
+    }*/
     m_superMeterP2->SetScale({
         m_defaultScaleSuper.fX - (m_defaultScaleSuper.fX * (m_pilotP2->m_cooldownSuper / m_pilotP2->m_maxCooldownSuper)),
         m_defaultScaleSuper.fY,
         m_defaultScaleSuper.fZ });
 
     //Disable meters with scales of 0 (and enable meters with scales greater than 0) so as to prevent the renderer from complaining.
-    if (m_dashMeterP1->GetScale().fX <= 0)
+    /*if (m_dashMeterP1->GetScale().fX <= 0)
     {
         m_dashMeterP1->Enable(false);
     }
@@ -297,7 +337,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_parryMeterP1->Enable(true);
-    }
+    }*/
     if (m_livesMeterP1->GetScale().fX <= 0)
     {
         m_livesMeterP1->Enable(false);
@@ -306,7 +346,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_livesMeterP1->Enable(true);
     }
-    if (m_neutralMeterP1->GetScale().fX <= 0)
+    /*if (m_neutralMeterP1->GetScale().fX <= 0)
     {
         m_neutralMeterP1->Enable(false);
     }
@@ -329,7 +369,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_downwardMeterP1->Enable(true);
-    }
+    }*/
     if (m_superMeterP1->GetScale().fX <= 0)
     {
         m_superMeterP1->Enable(false);
@@ -338,7 +378,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_superMeterP1->Enable(true);
     }
-    if (m_dashMeterP2->GetScale().fX <= 0)
+    /*if (m_dashMeterP2->GetScale().fX <= 0)
     {
         m_dashMeterP2->Enable(false);
     }
@@ -353,7 +393,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_parryMeterP2->Enable(true);
-    }
+    }*/
     if (m_livesMeterP2->GetScale().fX <= 0)
     {
         m_livesMeterP2->Enable(false);
@@ -362,7 +402,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_livesMeterP2->Enable(true);
     }
-    if (m_neutralMeterP2->GetScale().fX <= 0)
+    /*if (m_neutralMeterP2->GetScale().fX <= 0)
     {
         m_neutralMeterP2->Enable(false);
     }
@@ -385,7 +425,7 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_downwardMeterP2->Enable(true);
-    }
+    }*/
     if (m_superMeterP2->GetScale().fX <= 0)
     {
         m_superMeterP2->Enable(false);
@@ -460,20 +500,33 @@ void SceneArena::CreateMeterBorder(const std::string _meterName, const ScrollMod
     }
 }
 
+void SceneArena::PauseForContraction(bool _pause)
+{
+    m_bIsPausedForContraction = _pause;
+    for (ScrollObject *poObject = Hexpatriates::GetInstance().GetNextObject(); poObject; poObject = Hexpatriates::GetInstance().GetNextObject(poObject))
+    {
+        if (poObject->TestFlags(ScrollObject::FlagPausable) && orxString_Compare(poObject->GetModelName(), GetModelName().c_str()) != 0)
+        {
+            poObject->Pause(_pause);
+        }
+    }
+    orxPhysics_EnableSimulation(!_pause);
+}
+
 void SceneArena::CreateMeterBorders()
 {
-    CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
+    /*CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
     CreateMeterBorder("O-ParryMeterP1", m_parryMeterP1, 1);
     CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_clipSizeNeutral);
     CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_clipSizeDownward);
+    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_clipSizeDownward);*/
     CreateMeterBorder("O-SuperMeterP1", m_superMeterP1, 1);
     CreateMeterBorder("O-LivesMeterP1", m_livesMeterP1, m_pilotP1->m_maxLives);
-    CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
+    /*CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
     CreateMeterBorder("O-ParryMeterP2", m_parryMeterP2, 1);
     CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_clipSizeNeutral);
     CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_clipSizeDownward);
+    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_clipSizeDownward);*/
     CreateMeterBorder("O-SuperMeterP2", m_superMeterP2, 1);
     CreateMeterBorder("O-LivesMeterP2", m_livesMeterP2, m_pilotP2->m_maxLives);
 }

@@ -31,5 +31,8 @@ namespace hexpatriates
         void SpawnAtSelf(const float _rotation, const bool _tethered = false);
         void SpawnAtPosition(const float _rotation, const orxVECTOR _position);
         void SpawnAtRaycast(const float _direction);
+        int GetOwnedChildrenCount();
+        int GetActiveObjectCount();
+        int GetActiveObjectLimit();
     };
 }

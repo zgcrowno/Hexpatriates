@@ -28,21 +28,25 @@ orxBOOL Pilot5::OnCollide(
         _rvPosition,
         _rvNormal);
 
+    // Check for collisions with ship body
+    if (orxString_SearchString(_zPartName, "BP-Ship") != nullptr)
+    {
+        // Floor collisions
+        if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0 && m_bIsShipPounding)
+        {
+            ShipPoundShockwave(_rvPosition);
+        }
+    }
+
     return true;
 }
 
 void Pilot5::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Pilot::Update(_rstInfo);
-
-    // Handle ShipPoundShockwave behavior
-    if (m_ship->m_bIsAgainstFloor && m_bIsShipPounding)
-    {
-        ShipPoundShockwave();
-    }
 }
 
-void Pilot5::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement)
+void Pilot5::Move(const bool &_bAllowVerticalMovement)
 {
     if (m_bIsShipPounding)
     {
@@ -50,7 +54,7 @@ void Pilot5::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMove
     }
     else
     {
-        Pilot::Move(_rstInfo, m_stance != Grounded);
+        Pilot::Move(m_stance != Grounded);
     }
 }
 
@@ -112,8 +116,9 @@ void Pilot5::FireSuper()
     {
         orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
         orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield" + m_typeName).fZ };
-        ScrollMod *missileShield = CreateObject("O-MissileShield" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
-        missileShield->SetOwner(Hexpatriates::GetInstance().GetArena());
+        m_ship->m_superGun->SpawnAtPosition(0, spawnPosition);
+        /*ScrollMod *missileShield = CreateObject("O-MissileShield" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
+        missileShield->SetOwner(Hexpatriates::GetInstance().GetArena());*/
     }
 }
 
@@ -132,14 +137,14 @@ void Pilot5::SwitchStance()
     }
 }
 
-void Pilot5::ShipPoundShockwave()
+void Pilot5::ShipPoundShockwave(const orxVECTOR &_shockwavePosition)
 {
     m_bIsShipPounding = false;
 
     ScrollMod *shockwaveLeft = CreateObject("O-ShockwaveP1");
     ScrollMod *shockwaveRight = CreateObject("O-ShockwaveP1");
-    shockwaveLeft->SetPosition({ GetPosition().fX, GetPosition().fY + GetScaledSize().fY / 2 });
-    shockwaveRight->SetPosition({ GetPosition().fX, GetPosition().fY + GetScaledSize().fY / 2 });
-    shockwaveLeft->SetSpeed({ -GetFloat("Speed", shockwaveLeft->GetModelName()), 0 });
-    shockwaveRight->SetSpeed({ GetFloat("Speed", shockwaveLeft->GetModelName()), 0 });
+    shockwaveLeft->SetPosition(_shockwavePosition);
+    shockwaveRight->SetPosition(_shockwavePosition);
+    shockwaveLeft->SetSpeed({ -GetFloat("FSpeed", shockwaveLeft->GetModelName()), 0 });
+    shockwaveRight->SetSpeed({ GetFloat("FSpeed", shockwaveLeft->GetModelName()), 0 });
 }

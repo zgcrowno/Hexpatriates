@@ -7,7 +7,7 @@ void Crosshairs::OnCreate()
 {
     PlayerSpecific::OnCreate();
 
-    m_speed = GetFloat("Speed", GetModelName());
+    m_speed = GetFloat("FSpeed", GetModelName());
     m_decelerationDistance = GetFloat("DecelerationDistance", GetModelName());
     m_maxMissileSpawnInterval = GetFloat("MaxMissileSpawnInterval", GetModelName());
     m_target = static_cast<ScrollMod*>(Hexpatriates::GetInstance().GetPilotByPlayerType(m_otherTypeName));

@@ -28,12 +28,20 @@ namespace hexpatriates
         void SetTimerText();
         void CreateMeterBorder(const std::string _meterName, const ScrollMod *_meter, const int &_clipSize);
     public:
+        bool m_bIsPausedForContraction;
         //! The amount of time, in seconds, remaining until the round automatically ends.
         float m_timer;
         float m_matchTime;
         float m_contractionSpeed;
         //! The scale of the arena, to be determined by match time.
-        orxVECTOR m_targetScale;
+        orxVECTOR m_targetScalePilotP1;
+        orxVECTOR m_targetScalePilotP2;
+        orxVECTOR m_targetScale1PilotP1;
+        orxVECTOR m_targetScale2PilotP1;
+        orxVECTOR m_targetScale3PilotP1;
+        orxVECTOR m_targetScale1PilotP2;
+        orxVECTOR m_targetScale2PilotP2;
+        orxVECTOR m_targetScale3PilotP2;
         ArenaBounds *m_bounds;
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;
@@ -62,6 +70,7 @@ namespace hexpatriates
         orxVECTOR m_defaultScaleDownward;
         orxVECTOR m_defaultScaleSuper;
 
+        void PauseForContraction(bool _pause);
         void CreateMeterBorders();
     };
 }

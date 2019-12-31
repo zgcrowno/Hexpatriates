@@ -13,14 +13,11 @@ void LaserPortalEntrance::OnCreate()
         m_exitDirection,
         orxPhysics_GetCollisionFlagValue("geometry"));
 
-    if (m_bIsP1)
-    {
-        m_exit = CreateObject("O-LaserPortalExitP1", {}, {}, { {"Position", &raycastData.at(0)} });
-    }
-    else
-    {
-        m_exit = CreateObject("O-LaserPortalExitP2", {}, {}, { {"Position", &raycastData.at(0)} });
-    }
+    m_exit = CreateObject("O-LaserPortalExit" + m_typeName, {}, {}, { { "Position", &raycastData.at(0) } });
+
+    ScrollObject *arena = Hexpatriates::GetInstance().GetArena();
+    SetOwner(arena);
+    m_exit->SetOwner(arena);
 }
 
 void LaserPortalEntrance::OnDelete()
@@ -28,6 +25,7 @@ void LaserPortalEntrance::OnDelete()
     
 }
 
+// TODO: Probably destroy the LaserPortalEntrance on collision, so they don't hang around for too long.
 orxBOOL LaserPortalEntrance::OnCollide(
     ScrollObject *_poCollider,
     const orxSTRING _zPartName,

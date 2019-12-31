@@ -1,10 +1,12 @@
 #include "Pilot.h"
+#include "ArenaBounds.h"
 #include "Laser.h"
 #include "LaserWall.h"
 #include "Missile.h"
 #include "MissileShield.h"
 #include "Orb.h"
 #include <string>
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -28,8 +30,6 @@ void Pilot::OnCreate()
     m_dashSpeed = GetFloat("DashSpeed", GetModelName());
     // Get dash duration from config values.
     m_dashDuration = GetFloat("DashDuration", GetModelName());
-    // Get dash icon interval from config values.
-    m_dashIconInterval = GetFloat("DashIconInterval", GetModelName());
     // Get parry duration from config values.
     m_parryDuration = GetFloat("ParryDuration", GetModelName());
     // Get melee duration from config values.
@@ -43,9 +43,6 @@ void Pilot::OnCreate()
     m_maxCooldownDash = GetFloat("MaxCooldownDash", GetModelName());
     m_maxCooldownParry = GetFloat("MaxCooldownParry", GetModelName());
     m_maxCooldownMelee = GetFloat("MaxCooldownMelee", GetModelName());
-    m_clipSizeNeutral = GetFloat("ClipSizeNeutral", GetModelName());
-    m_clipSizeUpward = GetFloat("ClipSizeUpward", GetModelName());
-    m_clipSizeDownward = GetFloat("ClipSizeDownward", GetModelName());
     m_waveSizeNeutral = GetFloat("WaveSizeNeutral", GetModelName());
     m_waveSizeUpward = GetFloat("WaveSizeUpward", GetModelName());
     m_waveSizeDownward = GetFloat("WaveSizeDownward", GetModelName());
@@ -96,6 +93,11 @@ void Pilot::OnCreate()
     // Set the Pilot's spawning position and flip
     m_defaultPosition = GetPosition();
     GetFlip(m_defaultFlipX, m_defaultFlipY);
+    // Set the Pilot's NoDash and NoParry icons, and disable them, by default
+    m_noDashIcon = GetChildByName("O-NoDashIcon");
+    m_noParryIcon = GetChildByName("O-NoParryIcon");
+    m_noDashIcon->Enable(false);
+    m_noParryIcon->Enable(false);
     // Set the Pilot's construction/contamination text
     m_headsUpText = static_cast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
     m_headsUpText->Enable(orxFALSE);
@@ -166,22 +168,6 @@ orxBOOL Pilot::OnCollide(
                 }
             }
         }
-        // Zone collisions
-        if (dynamic_cast<Zone*>(_poCollider) != orxNULL)
-        {
-            if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName().c_str()) == 0)
-            {
-                m_bIsInOwnZone = orxTRUE;
-            }
-            else
-            {
-                m_bIsInOwnZone = orxFALSE;
-                if (m_ship->IsEnabled())
-                {
-                    TakeDamage();
-                }
-            }
-        }
         // Floor collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
         {
@@ -198,6 +184,15 @@ orxBOOL Pilot::OnCollide(
         else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
         {
             m_bIsAgainstRightWall = true;
+        }
+    }
+    // Check for collisions with ship body
+    else if (orxString_SearchString(_zPartName, "BP-Ship") != nullptr)
+    {
+        // Floor collisions
+        if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
+        {
+            m_ship->m_bIsAgainstFloor = true;
         }
     }
     // Check for collisions with melee body
@@ -223,6 +218,7 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
     {
         m_bIsGrounded = false;
+        m_ship->m_bIsAgainstFloor = false;
     }
     if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0)
     {
@@ -231,19 +227,6 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     else if (orxString_Compare(_poCollider->GetModelName(), "O-WallRightWall") == 0)
     {
         m_bIsAgainstRightWall = false;
-    }
-    // Zone separations
-    if (dynamic_cast<Zone*>(_poCollider) != orxNULL)
-    {
-        if (orxString_Compare(_poCollider->GetModelName(), m_zone->GetModelName().c_str()) == 0)
-        {
-            m_bIsInOwnZone = orxFALSE;
-            DestroyShip();
-        }
-        else
-        {
-            m_bIsInOwnZone = orxTRUE;
-        }
     }
     // MissileShield separations
     if (dynamic_cast<MissileShield*>(_poCollider) != NULL)
@@ -255,7 +238,7 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     {
         m_bIsInMeleeRange = orxFALSE;
     }
-
+    
     return orxTRUE;
 }
 
@@ -263,7 +246,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // Movement inputs.
     Dash();
-    Move(_rstInfo, true);
+    Move(true);
     // Action inputs.
     Parry();
     if (m_ship->IsEnabled())
@@ -279,7 +262,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         Jump(_rstInfo);
 
         // Handle construction and contamination decrement and response
-        if (m_bIsInOwnZone)
+        if (IsInOwnZone())
         {
             m_constructionTimer -= _rstInfo.fDT;
 
@@ -298,6 +281,11 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
             }
         }
         SetHeadsUpText();
+    }
+    // Zone interactions
+    if (!IsInOwnZone())
+    {
+        DestroyShip();
     }
     // Handle iFrames decrement
     if (m_iFrames > 0)
@@ -336,33 +324,33 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     if (m_dashTime > 0)
     {
         m_dashTime -= _rstInfo.fDT;
-
-        //TODO: Maybe I just want to call SpawnDashIcon() every frame? If so, get rid of unused data.
         SpawnDashIcon();
-        /*if (m_dashIconTime > 0)
+
+        if (m_dashTime <= 0)
         {
-            m_dashIconTime -= _rstInfo.fDT;
+            m_cooldownDash = m_maxCooldownDash;
         }
-        else
-        {
-            SpawnDashIcon();
-            m_dashIconTime = m_dashIconInterval;
-        }*/
     }
     else
     {
         m_dashTime = 0;
-        m_dashIconTime = 0;
+        m_noDashIcon->Enable(true);
     }
     // Handle parry time decrement
     if (m_parryTime > 0)
     {
         m_parryTime -= _rstInfo.fDT;
+
+        if (m_parryTime <= 0)
+        {
+            m_cooldownParry = m_maxCooldownParry;
+        }
     }
     else
     {
         m_parryObject->Enable(orxFALSE);
         m_parryTime = 0;
+        m_noParryIcon->Enable(true);
     }
     // Handle melee time decrement
     if (m_meleeTime > 0)
@@ -382,6 +370,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_cooldownDash = 0;
+        m_noDashIcon->Enable(false);
     }
     if (m_cooldownParry > 0)
     {
@@ -390,6 +379,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     else
     {
         m_cooldownParry = 0;
+        m_noParryIcon->Enable(false);
     }
     if (m_cooldownMelee > 0)
     {
@@ -517,12 +507,24 @@ void Pilot::SetFlip(orxBOOL _bFlipX, orxBOOL _bFlipY)
     m_headsUpText->SetFlip(orxFALSE, orxFALSE, orxFALSE);
 }
 
+// TODO: Clean this up at some point, so it's more applicable to changing data/scenarios.
+bool Pilot::IsInOwnZone()
+{
+    float zoneWidth = GetVector("BottomRight", "BP-Zone").fX;
+    orxVECTOR pos = GetPosition();
+    orxVECTOR zonePos = m_zone->GetPosition();
+    return pos.fX < zonePos.fX + zoneWidth
+        && pos.fX > zonePos.fX - zoneWidth
+        && pos.fY < zonePos.fY + zoneWidth
+        && pos.fY > zonePos.fY - zoneWidth;
+}
+
 void Pilot::SetHeadsUpText()
 {
     orxCHAR formattedHeadsUpText[3];
     orxCOLOR color;
 
-    if (m_bIsInOwnZone)
+    if (IsInOwnZone())
     {
         orxString_Print(formattedHeadsUpText, "%1.0f", m_constructionTimer);
         color.vRGB = {0, 0.5, 1.0};
@@ -538,10 +540,10 @@ void Pilot::SetHeadsUpText()
     orxObject_SetColor(m_headsUpText->GetOrxObject(), &color);
 }
 
-void Pilot::Move(const orxCLOCK_INFO &_rstInfo, const bool &_bAllowVerticalMovement)
+void Pilot::Move(const bool &_bAllowVerticalMovement)
 {
     orxVECTOR movement = orxVECTOR_0;
-
+    
     // Only execute regular movement inputs if the Character isn't dashing.
     if (m_dashTime <= 0)
     {
@@ -665,16 +667,16 @@ void Pilot::SpawnDashIcon()
     int pilotNumberIndex = strlen("O-Pilot");
     std::string pilotName = GetModelName();
     std::string pilotNumber = pilotName.substr(pilotNumberIndex, 1);
-    ScrollObject *pilotIcon;
+    ScrollMod *pilotIcon;
     GetFlip(pilotFlipX, pilotFlipY);
     if (m_ship->IsEnabled())
     {
         orxBOOL shipFlipX;
         orxBOOL shipFlipY;
-        ScrollObject *shipIcon;
+        ScrollMod *shipIcon;
         m_ship->GetFlip(shipFlipX, shipFlipY);
         pilotIcon = CreateObject("O-Pilot" + pilotNumber + "IconDash", {}, {}, { { "Position", &GetPosition() } });
-        shipIcon = pilotIcon->GetOwnedChild();
+        shipIcon = static_cast<ScrollMod*>(pilotIcon->GetOwnedChild());
         shipIcon->SetFlip(shipFlipX, shipFlipY);
     }
     else
@@ -682,6 +684,7 @@ void Pilot::SpawnDashIcon()
         pilotIcon = CreateObject("O-Pilot" + pilotNumber + "IconDashSolo", {}, {}, { { "Position", &GetPosition() } });
     }
     pilotIcon->SetFlip(pilotFlipX, pilotFlipY, false);
+    pilotIcon->SetScale(GetScale());
 }
 
 void Pilot::TakeDamage()
@@ -747,11 +750,9 @@ void Pilot::Dash()
             if (m_usedDashes == m_maxDashes)
             {
                 m_usedDashes = 0;
-                m_cooldownDash = m_maxCooldownDash;
             }
 
             SpawnDashIcon();
-            m_dashIconTime = m_dashIconInterval;
         }
     }
 }
@@ -760,11 +761,10 @@ void Pilot::Parry()
 {
     if (orxInput_HasBeenActivated(m_parryInput.c_str()))
     {
-        if (m_cooldownParry <= 0 && m_meleeTime <= 0)
+        if (m_cooldownParry <= 0 && m_parryTime <= 0)
         {
             m_parryObject->Enable(orxTRUE);
             m_parryTime = m_parryDuration;
-            m_cooldownParry = m_maxCooldownParry;
         }
     }
 }
@@ -773,7 +773,7 @@ void Pilot::Melee()
 {
     if (orxInput_HasBeenActivated(m_meleeInput.c_str()))
     {
-        if (m_cooldownMelee <= 0 && m_parryTime <= 0)
+        if (m_cooldownMelee <= 0 && m_meleeTime <= 0)
         {
             m_meleeObject->Enable(orxTRUE);
             m_meleeTime = m_meleeDuration;
@@ -788,6 +788,10 @@ void Pilot::Melee()
 
 void Pilot::DestroyShip()
 {
+    // De-solidify the ship body part
+    std::string shipName = GetModelName();
+    std::string shipNumber = shipName.substr(7, 1);
+    SetBodyPartSolid("BP-Ship" + shipNumber, false);
     // Disable the ship
     m_ship->Enable(orxFALSE);
     // Set custom gravity to world's gravity
@@ -799,10 +803,13 @@ void Pilot::DestroyShip()
 
 void Pilot::ConstructShip()
 {
-    SetPosition(m_defaultPosition);
-    //SetScale(m_defaultScale, orxTRUE);
-    SetFlip(m_defaultFlipX, m_defaultFlipY);
+    // De-solidify the ship body part
+    std::string shipName = GetModelName();
+    std::string shipNumber = shipName.substr(7, 1);
+    SetBodyPartSolid("BP-Ship" + shipNumber, true);
     m_ship->Enable(orxTRUE);
+    SetPosition(m_defaultPosition);
+    SetFlip(m_defaultFlipX, m_defaultFlipY);
     orxVECTOR customGravity = { 0, 0, 0 };
     SetCustomGravity(customGravity);
     m_constructionTimer = 10;
@@ -824,19 +831,15 @@ void Pilot::Neutral()
 {
     if (orxInput_HasBeenActivated(m_neutralInput.c_str()))
     {
-        if (m_cooldownNeutral <= 0 && m_wavesIndexNeutral == 0)
+        if ((m_waveSizeNeutral == 1 && m_numWavesNeutral == 1) || m_ship->m_neutralGun->GetActiveObjectCount() == 0)
         {
-            m_waveDelayNeutral = m_maxWaveDelayNeutral;
-
-            m_clipIndexNeutral++;
-            m_wavesIndexNeutral++;
-
-            FireNeutral();
-
-            if (m_clipIndexNeutral == m_clipSizeNeutral)
+            if (m_wavesIndexNeutral == 0)
             {
-                m_clipIndexNeutral = 0;
-                m_cooldownNeutral = m_maxCooldownNeutral;
+                m_waveDelayNeutral = m_maxWaveDelayNeutral;
+
+                m_wavesIndexNeutral++;
+
+                FireNeutral();
             }
         }
     }
@@ -846,19 +849,15 @@ void Pilot::Upward()
 {
     if (orxInput_HasBeenActivated(m_upwardInput.c_str()))
     {
-        if (m_cooldownUpward <= 0 && m_wavesIndexUpward == 0)
+        if ((m_waveSizeUpward == 1 && m_numWavesUpward == 1) || m_ship->m_upwardGun->GetActiveObjectCount() == 0)
         {
-            m_waveDelayUpward = m_maxWaveDelayUpward;
-
-            m_clipIndexUpward++;
-            m_wavesIndexUpward++;
-
-            FireUpward();
-
-            if (m_clipIndexUpward == m_clipSizeUpward)
+            if (m_wavesIndexUpward == 0)
             {
-                m_clipIndexUpward = 0;
-                m_cooldownUpward = m_maxCooldownUpward;
+                m_waveDelayUpward = m_maxWaveDelayUpward;
+
+                m_wavesIndexUpward++;
+
+                FireUpward();
             }
         }
     }
@@ -868,19 +867,15 @@ void Pilot::Downward()
 {
     if (orxInput_HasBeenActivated(m_downwardInput.c_str()))
     {
-        if (m_cooldownDownward <= 0 && m_wavesIndexDownward == 0)
+        if ((m_waveSizeDownward == 1 && m_numWavesDownward == 1) || m_ship->m_downwardGun->GetActiveObjectCount() == 0)
         {
-            m_waveDelayDownward = m_maxWaveDelayDownward;
-
-            m_clipIndexDownward++;
-            m_wavesIndexDownward++;
-
-            FireDownward();
-
-            if (m_clipIndexDownward == m_clipSizeDownward)
+            if (m_wavesIndexDownward == 0)
             {
-                m_clipIndexDownward = 0;
-                m_cooldownDownward = m_maxCooldownDownward;
+                m_waveDelayDownward = m_maxWaveDelayDownward;
+
+                m_wavesIndexDownward++;
+
+                FireDownward();
             }
         }
     }
@@ -890,17 +885,20 @@ void Pilot::Super()
 {
     if (orxInput_HasBeenActivated(m_superInput.c_str()))
     {
-        if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
+        if ((m_waveSizeSuper == 1 && m_numWavesSuper == 1) || m_ship->m_superGun->GetActiveObjectCount() == 0)
         {
-            m_wavesIndexSuper++;
+            if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
+            {
+                m_wavesIndexSuper++;
 
-            m_waveDelaySuper = m_maxWaveDelaySuper;
+                m_waveDelaySuper = m_maxWaveDelaySuper;
 
-            m_cooldownSuper = m_maxCooldownSuper;
+                m_cooldownSuper = m_maxCooldownSuper;
 
-            FireSuper();
+                FireSuper();
 
-            m_cooldownSuper = m_maxCooldownSuper;
+                m_cooldownSuper = m_maxCooldownSuper;
+            }
         }
     }
 }

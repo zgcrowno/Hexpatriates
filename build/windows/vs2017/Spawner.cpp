@@ -21,7 +21,7 @@ orxBOOL Spawner::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-
+    
     return orxTRUE;
 }
 
@@ -38,8 +38,12 @@ void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
     
     if (_tethered)
     {
-        const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
-        CreateObject(spawnObjectModelName, { { "Tethered", _tethered } });
+        if (GetOwnedChildrenCount() < GetActiveObjectLimit())
+        {
+            const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+            ScrollMod *projectile = CreateObject(spawnObjectModelName, { { "Tethered", _tethered } });
+            projectile->SetOwner(this);
+        }
     }
     else
     {
@@ -52,31 +56,59 @@ void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
 
 void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
 {
-    const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
-    orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
+    if (GetOwnedChildrenCount() < GetActiveObjectLimit())
+    {
+        const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+        orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
 
-    orxSpawner_SetObjectSpeed(m_spawner, &initialSpeed);
-    ScrollMod *projectile = CreateObject(
-        spawnObjectModelName,
-        { {"Tethered", false} },
-        { { "Rotation", _rotation * orxMATH_KF_RAD_TO_DEG } },
-        { { "Position", &_position }, { "Speed", &initialSpeed } });
+        ScrollMod *projectile = CreateObject(
+            spawnObjectModelName,
+            { {"Tethered", false} },
+            { { "Rotation", _rotation * orxMATH_KF_RAD_TO_DEG } },
+            { { "Position", &_position }, { "Speed", &initialSpeed } });
+        projectile->SetOwner(this);
+    }
 }
 
 void Spawner::SpawnAtRaycast(const float _direction)
 {
-    const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
-    std::vector<orxVECTOR> raycastData = Raycast(
-        GetPosition(),
-        _direction,
-        orxPhysics_GetCollisionFlagValue("geometry"));
-    // TODO: Keep an eye on this, as I'll likely not want to add 90 degrees to every object spawned this way.
-    float initialRotation = ScrollMod::VectorToRadians(raycastData.at(1)) + orxMATH_KF_PI_BY_2;
-    orxVECTOR initialSpeed = { orxMath_Cos(initialRotation), orxMath_Sin(initialRotation) };
+    if (GetOwnedChildrenCount() < GetActiveObjectLimit())
+    {
+        const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
+        std::vector<orxVECTOR> raycastData = Raycast(
+            GetPosition(true),
+            _direction,
+            orxPhysics_GetCollisionFlagValue("geometry"));
+        // TODO: Keep an eye on this, as I'll likely not want to add 90 degrees to every object spawned this way.
+        float initialRotation = ScrollMod::VectorToRadians(raycastData.at(1)) + orxMATH_KF_PI_BY_2;
+        orxVECTOR initialSpeed = { orxMath_Cos(initialRotation), orxMath_Sin(initialRotation) };
 
-    ScrollMod *projectile = CreateObject(
-        spawnObjectModelName,
-        { {"Tethered", false} },
-        { { "Rotation", initialRotation * orxMATH_KF_RAD_TO_DEG } },
-        { { "Position", &raycastData.at(0) }, { "Speed", &initialSpeed } });
+        ScrollMod *projectile = CreateObject(
+            spawnObjectModelName,
+            { {"Tethered", false} },
+            { { "Rotation", initialRotation * orxMATH_KF_RAD_TO_DEG } },
+            { { "Position", &raycastData.at(0) }, { "Speed", &initialSpeed } });
+        projectile->SetOwner(this);
+    }
+}
+
+// TODO: Probably just make this a ScrollMod method at some point.
+int Spawner::GetOwnedChildrenCount()
+{
+    int result = 0;
+    for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
+    {
+        result++;
+    }
+    return result;
+}
+
+int Spawner::GetActiveObjectCount()
+{
+    return orxSpawner_GetActiveObjectCount(m_spawner);
+}
+
+int Spawner::GetActiveObjectLimit()
+{
+    return orxSpawner_GetActiveObjectLimit(m_spawner);
 }
