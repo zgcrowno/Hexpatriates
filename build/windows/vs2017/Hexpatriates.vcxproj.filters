@@ -188,6 +188,9 @@
     <ClCompile Include="MissileShield.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="LaserTeleportable.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -320,6 +323,9 @@
       <Filter>src\Headers\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="MissileShield.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserTeleportable.h">
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>

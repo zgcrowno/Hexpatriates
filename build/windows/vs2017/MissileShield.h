@@ -2,6 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "Projectile.h"
+#include "Spawner.h"
 
 namespace hexpatriates
 {
@@ -24,5 +25,6 @@ namespace hexpatriates
     public:
         float m_maxMissileSpawnInterval;
         float m_missileSpawnTime;
+        Spawner *m_gun;
     };
 }

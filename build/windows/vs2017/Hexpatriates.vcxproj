@@ -375,6 +375,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LaserTeleportable.cpp" />
     <ClCompile Include="SceneArena.cpp" />
     <ClCompile Include="ArenaBound.cpp" />
     <ClCompile Include="ArenaBounds.cpp" />
@@ -428,6 +429,7 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LaserTeleportable.h" />
     <ClInclude Include="SceneArena.h" />
     <ClInclude Include="ArenaBound.h" />
     <ClInclude Include="ArenaBounds.h" />

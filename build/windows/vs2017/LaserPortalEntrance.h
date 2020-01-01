@@ -2,6 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "PlayerSpecific.h"
+#include "Spawner.h"
 
 namespace hexpatriates
 {
@@ -22,7 +23,7 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
-        float m_exitDirection;
-        ScrollMod *m_exit;
+        bool m_bHasCreatedExit;
+        Spawner *m_gun;
     };
 }

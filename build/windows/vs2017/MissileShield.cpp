@@ -9,6 +9,7 @@ void MissileShield::OnCreate()
     Projectile::OnCreate();
 
     m_maxMissileSpawnInterval = GetFloat("MaxMissileSpawnInterval", GetModelName());
+    m_gun = static_cast<Spawner*>(GetChildByName("O-MissileShieldGun" + m_typeName));
 
     // Set speed from config-generated, random rotation
     orxVECTOR randomNormalizedVector = RadiansToVector(orxMath_GetRandomFloat(0, orxMATH_KF_2_PI));
@@ -51,31 +52,27 @@ void MissileShield::Update(const orxCLOCK_INFO &_rstInfo)
     // Handle missle spawning
     if (m_missileSpawnTime <= 0)
     {
-        orxVECTOR firingDirection = orxVECTOR_0;
+        float rotation = 0;
         orxVECTOR spawnPosition = orxVECTOR_0;
         orxVECTOR partitionPosition = GetVector("Position", "O-Partition");
         ArenaBounds *arenaBounds = static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
-        char *missileModelName;
 
         if (m_bIsP1)
         {
-            firingDirection = { 1, 0 };
             spawnPosition = {
                 orxMath_GetRandomFloat(arenaBounds->m_leftBound->GetPosition().fX, partitionPosition.fX),
                 orxMath_GetRandomFloat(arenaBounds->m_topBound->GetPosition().fY, arenaBounds->m_bottomBound->GetPosition().fY) };
-            missileModelName = "O-MissileP1";
         }
         else
         {
-            firingDirection = { -1, 0 };
+            rotation = orxMATH_KF_PI;
             spawnPosition = {
                 orxMath_GetRandomFloat(partitionPosition.fX, arenaBounds->m_rightBound->GetPosition().fX),
                 orxMath_GetRandomFloat(arenaBounds->m_topBound->GetPosition().fY, arenaBounds->m_bottomBound->GetPosition().fY) };
-            missileModelName = "O-MissileP2";
         }
 
-        ScrollMod *missile = CreateObject(missileModelName, {}, {}, { {"Position", &spawnPosition}, {"FiringDirection", &firingDirection} });
-        missile->SetOwner(Hexpatriates::GetInstance().GetArena());
+        m_gun->SpawnAtPosition(rotation, spawnPosition);
+
         m_missileSpawnTime = m_maxMissileSpawnInterval;
     }
     else

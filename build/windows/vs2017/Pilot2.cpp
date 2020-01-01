@@ -56,22 +56,6 @@ void Pilot2::FireDownward()
     {
         float shotDirection = orxMath_GetRandomFloat(GetPISD(orxMATH_KF_PI_BY_8), GetPISD(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_8));
         m_ship->m_downwardGun->SpawnAtSelf(shotDirection);
-
-        std::vector<orxVECTOR> raycastData = ScrollMod::Raycast(
-            m_ship->m_downwardGun->GetPosition(true),
-            shotDirection,
-            orxPhysics_GetCollisionFlagValue("geometry"));
-        float normalDirection = ScrollMod::VectorToRadians(raycastData.at(1));
-
-        ScrollMod *laserPortalEntrance;
-        if (m_bIsP1)
-        {
-            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP1", {}, { {"ExitDirection", normalDirection} }, { {"Position", &raycastData.at(0)} });
-        }
-        else
-        {
-            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP2", {}, { {"ExitDirection", normalDirection} }, { {"Position", &raycastData.at(0)} });
-        }
     }
 }
 

@@ -117,8 +117,6 @@ void Pilot5::FireSuper()
         orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
         orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield" + m_typeName).fZ };
         m_ship->m_superGun->SpawnAtPosition(0, spawnPosition);
-        /*ScrollMod *missileShield = CreateObject("O-MissileShield" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
-        missileShield->SetOwner(Hexpatriates::GetInstance().GetArena());*/
     }
 }
 

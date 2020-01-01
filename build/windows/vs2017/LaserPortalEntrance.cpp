@@ -1,4 +1,6 @@
 #include "LaserPortalEntrance.h"
+#include "Laser.h"
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -6,18 +8,9 @@ void LaserPortalEntrance::OnCreate()
 {
     PlayerSpecific::OnCreate();
 
-    m_exitDirection = GetFloat("ExitDirection", GetModelName());
-
-    std::vector<orxVECTOR> raycastData = ScrollMod::Raycast(
-        GetPosition(),
-        m_exitDirection,
-        orxPhysics_GetCollisionFlagValue("geometry"));
-
-    m_exit = CreateObject("O-LaserPortalExit" + m_typeName, {}, {}, { { "Position", &raycastData.at(0) } });
-
-    ScrollObject *arena = Hexpatriates::GetInstance().GetArena();
-    SetOwner(arena);
-    m_exit->SetOwner(arena);
+    m_gun = static_cast<Spawner*>(GetChildByName("O-LaserPortalEntranceGun" + m_typeName));
+    
+    m_gun->SpawnAtRaycast(GetRotation() - orxMATH_KF_PI_BY_2);
 }
 
 void LaserPortalEntrance::OnDelete()
@@ -25,7 +18,6 @@ void LaserPortalEntrance::OnDelete()
     
 }
 
-// TODO: Probably destroy the LaserPortalEntrance on collision, so they don't hang around for too long.
 orxBOOL LaserPortalEntrance::OnCollide(
     ScrollObject *_poCollider,
     const orxSTRING _zPartName,
@@ -33,10 +25,15 @@ orxBOOL LaserPortalEntrance::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
+    if (dynamic_cast<Laser*>(_poCollider) != nullptr)
+    {
+        SetLifeTime(0.3f);
+    }
+
     return orxTRUE;
 }
 
 void LaserPortalEntrance::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    
+    std::cout << m_gun->GetActiveObjectCount() << std::endl;
 }

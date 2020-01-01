@@ -5,10 +5,6 @@ using namespace hexpatriates;
 void Missile::OnCreate()
 {
     Parryable::OnCreate();
-
-    m_firingDirection = GetVector("FiringDirection", GetModelName());
-
-    SetSpeed({ m_firingDirection.fX * m_speed, m_firingDirection.fY * m_speed });
 }
 
 void Missile::OnDelete()

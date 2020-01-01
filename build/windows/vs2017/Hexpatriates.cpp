@@ -16,6 +16,7 @@
 #include "LaserGate.h"
 #include "LaserHeatseeking.h"
 #include "LaserPortalEntrance.h"
+#include "LaserTeleportable.h"
 #include "LaserWall.h"
 #include "MedussaHead.h"
 #include "Missile.h"
@@ -82,6 +83,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<LaserGate>("O-LaserGate");
     ScrollBindObject<LaserHeatseeking>("O-LaserHeatseeking");
     ScrollBindObject<LaserPortalEntrance>("O-LaserPortalEntrance");
+    ScrollBindObject<LaserTeleportable>("O-LaserTeleportable");
     ScrollBindObject<LaserWall>("O-LaserWall");
     ScrollBindObject<MedussaHead>("O-MedussaHead");
     ScrollBindObject<Missile>("O-Missile");

@@ -27,7 +27,16 @@ orxBOOL Spawner::OnCollide(
 
 void Spawner::Update(const orxCLOCK_INFO &_rstInfo)
 {
-
+    // Have to handle OnDestruction behavior here, becuase OnDelete is called AFTER the Spawner has actually been deleted--not directly prior as previously thought.
+    if (!CleanOnDelete() && GetLifeTime() <= 0)
+    {
+        // If the spawner isn't set to clean on delete, we have to transfer ownership to the Arena so we're not left with living projectiles when we exit to a menu.
+        orxOBJECT *arena = Hexpatriates::GetInstance().GetArena()->GetOrxObject();
+        for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
+        {
+            orxObject_SetOwner(child->GetOrxObject(), arena);
+        }
+    }
 }
 
 // TODO: I don't think I'm ever using an instance of this with _tethered set to true, so maybe I should just get rid of that parameter and its associated behavior?
@@ -56,7 +65,8 @@ void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
 
 void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
 {
-    if (GetOwnedChildrenCount() < GetActiveObjectLimit())
+    int activeObjectLimit = GetActiveObjectLimit();
+    if (activeObjectLimit == 0 || GetOwnedChildrenCount() < activeObjectLimit)
     {
         const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
         orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
@@ -72,7 +82,8 @@ void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
 
 void Spawner::SpawnAtRaycast(const float _direction)
 {
-    if (GetOwnedChildrenCount() < GetActiveObjectLimit())
+    int activeObjectLimit = GetActiveObjectLimit();
+    if (activeObjectLimit == 0 || GetOwnedChildrenCount() < activeObjectLimit)
     {
         const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
         std::vector<orxVECTOR> raycastData = Raycast(
@@ -111,4 +122,9 @@ int Spawner::GetActiveObjectCount()
 int Spawner::GetActiveObjectLimit()
 {
     return orxSpawner_GetActiveObjectLimit(m_spawner);
+}
+
+bool Spawner::CleanOnDelete()
+{
+    return GetBool("CleanOnDelete", GetString("Spawner", GetModelName()));
 }

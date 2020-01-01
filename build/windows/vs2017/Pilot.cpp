@@ -6,7 +6,6 @@
 #include "MissileShield.h"
 #include "Orb.h"
 #include <string>
-#include <iostream>
 
 using namespace hexpatriates;
 

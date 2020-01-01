@@ -34,5 +34,6 @@ namespace hexpatriates
         int GetOwnedChildrenCount();
         int GetActiveObjectCount();
         int GetActiveObjectLimit();
+        bool CleanOnDelete();
     };
 }

@@ -41,23 +41,6 @@ void Pilot3::FireNeutral()
     {
         float shotDirection = GetPISD(-orxMATH_KF_PI);
         m_ship->m_neutralGun->SpawnAtSelf(shotDirection);
-
-        ScrollMod *laserPortalEntrance;
-        orxVECTOR startingPos = m_ship->m_neutralGun->GetPosition(true);
-        // Using 10000 purely to have a huge number which results in the arena being traversed in full.
-        orxVECTOR endingPos = { startingPos.fX + orxMath_Cos(shotDirection) * 10000.0f, startingPos.fY + orxMath_Sin(shotDirection) * 10000.0f };
-        orxVECTOR hitPos;
-        orxVECTOR hitNormal;
-        orxObject_Raycast(&startingPos, &endingPos, 0xFFFF, orxPhysics_GetCollisionFlagValue("geometry"), true, &hitPos, &hitNormal);
-        float normalDirection = orxMath_ATan(hitNormal.fY, hitNormal.fX);
-        if (m_bIsP1)
-        {
-            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP1", {}, { {"ExitDirection", normalDirection} }, { {"Position", &hitPos} });
-        }
-        else
-        {
-            laserPortalEntrance = CreateObject("O-LaserPortalEntranceP2", {}, { {"ExitDirection", normalDirection} }, { {"Position", &hitPos} });
-        }
     }
 }
 
