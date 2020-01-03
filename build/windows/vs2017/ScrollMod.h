@@ -187,6 +187,9 @@ namespace hexpatriates
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
         static orxSTATUS __fastcall SetListString(const std::string _key, const char **_list, int _numValues, const std::string _sectionName = "");
+        /// <summary>Sets the ScrollMod's position in terms of parent space, such that 0.5 represents the ScrollMod's maximum bound and -0.5 represents its minimum bound.</summary>
+        /// <param name="_position">The position to which we'll set the ScrollMod, in terms of parent space.</param>
+        void __fastcall SetParentSpacePosition(const orxVECTOR &_position);
         /// <summary>A more object-oriented version of ORX's orxObject_GetOwner() function.</summary>
         /// <returns>The orxSTRUCTURE which is the owner of the ScrollMod, or NULL if there is none.</returns>
         orxSTRUCTURE *__fastcall GetOwner();
@@ -222,6 +225,10 @@ namespace hexpatriates
         /// <param name="_structureID">The orxSTRUCTURE_ID of the structure we wish to locate within the ScrollMod.</param>
         /// <returns>The orxSTRUCTURE, if it exists, which matches <paramref name="_structureID"/> and is associated with the ScrollMod.</returns>
         orxSTRUCTURE *GetStructure(orxSTRUCTURE_ID _structureID);
+        /// <summary>Returns whether the ScrollMod's position is currently outside of the bounds of the passed camera's frustum.</summary>
+        /// <param name="_cameraName">The name of the camera whose frustum we're checking.</param>
+        /// <returns>Whether the ScrollMod's position is currently outside of the bounds of the passed camera's frustum.</returns>
+        const bool __fastcall IsOffCamera(std::string _cameraName);
         /// <summary>Returns the number of children the ScrollMod has.</summary>
         /// <returns>The number of children the ScrollMod has.</returns>
         int __fastcall GetNumChildren();

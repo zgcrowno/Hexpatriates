@@ -141,8 +141,8 @@ namespace hexpatriates
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
-        ScrollObject *m_noDashIcon;
-        ScrollObject *m_noParryIcon;
+        ScrollMod *m_noDashIcon;
+        ScrollMod *m_noParryIcon;
         //! The Pilot's construction/contamination text
         ScrollMod *m_headsUpText;
         // TODO: Get rid of these once I've got final animations in order
@@ -159,6 +159,7 @@ namespace hexpatriates
         const float GetPISD(const float &_angle) const;
         // This modified version of ScrollObject's SetFlip method is necessary for Pilot, so we can apply selectively recursive flipping.
         void SetFlip(orxBOOL _bFlipX, orxBOOL _vFlipY);
+        void PositionIcons();
         /// <summary>Returns a bool representing whether or not the Pilot is in their own zone.</summary>
         /// <returns>A bool representing whether or not the Pilot is in their own zone.</returns>
         bool IsInOwnZone();

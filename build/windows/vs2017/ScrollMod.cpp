@@ -473,6 +473,26 @@ orxSTATUS __fastcall ScrollMod::SetListString(const std::string _key, const char
     return retVal;
 }
 
+void __fastcall ScrollMod::SetParentSpacePosition(const orxVECTOR &_position)
+{
+    orxSTRUCTURE *parent = orxObject_GetParent(GetOrxObject());
+    orxOBJECT *parentObj = orxOBJECT(parent);
+    if (parentObj != nullptr)
+    {
+        orxVECTOR parentSize = orxVECTOR_0;
+        orxObject_GetSize(parentObj, &parentSize);
+        orxVECTOR parentScale = orxVECTOR_0;
+        orxObject_GetScale(parentObj, &parentScale);
+        orxVECTOR parentScaledSize = { parentSize.fX * parentScale.fX, parentSize.fY * parentScale.fY, parentSize.fZ * parentScale.fZ };
+        orxVECTOR newPos = { _position.fX * parentScaledSize.fX, _position.fY * parentScaledSize.fY, _position.fZ * parentScaledSize.fZ };
+        SetPosition(newPos);
+    }
+    else
+    {
+        // TODO: Account for instances in which parent isn't an orxOBJECT (for instance, maybe it's an orxCAMERA).
+    }
+}
+
 orxSTRUCTURE *__fastcall ScrollMod::GetOwner()
 {
     return orxObject_GetOwner(GetOrxObject());
@@ -525,6 +545,32 @@ orxSTRUCTURE *ScrollMod::GetStructure(orxSTRUCTURE_ID _structureID)
     orxOBJECT *obj = GetOrxObject();
     
     return _orxStructure_GetPointer(_orxObject_GetStructure(obj, _structureID), _structureID);
+}
+
+const bool __fastcall ScrollMod::IsOffCamera(std::string _cameraName)
+{
+    orxAABOX frustum;
+    orxAABOX aaBoundingBox;
+    orxOBOX boundingBox;
+    orxVECTOR boundingBoxCenter;
+    orxCAMERA *camera = orxCamera_Get(_cameraName.c_str());
+
+    orxCamera_GetFrustum(camera, &frustum);
+    orxObject_GetBoundingBox(GetOrxObject(), &boundingBox);
+    orxOBox_GetCenter(&boundingBox, &boundingBoxCenter);
+
+    float boundingBoxWidthBy2 = boundingBox.vX.fX / 2.0f;
+    float boundingBoxHeightBy2 = boundingBox.vY.fY / 2.0f;
+    orxVECTOR boundingBoxTopLeft = {
+        boundingBoxCenter.fX - boundingBoxWidthBy2,
+        boundingBoxCenter.fY - boundingBoxHeightBy2 };
+    orxVECTOR boundingBoxBottomRight = {
+        boundingBoxCenter.fX + boundingBoxWidthBy2,
+        boundingBoxCenter.fY + boundingBoxHeightBy2 };
+
+    orxAABox_Set(&aaBoundingBox, &boundingBoxTopLeft, &boundingBoxBottomRight);
+
+    return !orxAABox_Test2DIntersection(&frustum, &aaBoundingBox);
 }
 
 int __fastcall ScrollMod::GetNumChildren()

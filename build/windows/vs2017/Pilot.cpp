@@ -93,8 +93,8 @@ void Pilot::OnCreate()
     m_defaultPosition = GetPosition();
     GetFlip(m_defaultFlipX, m_defaultFlipY);
     // Set the Pilot's NoDash and NoParry icons, and disable them, by default
-    m_noDashIcon = GetChildByName("O-NoDashIcon");
-    m_noParryIcon = GetChildByName("O-NoParryIcon");
+    m_noDashIcon = static_cast<ScrollMod*>(GetChildByName("O-NoDashIcon"));
+    m_noParryIcon = static_cast<ScrollMod*>(GetChildByName("O-NoParryIcon"));
     m_noDashIcon->Enable(false);
     m_noParryIcon->Enable(false);
     // Set the Pilot's construction/contamination text
@@ -123,6 +123,7 @@ void Pilot::OnCreate()
         "O-Ship7P2",
         "O-Ship8P1",
         "O-Ship8P2", }));
+    PositionIcons();
 }
 
 void Pilot::OnDelete()
@@ -506,6 +507,30 @@ void Pilot::SetFlip(orxBOOL _bFlipX, orxBOOL _bFlipY)
     m_headsUpText->SetFlip(orxFALSE, orxFALSE, orxFALSE);
 }
 
+void Pilot::PositionIcons()
+{
+    if (m_ship->IsEnabled())
+    {
+        orxVECTOR scaledSize = GetScaledSize();
+        orxVECTOR shipScaledSize = m_ship->GetScaledSize();
+        orxVECTOR noDashIconNewPos = {
+            -(shipScaledSize.fY / scaledSize.fX / 2),
+            -(shipScaledSize.fX / scaledSize.fY / 2),
+            GetFloat("Depth", m_noDashIcon->GetModelName()) };
+        orxVECTOR noParryIconNewPos = {
+            shipScaledSize.fY / scaledSize.fX / 2,
+            -(shipScaledSize.fX / scaledSize.fY / 2),
+            GetFloat("Depth", m_noParryIcon->GetModelName()) };
+        m_noDashIcon->SetParentSpacePosition(noDashIconNewPos);
+        m_noParryIcon->SetParentSpacePosition(noParryIconNewPos);
+    }
+    else
+    {
+        m_noDashIcon->SetParentSpacePosition({ -0.5f, -0.5f, GetFloat("Depth", m_noDashIcon->GetModelName()) });
+        m_noParryIcon->SetParentSpacePosition({ 0.5f, -0.5f, GetFloat("Depth", m_noParryIcon->GetModelName()) });
+    }
+}
+
 // TODO: Clean this up at some point, so it's more applicable to changing data/scenarios.
 bool Pilot::IsInOwnZone()
 {
@@ -793,6 +818,7 @@ void Pilot::DestroyShip()
     SetBodyPartSolid("BP-Ship" + shipNumber, false);
     // Disable the ship
     m_ship->Enable(orxFALSE);
+    PositionIcons();
     // Set custom gravity to world's gravity
     SetCustomGravity(GetWorldGravity());
     // Enable and set construction/contamination text
@@ -807,6 +833,7 @@ void Pilot::ConstructShip()
     std::string shipNumber = shipName.substr(7, 1);
     SetBodyPartSolid("BP-Ship" + shipNumber, true);
     m_ship->Enable(orxTRUE);
+    PositionIcons();
     SetPosition(m_defaultPosition);
     SetFlip(m_defaultFlipX, m_defaultFlipY);
     orxVECTOR customGravity = { 0, 0, 0 };

@@ -1,6 +1,5 @@
 #include "LaserPortalEntrance.h"
 #include "Laser.h"
-#include <iostream>
 
 using namespace hexpatriates;
 
@@ -35,5 +34,5 @@ orxBOOL LaserPortalEntrance::OnCollide(
 
 void LaserPortalEntrance::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    std::cout << m_gun->GetActiveObjectCount() << std::endl;
+    
 }

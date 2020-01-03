@@ -42,7 +42,7 @@ void LaserTeleportable::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Laser::Update(_rstInfo);
 
-    // I have to do this here instead of in OnCreate, because doing it in OnCreate causes the LaserTeleportable's owning spawner's active object count to get all out of whack.
+    // I have to do this here instead of in OnCreate, because doing it in OnCreate causes the LaserTeleportable's owning spawner's active object to increase due to this object's owned children.
     if (!m_bHasCreatedPortal)
     {
         m_gun->SpawnAtRaycast(GetRotation() - orxMATH_KF_PI_BY_2);

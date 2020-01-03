@@ -39,28 +39,15 @@ void Spawner::Update(const orxCLOCK_INFO &_rstInfo)
     }
 }
 
-// TODO: I don't think I'm ever using an instance of this with _tethered set to true, so maybe I should just get rid of that parameter and its associated behavior?
-void Spawner::SpawnAtSelf(const float _rotation, const bool _tethered)
+void Spawner::SpawnAtSelf(const float _rotation)
 {
     // We add the m_defaultSpawnerRotation value here so we can make spawned item rotation independent of parent rotation.
     orxSpawner_SetRotation(m_spawner, _rotation + m_defaultSpawnerRotation);
     
-    if (_tethered)
-    {
-        if (GetOwnedChildrenCount() < GetActiveObjectLimit())
-        {
-            const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
-            ScrollMod *projectile = CreateObject(spawnObjectModelName, { { "Tethered", _tethered } });
-            projectile->SetOwner(this);
-        }
-    }
-    else
-    {
-        orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
+    orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
 
-        orxSpawner_SetObjectSpeed(m_spawner, &initialSpeed);
-        orxSpawner_Spawn(m_spawner, 1);
-    }
+    orxSpawner_SetObjectSpeed(m_spawner, &initialSpeed);
+    orxSpawner_Spawn(m_spawner, 1);
 }
 
 void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)

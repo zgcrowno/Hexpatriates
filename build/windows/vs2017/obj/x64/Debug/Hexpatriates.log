@@ -1,4 +1,10 @@
-﻿  LaserPortalEntrance.cpp
+﻿  ScrollMod.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(23): warning C4018: '<': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(38): warning C4018: '<': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(582): warning C4700: uninitialized local variable 'result' used
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(597): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(631): warning C4715: 'hexpatriates::ScrollMod::GetBodyPartByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(611): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll

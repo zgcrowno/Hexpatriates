@@ -2,6 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "PlayerSpecific.h"
+#include "Spawner.h"
 
 namespace hexpatriates
 {
@@ -27,5 +28,6 @@ namespace hexpatriates
         float m_maxMissileSpawnInterval;
         float m_missileSpawnTime;
         ScrollMod *m_target;
+        Spawner *m_gun;
     };
 }

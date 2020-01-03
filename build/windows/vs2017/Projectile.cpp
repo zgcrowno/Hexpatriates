@@ -64,6 +64,11 @@ void Projectile::Update(const orxCLOCK_INFO &_rstInfo)
             SetPosition(parentPosNextFrame, true);
         }
     }
+    // Destroy any projectile which exits the bounds of the screen.
+    if (IsOffCamera("MainCamera"))
+    {
+        Destroy();
+    }
 }
 
 // TODO: Keep an eye on this, because once I have final sprites, I'll probably have to change whether I use scaledSize.fY or scaledSize.fX.
