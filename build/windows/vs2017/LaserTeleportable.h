@@ -25,7 +25,6 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
-        bool m_bHasCreatedPortal;
         Spawner *m_gun;
     };
 }

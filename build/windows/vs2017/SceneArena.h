@@ -45,29 +45,14 @@ namespace hexpatriates
         ArenaBounds *m_bounds;
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;
-        ScrollMod *m_dashMeterP1;
-        ScrollMod *m_parryMeterP1;
         ScrollMod *m_livesMeterP1;
-        ScrollMod *m_neutralMeterP1;
-        ScrollMod *m_upwardMeterP1;
-        ScrollMod *m_downwardMeterP1;
         ScrollMod *m_superMeterP1;
-        ScrollMod *m_dashMeterP2;
-        ScrollMod *m_parryMeterP2;
         ScrollMod *m_livesMeterP2;
-        ScrollMod *m_neutralMeterP2;
-        ScrollMod *m_upwardMeterP2;
-        ScrollMod *m_downwardMeterP2;
         ScrollMod *m_superMeterP2;
         ScrollMod *m_timerText;
         //! Associated UI elements' default scales
         // TODO: At least for these default scales, I should probably put together a UI manager to handle data like this. OR, make fully fleshed out classes for these UI elements.
-        orxVECTOR m_defaultScaleDash;
-        orxVECTOR m_defaultScaleParry;
         orxVECTOR m_defaultScaleLives;
-        orxVECTOR m_defaultScaleNeutral;
-        orxVECTOR m_defaultScaleUpward;
-        orxVECTOR m_defaultScaleDownward;
         orxVECTOR m_defaultScaleSuper;
 
         void PauseForContraction(bool _pause);

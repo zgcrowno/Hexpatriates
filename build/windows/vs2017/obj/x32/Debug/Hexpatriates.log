@@ -1,0 +1,382 @@
+﻿  LaserTeleportable.cpp
+  SceneArena.cpp
+  ArenaBound.cpp
+  ArenaBounds.cpp
+  Beam.cpp
+  Crosshairs.cpp
+  Ember.cpp
+  Explosion.cpp
+  Familiar.cpp
+  Grenade.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\crosshairs.cpp(68): warning C4506: no definition for inline function 'const float hexpatriates::ScrollMod::AngleBetween(orxVECTOR,orxVECTOR)'
+  LaserGate.cpp
+  LaserHeatseeking.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\grenade.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\familiar.cpp(9): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  LaserPortalEntrance.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\laserheatseeking.cpp(62): warning C4506: no definition for inline function 'const float hexpatriates::ScrollMod::AngleBetween(orxVECTOR,orxVECTOR)'
+  LaserWall.cpp
+  SceneMain.cpp
+  MedussaHead.cpp
+  Scene.cpp
+  Missile.cpp
+  MissileShield.cpp
+  Parryable.cpp
+  Pilot1.cpp
+  Pilot2.cpp
+  Pilot3.cpp
+  Pilot4.cpp
+  Pilot5.cpp
+  Pilot6.cpp
+  Pilot7.cpp
+  Pilot8.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(11): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(117): warning C4018: '<': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(150): warning C4018: '<': signed/unsigned mismatch
+  SceneMenu.cpp
+  ScenePause.cpp
+  ScenePilotSelect.cpp
+  PlayerSpecific.cpp
+  Prism.cpp
+  Shrapnel.cpp
+  Spacer.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(66): warning C4018: '>=': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(95): warning C4018: '>=': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(182): warning C4018: '>=': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(211): warning C4018: '>=': signed/unsigned mismatch
+  Spawner.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\prism.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  Hexpatriates.cpp
+  Laser.cpp
+  Orb.cpp
+  Pilot.cpp
+  Projectile.cpp
+  ScrollMod.cpp
+  Ship.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(37): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(40): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(45): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(46): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(47): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(48): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(50): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(51): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(52): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(23): warning C4018: '<': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(38): warning C4018: '<': signed/unsigned mismatch
+  Turret.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(582): warning C4700: uninitialized local variable 'result' used
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(597): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(611): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(631): warning C4715: 'hexpatriates::ScrollMod::GetBodyPartByName': not all control paths return a value
+  Zone.cpp
+Pilot.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Projectile.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+PlayerSpecific.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Spawner.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Laser.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Pilot6.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Pilot8.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+ScenePause.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+ScenePilotSelect.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+SceneMain.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+MissileShield.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Pilot3.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Pilot5.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+SceneArena.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Crosshairs.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+LaserGate.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+LaserHeatseeking.obj : error LNK2001: unresolved external symbol __imp___orxDebug_Log
+Pilot.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Projectile.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+PlayerSpecific.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Spawner.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Laser.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Pilot6.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Pilot8.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+ScenePause.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+ScenePilotSelect.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+SceneMain.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+MissileShield.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Pilot3.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Pilot5.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+SceneArena.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Crosshairs.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+LaserGate.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+LaserHeatseeking.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_SetFlags@8
+Pilot.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Projectile.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+PlayerSpecific.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Spawner.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Laser.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Pilot6.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Pilot8.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+ScenePause.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+ScenePilotSelect.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+SceneMain.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+MissileShield.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Pilot3.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Pilot5.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+SceneArena.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Crosshairs.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+LaserGate.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+LaserHeatseeking.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_GetFlags@0
+Pilot.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Projectile.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+PlayerSpecific.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Spawner.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Laser.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Pilot6.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Pilot8.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+ScenePause.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+ScenePilotSelect.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+SceneMain.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+MissileShield.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Pilot3.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Pilot5.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+SceneArena.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Crosshairs.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+LaserGate.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+LaserHeatseeking.obj : error LNK2001: unresolved external symbol __imp_@_orxDebug_Break@0
+Pilot.obj : error LNK2001: unresolved external symbol __imp_@orxInput_HasBeenActivated@4
+SceneArena.obj : error LNK2001: unresolved external symbol __imp_@orxInput_HasBeenActivated@4
+SceneMain.obj : error LNK2001: unresolved external symbol __imp_@orxInput_HasBeenActivated@4
+ScenePause.obj : error LNK2001: unresolved external symbol __imp_@orxInput_HasBeenActivated@4
+ScenePilotSelect.obj : error LNK2001: unresolved external symbol __imp_@orxInput_HasBeenActivated@4
+SceneArena.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetOwner@8 referenced in function "protected: void __thiscall hexpatriates::SceneArena::CreateMeterBorder(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class hexpatriates::ScrollMod const *,int const &)" (?CreateMeterBorder@SceneArena@hexpatriates@@IAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBVScrollMod@2@ABH@Z)
+Spawner.obj : error LNK2001: unresolved external symbol __imp_@orxObject_SetOwner@8
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxObject_SetOwner@8
+SceneArena.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetTextString@8 referenced in function "protected: void __thiscall hexpatriates::SceneArena::SetTimerText(void)" (?SetTimerText@SceneArena@hexpatriates@@IAEXXZ)
+Pilot.obj : error LNK2001: unresolved external symbol __imp_@orxObject_SetTextString@8
+SceneArena.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetColor@8 referenced in function "protected: void __thiscall hexpatriates::SceneArena::SetTimerText(void)" (?SetTimerText@SceneArena@hexpatriates@@IAEXXZ)
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp_@orxObject_SetColor@8
+Pilot.obj : error LNK2001: unresolved external symbol __imp_@orxObject_SetColor@8
+SceneArena.obj : error LNK2019: unresolved external symbol __imp_@orxPhysics_EnableSimulation@4 referenced in function "public: void __thiscall hexpatriates::SceneArena::PauseForContraction(bool)" (?PauseForContraction@SceneArena@hexpatriates@@QAEX_N@Z)
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp_@orxPhysics_EnableSimulation@4
+Pilot1.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+Pilot2.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+Pilot3.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+Pilot5.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+ArenaBounds.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+Crosshairs.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+Grenade.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+MissileShield.obj : error LNK2001: unresolved external symbol __imp_@orxMath_GetRandomFloat@8
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Pilot6.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Pilot.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Projectile.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Crosshairs.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Familiar.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+MissileShield.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Pilot4.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_0
+Ember.obj : error LNK2019: unresolved external symbol __imp_@orxMath_GetRandomU32@8 referenced in function "private: virtual void __thiscall hexpatriates::Ember::OnCreate(void)" (?OnCreate@Ember@hexpatriates@@EAEXXZ)
+Familiar.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_SetWaveSize@8 referenced in function "private: virtual void __thiscall hexpatriates::Familiar::AttachToBound(class hexpatriates::ArenaBound const *,struct __orxVECTOR_t const &,struct __orxVECTOR_t const &)" (?AttachToBound@Familiar@hexpatriates@@EAEXPBVArenaBound@2@ABU__orxVECTOR_t@@1@Z)
+Familiar.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_SetWaveDelay@8 referenced in function "private: virtual void __thiscall hexpatriates::Familiar::AttachToBound(class hexpatriates::ArenaBound const *,struct __orxVECTOR_t const &,struct __orxVECTOR_t const &)" (?AttachToBound@Familiar@hexpatriates@@EAEXPBVArenaBound@2@ABU__orxVECTOR_t@@1@Z)
+Familiar.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_SetObjectSpeed@8 referenced in function "private: virtual void __thiscall hexpatriates::Familiar::AttachToBound(class hexpatriates::ArenaBound const *,struct __orxVECTOR_t const &,struct __orxVECTOR_t const &)" (?AttachToBound@Familiar@hexpatriates@@EAEXPBVArenaBound@2@ABU__orxVECTOR_t@@1@Z)
+Spawner.obj : error LNK2001: unresolved external symbol __imp_@orxSpawner_SetObjectSpeed@8
+Turret.obj : error LNK2001: unresolved external symbol __imp_@orxSpawner_SetObjectSpeed@8
+Pilot4.obj : error LNK2019: unresolved external symbol __imp_@orxPhysics_GetCollisionFlagValue@4 referenced in function "public: virtual void __thiscall hexpatriates::Pilot4::FireUpward(void)" (?FireUpward@Pilot4@hexpatriates@@UAEXXZ)
+Spawner.obj : error LNK2001: unresolved external symbol __imp_@orxPhysics_GetCollisionFlagValue@4
+Laser.obj : error LNK2001: unresolved external symbol __imp_@orxPhysics_GetCollisionFlagValue@4
+Spawner.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_GetActiveObjectLimit@4 referenced in function "public: int __thiscall hexpatriates::Spawner::GetActiveObjectLimit(void)" (?GetActiveObjectLimit@Spawner@hexpatriates@@QAEHXZ)
+Spawner.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_GetActiveObjectCount@4 referenced in function "public: int __thiscall hexpatriates::Spawner::GetActiveObjectCount(void)" (?GetActiveObjectCount@Spawner@hexpatriates@@QAEHXZ)
+Spawner.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_Spawn@8 referenced in function "public: void __thiscall hexpatriates::Spawner::SpawnAtSelf(float)" (?SpawnAtSelf@Spawner@hexpatriates@@QAEXM@Z)
+Spawner.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_SetRotation@8 referenced in function "public: void __thiscall hexpatriates::Spawner::SpawnAtSelf(float)" (?SpawnAtSelf@Spawner@hexpatriates@@QAEXM@Z)
+Spawner.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_GetName@4 referenced in function "private: virtual void __thiscall hexpatriates::Spawner::OnCreate(void)" (?OnCreate@Spawner@hexpatriates@@EAEXXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxModule_Register@20 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxModule_AddDependency@8 referenced in function @orx_MainSetup@0
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxModule_AddOptionalDependency@8 referenced in function @orx_MainSetup@0
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxModule_Init@4 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxModule_Exit@4 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@_orxDebug_Init@0 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@_orxDebug_Exit@0 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxMemory_Allocate@8 referenced in function _orxString_Duplicate
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxMemory_Free@4 referenced in function _orxString_Delete
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxSystem_GetVersionFullString@0 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxSystem_GetVersionNumeric@0 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxClock_Update@0 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxClock_GetInfo@4 referenced in function "private: void __thiscall ScrollBase::BaseUpdate(struct __orxCLOCK_INFO_t const &)" (?BaseUpdate@ScrollBase@@AAEXABU__orxCLOCK_INFO_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxClock_Register@20 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxClock_FindFirst@8 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxLinkList_AddEnd@8 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(struct __orxOBJECT_t *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PAU__orxOBJECT_t@@PBDW4Flag@2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxLinkList_AddAfter@8 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(struct __orxOBJECT_t *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PAU__orxOBJECT_t@@PBDW4Flag@2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxLinkList_Remove@4 referenced in function "private: void __thiscall ScrollObjectBinderBase::DeleteObject(class ScrollObject *,char const *)" (?DeleteObject@ScrollObjectBinderBase@@AAEXPAVScrollObject@@PBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxStructure_Get@8 referenced in function "public: class ScrollObject * __thiscall ScrollBase::GetObject(unsigned __int64)const " (?GetObject@ScrollBase@@QBEPAVScrollObject@@_K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxAnim_GetName@4 referenced in function "private: static enum __orxSTATUS_t __fastcall ScrollBase::StaticEventHandler(struct __orxEVENT_t const *)" (?StaticEventHandler@ScrollBase@@CI?AW4__orxSTATUS_t@@PBU__orxEVENT_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxAnimSet_GetAnim@8 referenced in function "private: static enum __orxSTATUS_t __fastcall ScrollBase::StaticEventHandler(struct __orxEVENT_t const *)" (?StaticEventHandler@ScrollBase@@CI?AW4__orxSTATUS_t@@PBU__orxEVENT_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxAnimPointer_GetAnimSet@4 referenced in function "private: static enum __orxSTATUS_t __fastcall ScrollBase::StaticEventHandler(struct __orxEVENT_t const *)" (?StaticEventHandler@ScrollBase@@CI?AW4__orxSTATUS_t@@PBU__orxEVENT_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxAnimPointer_GetCurrentAnim@4 referenced in function "private: static enum __orxSTATUS_t __fastcall ScrollBase::StaticEventHandler(struct __orxEVENT_t const *)" (?StaticEventHandler@ScrollBase@@CI?AW4__orxSTATUS_t@@PBU__orxEVENT_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetEncryptionKey@4 referenced in function "public: void __thiscall ScrollBase::Execute(int,char * *)" (?Execute@ScrollBase@@QAEXHPAPAD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetBootstrap@4 referenced in function "public: void __thiscall ScrollBase::Execute(int,char * *)" (?Execute@ScrollBase@@QAEXHPAPAD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_Load@4 referenced in function "private: virtual enum __orxSTATUS_t __thiscall hexpatriates::Hexpatriates::Bootstrap(void)const " (?Bootstrap@Hexpatriates@hexpatriates@@EBE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_Save@12 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::SaveMap(unsigned long,unsigned long (__fastcall*const)(char const *,char const *,char const *,unsigned long))" (?SaveMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@KQ6IKPBD00K@Z@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SelectSection@4 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetParent@4 referenced in function "protected: static class ScrollObjectBinderBase * __cdecl ScrollObjectBinderBase::GetBinder(char const *,unsigned long)" (?GetBinder@ScrollObjectBinderBase@@KAPAV1@PBDK@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_GetParent@4
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_PushSection@4 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_PushSection@4
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_PopSection@0 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_PopSection@0
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_HasSection@4 referenced in function "private: void __thiscall ScrollObjectBinderBase::DeleteObject(class ScrollObject *,char const *)" (?DeleteObject@ScrollObjectBinderBase@@AAEXPAVScrollObject@@PBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_ProtectSection@8 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(struct __orxOBJECT_t *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PAU__orxOBJECT_t@@PBDW4Flag@2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_ClearSection@4 referenced in function "private: void __thiscall ScrollObjectBinderBase::DeleteObject(class ScrollObject *,char const *)" (?DeleteObject@ScrollObjectBinderBase@@AAEXPAVScrollObject@@PBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_HasValue@4 referenced in function "public: enum __orxSTATUS_t __thiscall ScrollObject::AddConditionalTrack(char const *,long)" (?AddConditionalTrack@ScrollObject@@QAE?AW4__orxSTATUS_t@@PBDJ@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetS32@4 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetU32@4 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetFloat@4 referenced in function "protected: struct __orxCOLOR_t * __thiscall ScrollBase::GetObjectConfigColor(class ScrollObject const *,struct __orxCOLOR_t &)" (?GetObjectConfigColor@ScrollBase@@IAEPAU__orxCOLOR_t@@PBVScrollObject@@AAU2@@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_GetFloat@4
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetString@4 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_GetString@4
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetBool@4 referenced in function "private: unsigned long __thiscall ScrollBase::BaseMapSaveFilter(char const *,char const *,char const *,unsigned long)" (?BaseMapSaveFilter@ScrollBase@@AAEKPBD00K@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_GetBool@4
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetVector@8 referenced in function "protected: struct __orxCOLOR_t * __thiscall ScrollBase::GetObjectConfigColor(class ScrollObject const *,struct __orxCOLOR_t &)" (?GetObjectConfigColor@ScrollBase@@IAEPAU__orxCOLOR_t@@PBVScrollObject@@AAU2@@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_GetVector@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetS32@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::SaveMap(unsigned long,unsigned long (__fastcall*const)(char const *,char const *,char const *,unsigned long))" (?SaveMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@KQ6IKPBD00K@Z@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetU32@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::SaveMap(unsigned long,unsigned long (__fastcall*const)(char const *,char const *,char const *,unsigned long))" (?SaveMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@KQ6IKPBD00K@Z@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetFloat@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::SaveMap(unsigned long,unsigned long (__fastcall*const)(char const *,char const *,char const *,unsigned long))" (?SaveMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@KQ6IKPBD00K@Z@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_SetFloat@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetString@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::SaveMap(unsigned long,unsigned long (__fastcall*const)(char const *,char const *,char const *,unsigned long))" (?SaveMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@KQ6IKPBD00K@Z@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_SetString@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetBool@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::SaveMap(unsigned long,unsigned long (__fastcall*const)(char const *,char const *,char const *,unsigned long))" (?SaveMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@KQ6IKPBD00K@Z@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_SetBool@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetVector@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::SaveMap(unsigned long,unsigned long (__fastcall*const)(char const *,char const *,char const *,unsigned long))" (?SaveMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@KQ6IKPBD00K@Z@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_SetVector@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetListCount@4 referenced in function "public: enum __orxSTATUS_t __thiscall ScrollObject::AddConditionalTrack(char const *,long)" (?AddConditionalTrack@ScrollObject@@QAE?AW4__orxSTATUS_t@@PBDJ@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_GetListCount@4
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetListString@8 referenced in function "public: enum __orxSTATUS_t __thiscall ScrollObject::AddConditionalTrack(char const *,long)" (?AddConditionalTrack@ScrollObject@@QAE?AW4__orxSTATUS_t@@PBDJ@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxConfig_GetListString@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxBank_Create@16 referenced in function "protected: __thiscall ScrollObjectBinderBase::ScrollObjectBinderBase(long,unsigned long)" (??0ScrollObjectBinderBase@@IAE@JK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxBank_Delete@4 referenced in function "protected: virtual __thiscall ScrollObjectBinderBase::~ScrollObjectBinderBase(void)" (??1ScrollObjectBinderBase@@MAE@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxBank_Allocate@4 referenced in function "void * __cdecl operator new(unsigned int,struct __orxBANK_t *)" (??2@YAPAXIPAU__orxBANK_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxBank_Free@8 referenced in function "void __cdecl operator delete(void *,struct __orxBANK_t *)" (??3@YAXPAXPAU__orxBANK_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxHashTable_Create@12 referenced in function "protected: static void __cdecl ScrollObjectBinderBase::DeleteTable(void)" (?DeleteTable@ScrollObjectBinderBase@@KAXXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxHashTable_Delete@4 referenced in function "protected: static void __cdecl ScrollObjectBinderBase::DeleteTable(void)" (?DeleteTable@ScrollObjectBinderBase@@KAXXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxHashTable_Get@12 referenced in function "protected: static void __cdecl ScrollObjectBinderBase::DeleteTable(void)" (?DeleteTable@ScrollObjectBinderBase@@KAXXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxHashTable_Add@16 referenced in function "protected: static void __cdecl ScrollObjectBinderBase::DeleteTable(void)" (?DeleteTable@ScrollObjectBinderBase@@KAXXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxHashTable_GetNext@16 referenced in function "protected: static void __cdecl ScrollObjectBinderBase::DeleteTable(void)" (?DeleteTable@ScrollObjectBinderBase@@KAXXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxEvent_AddHandler@8 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxEvent_RemoveHandler@8 referenced in function "private: void __thiscall ScrollBase::BaseExit(void)" (?BaseExit@ScrollBase@@AAEXXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxEvent_Send@4 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxResource_AddStorage@12 referenced in function "private: virtual enum __orxSTATUS_t __thiscall hexpatriates::Hexpatriates::Bootstrap(void)const " (?Bootstrap@Hexpatriates@hexpatriates@@EBE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxParam_SetArgs@8 referenced in function _orx_Execute
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_CreateFromConfig@4 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(char const *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PBD0W4Flag@2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_Delete@4 referenced in function "private: void __thiscall ScrollObjectBinderBase::DeleteObject(class ScrollObject *)" (?DeleteObject@ScrollObjectBinderBase@@AAEXPAVScrollObject@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_Enable@8 referenced in function "public: void __thiscall ScrollObject::Enable(unsigned long,unsigned long)" (?Enable@ScrollObject@@QAEXKK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_EnableRecursive@8 referenced in function "public: void __thiscall ScrollObject::Enable(unsigned long,unsigned long)" (?Enable@ScrollObject@@QAEXKK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_IsEnabled@4 referenced in function "public: unsigned long __thiscall ScrollObject::IsEnabled(void)const " (?IsEnabled@ScrollObject@@QBEKXZ)
+Projectile.obj : error LNK2001: unresolved external symbol __imp_@orxObject_IsEnabled@4
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_Pause@8 referenced in function "public: void __thiscall ScrollObject::Pause(unsigned long,unsigned long)" (?Pause@ScrollObject@@QAEXKK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_PauseRecursive@8 referenced in function "public: void __thiscall ScrollObject::Pause(unsigned long,unsigned long)" (?Pause@ScrollObject@@QAEXKK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_IsPaused@4 referenced in function "private: void __thiscall ScrollBase::BaseUpdate(struct __orxCLOCK_INFO_t const &)" (?BaseUpdate@ScrollBase@@AAEXABU__orxCLOCK_INFO_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetUserData@8 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(struct __orxOBJECT_t *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PAU__orxOBJECT_t@@PBDW4Flag@2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetUserData@4 referenced in function "public: void __thiscall ScrollObject::AddFX(char const *,unsigned long)" (?AddFX@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetOwnedChild@4 referenced in function "public: void __thiscall ScrollObject::AddFX(char const *,unsigned long)" (?AddFX@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetOwnedSibling@4 referenced in function "public: void __thiscall ScrollObject::AddFX(char const *,unsigned long)" (?AddFX@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetClock@4 referenced in function "private: void __thiscall ScrollBase::BaseUpdate(struct __orxCLOCK_INFO_t const &)" (?BaseUpdate@ScrollBase@@AAEXABU__orxCLOCK_INFO_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_UnlinkStructure@8 referenced in function "protected: class ScrollObject * __thiscall ScrollBase::CreateObject(struct __orxOBJECT_t *,enum ScrollObject::Flag,char const *)" (?CreateObject@ScrollBase@@IAEPAVScrollObject@@PAU__orxOBJECT_t@@W4Flag@2@PBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@_orxObject_GetStructure@8 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(struct __orxOBJECT_t *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PAU__orxOBJECT_t@@PBDW4Flag@2@@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@_orxObject_GetStructure@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetFlip@12 referenced in function "public: void __thiscall ScrollObject::SetFlip(unsigned long,unsigned long,unsigned long)" (?SetFlip@ScrollObject@@QAEXKKK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetFlip@12 referenced in function "public: void __thiscall ScrollObject::GetFlip(unsigned long &,unsigned long &)const " (?GetFlip@ScrollObject@@QBEXAAK0@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetSize@8 referenced in function "public: void __thiscall ScrollObject::SetSize(struct __orxVECTOR_t const &)" (?SetSize@ScrollObject@@QAEXABU__orxVECTOR_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetSize@8 referenced in function "public: struct __orxVECTOR_t & __thiscall ScrollObject::GetSize(struct __orxVECTOR_t &)const " (?GetSize@ScrollObject@@QBEAAU__orxVECTOR_t@@AAU2@@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxObject_GetSize@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetPosition@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetWorldPosition@8 referenced in function "public: void __thiscall ScrollObject::SetPosition(struct __orxVECTOR_t const &,unsigned long)" (?SetPosition@ScrollObject@@QAEXABU__orxVECTOR_t@@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetRotation@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetWorldRotation@8 referenced in function "public: void __thiscall ScrollObject::SetRotation(float,unsigned long)" (?SetRotation@ScrollObject@@QAEXMK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetScale@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetWorldScale@8 referenced in function "public: void __thiscall ScrollObject::SetScale(struct __orxVECTOR_t const &,unsigned long)" (?SetScale@ScrollObject@@QAEXABU__orxVECTOR_t@@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetPosition@8 referenced in function "public: struct __orxVECTOR_t & __thiscall ScrollObject::GetPosition(struct __orxVECTOR_t &,unsigned long)const " (?GetPosition@ScrollObject@@QBEAAU__orxVECTOR_t@@AAU2@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetWorldPosition@8 referenced in function "public: struct __orxVECTOR_t & __thiscall ScrollObject::GetPosition(struct __orxVECTOR_t &,unsigned long)const " (?GetPosition@ScrollObject@@QBEAAU__orxVECTOR_t@@AAU2@K@Z)
+Projectile.obj : error LNK2001: unresolved external symbol __imp_@orxObject_GetWorldPosition@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetRotation@4 referenced in function "public: float __thiscall ScrollObject::GetRotation(unsigned long)const " (?GetRotation@ScrollObject@@QBEMK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetWorldRotation@4 referenced in function "public: float __thiscall ScrollObject::GetRotation(unsigned long)const " (?GetRotation@ScrollObject@@QBEMK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetScale@8 referenced in function "public: struct __orxVECTOR_t & __thiscall ScrollObject::GetScale(struct __orxVECTOR_t &,unsigned long)const " (?GetScale@ScrollObject@@QBEAAU__orxVECTOR_t@@AAU2@K@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxObject_GetScale@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetWorldScale@8 referenced in function "public: struct __orxVECTOR_t & __thiscall ScrollObject::GetScale(struct __orxVECTOR_t &,unsigned long)const " (?GetScale@ScrollObject@@QBEAAU__orxVECTOR_t@@AAU2@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetCurrentAnim@8 referenced in function "public: void __thiscall ScrollObject::SetAnim(char const *,unsigned long)" (?SetAnim@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetTargetAnim@8 referenced in function "public: void __thiscall ScrollObject::SetAnim(char const *,unsigned long)" (?SetAnim@ScrollObject@@QAEXPBDK@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxObject_SetTargetAnim@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_IsCurrentAnim@8 referenced in function "public: unsigned long __thiscall ScrollObject::IsAnim(char const *,unsigned long)" (?IsAnim@ScrollObject@@QAEKPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_IsTargetAnim@8 referenced in function "public: unsigned long __thiscall ScrollObject::IsAnim(char const *,unsigned long)" (?IsAnim@ScrollObject@@QAEKPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetSpeed@8 referenced in function "public: void __thiscall ScrollObject::SetSpeed(struct __orxVECTOR_t const &,unsigned long)" (?SetSpeed@ScrollObject@@QAEXABU__orxVECTOR_t@@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetRelativeSpeed@8 referenced in function "public: void __thiscall ScrollObject::SetSpeed(struct __orxVECTOR_t const &,unsigned long)" (?SetSpeed@ScrollObject@@QAEXABU__orxVECTOR_t@@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetSpeed@8 referenced in function "public: struct __orxVECTOR_t & __thiscall ScrollObject::GetSpeed(struct __orxVECTOR_t &,unsigned long)const " (?GetSpeed@ScrollObject@@QBEAAU__orxVECTOR_t@@AAU2@K@Z)
+Projectile.obj : error LNK2001: unresolved external symbol __imp_@orxObject_GetSpeed@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetRelativeSpeed@8 referenced in function "public: struct __orxVECTOR_t & __thiscall ScrollObject::GetSpeed(struct __orxVECTOR_t &,unsigned long)const " (?GetSpeed@ScrollObject@@QBEAAU__orxVECTOR_t@@AAU2@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_AddFX@8 referenced in function "public: void __thiscall ScrollObject::AddFX(char const *,unsigned long)" (?AddFX@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_AddDelayedFX@12 referenced in function "public: void __thiscall ScrollObject::AddFX(char const *,float,unsigned long)" (?AddFX@ScrollObject@@QAEXPBDMK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_RemoveFX@8 referenced in function "public: void __thiscall ScrollObject::RemoveFX(char const *,unsigned long)" (?RemoveFX@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_AddSound@8 referenced in function "public: void __thiscall ScrollObject::AddSound(char const *)" (?AddSound@ScrollObject@@QAEXPBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_RemoveSound@8 referenced in function "public: void __thiscall ScrollObject::RemoveSound(char const *)" (?RemoveSound@ScrollObject@@QAEXPBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_AddShader@8 referenced in function "public: void __thiscall ScrollObject::AddShader(char const *,unsigned long)" (?AddShader@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_RemoveShader@8 referenced in function "public: void __thiscall ScrollObject::RemoveShader(char const *,unsigned long)" (?RemoveShader@ScrollObject@@QAEXPBDK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_AddTimeLineTrack@8 referenced in function "public: enum __orxSTATUS_t __thiscall ScrollObject::AddConditionalTrack(char const *,long)" (?AddConditionalTrack@ScrollObject@@QAE?AW4__orxSTATUS_t@@PBDJ@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_RemoveTimeLineTrack@8 referenced in function "public: void __thiscall ScrollObject::RemoveTrack(char const *)" (?RemoveTrack@ScrollObject@@QAEXPBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetName@4 referenced in function "protected: class ScrollObject * __thiscall ScrollBase::CreateObject(struct __orxOBJECT_t *,enum ScrollObject::Flag,char const *)" (?CreateObject@ScrollBase@@IAEPAVScrollObject@@PAU__orxOBJECT_t@@W4Flag@2@PBD@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetSmoothing@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetSmoothing@4 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(struct __orxOBJECT_t *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PAU__orxOBJECT_t@@PBDW4Flag@2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetColorRecursive@8 referenced in function "public: void __thiscall ScrollObject::SetColor(struct __orxCOLOR_t const &,unsigned long)" (?SetColor@ScrollObject@@QAEXABU__orxCOLOR_t@@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetColor@8 referenced in function "public: struct __orxCOLOR_t & __thiscall ScrollObject::GetColor(struct __orxCOLOR_t &)const " (?GetColor@ScrollObject@@QBEAAU__orxCOLOR_t@@AAU2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetRepeat@12 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetRepeat@12 referenced in function "private: class ScrollObject * __thiscall ScrollObjectBinderBase::CreateObject(struct __orxOBJECT_t *,char const *,enum ScrollObject::Flag)" (?CreateObject@ScrollObjectBinderBase@@AAEPAVScrollObject@@PAU__orxOBJECT_t@@PBDW4Flag@2@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetLifeTime@8 referenced in function "protected: void __thiscall ScrollBase::DeleteObject(class ScrollObject *)" (?DeleteObject@ScrollBase@@IAEXPAVScrollObject@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetLifeTime@4 referenced in function "public: float __thiscall ScrollObject::GetLifeTime(void)const " (?GetLifeTime@ScrollObject@@QBEMXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetGroupID@4 referenced in function "public: unsigned long __thiscall ScrollObject::GetGroupID(void)const " (?GetGroupID@ScrollObject@@QBEKXZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetGroupID@8 referenced in function "public: void __thiscall ScrollObject::SetGroupID(unsigned long,unsigned long)" (?SetGroupID@ScrollObject@@QAEXKK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetGroupIDRecursive@8 referenced in function "public: void __thiscall ScrollObject::SetGroupID(unsigned long,unsigned long)" (?SetGroupID@ScrollObject@@QAEXKK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_Pick@8 referenced in function "public: class ScrollObject * __thiscall ScrollBase::PickObject(struct __orxVECTOR_t const &,unsigned long)const " (?PickObject@ScrollBase@@QBEPAVScrollObject@@ABU__orxVECTOR_t@@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxObject_BoxPick@8 referenced in function "public: class ScrollObject * __thiscall ScrollBase::PickObject(struct __orxOBOX_t const &,unsigned long)const " (?PickObject@ScrollBase@@QBEPAVScrollObject@@ABU__orxOBOX_t@@K@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxCamera_SetFrustum@20 referenced in function "protected: void __thiscall ScrollBase::SetLayerNumber(unsigned long)" (?SetLayerNumber@ScrollBase@@IAEXK@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxCamera_SetPosition@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxCamera_SetZoom@8 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::LoadMap(void)" (?LoadMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxCamera_GetFrustum@8 referenced in function "protected: unsigned long __thiscall ScrollBase::GetLayer(struct __orxVECTOR_t const &)const " (?GetLayer@ScrollBase@@IBEKABU__orxVECTOR_t@@@Z)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxCamera_GetFrustum@8
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxCamera_GetPosition@8 referenced in function "protected: unsigned long __thiscall ScrollBase::GetLayer(struct __orxVECTOR_t const &)const " (?GetLayer@ScrollBase@@IBEKABU__orxVECTOR_t@@@Z)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxCamera_GetZoom@4 referenced in function "protected: enum __orxSTATUS_t __thiscall ScrollBase::ResetMap(void)" (?ResetMap@ScrollBase@@IAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxViewport_CreateFromConfig@4 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2019: unresolved external symbol __imp_@orxViewport_GetCamera@4 referenced in function "private: enum __orxSTATUS_t __thiscall ScrollBase::BaseInit(void)" (?BaseInit@ScrollBase@@AAE?AW4__orxSTATUS_t@@XZ)
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp__orxSTRING_EMPTY
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp__orxVECTOR_WHITE
+Hexpatriates.obj : error LNK2001: unresolved external symbol __imp__saau32CRCTable
+Pilot.obj : error LNK2019: unresolved external symbol __imp_@orxInput_IsActive@4 referenced in function "protected: virtual void __thiscall hexpatriates::Pilot::Move(bool const &)" (?Move@Pilot@hexpatriates@@MAEXAB_N@Z)
+Pilot.obj : error LNK2019: unresolved external symbol __imp_@orxInput_HasBeenDeactivated@4 referenced in function "public: void __thiscall hexpatriates::Pilot::Jump(struct __orxCLOCK_INFO_t const &)" (?Jump@Pilot@hexpatriates@@QAEXABU__orxCLOCK_INFO_t@@@Z)
+Pilot.obj : error LNK2019: unresolved external symbol __imp_@orxInput_GetValue@4 referenced in function "public: void __thiscall hexpatriates::Pilot::Dash(void)" (?Dash@Pilot@hexpatriates@@QAEXXZ)
+Projectile.obj : error LNK2019: unresolved external symbol __imp_@orxStructure_GetOwner@4 referenced in function "protected: virtual void __thiscall hexpatriates::Projectile::OnCreate(void)" (?OnCreate@Projectile@hexpatriates@@MAEXXZ)
+Projectile.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetOwner@4 referenced in function "protected: virtual void __thiscall hexpatriates::Projectile::OnCreate(void)" (?OnCreate@Projectile@hexpatriates@@MAEXXZ)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxObject_GetOwner@4
+Projectile.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetParent@4 referenced in function "protected: virtual void __thiscall hexpatriates::Projectile::OnCreate(void)" (?OnCreate@Projectile@hexpatriates@@MAEXXZ)
+ScrollMod.obj : error LNK2001: unresolved external symbol __imp_@orxObject_GetParent@4
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetSectionCount@0 referenced in function "public: static class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > const __fastcall hexpatriates::ScrollMod::GetDescendentSections(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetDescendentSections@ScrollMod@hexpatriates@@SI?BV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetSection@4 referenced in function "public: static class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > const __fastcall hexpatriates::ScrollMod::GetDescendentSections(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetDescendentSections@ScrollMod@hexpatriates@@SI?BV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetListFloat@8 referenced in function "public: static float __fastcall hexpatriates::ScrollMod::GetListFloat(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetListFloat@ScrollMod@hexpatriates@@SIMV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H0@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetListBool@8 referenced in function "public: static unsigned long __fastcall hexpatriates::ScrollMod::GetListBool(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetListBool@ScrollMod@hexpatriates@@SIKV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H0@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_GetListVector@12 referenced in function "public: static struct __orxVECTOR_t __fastcall hexpatriates::ScrollMod::GetListVector(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetListVector@ScrollMod@hexpatriates@@SI?AU__orxVECTOR_t@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H0@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxConfig_SetListString@12 referenced in function "public: static enum __orxSTATUS_t __fastcall hexpatriates::ScrollMod::SetListString(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,char const * *,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?SetListString@ScrollMod@hexpatriates@@SI?AW4__orxSTATUS_t@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAPBDH0@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetParent@8 referenced in function "public: enum __orxSTATUS_t __fastcall hexpatriates::ScrollMod::SetParent(class ScrollObject const *)" (?SetParent@ScrollMod@hexpatriates@@QAI?AW4__orxSTATUS_t@@PBVScrollObject@@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxObject_SetCustomGravity@8 referenced in function "public: enum __orxSTATUS_t __fastcall hexpatriates::ScrollMod::SetCustomGravity(struct __orxVECTOR_t &)" (?SetCustomGravity@ScrollMod@hexpatriates@@QAI?AW4__orxSTATUS_t@@AAU__orxVECTOR_t@@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxObject_Raycast@28 referenced in function "public: static class std::vector<struct __orxVECTOR_t,class std::allocator<struct __orxVECTOR_t> > const __cdecl hexpatriates::ScrollMod::Raycast(struct __orxVECTOR_t const &,float const &,int const &,int const &,float const &,bool const &)" (?Raycast@ScrollMod@hexpatriates@@SA?BV?$vector@U__orxVECTOR_t@@V?$allocator@U__orxVECTOR_t@@@std@@@std@@ABU__orxVECTOR_t@@ABMABH21AB_N@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxObject_GetBoundingBox@8 referenced in function "public: bool const __fastcall hexpatriates::ScrollMod::IsOffCamera(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?IsOffCamera@ScrollMod@hexpatriates@@QAI?B_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxPhysics_GetGravity@4 referenced in function "public: struct __orxVECTOR_t __thiscall hexpatriates::ScrollMod::GetWorldGravity(void)" (?GetWorldGravity@ScrollMod@hexpatriates@@QAE?AU__orxVECTOR_t@@XZ)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxBody_GetNextPart@8 referenced in function "public: struct __orxBODY_PART_t * __thiscall hexpatriates::ScrollMod::GetBodyPartByName(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetBodyPartByName@ScrollMod@hexpatriates@@QAEPAU__orxBODY_PART_t@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxBody_GetPartName@4 referenced in function "public: struct __orxBODY_PART_t * __thiscall hexpatriates::ScrollMod::GetBodyPartByName(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetBodyPartByName@ScrollMod@hexpatriates@@QAEPAU__orxBODY_PART_t@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxBody_SetPartSelfFlags@8 referenced in function "public: enum __orxSTATUS_t __fastcall hexpatriates::ScrollMod::SetSelfFlags(struct __orxBODY_PART_t *,unsigned short)" (?SetSelfFlags@ScrollMod@hexpatriates@@QAI?AW4__orxSTATUS_t@@PAU__orxBODY_PART_t@@G@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxBody_SetPartCheckMask@8 referenced in function "public: enum __orxSTATUS_t __fastcall hexpatriates::ScrollMod::SetCheckMask(struct __orxBODY_PART_t *,unsigned short)" (?SetCheckMask@ScrollMod@hexpatriates@@QAI?AW4__orxSTATUS_t@@PAU__orxBODY_PART_t@@G@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxBody_GetPartSelfFlags@4 referenced in function "public: unsigned short __fastcall hexpatriates::ScrollMod::GetSelfFlags(struct __orxBODY_PART_t const *)" (?GetSelfFlags@ScrollMod@hexpatriates@@QAIGPBU__orxBODY_PART_t@@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxBody_GetPartCheckMask@4 referenced in function "public: unsigned short __fastcall hexpatriates::ScrollMod::GetCheckMask(struct __orxBODY_PART_t const *)" (?GetCheckMask@ScrollMod@hexpatriates@@QAIGPBU__orxBODY_PART_t@@@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxBody_SetPartSolid@8 referenced in function "public: void __thiscall hexpatriates::ScrollMod::SetBodyPartSolid(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,unsigned long const &)" (?SetBodyPartSolid@ScrollMod@hexpatriates@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABK@Z)
+ScrollMod.obj : error LNK2019: unresolved external symbol __imp_@orxCamera_Get@4 referenced in function "public: bool const __fastcall hexpatriates::ScrollMod::IsOffCamera(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?IsOffCamera@ScrollMod@hexpatriates@@QAI?B_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Turret.obj : error LNK2019: unresolved external symbol __imp_@orxSpawner_Enable@8 referenced in function "private: virtual void __thiscall hexpatriates::Turret::AttachToBound(class hexpatriates::ArenaBound const *,struct __orxVECTOR_t const &,struct __orxVECTOR_t const &)" (?AttachToBound@Turret@hexpatriates@@EAEXPBVArenaBound@2@ABU__orxVECTOR_t@@1@Z)
+C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\..\..\bin\Hexpatriatesd.exe : fatal error LNK1120: 183 unresolved externals

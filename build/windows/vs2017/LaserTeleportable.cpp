@@ -7,6 +7,8 @@ void LaserTeleportable::OnCreate()
     Laser::OnCreate();
 
     m_gun = static_cast<Spawner*>(GetChildByName("O-LaserTeleportableGun" + m_typeName));
+
+    m_gun->SpawnAtRaycast(GetRotation() - orxMATH_KF_PI_BY_2);
 }
 
 void LaserTeleportable::OnDelete()
@@ -41,11 +43,4 @@ orxBOOL LaserTeleportable::OnSeparate(ScrollObject *_poCollider)
 void LaserTeleportable::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Laser::Update(_rstInfo);
-
-    // I have to do this here instead of in OnCreate, because doing it in OnCreate causes the LaserTeleportable's owning spawner's active object to increase due to this object's owned children.
-    if (!m_bHasCreatedPortal)
-    {
-        m_gun->SpawnAtRaycast(GetRotation() - orxMATH_KF_PI_BY_2);
-        m_bHasCreatedPortal = true;
-    }
 }

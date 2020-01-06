@@ -33,7 +33,7 @@ namespace hexpatriates
         /// <param name="_from">The vector at which we're starting the angle calculation.</param>
         /// <param name="_to">The vector at which we're finishing the angle calculation.</param>
         /// <returns>A radian representation of the angle between <paramref name="_from"/> and <paramref name="_to"/>.</returns>
-        static const float inline AngleBetween(orxVECTOR _from, orxVECTOR _to);
+        static const float AngleBetween(orxVECTOR _from, orxVECTOR _to);
         /// <summary>Returns the normalized form of <paramref name="_vec"/>.</summary>
         /// <param name="_vec">The vector to normalize.</param>
         /// <returns>The normalized form of <paramref name="_vec"/>.</returns>

@@ -23,27 +23,12 @@ void SceneArena::OnCreate()
     m_targetScale1PilotP2 = { m_targetScalePilotP2.fX + 0.6f, m_targetScalePilotP2.fY + 0.6f, m_targetScalePilotP2.fZ };
     m_targetScale2PilotP2 = { m_targetScalePilotP2.fX + 1.2f, m_targetScalePilotP2.fY + 1.2f, m_targetScalePilotP2.fZ };
     m_targetScale3PilotP2 = { m_targetScalePilotP2.fX + 1.8f, m_targetScalePilotP2.fY + 1.8f, m_targetScalePilotP2.fZ };
-    m_dashMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP1"));
-    m_parryMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP1"));
     m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
-    m_neutralMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-NeutralMeterP1"));
-    m_upwardMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-UpwardMeterP1"));
-    m_downwardMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-DownwardMeterP1"));
     m_superMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-SuperMeterP1"));
-    m_dashMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-DashMeterP2"));
-    m_parryMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-ParryMeterP2"));
     m_livesMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP2"));
-    m_neutralMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-NeutralMeterP2"));
-    m_upwardMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-UpwardMeterP2"));
-    m_downwardMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-DownwardMeterP2"));
     m_superMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-SuperMeterP2"));
     m_timerText = static_cast<ScrollMod*>(GetChildByName("O-TimerText"));
-    m_defaultScaleDash = m_dashMeterP1->GetScale();
-    m_defaultScaleParry = m_parryMeterP1->GetScale();
     m_defaultScaleLives = m_livesMeterP1->GetScale();
-    m_defaultScaleNeutral = m_neutralMeterP1->GetScale();
-    m_defaultScaleUpward = m_upwardMeterP1->GetScale();
-    m_defaultScaleDownward = m_downwardMeterP1->GetScale();
     m_defaultScaleSuper = m_superMeterP1->GetScale();
     CreateMeterBorders();
 }
@@ -122,7 +107,6 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
                 m_pilotP2->Enable(true);
                 m_pilotP2->ConstructShip();
             }
-            m_timer = m_matchTime;
         }
     }
 

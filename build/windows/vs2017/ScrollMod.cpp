@@ -74,7 +74,7 @@ void ScrollMod::Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_i
     _strOut[i] = '\0';
 }
 
-const float inline ScrollMod::AngleBetween(orxVECTOR _from, orxVECTOR _to)
+const float ScrollMod::AngleBetween(orxVECTOR _from, orxVECTOR _to)
 {
     return atan2f(_to.fY - _from.fY, _to.fX - _from.fX);
 }
