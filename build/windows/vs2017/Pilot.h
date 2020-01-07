@@ -35,6 +35,8 @@ namespace hexpatriates
         float m_iFrames;
         //! The maximum amount of time, in seconds, the Pilot is invulnerable after taking damage.
         float m_maxIFrames;
+        //! Flag representing whether or not the Pilot has canceled (reversed) their dash.
+        bool m_bCanceledDash;
         //! Flag representing whether or not the Pilot is touching a MissileShield.
         bool m_bIsTouchingMissileShield;
         //! Flag representing whether or not the Pilot is on the ground or a platform.
@@ -72,10 +74,6 @@ namespace hexpatriates
         int m_maxLives;
         //! The number of lives held by the Pilot
         int m_lives;
-        //! Maximum consecutive actions
-        int m_maxDashes;
-        //! Times actions have been used prior to cooldown
-        int m_usedDashes;
         //! Maximum cooldowns
         float m_maxCooldownDash;
         float m_maxCooldownParry;

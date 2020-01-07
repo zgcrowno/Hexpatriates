@@ -1,21 +1,14 @@
-﻿  Hexpatriates.cpp
-  Projectile.cpp
-  SceneArena.cpp
-  ScenePause.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepause.cpp(40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  ScenePilotSelect.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(68): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(72): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(97): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(101): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(126): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(155): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(184): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(188): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(213): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(217): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(242): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenepilotselect.cpp(271): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+﻿  Pilot.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(37): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(43): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(44): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(45): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(46): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(47): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(48): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(50): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(702): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

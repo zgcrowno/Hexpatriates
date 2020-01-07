@@ -36,8 +36,6 @@ void Pilot::OnCreate()
     // Get maximum number of lives.
     m_maxLives = GetFloat("MaxLives", GetModelName());
     m_lives = m_maxLives;
-    // Get maximum consecutive actions from config values
-    m_maxDashes = GetFloat("MaxDashes", GetModelName());
     // Get maximum cooldowns from config values
     m_maxCooldownDash = GetFloat("MaxCooldownDash", GetModelName());
     m_maxCooldownParry = GetFloat("MaxCooldownParry", GetModelName());
@@ -328,7 +326,22 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 
         if (m_dashTime <= 0)
         {
-            m_cooldownDash = m_maxCooldownDash;
+            if (m_bCanceledDash)
+            {
+                orxVector_Mulf(&m_dashDirection, &m_dashDirection, -1);
+
+                m_jumpTime = 0;
+                m_dashTime = m_dashDuration;
+
+                SpawnDashIcon();
+            }
+            else
+            {
+                m_cooldownDash = m_maxCooldownDash;
+            }
+            // TODO: Right now, the way dash canceling works is that the player can do it as many times as they like, so long as they don't stop.
+            // I may wish to limit the number of consecutive dash cancels at some point, but I'm happy with this behavior for now.
+            m_bCanceledDash = false;
         }
     }
     else
@@ -619,12 +632,14 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
 
             if (m_jumpTime > 0)
             {
-                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * (m_jumpTime / m_jumpDuration);
+                float proportionJumpCompleted = m_jumpTime / m_jumpDuration;
+                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted;
             }
             if (m_wallJumpTime > 0)
             {
-                movement.fX = m_jumpDirection.fX * m_jumpingSpeed * (m_wallJumpTime / m_jumpDuration);
-                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * (m_wallJumpTime / m_jumpDuration);
+                float proportionJumpCompleted = m_wallJumpTime / m_jumpDuration;
+                movement.fX = m_jumpDirection.fX * m_jumpingSpeed * proportionJumpCompleted;
+                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted;
             }
         }
         if (orxInput_IsActive(m_leftRightInput.c_str()))
@@ -636,12 +651,10 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 if (leftRightValue > 0)
                 {
                     SetTargetAnim("A-PilotRun");
-                    //SetFlip(orxFALSE, orxFALSE, orxFALSE);
                 }
                 else if (leftRightValue < 0)
                 {
                     SetTargetAnim("A-PilotRun");
-                    //SetFlip(orxTRUE, orxFALSE, orxFALSE);
                 }
             }
 
@@ -654,7 +667,6 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 if (!m_ship->IsEnabled())
                 {
                     SetTargetAnim("A-PilotRun");
-                    //SetFlip(orxTRUE, orxFALSE, orxFALSE);
                 }
 
                 movement.fX -= speed;
@@ -664,7 +676,6 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 if (!m_ship->IsEnabled())
                 {
                     SetTargetAnim("A-PilotRun");
-                    //SetFlip(orxFALSE, orxFALSE, orxFALSE);
                 }
                 
                 movement.fX += speed;
@@ -736,18 +747,27 @@ void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
         }
         else if (m_bIsAgainstLeftWall)
         {
-            m_jumpDirection = { 1.6, -0.8, 0 };
+            m_jumpDirection = { 1, -1, 0 };
             m_wallJumpTime = m_jumpDuration;
         }
         else if (m_bIsAgainstRightWall)
         {
-            m_jumpDirection = { -1.6, -0.8, 0 };
+            m_jumpDirection = { -1, -1, 0 };
             m_wallJumpTime = m_jumpDuration;
         }
     }
     else if (orxInput_HasBeenDeactivated(m_jumpInput.c_str()))
     {
-        m_jumpTime = 0;
+        // Only augment the jump time if it's greater than 1/3 of the maximum jump duration, so as to avoid immediate speed cutoff (this results in a more realistic jump that feels natural).
+        float jumpDurationBy3 = m_jumpDuration / 3.0f;
+        if (m_jumpTime > jumpDurationBy3)
+        {
+            m_jumpTime = jumpDurationBy3;
+        }
+        if (m_wallJumpTime > jumpDurationBy3)
+        {
+            m_wallJumpTime = jumpDurationBy3;
+        }
     }
 }
 
@@ -756,27 +776,28 @@ void Pilot::Dash()
     if (orxInput_HasBeenActivated(m_dashInput.c_str()))
     {
         // Only execute dash input if the Character isn't currently dashing or waiting out a dash cooldown.
-        if (m_dashTime <= 0 && m_cooldownDash <= 0)
+        if (m_dashTime <= 0)
         {
-            if (orxInput_GetValue(m_leftRightInput.c_str()) != 0 || orxInput_GetValue(m_upDownInput.c_str()) != 0)
+            if (m_cooldownDash <= 0)
             {
-                m_dashDirection = { orxInput_GetValue(m_leftRightInput.c_str()), orxInput_GetValue(m_upDownInput.c_str()) };
-            }
-            else
-            {
-                m_dashDirection = { orxInput_GetValue(m_rightInput.c_str()) - orxInput_GetValue(m_leftInput.c_str()), orxInput_GetValue(m_downInput.c_str()) - orxInput_GetValue(m_upInput.c_str()), 0 };
-            }
+                if (orxInput_GetValue(m_leftRightInput.c_str()) != 0 || orxInput_GetValue(m_upDownInput.c_str()) != 0)
+                {
+                    m_dashDirection = { orxInput_GetValue(m_leftRightInput.c_str()), orxInput_GetValue(m_upDownInput.c_str()) };
+                }
+                else
+                {
+                    m_dashDirection = { orxInput_GetValue(m_rightInput.c_str()) - orxInput_GetValue(m_leftInput.c_str()), orxInput_GetValue(m_downInput.c_str()) - orxInput_GetValue(m_upInput.c_str()), 0 };
+                }
 
-            m_jumpTime = 0;
-            m_dashTime = m_dashDuration;
-            m_usedDashes++;
+                m_jumpTime = 0;
+                m_dashTime = m_dashDuration;
 
-            if (m_usedDashes == m_maxDashes)
-            {
-                m_usedDashes = 0;
+                SpawnDashIcon();
             }
-
-            SpawnDashIcon();
+        }
+        else if (!m_bCanceledDash)
+        {
+            m_bCanceledDash = true;
         }
     }
 }
