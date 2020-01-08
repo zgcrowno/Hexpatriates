@@ -70,7 +70,8 @@ void Pilot4::FireDownward()
     for (int i = 0; i < m_waveSizeDownward; i++)
     {
         float shotDirection = GetPISD((orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8) - (i * orxMATH_KF_PI_BY_8));
-        m_ship->m_downwardGun->SpawnAtRaycast(shotDirection);
+        //m_ship->m_downwardGun->SpawnAtRaycast(shotDirection);
+        m_ship->m_downwardGun->SpawnAtSelf(shotDirection);
     }
 }
 

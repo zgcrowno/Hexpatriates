@@ -191,6 +191,12 @@
     <ClCompile Include="LaserTeleportable.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="BeamPlacer.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="BeamSpouter.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -326,6 +332,12 @@
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
     <ClInclude Include="LaserTeleportable.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BeamPlacer.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BeamSpouter.h">
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>

@@ -78,6 +78,17 @@ void Pilot6::Move(const bool &_bAllowVerticalMovement)
     }
 }
 
+void Pilot6::DestroyShip()
+{
+    Pilot::DestroyShip();
+
+    for (Familiar *familiar : m_familiars)
+    {
+        familiar->Destroy();
+    }
+    m_familiars.clear();
+}
+
 void Pilot6::FireNeutral()
 {
     for (int i = 0; i < m_waveSizeNeutral; i++)
@@ -150,7 +161,9 @@ void Pilot6::SpawnFamiliar()
     if (m_familiars.size() < m_maxFamiliars)
     {
         orxVECTOR spawnPosition = { GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ };
-        m_familiars.push_back(static_cast<Familiar*>(CreateObject( "O-Familiar" + m_typeName, {}, {}, { { "Position", &spawnPosition } })));
-        m_familiars.at(m_familiars.size() - 1)->m_framesBehind *= m_familiars.size();
+        Familiar *familiar = static_cast<Familiar*>(CreateObject("O-Familiar" + m_typeName, {}, {}, { { "Position", &spawnPosition } }));
+        m_familiars.push_back(familiar);
+        familiar->SetOwner(this);
+        familiar->m_framesBehind *= m_familiars.size();
     }
 }

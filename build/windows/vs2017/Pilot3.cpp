@@ -48,7 +48,8 @@ void Pilot3::FireUpward()
 {
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        m_ship->m_upwardGun->SpawnAtSelf(orxMath_GetRandomFloat(GetPISD(-orxMATH_KF_PI_BY_8), GetPISD(-orxMATH_KF_PI_BY_4 - orxMATH_KF_PI_BY_8)));
+        //m_ship->m_upwardGun->SpawnAtSelf(orxMath_GetRandomFloat(GetPISD(-orxMATH_KF_PI_BY_8), GetPISD(-orxMATH_KF_PI_BY_4 - orxMATH_KF_PI_BY_8)));
+        m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_4));
     }
 }
 

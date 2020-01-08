@@ -41,6 +41,8 @@ namespace hexpatriates
         bool m_bIsTouchingMissileShield;
         //! Flag representing whether or not the Pilot is on the ground or a platform.
         bool m_bIsGrounded;
+        //! Flag representing whether or not the Pilot is against the ceiling.
+        bool m_bIsAgainstCeiling;
         //! Flag representing whether or not the Pilot is against the left wall.
         bool m_bIsAgainstLeftWall;
         //! Flag representing whether or not the Pilot is against the right wall.
@@ -174,7 +176,7 @@ namespace hexpatriates
         /// <summary>Executes the Pilot's melee attack.</summary>
         void Melee();
         /// <summary>Destroy's the Pilot's ship.</summary>
-        void DestroyShip();
+        virtual void DestroyShip();
         /// <summary>Reconstructs the Pilot's ship.</summary>
         void ConstructShip();
         /// <summary>Kills the Pilot.</summary>

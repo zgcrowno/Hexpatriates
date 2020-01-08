@@ -165,6 +165,13 @@ orxBOOL Pilot::OnCollide(
                     }
                 }
             }
+            // Parried collisions
+            else
+            {
+                // Increase the Pilot's super meter.
+                m_cooldownSuper -= m_maxCooldownSuper / 4.0f;
+                orxCLAMP(m_cooldownSuper, 0.0f, m_cooldownSuper);
+            }
         }
         // Floor collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallFloor") == 0)
@@ -172,6 +179,11 @@ orxBOOL Pilot::OnCollide(
             m_bIsGrounded = true;
             m_jumpTime = 0;
             m_wallJumpTime = 0;
+        }
+        // Ceiling collisions
+        if (orxString_Compare(_poCollider->GetModelName(), "O-WallCeiling") == 0)
+        {
+            m_bIsAgainstCeiling = true;
         }
         // Left wall collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0)
@@ -218,6 +230,10 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
         m_bIsGrounded = false;
         m_ship->m_bIsAgainstFloor = false;
     }
+    if (orxString_Compare(_poCollider->GetModelName(), "O-WallCeiling") == 0)
+    {
+        m_bIsAgainstCeiling = false;
+    }
     if (orxString_Compare(_poCollider->GetModelName(), "O-WallLeftWall") == 0)
     {
         m_bIsAgainstLeftWall = false;
@@ -242,6 +258,19 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
 
 void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 {
+    // Deal damage as appropriate
+    if (m_iFrames <= 0)
+    {
+        // Arena electrification damage
+        if (m_bIsAgainstLeftWall || m_bIsAgainstRightWall || m_bIsAgainstCeiling || m_bIsGrounded)
+        {
+            ArenaBounds *arenaBounds = static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
+            if ((m_bIsP1 && arenaBounds->m_electrificationTimeP2 > 0) || (!m_bIsP1 && arenaBounds->m_electrificationTimeP1 > 0))
+            {
+                TakeDamage();
+            }
+        }
+    }
     // Movement inputs.
     Dash();
     Move(true);
@@ -551,9 +580,9 @@ bool Pilot::IsInOwnZone()
     orxVECTOR pos = GetPosition();
     orxVECTOR zonePos = m_zone->GetPosition();
     return pos.fX < zonePos.fX + zoneWidth
-        && pos.fX > zonePos.fX - zoneWidth
+        && pos.fX > zonePos.fX
         && pos.fY < zonePos.fY + zoneWidth
-        && pos.fY > zonePos.fY - zoneWidth;
+        && pos.fY > zonePos.fY;
 }
 
 void Pilot::SetHeadsUpText()
@@ -882,11 +911,11 @@ void Pilot::Neutral()
         {
             if (m_wavesIndexNeutral == 0)
             {
+                FireNeutral();
+
                 m_waveDelayNeutral = m_maxWaveDelayNeutral;
 
                 m_wavesIndexNeutral++;
-
-                FireNeutral();
             }
         }
     }
@@ -900,11 +929,11 @@ void Pilot::Upward()
         {
             if (m_wavesIndexUpward == 0)
             {
+                FireUpward();
+
                 m_waveDelayUpward = m_maxWaveDelayUpward;
 
                 m_wavesIndexUpward++;
-
-                FireUpward();
             }
         }
     }
@@ -918,11 +947,11 @@ void Pilot::Downward()
         {
             if (m_wavesIndexDownward == 0)
             {
+                FireDownward();
+
                 m_waveDelayDownward = m_maxWaveDelayDownward;
 
                 m_wavesIndexDownward++;
-
-                FireDownward();
             }
         }
     }
@@ -936,13 +965,11 @@ void Pilot::Super()
         {
             if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
             {
-                m_wavesIndexSuper++;
+                FireSuper();
 
                 m_waveDelaySuper = m_maxWaveDelaySuper;
 
-                m_cooldownSuper = m_maxCooldownSuper;
-
-                FireSuper();
+                m_wavesIndexSuper++;
 
                 m_cooldownSuper = m_maxCooldownSuper;
             }

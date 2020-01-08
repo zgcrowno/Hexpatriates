@@ -7,6 +7,8 @@
 #include "ArenaBound.h"
 #include "ArenaBounds.h"
 #include "Beam.h"
+#include "BeamPlacer.h"
+#include "BeamSpouter.h"
 #include "Crosshairs.h"
 #include "Ember.h"
 #include "Explosion.h"
@@ -73,6 +75,8 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<ArenaBound>("O-Wall");
     ScrollBindObject<ArenaBounds>("O-Walls");
     ScrollBindObject<Beam>("O-Beam");
+    ScrollBindObject<BeamPlacer>("O-BeamPlacer");
+    ScrollBindObject<BeamSpouter>("O-BeamSpouter");
     ScrollBindObject<Crosshairs>("O-Crosshairs");
     ScrollBindObject<Ember>("O-Ember");
     ScrollBindObject<Explosion>("O-Explosion");

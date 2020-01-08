@@ -26,6 +26,8 @@ namespace hexpatriates
     public:
         int m_maxFamiliars;
         std::vector<Familiar*> m_familiars;
+        /// <summary>Destroy's the Pilot's ship.</summary>
+        virtual void DestroyShip();
         /// <summary>Handles the actual spawning/firing of the Pilot's neutral attack.</summary>
         virtual void FireNeutral();
         /// <summary>Handles the actual spawning/firing of the Pilot's upward attack.</summary>

@@ -63,6 +63,13 @@ void Pilot2::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + (i * orxMATH_KF_PI_BY_16)));
+        if (m_wavesIndexSuper % 2 == 0)
+        {
+            m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + (i * orxMATH_KF_PI_BY_16)));
+        }
+        else
+        {
+            m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + orxMATH_KF_PI_BY_32 + (i * orxMATH_KF_PI_BY_16)));
+        }
     }
 }

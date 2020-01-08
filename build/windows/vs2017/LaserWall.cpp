@@ -32,8 +32,8 @@ orxBOOL LaserWall::OnCollide(
     /*if (dynamic_cast<Pilot*>(_poCollider) != orxNULL)
     {
         Destroy();
-    }*/
-    Destroy();
+    }
+    Destroy();*/
 
     return orxTRUE;
 }

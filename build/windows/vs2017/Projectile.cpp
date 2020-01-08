@@ -57,11 +57,15 @@ void Projectile::Update(const orxCLOCK_INFO &_rstInfo)
             orxVECTOR parentCurPos = orxVECTOR_0;
             orxObject_GetWorldPosition(m_parentGun, &parentCurPos);
             orxVECTOR parentCurSpeed = orxVECTOR_0;
-            // Getting speed of pilot, since speed of gun and ship register as 0.
-            orxObject_GetSpeed(m_parentPilot, &parentCurSpeed);
-            orxVECTOR parentPosNextFrame = { parentCurPos.fX + parentCurSpeed.fX *_rstInfo.fDT, parentCurPos.fY + parentCurSpeed.fY * _rstInfo.fDT, parentCurPos.fZ + parentCurSpeed.fZ * _rstInfo.fDT };
+            // Check for null pointer just in case the spawning gun isn't attached to a ship.
+            if (m_parentPilot != nullptr)
+            {
+                // Getting speed of pilot, since speed of gun and ship register as 0.
+                orxObject_GetSpeed(m_parentPilot, &parentCurSpeed);
+                orxVECTOR parentPosNextFrame = { parentCurPos.fX + parentCurSpeed.fX *_rstInfo.fDT, parentCurPos.fY + parentCurSpeed.fY * _rstInfo.fDT, parentCurPos.fZ + parentCurSpeed.fZ * _rstInfo.fDT };
 
-            SetPosition(parentPosNextFrame, true);
+                SetPosition(parentPosNextFrame, true);
+            }
         }
     }
     // Destroy any projectile which exits the bounds of the screen.
