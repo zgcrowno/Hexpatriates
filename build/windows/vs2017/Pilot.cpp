@@ -1,4 +1,5 @@
 #include "Pilot.h"
+#include "Pilot6.h"
 #include "ArenaBounds.h"
 #include "Laser.h"
 #include "LaserWall.h"
@@ -168,8 +169,13 @@ orxBOOL Pilot::OnCollide(
             // Parried collisions
             else
             {
-                // Increase the Pilot's super meter.
-                m_cooldownSuper -= m_maxCooldownSuper / 4.0f;
+                // Set m_bJustParried flag
+                m_bJustParried = true;
+                // Increase the Pilot's super meter (unless the Pilot's an instance of Pilot6, whose cooldown is determined solely by whether or not it has any familiars).
+                if (dynamic_cast<Pilot6*>(this) == nullptr)
+                {
+                    m_cooldownSuper -= m_maxCooldownSuper / 4.0f;
+                }
                 orxCLAMP(m_cooldownSuper, 0.0f, m_cooldownSuper);
             }
         }
@@ -383,7 +389,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_parryTime -= _rstInfo.fDT;
 
-        if (m_parryTime <= 0)
+        if (m_parryTime <= 0 && !m_bJustParried)
         {
             m_cooldownParry = m_maxCooldownParry;
         }
@@ -392,7 +398,11 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_parryObject->Enable(orxFALSE);
         m_parryTime = 0;
-        m_noParryIcon->Enable(true);
+        if (!m_bJustParried)
+        {
+            m_noParryIcon->Enable(true);
+        }
+        m_bJustParried = false;
     }
     // Handle melee time decrement
     if (m_meleeTime > 0)
@@ -455,14 +465,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_cooldownDownward = 0;
     }
-    if (m_cooldownSuper > 0)
-    {
-        m_cooldownSuper -= _rstInfo.fDT;
-    }
-    else
-    {
-        m_cooldownSuper = 0;
-    }
+    HandleSuperCooldown(_rstInfo.fDT);
     // Handle Waves
     if (m_wavesIndexNeutral != 0 && m_wavesIndexNeutral < m_numWavesNeutral)
     {
@@ -911,11 +914,11 @@ void Pilot::Neutral()
         {
             if (m_wavesIndexNeutral == 0)
             {
-                FireNeutral();
-
                 m_waveDelayNeutral = m_maxWaveDelayNeutral;
 
                 m_wavesIndexNeutral++;
+
+                FireNeutral();
             }
         }
     }
@@ -929,11 +932,11 @@ void Pilot::Upward()
         {
             if (m_wavesIndexUpward == 0)
             {
-                FireUpward();
-
                 m_waveDelayUpward = m_maxWaveDelayUpward;
 
                 m_wavesIndexUpward++;
+
+                FireUpward();
             }
         }
     }
@@ -947,11 +950,11 @@ void Pilot::Downward()
         {
             if (m_wavesIndexDownward == 0)
             {
-                FireDownward();
-
                 m_waveDelayDownward = m_maxWaveDelayDownward;
 
                 m_wavesIndexDownward++;
+
+                FireDownward();
             }
         }
     }
@@ -965,14 +968,30 @@ void Pilot::Super()
         {
             if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
             {
-                FireSuper();
-
                 m_waveDelaySuper = m_maxWaveDelaySuper;
 
                 m_wavesIndexSuper++;
 
-                m_cooldownSuper = m_maxCooldownSuper;
+                // Only increase the super's cooldown if the Pilot isn't an instance of Pilot6.
+                if (dynamic_cast<Pilot6*>(this) == nullptr)
+                {
+                    m_cooldownSuper = m_maxCooldownSuper;
+                }
+
+                FireSuper();
             }
         }
+    }
+}
+
+void Pilot::HandleSuperCooldown(const float &_fDT)
+{
+    if (m_cooldownSuper > 0)
+    {
+        m_cooldownSuper -= _fDT;
+    }
+    else
+    {
+        m_cooldownSuper = 0;
     }
 }

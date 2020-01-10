@@ -411,6 +411,7 @@
     <ClCompile Include="PlayerSpecific.cpp" />
     <ClCompile Include="Prism.cpp" />
     <ClCompile Include="Shrapnel.cpp" />
+    <ClCompile Include="Shuttlecock.cpp" />
     <ClCompile Include="Spacer.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Hexpatriates.cpp" />
@@ -467,6 +468,7 @@
     <ClInclude Include="PlayerSpecific.h" />
     <ClInclude Include="Prism.h" />
     <ClInclude Include="Shrapnel.h" />
+    <ClInclude Include="Shuttlecock.h" />
     <ClInclude Include="Spacer.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Hexpatriates.h" />

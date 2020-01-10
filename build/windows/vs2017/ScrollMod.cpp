@@ -74,7 +74,14 @@ void ScrollMod::Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_i
     _strOut[i] = '\0';
 }
 
-const float ScrollMod::AngleBetween(orxVECTOR _from, orxVECTOR _to)
+const float ScrollMod::AngleBetweenVectors(orxVECTOR _from, orxVECTOR _to)
+{
+    float dotProduct = _from.fX * _to.fX + _from.fY * _to.fY;
+    float determinant = _from.fX * _to.fY - _from.fY * _to.fX;
+    return atan2f(determinant, dotProduct);
+}
+
+const float ScrollMod::AngleBetweenPoints(orxVECTOR _from, orxVECTOR _to)
 {
     return atan2f(_to.fY - _from.fY, _to.fX - _from.fX);
 }
@@ -648,7 +655,7 @@ void ScrollMod::SetBodyPartSolid(const std::string _partName, const orxBOOL &_bS
 void ScrollMod::MoveTo(const orxVECTOR &_destination, const float &_speed, const float &_decelerationDistance)
 {
     orxVECTOR position = GetPosition();
-    float angleBetweenSelfAndTarget = AngleBetween(position, _destination);
+    float angleBetweenSelfAndTarget = AngleBetweenPoints(position, _destination);
     orxVECTOR normalizedSpeed = RadiansToVector(angleBetweenSelfAndTarget);
     float distance = orxVector_GetDistance(&position, &_destination);
     float speed = distance <= _decelerationDistance ? _speed * (distance / _decelerationDistance) : _speed;

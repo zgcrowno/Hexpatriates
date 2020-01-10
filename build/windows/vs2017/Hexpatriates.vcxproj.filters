@@ -197,6 +197,9 @@
     <ClCompile Include="BeamSpouter.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="Shuttlecock.cpp">
+      <Filter>src\CPP\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -338,6 +341,9 @@
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
     <ClInclude Include="BeamSpouter.h">
+      <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Shuttlecock.h">
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>

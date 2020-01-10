@@ -57,7 +57,7 @@ void Crosshairs::Update(const orxCLOCK_INFO &_rstInfo)
                 orxMath_GetRandomFloat(arenaBounds->m_topBound->GetPosition().fY, arenaBounds->m_bottomBound->GetPosition().fY) };
         }
 
-        m_gun->SpawnAtPosition(AngleBetween(spawnPosition, GetPosition()), spawnPosition);
+        m_gun->SpawnAtPosition(AngleBetweenPoints(spawnPosition, GetPosition()), spawnPosition);
         m_missileSpawnTime = m_maxMissileSpawnInterval;
     }
     else

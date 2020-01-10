@@ -114,8 +114,11 @@ void Pilot5::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
-        orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-MissileShield" + m_typeName).fZ };
+        orxVECTOR zoneBottomRight = GetVector("BottomRight", "BP-Zone");
+        float zoneWidth = zoneBottomRight.fX;
+        float zoneHeight = zoneBottomRight.fY;
+        orxVECTOR opposingZonePosition = m_opposingPilot->m_zone->GetPosition();
+        orxVECTOR spawnPosition = { opposingZonePosition.fX + zoneWidth / 2.0f, opposingZonePosition.fY + zoneHeight / 2.0f, GetVector("Position", "O-MissileShield" + m_typeName).fZ };
         m_ship->m_superGun->SpawnAtPosition(0, spawnPosition);
     }
 }

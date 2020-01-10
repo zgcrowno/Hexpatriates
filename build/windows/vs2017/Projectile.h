@@ -25,6 +25,7 @@ namespace hexpatriates
         virtual void AttachToBound(const ArenaBound *_arenaBound, const orxVECTOR &_attachPosition, const orxVECTOR &_attachNormal);
     public:
         bool m_bIsBouncy;
+        bool m_bRotateOnCollision;
         bool m_tethered;
         float m_speed;
         orxOBJECT *m_parentGun;

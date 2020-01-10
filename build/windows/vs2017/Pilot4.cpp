@@ -36,9 +36,10 @@ void Pilot4::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Pilot4::FireNeutral()
 {
+    float shotDirectionInterval = orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8;
     for (int i = 0; i < m_waveSizeNeutral; i++)
     {
-        m_ship->m_neutralGun->SpawnAtSelf(GetPISD((-orxMATH_KF_PI_BY_8) + (i * orxMATH_KF_PI_BY_8)));
+        m_ship->m_neutralGun->SpawnAtSelf(GetPISD((-shotDirectionInterval) + (i * shotDirectionInterval)));
     }
 }
 
@@ -79,20 +80,6 @@ void Pilot4::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        const std::string spawnObjectModelName = m_ship->m_upwardGun->GetString("Object", m_ship->m_upwardGun->GetString("Spawner", m_ship->m_upwardGun->GetModelName()));
-        float projectileDistance;
-        if (i < m_waveSizeSuper / 2)
-        {
-            projectileDistance = 100.0f;
-        }
-        else
-        {
-            projectileDistance = 400.0f;
-        }
-
-        m_ship->m_superGun->SpawnAtPosition(
-            (orxMATH_KF_PI_BY_2) + (i * orxMATH_KF_PI_BY_4),
-            { GetPosition().fX + (orxMath_Cos(i * orxMATH_KF_PI_BY_4) * projectileDistance),
-            GetPosition().fY + (orxMath_Sin(i * orxMATH_KF_PI_BY_4) * projectileDistance) });
+        m_ship->m_superGun->SpawnAtSelf(m_wavesIndexSuper * orxMATH_KF_PI_BY_32);
     }
 }

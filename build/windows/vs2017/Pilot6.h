@@ -39,5 +39,8 @@ namespace hexpatriates
         void FireFamiliar(const float _direction, const Familiar::Type _type);
         /// <summary>Spawns a Familiar, if m_ship is of the correct type to allow for it.</summary>
         void SpawnFamiliar();
+        /// <summary>Returns the Pilot's familiar (if any) which has been fired, but not yet detonated, and which is still in mid-flight.</summary>
+        Familiar *SuperInPlay();
+        virtual void HandleSuperCooldown(const float &_fDT);
     };
 }

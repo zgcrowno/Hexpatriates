@@ -35,6 +35,8 @@ namespace hexpatriates
         float m_iFrames;
         //! The maximum amount of time, in seconds, the Pilot is invulnerable after taking damage.
         float m_maxIFrames;
+        //! Flag representing whether or not the Pilot has just successfully parried.
+        bool m_bJustParried;
         //! Flag representing whether or not the Pilot has canceled (reversed) their dash.
         bool m_bCanceledDash;
         //! Flag representing whether or not the Pilot is touching a MissileShield.
@@ -197,5 +199,7 @@ namespace hexpatriates
         virtual void FireDownward() = 0;
         /// <summary>Handles the actual spawning/firing of the Ship's super attack.</summary>
         virtual void FireSuper() = 0;
+        /// <summary>Handles the Pilot's super cooldown management, which may change marginally between Pilots.</summary>
+        virtual void HandleSuperCooldown(const float &_fDT);
     };
 }

@@ -121,24 +121,10 @@ void Pilot6::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        bool bSuperInPlay = false;
-        Familiar *extantSuper;
-        std::vector<ScrollObject*> extantFamiliars = Hexpatriates::GetInstance().GetFamiliarsByPlayerType(m_typeName);
-
-        for (int i = 0; i < extantFamiliars.size(); i++)
+        Familiar *superInPlay = SuperInPlay();
+        if (superInPlay != nullptr)
         {
-            extantSuper = static_cast<Familiar*>(extantFamiliars.at(i));
-
-            if (extantSuper != NULL && extantSuper->m_bIsFired && extantSuper->m_type == Familiar::Type::RemoteDetonation)
-            {
-                bSuperInPlay = true;
-                break;
-            }
-        }
-
-        if (bSuperInPlay)
-        {
-            extantSuper->Detonate();
+            superInPlay->Detonate();
         }
         else
         {
@@ -165,5 +151,37 @@ void Pilot6::SpawnFamiliar()
         m_familiars.push_back(familiar);
         familiar->SetOwner(this);
         familiar->m_framesBehind *= m_familiars.size();
+    }
+}
+
+Familiar *Pilot6::SuperInPlay()
+{
+    bool bSuperInPlay = false;
+    Familiar *extantSuper;
+    std::vector<ScrollObject*> extantFamiliars = Hexpatriates::GetInstance().GetFamiliarsByPlayerType(m_typeName);
+
+    for (int i = 0; i < extantFamiliars.size(); i++)
+    {
+        extantSuper = static_cast<Familiar*>(extantFamiliars.at(i));
+
+        if (extantSuper != nullptr && extantSuper->m_bIsFired && extantSuper->m_type == Familiar::Type::RemoteDetonation)
+        {
+            return extantSuper;
+        }
+    }
+
+    return nullptr;
+}
+
+void Pilot6::HandleSuperCooldown(const float &_fDT)
+{
+    if (m_familiars.size() > 0 || SuperInPlay() != nullptr)
+    {
+        m_cooldownSuper = 0;
+    }
+    else
+    {
+        // Using m_maxCooldownSuper minus a very small amount, because if it's set to m_maxCooldownSuper outright, the meter doesn't appear onscreen.
+        m_cooldownSuper = m_maxCooldownSuper - 0.1f;
     }
 }

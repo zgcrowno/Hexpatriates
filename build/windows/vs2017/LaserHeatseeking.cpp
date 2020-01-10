@@ -52,7 +52,7 @@ void LaserHeatseeking::Update(const orxCLOCK_INFO &_rstInfo)
         if (bRelationToTargetHasChanged)
         {
             m_bIsOnTarget = true;
-            float angleBetweenSelfAndTarget = AngleBetween(pos, targetPos);
+            float angleBetweenSelfAndTarget = AngleBetweenPoints(pos, targetPos);
             orxVECTOR normalizedSpeed = RadiansToVector(angleBetweenSelfAndTarget);
             SetRotation(angleBetweenSelfAndTarget - orxMATH_KF_PI_BY_2); // Subtracting orxMATH_KF_PI_BY_2 because of laser's default orientation.
             SetSpeed({ normalizedSpeed.fX * m_speed, normalizedSpeed.fY * m_speed });

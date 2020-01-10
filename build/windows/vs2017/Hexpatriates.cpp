@@ -40,6 +40,7 @@
 #include "ScenePilotSelect.h"
 #include "Ship.h"
 #include "Shrapnel.h"
+#include "Shuttlecock.h"
 #include "Spacer.h"
 #include "Spawner.h"
 #include "Turret.h"
@@ -109,6 +110,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<ScenePilotSelect>("O-ScenePilotSelect");
     ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Shrapnel>("O-Shrapnel");
+    ScrollBindObject<Shuttlecock>("O-Shuttlecock");
     ScrollBindObject<Spacer>("O-Spacer");
     ScrollBindObject<Turret>("O-Turret");
     ScrollBindObject<Zone>("O-Zone");

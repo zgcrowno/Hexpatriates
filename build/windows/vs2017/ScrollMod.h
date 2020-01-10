@@ -30,11 +30,16 @@ namespace hexpatriates
         /// <param name="_index">The index at which to start copying the substring.</param>
         /// <param name="_size">The size of the copied substring.</param>
         static void Substring(const orxCHAR *_strIn, orxCHAR *_strOut, const int &_index, const int &_size);
-        /// <summary>Returns a radian representation of the angle between <paramref name="_from"/> and <paramref name="_to"/>.</summary>
+        /// <summary>Returns a radian representation of the angle between vectors <paramref name="_from"/> and <paramref name="_to"/>.</summary>
         /// <param name="_from">The vector at which we're starting the angle calculation.</param>
         /// <param name="_to">The vector at which we're finishing the angle calculation.</param>
         /// <returns>A radian representation of the angle between <paramref name="_from"/> and <paramref name="_to"/>.</returns>
-        static const float AngleBetween(orxVECTOR _from, orxVECTOR _to);
+        static const float AngleBetweenVectors(orxVECTOR _from, orxVECTOR _to);
+        /// <summary>Returns a radian representation of the angle between points <paramref name="_from"/> and <paramref name="_to"/>.</summary>
+        /// <param name="_from">The point at which we're starting the angle calculation.</param>
+        /// <param name="_to">The point at which we're finishing the angle calculation.</param>
+        /// <returns>A radian representation of the angle between points <paramref name="_from"/> and <paramref name="_to"/>.</returns>
+        static const float AngleBetweenPoints(orxVECTOR _from, orxVECTOR _to);
         /// <summary>Returns the normalized form of <paramref name="_vec"/>.</summary>
         /// <param name="_vec">The vector to normalize.</param>
         /// <returns>The normalized form of <paramref name="_vec"/>.</returns>

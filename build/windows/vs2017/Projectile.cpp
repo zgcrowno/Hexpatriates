@@ -9,6 +9,7 @@ void Projectile::OnCreate()
     PlayerSpecific::OnCreate();
 
     m_bIsBouncy = GetBool("IsBouncy", GetModelName());
+    m_bRotateOnCollision = GetBool("RotateOnCollision", GetModelName());
     m_tethered = GetBool("Tethered", GetModelName());
     m_speed = GetFloat("FSpeed", GetModelName());
     orxVECTOR speedRef = GetSpeed();
@@ -36,8 +37,14 @@ orxBOOL Projectile::OnCollide(
     // Bounce off of bounds, if appropriate.
     if (m_bIsBouncy && dynamic_cast<ArenaBound*>(_poCollider) != NULL)
     {
-        orxVECTOR reflectionVector = ReflectionVector(NormalizeVector(GetSpeed()), _rvNormal);
+        orxVECTOR normalizedSpeed = NormalizeVector(GetSpeed());
+        orxVECTOR reflectionVector = ReflectionVector(normalizedSpeed, _rvNormal);
         SetSpeed({ reflectionVector.fX * m_speed, reflectionVector.fY * m_speed });
+        if (m_bRotateOnCollision)
+        {
+            float angleDifference = AngleBetweenVectors(normalizedSpeed, reflectionVector);
+            SetRotation(GetRotation() + angleDifference);
+        }
     }
     
     return orxTRUE;

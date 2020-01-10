@@ -62,6 +62,7 @@ void Pilot7::FireSuper()
 {
     for (int i = 0; i < m_waveSizeSuper; i++)
     {
-        m_ship->m_superGun->SpawnAtSelf(GetPISD(0));
+        float shotDirection = GetPISD(orxMath_GetRandomFloat(-orxMATH_KF_PI_BY_4, orxMATH_KF_PI_BY_4));
+        m_ship->m_superGun->SpawnAtSelf(shotDirection);
     }
 }
