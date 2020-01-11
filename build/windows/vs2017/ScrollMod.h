@@ -196,6 +196,9 @@ namespace hexpatriates
         /// <summary>Sets the ScrollMod's position in terms of parent space, such that 0.5 represents the ScrollMod's maximum bound and -0.5 represents its minimum bound.</summary>
         /// <param name="_position">The position to which we'll set the ScrollMod, in terms of parent space.</param>
         void __fastcall SetParentSpacePosition(const orxVECTOR &_position);
+        /// <summary>A more object-oriented version of ORX's orxObject_GetActiveTime function.</summary>
+        /// <returns>The amount of time that the ScrollMod has been alive, taking into account the ScrollMod's clock multiplier and periods of pause.</returns>
+        float __fastcall GetActiveTime();
         /// <summary>A more object-oriented version of ORX's orxObject_GetOwner() function.</summary>
         /// <returns>The orxSTRUCTURE which is the owner of the ScrollMod, or NULL if there is none.</returns>
         orxSTRUCTURE *__fastcall GetOwner();
@@ -227,10 +230,27 @@ namespace hexpatriates
         /// <param name="_selfFlags">The value to which we're setting <paramref name="_part"/>'s CheckMask attribute.</param>
         /// <returns>An orxSTATUS code.</returns>
         orxSTATUS __fastcall SetCheckMask(orxBODY_PART *_part, orxU16 _checkMask);
+        /// <summary>Returns the axis-aligned bounding box associated with the ScrollMod.</summary>
+        /// <returns>The axis-aligned bounding box associated with the ScrollMod.</returns>
+        orxAABOX __fastcall GetAABB();
         /// <summary>Returns the orxSTRUCTURE, if it exists, that matches <paramref name="_structureID"/> and is associated with the ScrollMod.</summary>
         /// <param name="_structureID">The orxSTRUCTURE_ID of the structure we wish to locate within the ScrollMod.</param>
         /// <returns>The orxSTRUCTURE, if it exists, which matches <paramref name="_structureID"/> and is associated with the ScrollMod.</returns>
         orxSTRUCTURE *GetStructure(orxSTRUCTURE_ID _structureID);
+        /// <summary>Returns the ScrollMod's associated orxBODY structure, or NULL if there is none.</summary>
+        /// <returns>The ScrollMod's associated orxBODY structure, or NULL if there is none.</returns>
+        orxBODY *GetBody();
+        /// <summary>Adds the orxBODY_PART associated with <paramref name="_partName"/> in config to the orxBODY structure associated with the ScrollMod.</summary>
+        /// <returns>A pointer to the orxBODY_PART just added.</returns>
+        orxBODY_PART *__fastcall AddBodyPartByName(const std::string _partName);
+        /// <summary>Removes the orxBODY_PART associated with <paramref name="_partName"/> in config from the orxBODY structure associated with the ScrollMod.</summary>
+        /// <returns>An orxSTATUS code.</returns>
+        orxSTATUS __fastcall RemoveBodyPartByName(const std::string _partName);
+        /// <summary>A more object-oriented version of ORX's orxObject_AddUniqueDelayedFX function.</summary>
+        /// <param name="_fxName">The config name of the FX we wish to add.</param>
+        /// <param name="_delay">Delay time.</param>
+        /// <returns>An orxSTATUS code.</returns>
+        orxSTATUS __fastcall AddUniqueFX(const std::string _fxName, const float &_delay = 0);
         /// <summary>Returns whether the ScrollMod's position is currently outside of the bounds of the passed camera's frustum.</summary>
         /// <param name="_cameraName">The name of the camera whose frustum we're checking.</param>
         /// <returns>Whether the ScrollMod's position is currently outside of the bounds of the passed camera's frustum.</returns>

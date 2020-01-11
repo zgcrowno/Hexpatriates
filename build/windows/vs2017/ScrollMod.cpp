@@ -500,6 +500,11 @@ void __fastcall ScrollMod::SetParentSpacePosition(const orxVECTOR &_position)
     }
 }
 
+float __fastcall ScrollMod::GetActiveTime()
+{
+    return orxObject_GetActiveTime(GetOrxObject());
+}
+
 orxSTRUCTURE *__fastcall ScrollMod::GetOwner()
 {
     return orxObject_GetOwner(GetOrxObject());
@@ -547,6 +552,33 @@ orxSTATUS __fastcall ScrollMod::SetCheckMask(orxBODY_PART *_part, orxU16 _checkM
     return orxBody_SetPartCheckMask(_part, _checkMask);
 }
 
+orxAABOX __fastcall ScrollMod::GetAABB()
+{
+    orxAABOX aabb;
+    orxOBOX obb;
+    orxVECTOR obbCenter;
+    orxVECTOR scaledSize = GetScaledSize();
+
+    orxObject_GetBoundingBox(GetOrxObject(), &obb);
+    orxOBox_GetCenter(&obb, &obbCenter);
+
+    float rotation = GetRotation();
+    float absSin = orxMath_Abs(orxMath_Sin(rotation));
+    float absCos = orxMath_Abs(orxMath_Cos(rotation));
+    float aabbWidthBy2 = (scaledSize.fY * absSin + scaledSize.fX * absCos) / 2.0f;
+    float aabbHeightBy2 = (scaledSize.fX * absSin + scaledSize.fY * absCos) / 2.0f;
+    orxVECTOR aabbTopLeft = {
+        obbCenter.fX - aabbWidthBy2,
+        obbCenter.fY - aabbHeightBy2 };
+    orxVECTOR aabbBottomRight = {
+        obbCenter.fX + aabbWidthBy2,
+        obbCenter.fY + aabbHeightBy2 };
+
+    orxAABox_Set(&aabb, &aabbTopLeft, &aabbBottomRight);
+
+    return aabb;
+}
+
 orxSTRUCTURE *ScrollMod::GetStructure(orxSTRUCTURE_ID _structureID)
 {
     orxOBJECT *obj = GetOrxObject();
@@ -554,30 +586,37 @@ orxSTRUCTURE *ScrollMod::GetStructure(orxSTRUCTURE_ID _structureID)
     return _orxStructure_GetPointer(_orxObject_GetStructure(obj, _structureID), _structureID);
 }
 
+orxBODY *ScrollMod::GetBody()
+{
+    return (orxBODY*)GetStructure(orxSTRUCTURE_ID_BODY);
+}
+
+orxBODY_PART *__fastcall ScrollMod::AddBodyPartByName(const std::string _partName)
+{
+    orxBODY *body = GetBody();
+    return orxBody_AddPartFromConfig(body, _partName.c_str());
+}
+
+orxSTATUS __fastcall ScrollMod::RemoveBodyPartByName(const std::string _partName)
+{
+    orxBODY *body = GetBody();
+    return orxBody_RemovePartFromConfig(body, _partName.c_str());
+}
+
+orxSTATUS __fastcall ScrollMod::AddUniqueFX(const std::string _fxName, const float &_delay)
+{
+    return orxObject_AddUniqueDelayedFX(GetOrxObject(), _fxName.c_str(), _delay);
+}
+
 const bool __fastcall ScrollMod::IsOffCamera(std::string _cameraName)
 {
     orxAABOX frustum;
-    orxAABOX aaBoundingBox;
-    orxOBOX boundingBox;
-    orxVECTOR boundingBoxCenter;
+    orxAABOX aabb = GetAABB();
     orxCAMERA *camera = orxCamera_Get(_cameraName.c_str());
 
     orxCamera_GetFrustum(camera, &frustum);
-    orxObject_GetBoundingBox(GetOrxObject(), &boundingBox);
-    orxOBox_GetCenter(&boundingBox, &boundingBoxCenter);
 
-    float boundingBoxWidthBy2 = boundingBox.vX.fX / 2.0f;
-    float boundingBoxHeightBy2 = boundingBox.vY.fY / 2.0f;
-    orxVECTOR boundingBoxTopLeft = {
-        boundingBoxCenter.fX - boundingBoxWidthBy2,
-        boundingBoxCenter.fY - boundingBoxHeightBy2 };
-    orxVECTOR boundingBoxBottomRight = {
-        boundingBoxCenter.fX + boundingBoxWidthBy2,
-        boundingBoxCenter.fY + boundingBoxHeightBy2 };
-
-    orxAABox_Set(&aaBoundingBox, &boundingBoxTopLeft, &boundingBoxBottomRight);
-
-    return !orxAABox_Test2DIntersection(&frustum, &aaBoundingBox);
+    return !orxAABox_Test2DIntersection(&frustum, &aabb);
 }
 
 int __fastcall ScrollMod::GetNumChildren()

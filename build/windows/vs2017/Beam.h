@@ -21,5 +21,10 @@ namespace hexpatriates
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+    public:
+        bool m_bBodyAdded;
+        float m_expansionTime;
+        float m_damageDealingTime;
+        float m_contractionTime;
     };
 }

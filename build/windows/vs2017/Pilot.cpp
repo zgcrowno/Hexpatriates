@@ -142,14 +142,15 @@ orxBOOL Pilot::OnCollide(
         || orxString_Compare(_zPartName, "BP-PilotP2") == 0)
     {
         // Projectile collisions
-        if (dynamic_cast<Projectile*>(_poCollider) != NULL)
+        Projectile *projectile = dynamic_cast<Projectile*>(_poCollider);
+        if (projectile != nullptr)
         {
             // Non-Parried collisions
             Parryable *parryable = dynamic_cast<Parryable*>(_poCollider);
-            if (m_parryTime <= 0 || parryable == NULL)
+            if (m_parryTime <= 0 || parryable == nullptr)
             {
                 // MissileShield collisions
-                if (dynamic_cast<MissileShield*>(_poCollider) != NULL)
+                if (dynamic_cast<MissileShield*>(_poCollider) != nullptr)
                 {
                     m_bIsTouchingMissileShield = true;
                 }
@@ -159,7 +160,7 @@ orxBOOL Pilot::OnCollide(
                     if (m_iFrames <= 0)
                     {
                         // Only deal damage if the Pilot isn't both touching a missile shield and colliding with a missile.
-                        if (dynamic_cast<Missile*>(_poCollider) == NULL || !m_bIsTouchingMissileShield)
+                        if (dynamic_cast<Missile*>(_poCollider) == nullptr || !m_bIsTouchingMissileShield)
                         {
                             TakeDamage();
                         }

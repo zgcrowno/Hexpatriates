@@ -35,7 +35,7 @@ orxBOOL Projectile::OnCollide(
     const orxVECTOR &_rvNormal)
 {
     // Bounce off of bounds, if appropriate.
-    if (m_bIsBouncy && dynamic_cast<ArenaBound*>(_poCollider) != NULL)
+    if (m_bIsBouncy && dynamic_cast<ArenaBound*>(_poCollider) != nullptr)
     {
         orxVECTOR normalizedSpeed = NormalizeVector(GetSpeed());
         orxVECTOR reflectionVector = ReflectionVector(normalizedSpeed, _rvNormal);

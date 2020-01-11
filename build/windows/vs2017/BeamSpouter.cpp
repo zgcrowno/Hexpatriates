@@ -36,10 +36,13 @@ void BeamSpouter::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Projectile::Update(_rstInfo);
 
-    float age = orxObject_GetActiveTime(GetOrxObject());
+    float age = GetActiveTime();
     if (!m_bHasSpawnedBeam && age >= m_spawnTime)
     {
         m_bHasSpawnedBeam = true;
+        // TODO: I ought to create an entirely new, untethered projectile that the BeamSpouter uses (instead of just a standard, tethered beam), so as to avoid setting and resetting "Tethered" here.
+        SetBool("Tethered", false, "O-Beam");
         m_gun->SpawnAtSelf(GetRotation());
+        SetBool("Tethered", true, "O-Beam");
     }
 }
