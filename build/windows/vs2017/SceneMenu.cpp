@@ -6,7 +6,7 @@ void SceneMenu::OnCreate()
 {
     for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
     {
-        m_menuItems.push_back(static_cast<ScrollMod*>(child));
+        m_menuItems.push_back(ScrollCast<ScrollMod*>(child));
     }
 }
 

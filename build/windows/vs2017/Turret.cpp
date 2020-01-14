@@ -7,7 +7,7 @@ void Turret::OnCreate()
     Parryable::OnCreate();
 
     std::string turretGunName = "O-TurretGun" + m_typeName;
-    m_turretGun = static_cast<Spawner*>(GetChildByName(turretGunName));
+    m_turretGun = ScrollCast<Spawner*>(GetChildByName(turretGunName));
     orxSpawner_Enable(m_turretGun->m_spawner, false);
 }
 

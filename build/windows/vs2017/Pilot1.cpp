@@ -49,9 +49,9 @@ void Pilot1::FireUpward()
         int numWavesUpwardBy2 = m_numWavesUpward / 2;
         int shotDirectionMod =
             m_wavesIndexUpward <= numWavesUpwardBy2
-            ? m_wavesIndexUpward + 1
-            : (numWavesUpwardBy2 + 1) - (m_wavesIndexUpward - numWavesUpwardBy2);
-        m_ship->m_upwardGun->SpawnAtSelf(GetPISD(shotDirectionMod * -orxMATH_KF_PI_BY_8));
+            ? m_wavesIndexUpward
+            : numWavesUpwardBy2 - (m_wavesIndexUpward - numWavesUpwardBy2);
+        m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 - (shotDirectionMod * orxMATH_KF_PI_BY_64)));
     }
 }
 

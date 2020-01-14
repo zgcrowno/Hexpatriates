@@ -9,7 +9,7 @@ void MissileShield::OnCreate()
     Projectile::OnCreate();
 
     m_maxMissileSpawnInterval = GetFloat("MaxMissileSpawnInterval", GetModelName());
-    m_gun = static_cast<Spawner*>(GetChildByName("O-MissileShieldGun" + m_typeName));
+    m_gun = ScrollCast<Spawner*>(GetChildByName("O-MissileShieldGun" + m_typeName));
 
     // Set speed from config-generated, random rotation
     orxVECTOR randomNormalizedVector = RadiansToVector(orxMath_GetRandomFloat(0, orxMATH_KF_2_PI));
@@ -55,7 +55,7 @@ void MissileShield::Update(const orxCLOCK_INFO &_rstInfo)
         float rotation = 0;
         orxVECTOR spawnPosition = orxVECTOR_0;
         orxVECTOR partitionPosition = GetVector("Position", "O-Partition");
-        ArenaBounds *arenaBounds = static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
+        ArenaBounds *arenaBounds = ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
 
         if (m_bIsP1)
         {

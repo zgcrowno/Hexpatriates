@@ -147,7 +147,7 @@ void Pilot6::SpawnFamiliar()
     if (m_familiars.size() < m_maxFamiliars)
     {
         orxVECTOR spawnPosition = { GetPosition().fX, GetPosition().fY, GetVector("Position", "O-Familiar").fZ };
-        Familiar *familiar = static_cast<Familiar*>(CreateObject("O-Familiar" + m_typeName, {}, {}, { { "Position", &spawnPosition } }));
+        Familiar *familiar = ScrollCast<Familiar*>(CreateObject("O-Familiar" + m_typeName, {}, {}, { { "Position", &spawnPosition } }));
         m_familiars.push_back(familiar);
         familiar->SetOwner(this);
         familiar->m_framesBehind *= m_familiars.size();
@@ -162,7 +162,7 @@ Familiar *Pilot6::SuperInPlay()
 
     for (int i = 0; i < extantFamiliars.size(); i++)
     {
-        extantSuper = static_cast<Familiar*>(extantFamiliars.at(i));
+        extantSuper = ScrollCast<Familiar*>(extantFamiliars.at(i));
 
         if (extantSuper != nullptr && extantSuper->m_bIsFired && extantSuper->m_type == Familiar::Type::RemoteDetonation)
         {

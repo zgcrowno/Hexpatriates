@@ -39,7 +39,7 @@ void Spawner::Update(const orxCLOCK_INFO &_rstInfo)
     }
 }
 
-void Spawner::SpawnAtSelf(const float _rotation)
+int Spawner::SpawnAtSelf(const float _rotation)
 {
     // We add the m_defaultSpawnerRotation value here so we can make spawned item rotation independent of parent rotation.
     orxSpawner_SetRotation(m_spawner, _rotation + m_defaultSpawnerRotation);
@@ -47,11 +47,12 @@ void Spawner::SpawnAtSelf(const float _rotation)
     orxVECTOR initialSpeed = { orxMath_Cos(_rotation), orxMath_Sin(_rotation) };
 
     orxSpawner_SetObjectSpeed(m_spawner, &initialSpeed);
-    orxSpawner_Spawn(m_spawner, 1);
+    return orxSpawner_Spawn(m_spawner, 1);
 }
 
-void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
+int Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
 {
+    int result = 0;
     int activeObjectLimit = GetActiveObjectLimit();
     if (activeObjectLimit == 0 || GetOwnedChildrenCount() < activeObjectLimit)
     {
@@ -64,11 +65,14 @@ void Spawner::SpawnAtPosition(const float _rotation, const orxVECTOR _position)
             { { "Rotation", _rotation * orxMATH_KF_RAD_TO_DEG } },
             { { "Position", &_position }, { "Speed", &initialSpeed } });
         projectile->SetOwner(this);
+        result++;
     }
+    return result;
 }
 
-void Spawner::SpawnAtRaycast(const float _direction)
+int Spawner::SpawnAtRaycast(const float _direction)
 {
+    int result = 0;
     int activeObjectLimit = GetActiveObjectLimit();
     if (activeObjectLimit == 0 || GetOwnedChildrenCount() < activeObjectLimit)
     {
@@ -87,7 +91,9 @@ void Spawner::SpawnAtRaycast(const float _direction)
             { { "Rotation", initialRotation * orxMATH_KF_RAD_TO_DEG } },
             { { "Position", &raycastData.at(0) }, { "Speed", &initialSpeed } });
         projectile->SetOwner(this);
+        result++;
     }
+    return result;
 }
 
 // TODO: Probably just make this a ScrollMod method at some point.

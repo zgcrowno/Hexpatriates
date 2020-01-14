@@ -9,7 +9,7 @@ void Familiar::OnCreate()
     m_framesBehind = GetFloat("FramesBehind", GetModelName());
     SetSpeed(orxVECTOR_0);
 
-    m_gun = static_cast<Spawner*>(GetChildByName("O-FamiliarGun" + m_typeName));
+    m_gun = ScrollCast<Spawner*>(GetChildByName("O-FamiliarGun" + m_typeName));
 }
 
 void Familiar::OnDelete()

@@ -7,6 +7,7 @@
 #define orxMATH_KF_PI_BY_8 (orxMATH_KF_PI_BY_4 / 2.0f)
 #define orxMATH_KF_PI_BY_16 (orxMATH_KF_PI_BY_8 / 2.0f)
 #define orxMATH_KF_PI_BY_32 (orxMATH_KF_PI_BY_16 / 2.0f)
+#define orxMATH_KF_PI_BY_64 (orxMATH_KF_PI_BY_32 / 2.0f)
 
 namespace hexpatriates
 {

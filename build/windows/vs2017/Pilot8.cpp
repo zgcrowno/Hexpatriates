@@ -47,8 +47,10 @@ void Pilot8::FireUpward()
 {
     for (int i = 0; i < m_waveSizeUpward; i++)
     {
-        m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_2));
-        static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds())->RainEmbers(m_bIsP1);
+        if (m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_2)) > 0)
+        {
+            ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds())->RainEmbers(m_bIsP1);
+        }
     }
 }
 

@@ -6,7 +6,7 @@ void LaserHeatseeking::OnCreate()
 {
     Laser::OnCreate();
 
-    m_target = static_cast<Pilot*>(Hexpatriates::GetInstance().GetPilotByPlayerType(m_otherTypeName));
+    m_target = ScrollCast<Pilot*>(Hexpatriates::GetInstance().GetPilotByPlayerType(m_otherTypeName));
 
     orxVECTOR pos = GetPosition(true);
     orxVECTOR targetPos = m_target->GetPosition(true);

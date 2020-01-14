@@ -30,6 +30,7 @@ namespace hexpatriates
         ScrollObject *GetArena();
         ScrollObject *GetArenaBounds();
         ScrollObject *GetPilotByPlayerType(const std::string _str);
+        ScrollObject *GetCrosshairsByPlayerType(const std::string _str);
         std::vector<ScrollObject*> GetFamiliarsByPlayerType(const std::string _str);
     };
 }

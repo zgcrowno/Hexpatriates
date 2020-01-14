@@ -8,9 +8,14 @@ void SceneArena::OnCreate()
     m_matchTime = GetFloat("MatchTime", GetModelName());
     m_timer = m_matchTime;
     m_contractionSpeed = GetFloat("ContractionSpeed", GetModelName());
-    m_bounds = static_cast<ArenaBounds*>(GetChildByName("O-Walls"));
-    m_pilotP1 = static_cast<Pilot*>(CreateObject(GetString("PilotP1", GetModelName())));
-    m_pilotP2 = static_cast<Pilot*>(CreateObject(GetString("PilotP2", GetModelName())));
+    m_bounds = ScrollCast<ArenaBounds*>(GetChildByName("O-Walls"));
+
+    // Making sure to Set O-Pilot's parent before each pilot creation, so they inherit the correct section values based upon player.
+    orxConfig_SetParent("O-Pilot", "O-PilotP1");
+    m_pilotP1 = ScrollCast<Pilot*>(CreateObject(GetString("PilotP1", GetModelName())));
+    orxConfig_SetParent("O-Pilot", "O-PilotP2");
+    m_pilotP2 = ScrollCast<Pilot*>(CreateObject(GetString("PilotP2", GetModelName())));
+
     m_pilotP1->SetOwner(this);
     m_pilotP2->SetOwner(this);
     m_pilotP1->m_opposingPilot = m_pilotP2;
@@ -23,11 +28,11 @@ void SceneArena::OnCreate()
     m_targetScale1PilotP2 = { m_targetScalePilotP2.fX + 0.6f, m_targetScalePilotP2.fY + 0.6f, m_targetScalePilotP2.fZ };
     m_targetScale2PilotP2 = { m_targetScalePilotP2.fX + 1.2f, m_targetScalePilotP2.fY + 1.2f, m_targetScalePilotP2.fZ };
     m_targetScale3PilotP2 = { m_targetScalePilotP2.fX + 1.8f, m_targetScalePilotP2.fY + 1.8f, m_targetScalePilotP2.fZ };
-    m_livesMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
-    m_superMeterP1 = static_cast<ScrollMod*>(GetChildByName("O-SuperMeterP1"));
-    m_livesMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-LivesMeterP2"));
-    m_superMeterP2 = static_cast<ScrollMod*>(GetChildByName("O-SuperMeterP2"));
-    m_timerText = static_cast<ScrollMod*>(GetChildByName("O-TimerText"));
+    m_livesMeterP1 = ScrollCast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
+    m_superMeterP1 = ScrollCast<ScrollMod*>(GetChildByName("O-SuperMeterP1"));
+    m_livesMeterP2 = ScrollCast<ScrollMod*>(GetChildByName("O-LivesMeterP2"));
+    m_superMeterP2 = ScrollCast<ScrollMod*>(GetChildByName("O-SuperMeterP2"));
+    m_timerText = ScrollCast<ScrollMod*>(GetChildByName("O-TimerText"));
     m_defaultScaleLives = m_livesMeterP1->GetScale();
     m_defaultScaleSuper = m_superMeterP1->GetScale();
     CreateMeterBorders();

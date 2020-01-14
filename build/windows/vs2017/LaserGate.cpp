@@ -8,8 +8,8 @@ void LaserGate::OnCreate()
 
     m_openingSize = GetFloat("OpeningSize", GetModelName());
     m_laserExpansionSpeed = GetFloat("LaserExpansionSpeed", GetModelName());
-    m_laserNear = static_cast<Laser*>(CreateObject("O-LaserGateLaserNear" + m_typeName));
-    m_laserFar = static_cast<Laser*>(CreateObject("O-LaserGateLaserFar" + m_typeName));
+    m_laserNear = ScrollCast<Laser*>(CreateObject("O-LaserGateLaserNear" + m_typeName));
+    m_laserFar = ScrollCast<Laser*>(CreateObject("O-LaserGateLaserFar" + m_typeName));
     m_laserNear->Enable(false);
     m_laserFar->Enable(false);
 }

@@ -8,10 +8,10 @@ void ArenaBounds::OnCreate()
     m_maxElectrificationTime = GetFloat("MaxElectrificationTime", GetModelName());
     m_maxEmberTime = GetFloat("MaxEmberTime", GetModelName());
     m_emberCreationRate = GetFloat("EmberCreationRate", GetModelName());
-    m_leftBound = static_cast<ArenaBound*>(GetChildByName("O-WallLeftWall"));
-    m_rightBound = static_cast<ArenaBound*>(GetChildByName("O-WallRightWall"));
-    m_topBound = static_cast<ArenaBound*>(GetChildByName("O-WallCeiling"));
-    m_bottomBound = static_cast<ArenaBound*>(GetChildByName("O-WallFloor"));
+    m_leftBound = ScrollCast<ArenaBound*>(GetChildByName("O-WallLeftWall"));
+    m_rightBound = ScrollCast<ArenaBound*>(GetChildByName("O-WallRightWall"));
+    m_topBound = ScrollCast<ArenaBound*>(GetChildByName("O-WallCeiling"));
+    m_bottomBound = ScrollCast<ArenaBound*>(GetChildByName("O-WallFloor"));
 }
 
 void ArenaBounds::OnDelete()
@@ -110,7 +110,7 @@ void ArenaBounds::HandleEmberBehavior(float &_emberTime, float &_emberCreationTi
         {
             float ceilingLeftExtent = m_topBound->GetPosition().fX - m_topBound->GetScaledSize().fX;
             float ceilingRightExtent = m_topBound->GetPosition().fX + m_topBound->GetScaledSize().fX;
-            Ember *ember = static_cast<Ember*>(CreateObject(_emberName));
+            Ember *ember = ScrollCast<Ember*>(CreateObject(_emberName));
             ember->SetPosition({ orxMath_GetRandomFloat(ceilingLeftExtent, ceilingRightExtent), m_topBound->GetPosition().fY });
             _emberCreationTime = m_emberCreationRate;
         }

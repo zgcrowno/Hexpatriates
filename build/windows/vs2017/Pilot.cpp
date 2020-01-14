@@ -92,22 +92,22 @@ void Pilot::OnCreate()
     m_defaultPosition = GetPosition();
     GetFlip(m_defaultFlipX, m_defaultFlipY);
     // Set the Pilot's NoDash and NoParry icons, and disable them, by default
-    m_noDashIcon = static_cast<ScrollMod*>(GetChildByName("O-NoDashIcon"));
-    m_noParryIcon = static_cast<ScrollMod*>(GetChildByName("O-NoParryIcon"));
+    m_noDashIcon = ScrollCast<ScrollMod*>(GetChildByName("O-NoDashIcon"));
+    m_noParryIcon = ScrollCast<ScrollMod*>(GetChildByName("O-NoParryIcon"));
     m_noDashIcon->Enable(false);
     m_noParryIcon->Enable(false);
     // Set the Pilot's construction/contamination text
-    m_headsUpText = static_cast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
+    m_headsUpText = ScrollCast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
     m_headsUpText->Enable(orxFALSE);
     // TODO: Get rid of these once I've got final animations in order
-    m_parryObject = static_cast<ScrollMod*>(GetChildByName("O-Parry"));
-    m_meleeObject = static_cast<ScrollMod*>(GetChildByName("O-Melee"));
-    m_downstabObject = static_cast<ScrollMod*>(GetChildByName("O-Downstab"));
+    m_parryObject = ScrollCast<ScrollMod*>(GetChildByName("O-Parry"));
+    m_meleeObject = ScrollCast<ScrollMod*>(GetChildByName("O-Melee"));
+    m_downstabObject = ScrollCast<ScrollMod*>(GetChildByName("O-Downstab"));
     m_parryObject->Enable(false);
     m_meleeObject->Enable(false);
     m_downstabObject->Enable(false);
     // Set the Pilot's ship.
-    m_ship = static_cast<Ship*>(GetChildByName({
+    m_ship = ScrollCast<Ship*>(GetChildByName({
         "O-Ship1P1",
         "O-Ship1P2",
         "O-Ship2P1",
@@ -281,7 +281,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         // Arena electrification damage
         if (m_bIsAgainstLeftWall || m_bIsAgainstRightWall || m_bIsAgainstCeiling || m_bIsGrounded)
         {
-            ArenaBounds *arenaBounds = static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
+            ArenaBounds *arenaBounds = ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
             if ((m_bIsP1 && arenaBounds->m_electrificationTimeP2 > 0) || (!m_bIsP1 && arenaBounds->m_electrificationTimeP1 > 0))
             {
                 TakeDamage();
@@ -349,7 +349,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 
         if (m_iFrames <= 0)
         {
-            RemoveTrack("TT-IFramesFlash");
+            RemoveShader("SH-FlashIFrames");
         }
     }
     else
@@ -770,7 +770,7 @@ void Pilot::SpawnDashIcon()
         ScrollMod *shipIcon;
         m_ship->GetFlip(shipFlipX, shipFlipY);
         pilotIcon = CreateObject("O-Pilot" + pilotNumber + "IconDash", {}, {}, { { "Position", &GetPosition() } });
-        shipIcon = static_cast<ScrollMod*>(pilotIcon->GetOwnedChild());
+        shipIcon = ScrollCast<ScrollMod*>(pilotIcon->GetOwnedChild());
         shipIcon->SetFlip(shipFlipX, shipFlipY);
     }
     else
@@ -793,7 +793,7 @@ void Pilot::TakeDamage()
     }
     // Set iFrames
     m_iFrames = m_maxIFrames;
-    AddTrack("TT-IFramesFlash");
+    AddShader("SH-FlashIFrames");
 }
 
 void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
@@ -931,7 +931,7 @@ void Pilot::ConstructShip()
     Downstab(false);
     // Set iFrames
     m_iFrames = m_maxIFrames;
-    AddTrack("TT-IFramesFlash");
+    AddShader("SH-FlashIFrames");
 }
 
 void Pilot::Die()
@@ -943,7 +943,7 @@ void Pilot::Die()
     m_lives--;
     Enable(orxFALSE);
     m_iFrames = m_maxIFrames;
-    AddTrack("TT-IFramesFlash");
+    AddShader("SH-FlashIFrames");
 }
 
 void Pilot::Neutral()

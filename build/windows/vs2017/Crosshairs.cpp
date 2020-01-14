@@ -10,8 +10,8 @@ void Crosshairs::OnCreate()
     m_speed = GetFloat("FSpeed", GetModelName());
     m_decelerationDistance = GetFloat("DecelerationDistance", GetModelName());
     m_maxMissileSpawnInterval = GetFloat("MaxMissileSpawnInterval", GetModelName());
-    m_target = static_cast<ScrollMod*>(Hexpatriates::GetInstance().GetPilotByPlayerType(m_otherTypeName));
-    m_gun = static_cast<Spawner*>(GetChildByName("O-CrosshairsGun" + m_typeName));
+    m_target = ScrollCast<ScrollMod*>(Hexpatriates::GetInstance().GetPilotByPlayerType(m_otherTypeName));
+    m_gun = ScrollCast<Spawner*>(GetChildByName("O-CrosshairsGun" + m_typeName));
     SetPosition(m_target->GetPosition());
     // We're setting the owner here so that, should the opposing pilot die while the crosshairs are extant, the latter won't cause a null pointer exception by attempting to move to a non-existant pilot (since it will die when the pilot diese).
     SetOwner(m_target);
@@ -42,7 +42,7 @@ void Crosshairs::Update(const orxCLOCK_INFO &_rstInfo)
     {
         orxVECTOR spawnPosition = orxVECTOR_0;
         orxVECTOR partitionPosition = GetVector("Position", "O-Partition");
-        ArenaBounds *arenaBounds = static_cast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
+        ArenaBounds *arenaBounds = ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds());
 
         if (m_bIsP1)
         {

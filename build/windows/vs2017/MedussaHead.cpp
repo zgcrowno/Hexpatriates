@@ -6,7 +6,7 @@ void MedussaHead::OnCreate()
 {
     Projectile::OnCreate();
 
-    m_gun = static_cast<Spawner*>(GetChildByName("O-MedussaHeadGun" + m_typeName));
+    m_gun = ScrollCast<Spawner*>(GetChildByName("O-MedussaHeadGun" + m_typeName));
 }
 
 void MedussaHead::OnDelete()

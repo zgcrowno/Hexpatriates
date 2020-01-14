@@ -28,9 +28,9 @@ namespace hexpatriates
         float m_defaultSpawnerRotation;
         orxSPAWNER *m_spawner;
 
-        void SpawnAtSelf(const float _rotation);
-        void SpawnAtPosition(const float _rotation, const orxVECTOR _position);
-        void SpawnAtRaycast(const float _direction);
+        int SpawnAtSelf(const float _rotation);
+        int SpawnAtPosition(const float _rotation, const orxVECTOR _position);
+        int SpawnAtRaycast(const float _direction);
         int GetOwnedChildrenCount();
         int GetActiveObjectCount();
         int GetActiveObjectLimit();

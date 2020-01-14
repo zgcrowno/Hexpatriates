@@ -68,9 +68,13 @@ void Pilot5::FireNeutral()
         }
         else // m_stance == Stance::Grounded
         {
-            orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
-            orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-Crosshairs").fZ };
-            CreateObject("O-Crosshairs" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
+            // Only spawn a Crosshairs object if there isn't one already in play.
+            if (Hexpatriates::GetInstance().GetCrosshairsByPlayerType(m_typeName) == nullptr)
+            {
+                orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+                orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-Crosshairs").fZ };
+                CreateObject("O-Crosshairs" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
+            }
         }
     }
 }
@@ -80,8 +84,8 @@ void Pilot5::FireUpward()
     if (m_stance == Stance::Grounded)
     {
         SwitchStance();
-        // Resetting this here so the base class doesn't keep iterating as if the upward gun was fired.
-        m_wavesIndexUpward = 0;
+        // Decrementing this here so the base class doesn't keep iterating as if the upward gun was fired.
+        m_wavesIndexUpward--;
     }
     else // m_stance == Stance::Airborne
     {
@@ -98,8 +102,8 @@ void Pilot5::FireDownward()
     if (m_stance == Stance::Airborne)
     {
         SwitchStance();
-        // Resetting this here so the base class doesn't keep iterating as if the downward gun was fired.
-        m_wavesIndexDownward = 0;
+        // Decrementing this here so the base class doesn't keep iterating as if the downward gun was fired.
+        m_wavesIndexDownward--;
     }
     else // m_stance == Stance::Grounded
     {

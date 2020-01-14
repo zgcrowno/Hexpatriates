@@ -6,7 +6,7 @@ void LaserTeleportable::OnCreate()
 {
     Laser::OnCreate();
 
-    m_gun = static_cast<Spawner*>(GetChildByName("O-LaserTeleportableGun" + m_typeName));
+    m_gun = ScrollCast<Spawner*>(GetChildByName("O-LaserTeleportableGun" + m_typeName));
 
     m_gun->SpawnAtRaycast(GetRotation() - orxMATH_KF_PI_BY_2);
 }

@@ -20,6 +20,7 @@
 #include "LaserPortalEntrance.h"
 #include "LaserTeleportable.h"
 #include "LaserWall.h"
+#include "Legionnaire.h"
 #include "MedussaHead.h"
 #include "Missile.h"
 #include "MissileShield.h"
@@ -38,6 +39,7 @@
 #include "SceneMain.h"
 #include "ScenePause.h"
 #include "ScenePilotSelect.h"
+#include "ScrollMod.h"
 #include "Ship.h"
 #include "Shrapnel.h"
 #include "Shuttlecock.h"
@@ -90,6 +92,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<LaserPortalEntrance>("O-LaserPortalEntrance");
     ScrollBindObject<LaserTeleportable>("O-LaserTeleportable");
     ScrollBindObject<LaserWall>("O-LaserWall");
+    ScrollBindObject<Legionnaire>("O-Legionnaire");
     ScrollBindObject<MedussaHead>("O-MedussaHead");
     ScrollBindObject<Missile>("O-Missile");
     ScrollBindObject<MissileShield>("O-MissileShield");
@@ -108,6 +111,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<SceneMain>("O-SceneMain");
     ScrollBindObject<ScenePause>("O-ScenePause");
     ScrollBindObject<ScenePilotSelect>("O-ScenePilotSelect");
+    ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Shrapnel>("O-Shrapnel");
     ScrollBindObject<Shuttlecock>("O-Shuttlecock");
@@ -214,6 +218,19 @@ ScrollObject *Hexpatriates::GetPilotByPlayerType(const std::string _str)
     }
 
     return orxNULL;
+}
+
+ScrollObject *Hexpatriates::GetCrosshairsByPlayerType(const std::string _str)
+{
+    for (Crosshairs *crosshairs = GetNextObject<Crosshairs>(); crosshairs != nullptr; crosshairs = GetNextObject<Crosshairs>(crosshairs))
+    {
+        if (orxString_SearchString(crosshairs->GetModelName().c_str(), _str.c_str()) != nullptr)
+        {
+            return crosshairs;
+        }
+    }
+
+    return nullptr;
 }
 
 std::vector<ScrollObject*> Hexpatriates::GetFamiliarsByPlayerType(const std::string _str)

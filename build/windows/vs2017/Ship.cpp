@@ -9,10 +9,10 @@ void Ship::OnCreate()
     int typeLength = strlen("1P1");
     std::string modelName(GetModelName());
     std::string shipTypeText = modelName.substr(modelName.size() - typeLength, typeLength);
-    m_neutralGun = static_cast<Spawner*>(GetChildByName("O-NeutralGun" + shipTypeText));
-    m_upwardGun = static_cast<Spawner*>(GetChildByName("O-UpwardGun" + shipTypeText));
-    m_downwardGun = static_cast<Spawner*>(GetChildByName("O-DownwardGun" + shipTypeText));
-    m_superGun = static_cast<Spawner*>(GetChildByName("O-SuperGun" + shipTypeText));
+    m_neutralGun = ScrollCast<Spawner*>(GetChildByName("O-NeutralGun" + shipTypeText));
+    m_upwardGun = ScrollCast<Spawner*>(GetChildByName("O-UpwardGun" + shipTypeText));
+    m_downwardGun = ScrollCast<Spawner*>(GetChildByName("O-DownwardGun" + shipTypeText));
+    m_superGun = ScrollCast<Spawner*>(GetChildByName("O-SuperGun" + shipTypeText));
 }
 
 void Ship::OnDelete()

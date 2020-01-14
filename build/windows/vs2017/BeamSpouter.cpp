@@ -7,7 +7,7 @@ void BeamSpouter::OnCreate()
     Projectile::OnCreate();
 
     m_spawnTime = GetFloat("SpawnTime", GetModelName());
-    m_gun = static_cast<Spawner*>(GetChildByName("O-BeamSpouterGun" + m_typeName));
+    m_gun = ScrollCast<Spawner*>(GetChildByName("O-BeamSpouterGun" + m_typeName));
 }
 
 void BeamSpouter::OnDelete()

@@ -378,6 +378,7 @@
     <ClCompile Include="BeamPlacer.cpp" />
     <ClCompile Include="BeamSpouter.cpp" />
     <ClCompile Include="LaserTeleportable.cpp" />
+    <ClCompile Include="Legionnaire.cpp" />
     <ClCompile Include="SceneArena.cpp" />
     <ClCompile Include="ArenaBound.cpp" />
     <ClCompile Include="ArenaBounds.cpp" />
@@ -435,6 +436,7 @@
     <ClInclude Include="BeamPlacer.h" />
     <ClInclude Include="BeamSpouter.h" />
     <ClInclude Include="LaserTeleportable.h" />
+    <ClInclude Include="Legionnaire.h" />
     <ClInclude Include="SceneArena.h" />
     <ClInclude Include="ArenaBound.h" />
     <ClInclude Include="ArenaBounds.h" />
