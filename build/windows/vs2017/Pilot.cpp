@@ -24,10 +24,10 @@ void Pilot::OnCreate()
     m_walkingSpeed = GetFloat("WalkingSpeed", GetModelName());
     m_flyingSpeed = GetFloat("FlyingSpeed", GetModelName());
     m_jumpingSpeed = GetFloat("JumpingSpeed", GetModelName());
+    m_dashSpeed = GetFloat("DashSpeed", GetModelName());
+    m_downstabSpeed = GetFloat("DownstabSpeed", GetModelName());
     // Get jump duration from config values.
     m_jumpDuration = GetFloat("JumpDuration", GetModelName());
-    // Get dash speed from config values.
-    m_dashSpeed = GetFloat("DashSpeed", GetModelName());
     // Get dash duration from config values.
     m_dashDuration = GetFloat("DashDuration", GetModelName());
     // Get parry duration from config values.
@@ -102,8 +102,10 @@ void Pilot::OnCreate()
     // TODO: Get rid of these once I've got final animations in order
     m_parryObject = static_cast<ScrollMod*>(GetChildByName("O-Parry"));
     m_meleeObject = static_cast<ScrollMod*>(GetChildByName("O-Melee"));
-    m_parryObject->Enable(orxFALSE);
-    m_meleeObject->Enable(orxFALSE);
+    m_downstabObject = static_cast<ScrollMod*>(GetChildByName("O-Downstab"));
+    m_parryObject->Enable(false);
+    m_meleeObject->Enable(false);
+    m_downstabObject->Enable(false);
     // Set the Pilot's ship.
     m_ship = static_cast<Ship*>(GetChildByName({
         "O-Ship1P1",
@@ -186,6 +188,7 @@ orxBOOL Pilot::OnCollide(
             m_bIsGrounded = true;
             m_jumpTime = 0;
             m_wallJumpTime = 0;
+            Downstab(false);
         }
         // Ceiling collisions
         if (orxString_Compare(_poCollider->GetModelName(), "O-WallCeiling") == 0)
@@ -213,17 +216,23 @@ orxBOOL Pilot::OnCollide(
         }
     }
     // Check for collisions with melee body
-    else if (orxString_SearchString(_zPartName, "Melee") != orxNULL)
+    else if (orxString_SearchString(_zPartName, "Melee") != nullptr)
     {
         // Pilot collisions
         Pilot *collidingPilot = dynamic_cast<Pilot*>(_poCollider);
-        if (collidingPilot != orxNULL)
+        if (collidingPilot != nullptr)
         {
-            m_bIsInMeleeRange = orxTRUE;
-            if (m_meleeTime > 0)
-            {
-                collidingPilot->Die();
-            }
+            m_bIsInMeleeRange = true;
+        }
+    }
+    // Check for collisions with downstab body
+    else if (orxString_SearchString(_zPartName, "Downstab") != nullptr)
+    {
+        // Pilot collisions
+        Pilot *collidingPilot = dynamic_cast<Pilot*>(_poCollider);
+        if (collidingPilot != nullptr)
+        {
+            m_bIsInDownstabRange = true;
         }
     }
 
@@ -254,10 +263,11 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
     {
         m_bIsTouchingMissileShield = false;
     }
-    // TODO: I'll probably have to go about this another way, since the melee body part will likely be different from the pilot's body part.
+    // TODO: I'll probably have to go about this another way, since the melee and downstab body parts will likely be different from the pilot's body part.
     if (orxString_SearchString(_poCollider->GetModelName(), "Pilot") != orxNULL)
     {
-        m_bIsInMeleeRange = orxFALSE;
+        m_bIsInMeleeRange = false;
+        m_bIsInDownstabRange = false;
     }
     
     return orxTRUE;
@@ -265,7 +275,7 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
 
 void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    // Deal damage as appropriate
+    // Take damage as appropriate
     if (m_iFrames <= 0)
     {
         // Arena electrification damage
@@ -276,6 +286,17 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
             {
                 TakeDamage();
             }
+        }
+    }
+    // Deal damage as appropriate
+    if ((m_bIsInDownstabRange &&
+        m_bIsDownstabbing) ||
+        (m_bIsInMeleeRange &&
+            m_meleeTime > 0))
+    {
+        if (m_opposingPilot->m_iFrames <= 0)
+        {
+            m_opposingPilot->Die();
         }
     }
     // Movement inputs.
@@ -614,8 +635,19 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
 {
     orxVECTOR movement = orxVECTOR_0;
     
-    // Only execute regular movement inputs if the Character isn't dashing.
-    if (m_dashTime <= 0)
+    // If dashing, execute dash movement.
+    if (m_dashTime > 0)
+    {
+        movement.fX = m_dashDirection.fX * m_dashSpeed;
+        movement.fY = m_dashDirection.fY * m_dashSpeed;
+    }
+    // Else if downstabbing, execute downstab movement.
+    else if (m_bIsDownstabbing)
+    {
+        movement.fY = m_downstabSpeed;
+    }
+    // Else execute regular movement
+    else
     {
         float speed = m_walkingSpeed;
 
@@ -710,7 +742,7 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 {
                     SetTargetAnim("A-PilotRun");
                 }
-                
+
                 movement.fX += speed;
             }
             else
@@ -718,12 +750,6 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 SetTargetAnim("A-PilotIdle");
             }
         }
-    }
-    // Otherwise, execute dash movement
-    else
-    {
-        movement.fX = m_dashDirection.fX * m_dashSpeed;
-        movement.fY = m_dashDirection.fY * m_dashSpeed;
     }
     SetSpeed(movement);
 }
@@ -765,6 +791,7 @@ void Pilot::TakeDamage()
     {
         Die();
     }
+    // Set iFrames
     m_iFrames = m_maxIFrames;
     AddTrack("TT-IFramesFlash");
 }
@@ -851,17 +878,23 @@ void Pilot::Melee()
 {
     if (orxInput_HasBeenActivated(m_meleeInput.c_str()))
     {
-        if (m_cooldownMelee <= 0 && m_meleeTime <= 0)
+        if (orxInput_IsActive(m_downInput.c_str()) && !m_bIsGrounded)
+        {
+            Downstab(true);
+        }
+        else if (m_cooldownMelee <= 0 && m_meleeTime <= 0)
         {
             m_meleeObject->Enable(orxTRUE);
             m_meleeTime = m_meleeDuration;
             m_cooldownMelee = m_maxCooldownMelee;
-            if (m_bIsInMeleeRange)
-            {
-                m_opposingPilot->Die();
-            }
         }
     }
+}
+
+void Pilot::Downstab(const bool _downstab)
+{
+    m_bIsDownstabbing = _downstab;
+    m_downstabObject->Enable(_downstab);
 }
 
 void Pilot::DestroyShip()
@@ -895,6 +928,10 @@ void Pilot::ConstructShip()
     m_constructionTimer = 10;
     m_contaminationTimer = 10;
     m_headsUpText->Enable(orxFALSE);
+    Downstab(false);
+    // Set iFrames
+    m_iFrames = m_maxIFrames;
+    AddTrack("TT-IFramesFlash");
 }
 
 void Pilot::Die()
@@ -905,6 +942,8 @@ void Pilot::Die()
     }
     m_lives--;
     Enable(orxFALSE);
+    m_iFrames = m_maxIFrames;
+    AddTrack("TT-IFramesFlash");
 }
 
 void Pilot::Neutral()
@@ -915,11 +954,11 @@ void Pilot::Neutral()
         {
             if (m_wavesIndexNeutral == 0)
             {
+                FireNeutral();
+
                 m_waveDelayNeutral = m_maxWaveDelayNeutral;
 
                 m_wavesIndexNeutral++;
-
-                FireNeutral();
             }
         }
     }
@@ -933,11 +972,11 @@ void Pilot::Upward()
         {
             if (m_wavesIndexUpward == 0)
             {
+                FireUpward();
+
                 m_waveDelayUpward = m_maxWaveDelayUpward;
 
                 m_wavesIndexUpward++;
-
-                FireUpward();
             }
         }
     }
@@ -951,11 +990,11 @@ void Pilot::Downward()
         {
             if (m_wavesIndexDownward == 0)
             {
+                FireDownward();
+
                 m_waveDelayDownward = m_maxWaveDelayDownward;
 
                 m_wavesIndexDownward++;
-
-                FireDownward();
             }
         }
     }
@@ -969,6 +1008,8 @@ void Pilot::Super()
         {
             if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
             {
+                FireSuper();
+
                 m_waveDelaySuper = m_maxWaveDelaySuper;
 
                 m_wavesIndexSuper++;
@@ -978,8 +1019,6 @@ void Pilot::Super()
                 {
                     m_cooldownSuper = m_maxCooldownSuper;
                 }
-
-                FireSuper();
             }
         }
     }

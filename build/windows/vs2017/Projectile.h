@@ -27,6 +27,7 @@ namespace hexpatriates
         bool m_bIsBouncy;
         bool m_bRotateOnCollision;
         bool m_tethered;
+        float m_parrySpeedModifier;
         float m_speed;
         orxOBJECT *m_parentGun;
         orxOBJECT *m_parentPilot;

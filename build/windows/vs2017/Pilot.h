@@ -35,6 +35,8 @@ namespace hexpatriates
         float m_iFrames;
         //! The maximum amount of time, in seconds, the Pilot is invulnerable after taking damage.
         float m_maxIFrames;
+        //! Flag representing whether or not the Pilot is currently downstabbing
+        bool m_bIsDownstabbing;
         //! Flag representing whether or not the Pilot has just successfully parried.
         bool m_bJustParried;
         //! Flag representing whether or not the Pilot has canceled (reversed) their dash.
@@ -51,6 +53,8 @@ namespace hexpatriates
         bool m_bIsAgainstRightWall;
         //! Flag representing whether or not the Pilot would kill it's enemy when executing a melee attack
         bool m_bIsInMeleeRange;
+        //! Flag representing whether or not the Pilot would kill its enemy when executing a melee attack
+        bool m_bIsInDownstabRange;
         //! The amount of time, in seconds, remaining until the Pilot's ship reconstructs.
         float m_constructionTimer;
         //! The amount of time, in seconds, remaining until the Pilot dies of contamination.
@@ -60,6 +64,7 @@ namespace hexpatriates
         float m_flyingSpeed;
         float m_jumpingSpeed;
         float m_dashSpeed;
+        float m_downstabSpeed;
         //! The amount of time, in seconds, the Pilot's jump may last
         float m_jumpDuration;
         //! The amount of time, in seconds, the Pilot has to spend jumping
@@ -150,6 +155,7 @@ namespace hexpatriates
         // TODO: Get rid of these once I've got final animations in order
         ScrollMod *m_parryObject;
         ScrollMod *m_meleeObject;
+        ScrollMod *m_downstabObject;
         //! The Pilot's zone
         Zone *m_zone;
         //! The Pilot's ship
@@ -177,6 +183,8 @@ namespace hexpatriates
         void Parry();
         /// <summary>Executes the Pilot's melee attack.</summary>
         void Melee();
+        /// <summary>Executes the Pilot's downstab attack.</summary>
+        void Downstab(const bool _downstab);
         /// <summary>Destroy's the Pilot's ship.</summary>
         virtual void DestroyShip();
         /// <summary>Reconstructs the Pilot's ship.</summary>

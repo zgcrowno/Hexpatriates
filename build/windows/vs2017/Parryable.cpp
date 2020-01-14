@@ -48,6 +48,8 @@ void Parryable::ParriedBehavior()
     orxVECTOR normalizedSpeed = NormalizeVector(GetSpeed());
     replacementScrollMod->SetPosition(GetPosition());
     replacementScrollMod->SetRotation(-GetRotation());
-    replacementScrollMod->SetSpeed({ -normalizedSpeed.fX * m_speed, -normalizedSpeed.fY * m_speed });
+    replacementScrollMod->SetSpeed({
+        -normalizedSpeed.fX * (m_speed * m_parrySpeedModifier),
+        -normalizedSpeed.fY * (m_speed * m_parrySpeedModifier) });
     Destroy();
 }

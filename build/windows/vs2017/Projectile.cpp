@@ -11,6 +11,7 @@ void Projectile::OnCreate()
     m_bIsBouncy = GetBool("IsBouncy", GetModelName());
     m_bRotateOnCollision = GetBool("RotateOnCollision", GetModelName());
     m_tethered = GetBool("Tethered", GetModelName());
+    m_parrySpeedModifier = GetBool("ParrySpeedModifier", GetModelName());
     m_speed = GetFloat("FSpeed", GetModelName());
     orxVECTOR speedRef = GetSpeed();
     SetSpeed({ speedRef.fX * m_speed, speedRef.fY * m_speed});
@@ -19,6 +20,16 @@ void Projectile::OnCreate()
     {
         m_parentGun = orxOBJECT(orxStructure_GetOwner(orxSPAWNER(orxObject_GetOwner(GetOrxObject()))));
         m_parentPilot = orxOBJECT(orxObject_GetParent(orxOBJECT(orxObject_GetParent(m_parentGun))));
+    }
+
+    // Ensure projectile always has owner so it doesn't persist between scene changes.
+    orxSTRUCTURE *owningStruct = GetOwner();
+    orxSPAWNER *owningSpawner = orxSPAWNER(owningStruct);
+    if (owningStruct == nullptr ||
+        (owningSpawner != nullptr
+            && !orxStructure_TestFlags(owningSpawner, orxSPAWNER_KU32_FLAG_CLEAN_ON_DELETE)))
+    {
+        SetOwner(Hexpatriates::GetInstance().GetArena());
     }
 }
 
