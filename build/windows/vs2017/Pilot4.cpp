@@ -34,52 +34,39 @@ void Pilot4::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot4::FireNeutral()
+void Pilot4::FireNeutral(int &_indexInWave)
 {
     float shotDirectionInterval = orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8;
-    for (int i = 0; i < m_waveSizeNeutral; i++)
+    m_ship->m_neutralGun->SpawnAtSelf(GetPISD((-shotDirectionInterval) + (_indexInWave * shotDirectionInterval)));
+}
+
+void Pilot4::FireUpward(int &_indexInWave)
+{
+    const std::string spawnObjectModelName = m_ship->m_upwardGun->GetString("Object", m_ship->m_upwardGun->GetString("Spawner", m_ship->m_upwardGun->GetModelName()));
+    ScrollMod *projectile = CreateObject(spawnObjectModelName);
+    if (m_upwardOrigin.fY == orxVECTOR_0.fY)
     {
-        m_ship->m_neutralGun->SpawnAtSelf(GetPISD((-shotDirectionInterval) + (i * shotDirectionInterval)));
+        m_upwardOrigin = Raycast(GetPosition(), GetPISD(-orxMATH_KF_PI_BY_2), orxPhysics_GetCollisionFlagValue("geometry")).at(0);
+    }
+    else
+    {
+        float projectileDistance = projectile->GetScaledSize().fX;
+        m_upwardOrigin.fX += (copysignf(1, orxMath_Cos(m_enemyDirection)) * projectileDistance);
+    }
+    projectile->SetPosition(m_upwardOrigin);
+    if (m_wavesIndexUpward == m_numWavesUpward - 1)
+    {
+        m_upwardOrigin = orxVECTOR_0;
     }
 }
 
-void Pilot4::FireUpward()
+void Pilot4::FireDownward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeUpward; i++)
-    {
-        const std::string spawnObjectModelName = m_ship->m_upwardGun->GetString("Object", m_ship->m_upwardGun->GetString("Spawner", m_ship->m_upwardGun->GetModelName()));
-        ScrollMod *projectile = CreateObject(spawnObjectModelName);
-        if (m_upwardOrigin.fY == orxVECTOR_0.fY)
-        {
-            m_upwardOrigin = Raycast(GetPosition(), GetPISD(-orxMATH_KF_PI_BY_2), orxPhysics_GetCollisionFlagValue("geometry")).at(0);
-        }
-        else
-        {
-            float projectileDistance = projectile->GetScaledSize().fX;
-            m_upwardOrigin.fX += (copysignf(1, orxMath_Cos(m_enemyDirection)) * projectileDistance);
-        }
-        projectile->SetPosition(m_upwardOrigin);
-        if (m_wavesIndexUpward == m_numWavesUpward - 1)
-        {
-            m_upwardOrigin = orxVECTOR_0;
-        }
-    }
+    float shotDirection = GetPISD((orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8) - (_indexInWave * orxMATH_KF_PI_BY_8));
+    m_ship->m_downwardGun->SpawnAtSelf(shotDirection);
 }
 
-void Pilot4::FireDownward()
+void Pilot4::FireSuper(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeDownward; i++)
-    {
-        float shotDirection = GetPISD((orxMATH_KF_PI_BY_2 - orxMATH_KF_PI_BY_8) - (i * orxMATH_KF_PI_BY_8));
-        //m_ship->m_downwardGun->SpawnAtRaycast(shotDirection);
-        m_ship->m_downwardGun->SpawnAtSelf(shotDirection);
-    }
-}
-
-void Pilot4::FireSuper()
-{
-    for (int i = 0; i < m_waveSizeSuper; i++)
-    {
-        m_ship->m_superGun->SpawnAtSelf(m_wavesIndexSuper * orxMATH_KF_PI_BY_32);
-    }
+    m_ship->m_superGun->SpawnAtSelf(m_wavesIndexSuper * orxMATH_KF_PI_BY_32);
 }

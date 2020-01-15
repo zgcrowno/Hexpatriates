@@ -98,22 +98,16 @@ namespace hexpatriates
         int m_waveSizeNeutral;
         int m_numWavesNeutral;
         int m_wavesIndexNeutral;
-        float m_maxCooldownNeutral;
-        float m_cooldownNeutral;
         float m_maxWaveDelayNeutral;
         float m_waveDelayNeutral;
         int m_waveSizeUpward;
         int m_numWavesUpward;
         int m_wavesIndexUpward;
-        float m_maxCooldownUpward;
-        float m_cooldownUpward;
         float m_maxWaveDelayUpward;
         float m_waveDelayUpward;
         int m_waveSizeDownward;
         int m_numWavesDownward;
         int m_wavesIndexDownward;
-        float m_maxCooldownDownward;
-        float m_cooldownDownward;
         float m_maxWaveDelayDownward;
         float m_waveDelayDownward;
         int m_waveSizeSuper;
@@ -200,13 +194,13 @@ namespace hexpatriates
         /// <summary>Executes the Ship's super attack.</summary>
         void Super();
         /// <summary>Handles the actual spawning/firing of the Ship's neutral attack.</summary>
-        virtual void FireNeutral() = 0;
+        virtual void FireNeutral(int &_indexInWave) = 0;
         /// <summary>Handles the actual spawning/firing of the Ship's upward attack.</summary>
-        virtual void FireUpward() = 0;
+        virtual void FireUpward(int &_indexInWave) = 0;
         /// <summary>Handles the actual spawning/firing of the Ship's downward attack.</summary>
-        virtual void FireDownward() = 0;
+        virtual void FireDownward(int &_indexInWave) = 0;
         /// <summary>Handles the actual spawning/firing of the Ship's super attack.</summary>
-        virtual void FireSuper() = 0;
+        virtual void FireSuper(int &_indexInWave) = 0;
         /// <summary>Handles the Pilot's super cooldown management, which may change marginally between Pilots.</summary>
         virtual void HandleSuperCooldown(const float &_fDT);
     };

@@ -49,9 +49,6 @@ void Pilot::OnCreate()
     m_numWavesUpward = GetFloat("NumWavesUpward", GetModelName());
     m_numWavesDownward = GetFloat("NumWavesDownward", GetModelName());
     m_numWavesSuper = GetFloat("NumWavesSuper", GetModelName());
-    m_maxCooldownNeutral = GetFloat("MaxCooldownNeutral", GetModelName());
-    m_maxCooldownUpward = GetFloat("MaxCooldownUpward", GetModelName());
-    m_maxCooldownDownward = GetFloat("MaxCooldownDownward", GetModelName());
     m_maxCooldownSuper = GetFloat("MaxCooldownSuper", GetModelName());
     m_maxWaveDelayNeutral = GetFloat("MaxWaveDelayNeutral", GetModelName());
     m_maxWaveDelayUpward = GetFloat("MaxWaveDelayUpward", GetModelName());
@@ -463,30 +460,6 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_cooldownMelee = 0;
     }
-    if (m_cooldownNeutral > 0)
-    {
-        m_cooldownNeutral -= _rstInfo.fDT;
-    }
-    else
-    {
-        m_cooldownNeutral = 0;
-    }
-    if (m_cooldownUpward > 0)
-    {
-        m_cooldownUpward -= _rstInfo.fDT;
-    }
-    else
-    {
-        m_cooldownUpward = 0;
-    }
-    if (m_cooldownDownward > 0)
-    {
-        m_cooldownDownward -= _rstInfo.fDT;
-    }
-    else
-    {
-        m_cooldownDownward = 0;
-    }
     HandleSuperCooldown(_rstInfo.fDT);
     // Handle Waves
     if (m_wavesIndexNeutral != 0 && m_wavesIndexNeutral < m_numWavesNeutral)
@@ -497,7 +470,10 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else
         {
-            FireNeutral();
+            for (int i = 0; i < m_waveSizeNeutral; i++)
+            {
+                FireNeutral(i);
+            }
             m_wavesIndexNeutral++;
             m_waveDelayNeutral = m_maxWaveDelayNeutral;
         }
@@ -515,7 +491,10 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else
         {
-            FireUpward();
+            for (int i = 0; i < m_waveSizeUpward; i++)
+            {
+                FireUpward(i);
+            }
             m_wavesIndexUpward++;
             m_waveDelayUpward = m_maxWaveDelayUpward;
         }
@@ -533,7 +512,10 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else
         {
-            FireDownward();
+            for (int i = 0; i < m_waveSizeDownward; i++)
+            {
+                FireDownward(i);
+            }
             m_wavesIndexDownward++;
             m_waveDelayDownward = m_maxWaveDelayDownward;
         }
@@ -551,7 +533,10 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else
         {
-            FireSuper();
+            for (int i = 0; i < m_waveSizeSuper; i++)
+            {
+                FireSuper(i);
+            }
             m_wavesIndexSuper++;
             m_waveDelaySuper = m_maxWaveDelaySuper;
         }
@@ -954,7 +939,10 @@ void Pilot::Neutral()
         {
             if (m_wavesIndexNeutral == 0)
             {
-                FireNeutral();
+                for (int i = 0; i < m_waveSizeNeutral; i++)
+                {
+                    FireNeutral(i);
+                }
 
                 m_waveDelayNeutral = m_maxWaveDelayNeutral;
 
@@ -972,7 +960,10 @@ void Pilot::Upward()
         {
             if (m_wavesIndexUpward == 0)
             {
-                FireUpward();
+                for (int i = 0; i < m_waveSizeUpward; i++)
+                {
+                    FireUpward(i);
+                }
 
                 m_waveDelayUpward = m_maxWaveDelayUpward;
 
@@ -990,7 +981,10 @@ void Pilot::Downward()
         {
             if (m_wavesIndexDownward == 0)
             {
-                FireDownward();
+                for (int i = 0; i < m_waveSizeDownward; i++)
+                {
+                    FireDownward(i);
+                }
 
                 m_waveDelayDownward = m_maxWaveDelayDownward;
 
@@ -1008,7 +1002,10 @@ void Pilot::Super()
         {
             if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
             {
-                FireSuper();
+                for (int i = 0; i < m_waveSizeSuper; i++)
+                {
+                    FireSuper(i);
+                }
 
                 m_waveDelaySuper = m_maxWaveDelaySuper;
 

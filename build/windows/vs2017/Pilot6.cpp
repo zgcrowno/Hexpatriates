@@ -89,47 +89,35 @@ void Pilot6::DestroyShip()
     m_familiars.clear();
 }
 
-void Pilot6::FireNeutral()
+void Pilot6::FireNeutral(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeNeutral; i++)
+    m_ship->m_neutralGun->SpawnAtSelf(m_enemyDirection);
+    for (Familiar *familiar : m_familiars)
     {
-        m_ship->m_neutralGun->SpawnAtSelf(m_enemyDirection);
-        for (Familiar *familiar : m_familiars)
-        {
-            familiar->m_gun->SpawnAtSelf(GetPISD(0));
-        }
+        familiar->m_gun->SpawnAtSelf(GetPISD(0));
     }
 }
 
-void Pilot6::FireUpward()
+void Pilot6::FireUpward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeUpward; i++)
-    {
-        FireFamiliar(GetPISD(-orxMATH_KF_PI_BY_4), Familiar::Type::Turret);
-    }
+    FireFamiliar(GetPISD(-orxMATH_KF_PI_BY_4), Familiar::Type::Turret);
 }
 
-void Pilot6::FireDownward()
+void Pilot6::FireDownward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeDownward; i++)
-    {
-        FireFamiliar(GetPISD(orxMATH_KF_PI_BY_4), Familiar::Type::Turret);
-    }
+    FireFamiliar(GetPISD(orxMATH_KF_PI_BY_4), Familiar::Type::Turret);
 }
 
-void Pilot6::FireSuper()
+void Pilot6::FireSuper(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeSuper; i++)
+    Familiar *superInPlay = SuperInPlay();
+    if (superInPlay != nullptr)
     {
-        Familiar *superInPlay = SuperInPlay();
-        if (superInPlay != nullptr)
-        {
-            superInPlay->Detonate();
-        }
-        else
-        {
-            FireFamiliar(GetPISD(0), Familiar::Type::RemoteDetonation);
-        }
+        superInPlay->Detonate();
+    }
+    else
+    {
+        FireFamiliar(GetPISD(0), Familiar::Type::RemoteDetonation);
     }
 }
 

@@ -34,42 +34,35 @@ void Pilot2::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot2::FireNeutral()
+void Pilot2::FireNeutral(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeNeutral; i++)
-    {
-        m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
-    }
+    m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
 }
 
-void Pilot2::FireUpward()
+void Pilot2::FireUpward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeUpward; i++)
-    {
-        m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_4));
-    }
+    m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_4));
 }
 
-void Pilot2::FireDownward()
+void Pilot2::FireDownward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeDownward; i++)
-    {
-        float shotDirection = orxMath_GetRandomFloat(GetPISD(orxMATH_KF_PI_BY_8), GetPISD(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_8));
-        m_ship->m_downwardGun->SpawnAtSelf(shotDirection);
-    }
+    float shotDirection = orxMath_GetRandomFloat(GetPISD(orxMATH_KF_PI_BY_8), GetPISD(orxMATH_KF_PI_BY_4 + orxMATH_KF_PI_BY_8));
+    m_ship->m_downwardGun->SpawnAtSelf(shotDirection);
 }
 
-void Pilot2::FireSuper()
+void Pilot2::FireSuper(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeSuper; i++)
+    if (m_wavesIndexSuper % 2 == 0)
     {
-        if (m_wavesIndexSuper % 2 == 0)
+        m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + (_indexInWave * orxMATH_KF_PI_BY_16)));
+    }
+    else
+    {
+        // This conditional results in the attack appearing more symmetrical, but having fewer projectiles.
+        // In effect, each subsequent wave is a different size than the one before it (5, 4, 5, for instance).
+        if (_indexInWave < m_waveSizeSuper - 1)
         {
-            m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + (i * orxMATH_KF_PI_BY_16)));
-        }
-        else
-        {
-            m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + orxMATH_KF_PI_BY_32 + (i * orxMATH_KF_PI_BY_16)));
+            m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + orxMATH_KF_PI_BY_32 + (_indexInWave * orxMATH_KF_PI_BY_16)));
         }
     }
 }

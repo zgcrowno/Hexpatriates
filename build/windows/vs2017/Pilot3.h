@@ -23,12 +23,12 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         /// <summary>Handles the actual spawning/firing of the Pilot's neutral attack.</summary>
-        virtual void FireNeutral();
+        virtual void FireNeutral(int &_indexInWave);
         /// <summary>Handles the actual spawning/firing of the Pilot's upward attack.</summary>
-        virtual void FireUpward();
+        virtual void FireUpward(int &_indexInWave);
         /// <summary>Handles the actual spawning/firing of the Pilot's downward attack.</summary>
-        virtual void FireDownward();
+        virtual void FireDownward(int &_indexInWave);
         /// <summary>Handles the actual spawning/firing of the Pilot's super attack.</summary>
-        virtual void FireSuper();
+        virtual void FireSuper(int &_indexInWave);
     };
 }

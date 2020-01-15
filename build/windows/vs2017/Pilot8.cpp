@@ -35,37 +35,25 @@ void Pilot8::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot8::FireNeutral()
+void Pilot8::FireNeutral(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeNeutral; i++)
+    m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
+}
+
+void Pilot8::FireUpward(int &_indexInWave)
+{
+    if (m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_2)) > 0)
     {
-        m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
+        ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds())->RainEmbers(m_bIsP1);
     }
 }
 
-void Pilot8::FireUpward()
+void Pilot8::FireDownward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeUpward; i++)
-    {
-        if (m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_2)) > 0)
-        {
-            ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds())->RainEmbers(m_bIsP1);
-        }
-    }
+    m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_2));
 }
 
-void Pilot8::FireDownward()
+void Pilot8::FireSuper(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeDownward; i++)
-    {
-        m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_2));
-    }
-}
-
-void Pilot8::FireSuper()
-{
-    for (int i = 0; i < m_waveSizeSuper; i++)
-    {
-        m_ship->m_superGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_16 - (i * orxMATH_KF_PI_BY_16)));
-    }
+    m_ship->m_superGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_16 - (_indexInWave * orxMATH_KF_PI_BY_16)));
 }

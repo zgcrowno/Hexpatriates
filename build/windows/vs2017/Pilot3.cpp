@@ -35,39 +35,26 @@ void Pilot3::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot3::FireNeutral()
+void Pilot3::FireNeutral(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeNeutral; i++)
+    float shotDirection = GetPISD(-orxMATH_KF_PI);
+    m_ship->m_neutralGun->SpawnAtSelf(shotDirection);
+}
+
+void Pilot3::FireUpward(int &_indexInWave)
+{
+    m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_4));
+}
+
+void Pilot3::FireDownward(int &_indexInWave)
+{
+    if (m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_2)) > 0)
     {
-        float shotDirection = GetPISD(-orxMATH_KF_PI);
-        m_ship->m_neutralGun->SpawnAtSelf(shotDirection);
+        ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds())->Electrify(m_bIsP1);
     }
 }
 
-void Pilot3::FireUpward()
+void Pilot3::FireSuper(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeUpward; i++)
-    {
-        //m_ship->m_upwardGun->SpawnAtSelf(orxMath_GetRandomFloat(GetPISD(-orxMATH_KF_PI_BY_8), GetPISD(-orxMATH_KF_PI_BY_4 - orxMATH_KF_PI_BY_8)));
-        m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_4));
-    }
-}
-
-void Pilot3::FireDownward()
-{
-    for (int i = 0; i < m_waveSizeDownward; i++)
-    {
-        if (m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_2)) > 0)
-        {
-            ScrollCast<ArenaBounds*>(Hexpatriates::GetInstance().GetArenaBounds())->Electrify(m_bIsP1);
-        }
-    }
-}
-
-void Pilot3::FireSuper()
-{
-    for (int i = 0; i < m_waveSizeSuper; i++)
-    {
-        m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + (i * (orxMATH_KF_PI_BY_16))));
-    }
+    m_ship->m_superGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 + (_indexInWave * (orxMATH_KF_PI_BY_16))));
 }

@@ -34,35 +34,23 @@ void Pilot7::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot7::FireNeutral()
+void Pilot7::FireNeutral(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeNeutral; i++)
-    {
-        m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
-    }
+    m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
 }
 
-void Pilot7::FireUpward()
+void Pilot7::FireUpward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeUpward; i++)
-    {
-        m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 - (i * orxMATH_KF_PI_BY_8)));
-    }
+    m_ship->m_upwardGun->SpawnAtSelf(GetPISD(-orxMATH_KF_PI_BY_8 - (_indexInWave * orxMATH_KF_PI_BY_16)));
 }
 
-void Pilot7::FireDownward()
+void Pilot7::FireDownward(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeDownward; i++)
-    {
-        m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_4));
-    }
+    m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_4));
 }
 
-void Pilot7::FireSuper()
+void Pilot7::FireSuper(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeSuper; i++)
-    {
-        float shotDirection = GetPISD(orxMath_GetRandomFloat(-orxMATH_KF_PI_BY_4, orxMATH_KF_PI_BY_4));
-        m_ship->m_superGun->SpawnAtSelf(shotDirection);
-    }
+    float shotDirection = GetPISD(orxMath_GetRandomFloat(-orxMATH_KF_PI_BY_4, orxMATH_KF_PI_BY_4));
+    m_ship->m_superGun->SpawnAtSelf(shotDirection);
 }

@@ -58,73 +58,65 @@ void Pilot5::Move(const bool &_bAllowVerticalMovement)
     }
 }
 
-void Pilot5::FireNeutral()
+void Pilot5::FireNeutral(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeNeutral; i++)
+    if (m_stance == Stance::Airborne)
     {
-        if (m_stance == Stance::Airborne)
+        m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
+    }
+    else // m_stance == Stance::Grounded
+    {
+        // Only spawn a Crosshairs object if there isn't one already in play.
+        if (Hexpatriates::GetInstance().GetCrosshairsByPlayerType(m_typeName) == nullptr)
         {
-            m_ship->m_neutralGun->SpawnAtSelf(GetPISD(0));
-        }
-        else // m_stance == Stance::Grounded
-        {
-            // Only spawn a Crosshairs object if there isn't one already in play.
-            if (Hexpatriates::GetInstance().GetCrosshairsByPlayerType(m_typeName) == nullptr)
-            {
-                orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
-                orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-Crosshairs").fZ };
-                CreateObject("O-Crosshairs" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
-            }
+            orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+            orxVECTOR spawnPosition = { opposingPilotPosition.fX, opposingPilotPosition.fY, GetVector("Position", "O-Crosshairs").fZ };
+            CreateObject("O-Crosshairs" + m_typeName, {}, {}, { {"Position", &spawnPosition} });
         }
     }
 }
 
-void Pilot5::FireUpward()
+void Pilot5::FireUpward(int &_indexInWave)
 {
     if (m_stance == Stance::Grounded)
     {
         SwitchStance();
         // Decrementing this here so the base class doesn't keep iterating as if the upward gun was fired.
         m_wavesIndexUpward--;
+        // Maxing this value here so the base class doesn't keep iterating as if it's traversing a wave.
+        _indexInWave = m_waveSizeUpward;
     }
     else // m_stance == Stance::Airborne
     {
-        for (int i = 0; i < m_waveSizeUpward; i++)
-        {
-            float shotDirection = orxMath_GetRandomFloat(GetPISD(-orxMATH_KF_PI_BY_8), GetPISD(-orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_8));
-            m_ship->m_upwardGun->SpawnAtSelf(shotDirection);
-        }
+        float shotDirection = orxMath_GetRandomFloat(GetPISD(-orxMATH_KF_PI_BY_8), GetPISD(-orxMATH_KF_PI_BY_2 + orxMATH_KF_PI_BY_8));
+        m_ship->m_upwardGun->SpawnAtSelf(shotDirection);
     }
 }
 
-void Pilot5::FireDownward()
+void Pilot5::FireDownward(int &_indexInWave)
 {
     if (m_stance == Stance::Airborne)
     {
         SwitchStance();
         // Decrementing this here so the base class doesn't keep iterating as if the downward gun was fired.
         m_wavesIndexDownward--;
+        // Maxing this value here so the base class doesn't keep iterating as if it's traversing a wave.
+        _indexInWave = m_waveSizeDownward;
     }
     else // m_stance == Stance::Grounded
     {
-        for (int i = 0; i < m_waveSizeDownward; i++)
-        {
-            m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_8 - (m_wavesIndexDownward * (orxMATH_KF_PI_BY_8 / m_numWavesDownward))));
-        }
+        m_ship->m_downwardGun->SpawnAtSelf(GetPISD(orxMATH_KF_PI_BY_8 - (m_wavesIndexDownward * (orxMATH_KF_PI_BY_8 / m_numWavesDownward))));
     }
 }
 
-void Pilot5::FireSuper()
+void Pilot5::FireSuper(int &_indexInWave)
 {
-    for (int i = 0; i < m_waveSizeSuper; i++)
-    {
-        orxVECTOR zoneBottomRight = GetVector("BottomRight", "BP-Zone");
-        float zoneWidth = zoneBottomRight.fX;
-        float zoneHeight = zoneBottomRight.fY;
-        orxVECTOR opposingZonePosition = m_opposingPilot->m_zone->GetPosition();
-        orxVECTOR spawnPosition = { opposingZonePosition.fX + zoneWidth / 2.0f, opposingZonePosition.fY + zoneHeight / 2.0f, GetVector("Position", "O-MissileShield" + m_typeName).fZ };
-        m_ship->m_superGun->SpawnAtPosition(0, spawnPosition);
-    }
+    orxVECTOR zoneBottomRight = GetVector("BottomRight", "BP-Zone");
+    float zoneWidth = zoneBottomRight.fX;
+    float zoneHeight = zoneBottomRight.fY;
+    orxVECTOR opposingZonePosition = m_opposingPilot->m_zone->GetPosition();
+    orxVECTOR spawnPosition = { opposingZonePosition.fX + zoneWidth / 2.0f, opposingZonePosition.fY + zoneHeight / 2.0f, GetVector("Position", "O-MissileShield" + m_typeName).fZ };
+    m_ship->m_superGun->SpawnAtPosition(0, spawnPosition);
 }
 
 void Pilot5::SwitchStance()

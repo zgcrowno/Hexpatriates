@@ -27,6 +27,14 @@ orxBOOL Orb::OnCollide(
         _rvPosition,
         _rvNormal);
 
+    // Destroy the Orb if it hits the left or right wall of the arena.
+    const orxCHAR *colliderModelName = _poCollider->GetModelName();
+    if (orxString_Compare(colliderModelName, "O-WallLeftWall") == 0
+        || orxString_Compare(colliderModelName, "O-WallRightWall") == 0)
+    {
+        Destroy();
+    }
+
     return orxTRUE;
 }
 
