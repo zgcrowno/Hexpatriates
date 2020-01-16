@@ -838,6 +838,7 @@ void Pilot::Dash()
                 m_dashTime = m_dashDuration;
 
                 SpawnDashIcon();
+                AddSound("SFX-Dash");
             }
         }
         else if (!m_bCanceledDash)

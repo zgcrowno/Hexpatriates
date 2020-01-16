@@ -18921,3 +18921,633 @@ ERROR: 0:7: 'constructor' : not enough data provided for construction
 [13:57:49] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
 [13:57:49] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
 [13:57:49] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[15:59:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[16:14:26] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[16:14:26] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[16:14:26] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[16:14:26] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[16:14:26] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[16:14:26] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[16:14:26] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[16:14:27] [SOUND] [orxsoundsystem.c:orxSoundSystem_OpenAL_LoadSampleTask(1160)] Can't load sound sample <FX/Dash.mp3>: invalid data.
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[16:31:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[16:31:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[16:31:48] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[16:31:48] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[16:31:48] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[16:31:48] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[16:31:48] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[16:31:48] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[16:31:48] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[16:31:49] [SOUND] [orxsoundsystem.c:orxSoundSystem_OpenAL_LoadSampleTask(1160)] Can't load sound sample <FX/Dash.mp3>: invalid data.
+[16:33:59] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[16:34:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[16:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[16:34:02] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[16:34:02] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[16:34:05] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[16:34:05] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[16:34:05] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[16:34:05] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[16:34:05] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[16:34:05] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[16:34:05] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[17:53:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[17:53:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[17:53:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[17:53:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[17:53:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[17:53:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[17:53:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:10:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:10:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:10:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:10:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:10:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:10:53] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:11:08] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:11:08] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:11:08] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:11:08] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:11:08] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:11:08] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:11:08] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:11:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:11:43] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:11:44] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:11:44] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:11:44] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:12:04] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:12:04] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:12:04] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:12:04] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:12:04] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:12:04] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:12:04] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:13:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:13:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:14:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:14:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:19:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:19:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:19:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:25:48] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:25:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:25:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:25:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:25:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:25:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:26:00] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:26:00] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:26:00] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:26:00] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:26:00] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:26:00] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:26:00] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:31:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:31:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:31:33] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:31:33] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:31:33] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:31:33] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:31:33] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:31:33] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:31:33] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[18:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:35:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:35:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:35:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:35:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:35:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:35:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:35:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:35:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:35:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:52:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:52:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:52:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:52:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:52:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:52:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:52:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:52:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:52:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:53:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:53:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:53:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:53:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:53:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:53:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:54:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:54:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:54:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:54:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:54:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:54:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:54:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:54:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:54:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:54:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:54:32] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[18:56:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[18:56:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[18:56:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[18:56:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[18:56:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[18:56:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[18:56:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[18:56:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[18:56:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[18:56:37] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[18:56:37] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[18:56:37] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[18:56:37] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[18:56:37] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[18:56:37] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[18:56:37] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Crosshairs.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Crosshairs.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @FX.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @FX.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Geometry.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Geometry.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Icon.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Icon.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @LaserPortal.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @LaserPortal.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Partition.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Partition.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Pilot.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Pilot.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Projectile.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Projectile.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Scene.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Scene.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @ScrollMod.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @ScrollMod.ini@
+[19:00:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Shader.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Shader.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Ship.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Ship.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Sound.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Sound.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @Spawner.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @Spawner.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @TimelineTrack.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @TimelineTrack.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Hexpatriates.ini]: Begin include @UI.ini@
+[19:00:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Hexpatriates.ini]: End include @UI.ini@
+[19:02:30] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <geometry> with value <1>.
+[19:02:30] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP1> with value <2>.
+[19:02:30] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <projectileP2> with value <4>.
+[19:02:30] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP1> with value <8>.
+[19:02:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <pilotP2> with value <16>.
+[19:02:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <ship> with value <32>.
+[19:02:31] [PHYSICS] [orxphysics.c:orxPhysics_GetCollisionFlagValue(232)] Adding collision flag <space> with value <64>.
