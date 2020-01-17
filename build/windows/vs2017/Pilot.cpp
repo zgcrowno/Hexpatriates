@@ -757,6 +757,7 @@ void Pilot::SpawnDashIcon()
         pilotIcon = CreateObject("O-Pilot" + pilotNumber + "IconDash", {}, {}, { { "Position", &GetPosition() } });
         shipIcon = ScrollCast<ScrollMod*>(pilotIcon->GetOwnedChild());
         shipIcon->SetFlip(shipFlipX, shipFlipY);
+        shipIcon->SetScale(m_ship->GetScale());
     }
     else
     {

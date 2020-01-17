@@ -1,5 +1,7 @@
 #include "ScenePause.h"
+#include "AudioManager.h"
 #include "SceneArena.h"
+#include "SceneMenu.h"
 
 using namespace hexpatriates;
 
@@ -72,6 +74,12 @@ void ScenePause::Update(const orxCLOCK_INFO &_rstInfo)
                 if (arena != nullptr)
                 {
                     m_transition = "O-ToSceneArenaFromPause";
+                    // Ensure that menu music is stopped upon exiting from pause menu into arena.
+                    orxSound_Stop(AudioManager::GetInstance()->m_menuMusic);
+                    orxSound_SetTime(AudioManager::GetInstance()->m_menuMusic, 0);
+                    // Re-activate arena's music.
+                    orxSound_Play(arena->m_pilotP1Music);
+                    orxSound_Play(arena->m_pilotP2Music);
                     break;
                 }
             }
@@ -79,10 +87,25 @@ void ScenePause::Update(const orxCLOCK_INFO &_rstInfo)
         else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-RestartMatchText") == 0)
         {
             m_transition = "O-ToSceneArena";
+            // Ensure that menu music is stopped upon exiting from pause menu into arena.
+            orxSound_Stop(AudioManager::GetInstance()->m_menuMusic);
+            orxSound_SetTime(AudioManager::GetInstance()->m_menuMusic, 0);
+            // Reset arena music
+            SceneArena *arena = dynamic_cast<SceneArena*>(Hexpatriates::GetInstance().GetArena());
+            orxSound_Stop(arena->m_pilotP1Music);
+            orxSound_SetTime(arena->m_pilotP1Music, 0);
+            orxSound_Stop(arena->m_pilotP2Music);
+            orxSound_SetTime(arena->m_pilotP2Music, 0);
         }
         else if (orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-ExitText") == 0)
         {
             m_transition = "O-ToSceneMain";
+            // Reset arena music
+            SceneArena *arena = dynamic_cast<SceneArena*>(Hexpatriates::GetInstance().GetArena());
+            orxSound_Stop(arena->m_pilotP1Music);
+            orxSound_SetTime(arena->m_pilotP1Music, 0);
+            orxSound_Stop(arena->m_pilotP2Music);
+            orxSound_SetTime(arena->m_pilotP2Music, 0);
         }
         else // orxString_Compare(m_menuItems.at(m_selectedItemIndex)->GetModelName().c_str(), "O-QuitText") == 0
         {

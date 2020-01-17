@@ -1,23 +1,16 @@
 #include "SceneMenu.h"
-#include <iostream>
+#include "AudioManager.h"
 
 using namespace hexpatriates;
 
-// Define static class members.
-orxSOUND *SceneMenu::m_music = nullptr;
-
 void SceneMenu::OnCreate()
 {
-    // Assign m_music its intended value if it hasn't been assigned already.
-    if (m_music == nullptr)
-    {
-        m_music = orxSound_CreateFromConfig("SM-Menu");
-    }
     // TODO: Figure out if there's a way to use orxSound_GetStatus to prevent overlapping sounds. This is the only method that I've found to work so far.
-    if (orxSound_GetTime(m_music) == 0)
+    if (orxSound_GetTime(AudioManager::GetInstance()->m_menuMusic) == 0)
     {
-        orxSound_Play(m_music);
+        orxSound_Play(AudioManager::GetInstance()->m_menuMusic);
     }
+
     for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
     {
         m_menuItems.push_back(ScrollCast<ScrollMod*>(child));

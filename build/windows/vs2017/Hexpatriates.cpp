@@ -6,6 +6,7 @@
 #include "Hexpatriates.h"
 #include "ArenaBound.h"
 #include "ArenaBounds.h"
+#include "AudioManager.h"
 #include "Beam.h"
 #include "BeamPlacer.h"
 #include "BeamSpouter.h"

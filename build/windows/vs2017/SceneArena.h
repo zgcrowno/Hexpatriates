@@ -42,6 +42,8 @@ namespace hexpatriates
         orxVECTOR m_targetScale1PilotP2;
         orxVECTOR m_targetScale2PilotP2;
         orxVECTOR m_targetScale3PilotP2;
+        orxSOUND *m_pilotP1Music;
+        orxSOUND *m_pilotP2Music;
         ArenaBounds *m_bounds;
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;

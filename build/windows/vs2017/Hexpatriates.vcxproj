@@ -375,6 +375,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BeamPlacer.cpp" />
     <ClCompile Include="BeamSpouter.cpp" />
     <ClCompile Include="LaserTeleportable.cpp" />
@@ -433,6 +434,7 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BeamPlacer.h" />
     <ClInclude Include="BeamSpouter.h" />
     <ClInclude Include="LaserTeleportable.h" />

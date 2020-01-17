@@ -1,4 +1,6 @@
 #include "SceneArena.h"
+#include "AudioManager.h"
+#include "SceneMenu.h"
 #include "Zone.h"
 
 using namespace hexpatriates;
@@ -28,6 +30,8 @@ void SceneArena::OnCreate()
     m_targetScale1PilotP2 = { m_targetScalePilotP2.fX + 0.6f, m_targetScalePilotP2.fY + 0.6f, m_targetScalePilotP2.fZ };
     m_targetScale2PilotP2 = { m_targetScalePilotP2.fX + 1.2f, m_targetScalePilotP2.fY + 1.2f, m_targetScalePilotP2.fZ };
     m_targetScale3PilotP2 = { m_targetScalePilotP2.fX + 1.8f, m_targetScalePilotP2.fY + 1.8f, m_targetScalePilotP2.fZ };
+    m_pilotP1Music = AudioManager::GetInstance()->m_pilotMusicMap.at(m_pilotP1->m_genericName);
+    m_pilotP2Music = AudioManager::GetInstance()->m_pilotMusicMap.at(m_pilotP2->m_genericName);
     m_livesMeterP1 = ScrollCast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
     m_superMeterP1 = ScrollCast<ScrollMod*>(GetChildByName("O-SuperMeterP1"));
     m_livesMeterP2 = ScrollCast<ScrollMod*>(GetChildByName("O-LivesMeterP2"));
@@ -36,6 +40,18 @@ void SceneArena::OnCreate()
     m_defaultScaleLives = m_livesMeterP1->GetScale();
     m_defaultScaleSuper = m_superMeterP1->GetScale();
     CreateMeterBorders();
+
+    // Ensure that menu music is stopped upon arena creation
+    orxSound_Stop(AudioManager::GetInstance()->m_menuMusic);
+    orxSound_SetTime(AudioManager::GetInstance()->m_menuMusic, 0);
+    // Play arena music
+    orxSound_Play(m_pilotP1Music);
+    orxSound_Play(m_pilotP2Music);
+    orxSound_SetVolume(m_pilotP1Music, 1);
+    if (m_pilotP1Music != m_pilotP2Music)
+    {
+        orxSound_SetVolume(m_pilotP2Music, 0);
+    }
 }
 
 void SceneArena::OnDelete()
@@ -115,6 +131,16 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
         }
     }
 
+    // Handle music shifting.
+    if (m_pilotP1->m_lives > m_pilotP2->m_lives)
+    {
+        AudioManager::CrossFade(m_pilotP2Music, m_pilotP1Music, 1, _rstInfo.fDT);
+    }
+    else if (m_pilotP2->m_lives > m_pilotP1->m_lives)
+    {
+        AudioManager::CrossFade(m_pilotP1Music, m_pilotP2Music, 1, _rstInfo.fDT);
+    }
+
     // TODO: Make a method for this, so as to avoid repeated code.
     // Handle arena contraction.
     if (m_timer <= m_matchTime / 4)
@@ -169,6 +195,9 @@ void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
         if (orxInput_HasBeenActivated(m_pilotP1->m_pauseInput.c_str()) || orxInput_HasBeenActivated(m_pilotP2->m_pauseInput.c_str()))
         {
             Hexpatriates::GetInstance().PauseGame(true);
+            // Pause music.
+            orxSound_Pause(m_pilotP1Music);
+            orxSound_Pause(m_pilotP2Music);
         }
     }
 
@@ -494,7 +523,8 @@ void SceneArena::PauseForContraction(bool _pause)
     m_bIsPausedForContraction = _pause;
     for (ScrollObject *poObject = Hexpatriates::GetInstance().GetNextObject(); poObject; poObject = Hexpatriates::GetInstance().GetNextObject(poObject))
     {
-        if (poObject->TestFlags(ScrollObject::FlagPausable) && orxString_Compare(poObject->GetModelName(), GetModelName().c_str()) != 0)
+        if (poObject->TestFlags(ScrollObject::FlagPausable) &&
+            orxString_Compare(poObject->GetModelName(), GetModelName().c_str()) != 0)
         {
             poObject->Pause(_pause);
         }

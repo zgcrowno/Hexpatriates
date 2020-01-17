@@ -203,6 +203,9 @@
     <ClCompile Include="Legionnaire.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -351,6 +354,9 @@
     </ClInclude>
     <ClInclude Include="Legionnaire.h">
       <Filter>src\Headers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>src\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
