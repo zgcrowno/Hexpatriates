@@ -663,7 +663,7 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 if (orxInput_IsActive(m_upDownInput.c_str()))
                 {
                     m_jumpTime = 0;
-                    movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str());
+                    movement.fY += m_jumpingSpeed * orxInput_GetValue(m_upDownInput.c_str());
                 }
                 else
                 {

@@ -19,6 +19,12 @@ AudioManager::AudioManager()
     m_pilotMusicMap.insert({ "O-Pilot8", orxSound_CreateFromConfig("SM-Pilot8") });
 }
 
+AudioManager::~AudioManager()
+{
+    delete instance;
+    instance = nullptr;
+}
+
 AudioManager* AudioManager::GetInstance()
 {
     if (instance == 0)
