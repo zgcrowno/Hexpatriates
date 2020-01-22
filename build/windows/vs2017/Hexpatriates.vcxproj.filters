@@ -37,6 +37,12 @@
     <Filter Include="src\Headers\Scenes">
       <UniqueIdentifier>{618d58bd-001e-455b-9e02-af9a731aedcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CPP\MenuItems">
+      <UniqueIdentifier>{deb64846-80f9-4237-a382-d34e8c0acace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\MenuItems">
+      <UniqueIdentifier>{cfe7a012-3c70-46c6-b813-a2220238859f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -167,22 +173,13 @@
     <ClCompile Include="Parryable.cpp">
       <Filter>src\CPP\Projectiles</Filter>
     </ClCompile>
-    <ClCompile Include="SceneMain.cpp">
-      <Filter>src\CPP\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>src\CPP\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ScenePilotSelect.cpp">
       <Filter>src\CPP\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="SceneMenu.cpp">
       <Filter>src\CPP\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="SceneArena.cpp">
-      <Filter>src\CPP\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ScenePause.cpp">
       <Filter>src\CPP\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="MissileShield.cpp">
@@ -205,6 +202,21 @@
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItem.cpp">
+      <Filter>src\CPP\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItemTransitional.cpp">
+      <Filter>src\CPP\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMenu2D.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMenu1D.cpp">
+      <Filter>src\CPP\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItemPilot.cpp">
+      <Filter>src\CPP\MenuItems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,22 +331,13 @@
     <ClInclude Include="Parryable.h">
       <Filter>src\Headers\Projectiles</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMain.h">
-      <Filter>src\Headers\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>src\Headers\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ScenePilotSelect.h">
       <Filter>src\Headers\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SceneMenu.h">
       <Filter>src\Headers\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SceneArena.h">
-      <Filter>src\Headers\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ScenePause.h">
       <Filter>src\Headers\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="MissileShield.h">
@@ -357,6 +360,21 @@
     </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItem.h">
+      <Filter>src\Headers\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItemTransitional.h">
+      <Filter>src\Headers\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMenu2D.h">
+      <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMenu1D.h">
+      <Filter>src\Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItemPilot.h">
+      <Filter>src\Headers\MenuItems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

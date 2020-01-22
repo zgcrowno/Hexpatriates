@@ -1,14 +1,26 @@
-﻿  Pilot.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(38): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(44): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(45): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(46): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(47): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(48): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(50): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(51): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(746): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  Hexpatriates.cpp
+  MenuItem.cpp
+  MenuItemTransitional.cpp
+  Projectile.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\projectile.cpp(14): warning C4244: '=': conversion from 'orxBOOL' to 'float', possible loss of data
+  Scene.cpp
+  SceneArena.cpp
+  SceneMenu.cpp
+  SceneMenu1D.cpp
+  SceneMenu2D.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu1d.cpp(42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(42): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(46): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(55): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(59): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(68): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(81): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(94): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(98): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(107): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(111): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(120): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu2d.cpp(133): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

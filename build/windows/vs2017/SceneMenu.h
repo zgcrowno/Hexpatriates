@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Hexpatriates.h"
+#include "MenuItem.h"
 #include "Scene.h"
 #include <vector>
 
@@ -23,8 +24,10 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        bool m_bAllowMultiInput;
         int m_selectedItemIndex;
+        int m_selectedItemIndexP2;
         std::string m_transition = ""; // The scene transition object we'll use to jump from one SceneMenu to another scene.
-        std::vector<ScrollMod*> m_menuItems;
+        std::vector<MenuItem*> m_menuItems;
     };
 }

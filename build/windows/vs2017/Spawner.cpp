@@ -1,4 +1,5 @@
 #include "Spawner.h"
+#include <iostream>
 
 using namespace hexpatriates;
 
@@ -28,7 +29,7 @@ orxBOOL Spawner::OnCollide(
 void Spawner::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // Have to handle OnDestruction behavior here, becuase OnDelete is called AFTER the Spawner has actually been deleted--not directly prior as previously thought.
-    if (!CleanOnDelete() && GetLifeTime() <= 0)
+    if (!CleanOnDelete() && IsPendingDestruction())
     {
         // If the spawner isn't set to clean on delete, we have to transfer ownership to the Arena so we're not left with living projectiles when we exit to a menu.
         orxOBJECT *arena = Hexpatriates::GetInstance().GetArena()->GetOrxObject();

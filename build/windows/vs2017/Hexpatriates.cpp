@@ -23,6 +23,8 @@
 #include "LaserWall.h"
 #include "Legionnaire.h"
 #include "MedussaHead.h"
+#include "MenuItemPilot.h"
+#include "MenuItemTransitional.h"
 #include "Missile.h"
 #include "MissileShield.h"
 #include "Orb.h"
@@ -37,9 +39,8 @@
 #include "Prism.h"
 #include "Scene.h"
 #include "SceneArena.h"
-#include "SceneMain.h"
-#include "ScenePause.h"
-#include "ScenePilotSelect.h"
+#include "SceneMenu1D.h"
+#include "SceneMenu2D.h"
 #include "ScrollMod.h"
 #include "Ship.h"
 #include "Shrapnel.h"
@@ -95,6 +96,8 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<LaserWall>("O-LaserWall");
     ScrollBindObject<Legionnaire>("O-Legionnaire");
     ScrollBindObject<MedussaHead>("O-MedussaHead");
+    ScrollBindObject<MenuItemPilot>("O-MenuItemPilot");
+    ScrollBindObject<MenuItemTransitional>("O-MenuItemTransitional");
     ScrollBindObject<Missile>("O-Missile");
     ScrollBindObject<MissileShield>("O-MissileShield");
     ScrollBindObject<Orb>("O-Orb");
@@ -109,9 +112,8 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Prism>("O-Prism");
     ScrollBindObject<Scene>("O-Scene");
     ScrollBindObject<SceneArena>("O-SceneArena");
-    ScrollBindObject<SceneMain>("O-SceneMain");
-    ScrollBindObject<ScenePause>("O-ScenePause");
-    ScrollBindObject<ScenePilotSelect>("O-ScenePilotSelect");
+    ScrollBindObject<SceneMenu1D>("O-SceneMenu1D");
+    ScrollBindObject<SceneMenu2D>("O-SceneMenu2D");
     ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Shrapnel>("O-Shrapnel");
@@ -132,6 +134,17 @@ void Hexpatriates::Exit()
 
 orxSTATUS Hexpatriates::PauseGame(orxBOOL _bPause)
 {
+    PauseAction(_bPause);
+    if (_bPause)
+    {
+        Scene::TransitionToScene("O-ToScenePause");
+    }
+
+    return orxSTATUS_SUCCESS;
+}
+
+void Hexpatriates::PauseAction(orxBOOL _bPause)
+{
     for (ScrollObject *poObject = GetNextObject(); poObject; poObject = GetNextObject(poObject))
     {
         if (poObject->TestFlags(ScrollObject::FlagPausable))
@@ -140,12 +153,6 @@ orxSTATUS Hexpatriates::PauseGame(orxBOOL _bPause)
         }
     }
     orxPhysics_EnableSimulation(!_bPause);
-    if (_bPause)
-    {
-        CreateObject("O-ToScenePause");
-    }
-
-    return orxSTATUS_SUCCESS;
 }
 
 ScrollObject *Hexpatriates::GetArena()
@@ -156,6 +163,11 @@ ScrollObject *Hexpatriates::GetArena()
 ScrollObject *Hexpatriates::GetArenaBounds()
 {
     return GetNextObject<ArenaBounds>();
+}
+
+ScrollObject *Hexpatriates::GetSceneMenu2D()
+{
+    return GetNextObject<SceneMenu2D>();
 }
 
 ScrollObject *Hexpatriates::GetPilotByPlayerType(const std::string _str)

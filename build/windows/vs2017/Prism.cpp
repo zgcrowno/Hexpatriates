@@ -9,8 +9,7 @@ void Prism::OnCreate()
 
     m_waveSize = GetFloat("WaveSize", GetModelName());
 
-    orxCHAR gunText[512] = "O-PrismGun";
-    m_gun = ScrollCast<Spawner*>(GetChildByName(gunText + m_typeName));
+    m_gun = ScrollCast<Spawner*>(GetChildByName("O-PrismGun" + m_typeName));
 }
 
 void Prism::OnDelete()

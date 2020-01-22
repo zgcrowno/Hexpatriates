@@ -27,8 +27,10 @@ namespace hexpatriates
         virtual void Exit();
     public:
         virtual orxSTATUS PauseGame(orxBOOL _bPause);
+        void PauseAction(orxBOOL _bPause);
         ScrollObject *GetArena();
         ScrollObject *GetArenaBounds();
+        ScrollObject *GetSceneMenu2D();
         ScrollObject *GetPilotByPlayerType(const std::string _str);
         ScrollObject *GetCrosshairsByPlayerType(const std::string _str);
         std::vector<ScrollObject*> GetFamiliarsByPlayerType(const std::string _str);

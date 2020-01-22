@@ -28,6 +28,7 @@ namespace hexpatriates
         void SetTimerText();
         void CreateMeterBorder(const std::string _meterName, const ScrollMod *_meter, const int &_clipSize);
     public:
+        bool m_bIsRoundOver;
         bool m_bIsPausedForContraction;
         //! The amount of time, in seconds, remaining until the round automatically ends.
         float m_timer;

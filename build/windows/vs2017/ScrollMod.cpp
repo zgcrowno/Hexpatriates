@@ -552,6 +552,21 @@ orxSTATUS __fastcall ScrollMod::SetCheckMask(orxBODY_PART *_part, orxU16 _checkM
     return orxBody_SetPartCheckMask(_part, _checkMask);
 }
 
+const bool __fastcall ScrollMod::IsPendingDestruction()
+{
+    float lifeTime = GetLifeTime();
+
+    // If lifeTime < 0, then the ScrollMod's lifeTime is "infinite".
+    if (lifeTime >= 0)
+    {
+        float age = GetActiveTime();
+
+        return age >= lifeTime;
+    }
+
+    return false;
+}
+
 orxAABOX __fastcall ScrollMod::GetAABB()
 {
     orxAABOX aabb;

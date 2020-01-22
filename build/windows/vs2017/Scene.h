@@ -2,7 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "ScrollMod.h"
-#include <vector>
+#include <functional>
 
 namespace hexpatriates
 {
@@ -22,5 +22,9 @@ namespace hexpatriates
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+    public:
+        static std::map<std::string, std::function<void()>> m_transitionBehaviorMap;
+
+        static void TransitionToScene(const std::string &_toScene);
     };
 }

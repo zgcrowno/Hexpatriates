@@ -231,6 +231,9 @@ namespace hexpatriates
         /// <param name="_selfFlags">The value to which we're setting <paramref name="_part"/>'s CheckMask attribute.</param>
         /// <returns>An orxSTATUS code.</returns>
         orxSTATUS __fastcall SetCheckMask(orxBODY_PART *_part, orxU16 _checkMask);
+        /// <summary>Returns whether or not the ScrollMod has reached its existence time limit (if it has one).</summary>
+        /// <returns>A bool representing whether or not the ScrollMod has reached its existence time limit (if it has one).</returns>
+        const bool __fastcall IsPendingDestruction();
         /// <summary>Returns the axis-aligned bounding box associated with the ScrollMod.</summary>
         /// <returns>The axis-aligned bounding box associated with the ScrollMod.</returns>
         orxAABOX __fastcall GetAABB();
