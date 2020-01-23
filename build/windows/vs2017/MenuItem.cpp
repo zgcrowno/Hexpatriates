@@ -6,12 +6,14 @@ using namespace hexpatriates;
 
 void MenuItem::OnCreate()
 {
-    m_bIsInteractable = GetBool("IsInteractable", GetModelName());
+    InputHandler::OnCreate();
+
+    m_bIsInteractable = GetBool("IsInteractable", ScrollMod::GetModelName());
 }
 
 void MenuItem::OnDelete()
 {
-
+    InputHandler::OnDelete();
 }
 
 orxBOOL MenuItem::OnCollide(
@@ -21,13 +23,19 @@ orxBOOL MenuItem::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
+    InputHandler::OnCollide(
+        _poCollider,
+        _zPartName,
+        _zColliderPartName,
+        _rvPosition,
+        _rvNormal);
 
     return orxTRUE;
 }
 
 void MenuItem::Update(const orxCLOCK_INFO &_rstInfo)
 {
-
+    InputHandler::Update(_rstInfo);
 }
 
 void MenuItem::Select(const bool _p1)
@@ -52,4 +60,9 @@ void MenuItem::Deselect(const bool _p1)
     {
         m_bIsSelectedP2 = false;
     }
+}
+
+void MenuItem::HandleInput(const std::string &_playerType)
+{
+
 }

@@ -8,6 +8,11 @@ AudioManager* AudioManager::instance = nullptr;
 
 AudioManager::AudioManager()
 {
+    // SFX
+    m_sndConfirm = orxSound_CreateFromConfig("SFX-Confirm");
+    m_sndCancel = orxSound_CreateFromConfig("SFX-Cancel");
+    m_timerBeep = orxSound_CreateFromConfig("SFX-TimerBeep");
+    // Music
     m_menuMusic = orxSound_CreateFromConfig("SM-Menu");
     m_pilotMusicMap.insert({ "O-Pilot1", orxSound_CreateFromConfig("SM-Pilot1") });
     m_pilotMusicMap.insert({ "O-Pilot2", orxSound_CreateFromConfig("SM-Pilot2") });

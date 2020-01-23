@@ -7,6 +7,8 @@ using namespace hexpatriates;
 
 void SceneArena::OnCreate()
 {
+    Scene::OnCreate();
+
     m_matchTime = GetFloat("MatchTime", GetModelName());
     m_timer = m_matchTime;
     m_contractionSpeed = GetFloat("ContractionSpeed", GetModelName());
@@ -56,7 +58,7 @@ void SceneArena::OnCreate()
 
 void SceneArena::OnDelete()
 {
-
+    Scene::OnDelete();
 }
 
 orxBOOL SceneArena::OnCollide(
@@ -66,22 +68,50 @@ orxBOOL SceneArena::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
+    Scene::OnCollide(
+        _poCollider,
+        _zPartName,
+        _zColliderPartName,
+        _rvPosition,
+        _rvNormal);
+
     return true;
 }
 
 void SceneArena::Update(const orxCLOCK_INFO &_rstInfo)
 {
+    Scene::Update(_rstInfo);
+
     if (!m_bIsRoundOver)
     {
-        // Handle timer decrement and response
         if (!m_bIsPausedForContraction)
         {
+            // Handle timer decrement and response
             m_timer -= _rstInfo.fDT;
             if (m_timer <= 0.0)
             {
                 m_bIsRoundOver = true;
             }
             SetTimerText();
+
+            // Play expansion warning sounds as appropriate
+            int threeFourthsMatchTime = 3 * m_matchTime / 4;
+            int oneHalfMatchTime = m_matchTime / 2;
+            int oneFourthMatchTime = m_matchTime / 4;
+            bool bPlayTimerBeep =
+                (m_timer <= threeFourthsMatchTime + 3 && m_timer + _rstInfo.fDT > threeFourthsMatchTime + 3) ||
+                (m_timer <= threeFourthsMatchTime + 2 && m_timer + _rstInfo.fDT > threeFourthsMatchTime + 2) ||
+                (m_timer <= threeFourthsMatchTime + 1 && m_timer + _rstInfo.fDT > threeFourthsMatchTime + 1) ||
+                (m_timer <= oneHalfMatchTime + 3 && m_timer + _rstInfo.fDT > oneHalfMatchTime + 3) ||
+                (m_timer <= oneHalfMatchTime + 2 && m_timer + _rstInfo.fDT > oneHalfMatchTime + 2) ||
+                (m_timer <= oneHalfMatchTime + 1 && m_timer + _rstInfo.fDT > oneHalfMatchTime + 1) ||
+                (m_timer <= oneFourthMatchTime + 3 && m_timer + _rstInfo.fDT > oneFourthMatchTime + 3) ||
+                (m_timer <= oneFourthMatchTime + 2 && m_timer + _rstInfo.fDT > oneFourthMatchTime + 2) ||
+                (m_timer <= oneFourthMatchTime + 1 && m_timer + _rstInfo.fDT > oneFourthMatchTime + 1);
+            if (bPlayTimerBeep)
+            {
+                orxSound_Play(AudioManager::GetInstance()->m_timerBeep);
+            }
         }
 
         // Force Pilots to face each other
@@ -343,18 +373,8 @@ void SceneArena::PauseForContraction(bool _pause)
 
 void SceneArena::CreateMeterBorders()
 {
-    /*CreateMeterBorder("O-DashMeterP1", m_dashMeterP1, m_pilotP1->m_maxDashes);
-    CreateMeterBorder("O-ParryMeterP1", m_parryMeterP1, 1);
-    CreateMeterBorder("O-NeutralMeterP1", m_neutralMeterP1, m_pilotP1->m_clipSizeNeutral);
-    CreateMeterBorder("O-UpwardMeterP1", m_upwardMeterP1, m_pilotP1->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP1", m_downwardMeterP1, m_pilotP1->m_clipSizeDownward);*/
     CreateMeterBorder("O-SuperMeterP1", m_superMeterP1, 1);
     CreateMeterBorder("O-LivesMeterP1", m_livesMeterP1, m_pilotP1->m_maxLives);
-    /*CreateMeterBorder("O-DashMeterP2", m_dashMeterP2, m_pilotP2->m_maxDashes);
-    CreateMeterBorder("O-ParryMeterP2", m_parryMeterP2, 1);
-    CreateMeterBorder("O-NeutralMeterP2", m_neutralMeterP2, m_pilotP2->m_clipSizeNeutral);
-    CreateMeterBorder("O-UpwardMeterP2", m_upwardMeterP2, m_pilotP2->m_clipSizeUpward);
-    CreateMeterBorder("O-DownwardMeterP2", m_downwardMeterP2, m_pilotP2->m_clipSizeDownward);*/
     CreateMeterBorder("O-SuperMeterP2", m_superMeterP2, 1);
     CreateMeterBorder("O-LivesMeterP2", m_livesMeterP2, m_pilotP2->m_maxLives);
 }

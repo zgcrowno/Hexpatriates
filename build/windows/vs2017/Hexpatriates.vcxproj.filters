@@ -43,6 +43,12 @@
     <Filter Include="src\Headers\MenuItems">
       <UniqueIdentifier>{cfe7a012-3c70-46c6-b813-a2220238859f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CPP\AI">
+      <UniqueIdentifier>{62807a8b-9403-405d-a656-de56e9204e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\AI">
+      <UniqueIdentifier>{7992b9f3-80fd-43c6-9e0b-4147349a978c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -209,14 +215,23 @@
     <ClCompile Include="MenuItemTransitional.cpp">
       <Filter>src\CPP\MenuItems</Filter>
     </ClCompile>
-    <ClCompile Include="SceneMenu2D.cpp">
-      <Filter>src\CPP\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMenu1D.cpp">
-      <Filter>src\CPP\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="MenuItemPilot.cpp">
       <Filter>src\CPP\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Consideration.cpp">
+      <Filter>src\CPP\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="RCurve.cpp">
+      <Filter>src\CPP\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>src\CPP\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Agent.cpp">
+      <Filter>src\CPP\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,14 +382,23 @@
     <ClInclude Include="MenuItemTransitional.h">
       <Filter>src\Headers\MenuItems</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMenu2D.h">
-      <Filter>src\Headers\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneMenu1D.h">
-      <Filter>src\Headers\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="MenuItemPilot.h">
       <Filter>src\Headers\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>src\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>src\Headers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Consideration.h">
+      <Filter>src\Headers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="RCurve.h">
+      <Filter>src\Headers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Agent.h">
+      <Filter>src\Headers\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

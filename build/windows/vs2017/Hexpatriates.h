@@ -30,7 +30,7 @@ namespace hexpatriates
         void PauseAction(orxBOOL _bPause);
         ScrollObject *GetArena();
         ScrollObject *GetArenaBounds();
-        ScrollObject *GetSceneMenu2D();
+        ScrollObject *GetScenePilotSelect();
         ScrollObject *GetPilotByPlayerType(const std::string _str);
         ScrollObject *GetCrosshairsByPlayerType(const std::string _str);
         std::vector<ScrollObject*> GetFamiliarsByPlayerType(const std::string _str);

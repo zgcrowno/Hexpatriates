@@ -19,6 +19,9 @@ namespace hexpatriates
         // Destructor
         ~AudioManager();
 
+        orxSOUND *m_sndConfirm;
+        orxSOUND *m_sndCancel;
+        orxSOUND *m_timerBeep;
         orxSOUND *m_menuMusic;
         std::map<std::string, orxSOUND*> m_pilotMusicMap;
 

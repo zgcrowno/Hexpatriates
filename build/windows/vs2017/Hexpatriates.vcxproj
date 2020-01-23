@@ -375,14 +375,19 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BeamPlacer.cpp" />
     <ClCompile Include="BeamSpouter.cpp" />
+    <ClCompile Include="Consideration.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LaserTeleportable.cpp" />
     <ClCompile Include="Legionnaire.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuItemPilot.cpp" />
     <ClCompile Include="MenuItemTransitional.cpp" />
+    <ClCompile Include="RCurve.cpp" />
     <ClCompile Include="SceneArena.cpp" />
     <ClCompile Include="ArenaBound.cpp" />
     <ClCompile Include="ArenaBounds.cpp" />
@@ -410,8 +415,6 @@
     <ClCompile Include="Pilot7.cpp" />
     <ClCompile Include="Pilot8.cpp" />
     <ClCompile Include="SceneMenu.cpp" />
-    <ClCompile Include="SceneMenu1D.cpp" />
-    <ClCompile Include="SceneMenu2D.cpp" />
     <ClCompile Include="PlayerSpecific.cpp" />
     <ClCompile Include="Prism.cpp" />
     <ClCompile Include="Shrapnel.cpp" />
@@ -436,14 +439,19 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="Agent.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BeamPlacer.h" />
     <ClInclude Include="BeamSpouter.h" />
+    <ClInclude Include="Consideration.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LaserTeleportable.h" />
     <ClInclude Include="Legionnaire.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="MenuItemPilot.h" />
     <ClInclude Include="MenuItemTransitional.h" />
+    <ClInclude Include="RCurve.h" />
     <ClInclude Include="SceneArena.h" />
     <ClInclude Include="ArenaBound.h" />
     <ClInclude Include="ArenaBounds.h" />
@@ -471,8 +479,6 @@
     <ClInclude Include="Pilot7.h" />
     <ClInclude Include="Pilot8.h" />
     <ClInclude Include="SceneMenu.h" />
-    <ClInclude Include="SceneMenu1D.h" />
-    <ClInclude Include="SceneMenu2D.h" />
     <ClInclude Include="PlayerSpecific.h" />
     <ClInclude Include="Prism.h" />
     <ClInclude Include="Shrapnel.h" />

@@ -1,4 +1,5 @@
 #include "MenuItemTransitional.h"
+#include "AudioManager.h"
 #include "Scene.h"
 
 using namespace hexpatriates;
@@ -35,18 +36,12 @@ orxBOOL MenuItemTransitional::OnCollide(
 void MenuItemTransitional::Update(const orxCLOCK_INFO &_rstInfo)
 {
     MenuItem::Update(_rstInfo);
-
-    if (m_bIsSelected)
-    {
-        if (orxInput_HasBeenActivated("DownwardP1"))
-        {
-            Transition();
-        }
-    }
 }
 
 void MenuItemTransitional::Transition()
 {
+    orxSound_Play(AudioManager::GetInstance()->m_sndConfirm);
+
     // Transition to next scene.
     if (orxString_Compare(GetModelName().c_str(), "O-QuitText") == 0)
     {
@@ -70,4 +65,17 @@ void MenuItemTransitional::Deselect(const bool _p1)
     MenuItem::Deselect(_p1);
 
     RemoveShader("SH-OutlineText");
+}
+
+void MenuItemTransitional::HandleInput(const std::string &_playerType)
+{
+    MenuItem::HandleInput(_playerType);
+
+    if (m_bIsSelected)
+    {
+        if (orxInput_HasBeenActivated(("Downward" + _playerType).c_str()))
+        {
+            Transition();
+        }
+    }
 }

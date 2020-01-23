@@ -26,5 +26,6 @@ namespace hexpatriates
 
         virtual void Select(const bool _p1);
         virtual void Deselect(const bool _p1);
+        virtual void HandleInput(const std::string &_playerType);
     };
 }

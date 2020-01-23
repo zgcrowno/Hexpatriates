@@ -39,8 +39,7 @@
 #include "Prism.h"
 #include "Scene.h"
 #include "SceneArena.h"
-#include "SceneMenu1D.h"
-#include "SceneMenu2D.h"
+#include "SceneMenu.h"
 #include "ScrollMod.h"
 #include "Ship.h"
 #include "Shrapnel.h"
@@ -112,8 +111,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Prism>("O-Prism");
     ScrollBindObject<Scene>("O-Scene");
     ScrollBindObject<SceneArena>("O-SceneArena");
-    ScrollBindObject<SceneMenu1D>("O-SceneMenu1D");
-    ScrollBindObject<SceneMenu2D>("O-SceneMenu2D");
+    ScrollBindObject<SceneMenu>("O-SceneMenu");
     ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Ship>("O-Ship");
     ScrollBindObject<Shrapnel>("O-Shrapnel");
@@ -165,9 +163,17 @@ ScrollObject *Hexpatriates::GetArenaBounds()
     return GetNextObject<ArenaBounds>();
 }
 
-ScrollObject *Hexpatriates::GetSceneMenu2D()
+ScrollObject *Hexpatriates::GetScenePilotSelect()
 {
-    return GetNextObject<SceneMenu2D>();
+    for (SceneMenu *scene = GetNextObject<SceneMenu>(); scene != nullptr; scene = GetNextObject<SceneMenu>(scene))
+    {
+        if (orxString_Compare(scene->GetModelName().c_str(), "O-ScenePilotSelect") == 0)
+        {
+            return scene;
+        }
+    }
+
+    return nullptr;
 }
 
 ScrollObject *Hexpatriates::GetPilotByPlayerType(const std::string _str)

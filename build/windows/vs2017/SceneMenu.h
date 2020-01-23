@@ -7,7 +7,7 @@
 
 namespace hexpatriates
 {
-    class SceneMenu : public Scene
+    class SceneMenu : public Scene, public InputHandler
     {
     protected:
         //! Called on object creation
@@ -24,10 +24,14 @@ namespace hexpatriates
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
-        bool m_bAllowMultiInput;
         int m_selectedItemIndex;
         int m_selectedItemIndexP2;
-        std::string m_transition = ""; // The scene transition object we'll use to jump from one SceneMenu to another scene.
+        // How many columns of menu items the scene contains.
+        int m_menuItemsWidth;
+        // How many rows of menu items the scene contains.
+        int m_menuItemsHeight;
         std::vector<MenuItem*> m_menuItems;
+
+        void HandleInput(const std::string &_playerType);
     };
 }

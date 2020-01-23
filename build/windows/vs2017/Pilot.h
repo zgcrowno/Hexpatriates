@@ -142,6 +142,8 @@ namespace hexpatriates
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
+        orxVECTOR m_noDashIconDefaultScale;
+        orxVECTOR m_noParryIconDefaultScale;
         ScrollMod *m_noDashIcon;
         ScrollMod *m_noParryIcon;
         //! The Pilot's construction/contamination text

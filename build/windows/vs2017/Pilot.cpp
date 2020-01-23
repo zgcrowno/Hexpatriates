@@ -88,11 +88,13 @@ void Pilot::OnCreate()
     // Set the Pilot's spawning position and flip
     m_defaultPosition = GetPosition();
     GetFlip(m_defaultFlipX, m_defaultFlipY);
-    // Set the Pilot's NoDash and NoParry icons, and disable them, by default
+    // Set the Pilot's NoDash and NoParry icons (and their default scales), and disable them, by default
     m_noDashIcon = ScrollCast<ScrollMod*>(GetChildByName("O-NoDashIcon"));
     m_noParryIcon = ScrollCast<ScrollMod*>(GetChildByName("O-NoParryIcon"));
     m_noDashIcon->Enable(false);
     m_noParryIcon->Enable(false);
+    m_noDashIconDefaultScale = m_noDashIcon->GetScale();
+    m_noParryIconDefaultScale = m_noParryIcon->GetScale();
     // Set the Pilot's construction/contamination text
     m_headsUpText = ScrollCast<ScrollMod*>(GetChildByName("O-HeadsUpText"));
     m_headsUpText->Enable(orxFALSE);
@@ -337,7 +339,10 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     // Zone interactions
     if (!IsInOwnZone())
     {
-        DestroyShip();
+        if (m_ship->IsEnabled())
+        {
+            TakeDamage();
+        }
     }
     // Handle iFrames decrement
     if (m_iFrames > 0)
@@ -545,6 +550,19 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_wavesIndexSuper = 0;
         m_waveDelaySuper = 0;
+    }
+    // Handle noDashIcon and noParryIcon scaling
+    float scaleRatio;
+    orxVECTOR newScale = orxVECTOR_0;
+    if (m_noDashIcon->IsEnabled())
+    {
+        scaleRatio = m_cooldownDash / m_maxCooldownDash;
+        m_noDashIcon->SetScale(*orxVector_Mulf(&newScale, &m_noDashIconDefaultScale, scaleRatio));
+    }
+    if (m_noParryIcon->IsEnabled())
+    {
+        scaleRatio = m_cooldownParry / m_maxCooldownParry;
+        m_noParryIcon->SetScale(*orxVector_Mulf(&newScale, &m_noParryIconDefaultScale, scaleRatio));
     }
 }
 
@@ -804,15 +822,15 @@ void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
     }
     else if (orxInput_HasBeenDeactivated(m_jumpInput.c_str()))
     {
-        // Only augment the jump time if it's greater than 1/3 of the maximum jump duration, so as to avoid immediate speed cutoff (this results in a more realistic jump that feels natural).
-        float jumpDurationBy3 = m_jumpDuration / 3.0f;
-        if (m_jumpTime > jumpDurationBy3)
+        // Only augment the jump time if it's greater than 2/3 of the maximum jump duration, so as to avoid immediate speed cutoff (this results in a more realistic jump that feels natural).
+        float twoThirdsJumpDuration = 2 * m_jumpDuration / 3.0f;
+        if (m_jumpTime > twoThirdsJumpDuration)
         {
-            m_jumpTime = jumpDurationBy3;
+            m_jumpTime = twoThirdsJumpDuration;
         }
-        if (m_wallJumpTime > jumpDurationBy3)
+        if (m_wallJumpTime > twoThirdsJumpDuration)
         {
-            m_wallJumpTime = jumpDurationBy3;
+            m_wallJumpTime = twoThirdsJumpDuration;
         }
     }
 }
@@ -886,6 +904,8 @@ void Pilot::Downstab(const bool _downstab)
 
 void Pilot::DestroyShip()
 {
+    // Play explosion sound.
+    AddSound("SFX-Explosion");
     // De-solidify the ship body part
     std::string shipName = GetModelName();
     std::string shipNumber = shipName.substr(7, 1);
@@ -923,6 +943,7 @@ void Pilot::ConstructShip()
 
 void Pilot::Die()
 {
+    AddSound("SFX-Scream");
     if (m_ship->IsEnabled())
     {
         DestroyShip();

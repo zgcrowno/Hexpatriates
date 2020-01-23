@@ -6,7 +6,8 @@
 
 namespace hexpatriates
 {
-    class Scene : public ScrollMod
+    // Using virtual inheritance for ScrollMod to prevent member ambiguity errors when also inheriting from InputHandler.
+    class Scene : public virtual ScrollMod
     {
     protected:
         //! Called on object creation
@@ -24,6 +25,8 @@ namespace hexpatriates
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         static std::map<std::string, std::function<void()>> m_transitionBehaviorMap;
+
+        std::string m_cancelToScene;
 
         static void TransitionToScene(const std::string &_toScene);
     };

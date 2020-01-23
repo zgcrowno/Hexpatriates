@@ -31,19 +31,7 @@ orxBOOL MenuItemPilot::OnCollide(
 
 void MenuItemPilot::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    MenuItem::Update(_rstInfo);
-
-    if (orxInput_HasBeenActivated("DownwardP1"))
-    {
-        if (m_bIsCommitted)
-        {
-            Transition();
-        }
-        else if (m_bIsSelected)
-        {
-            m_bIsCommitted = true;
-        }
-    }
+    MenuItemTransitional::Update(_rstInfo);
 }
 
 void MenuItemPilot::Select(const bool _p1)
@@ -73,5 +61,22 @@ void MenuItemPilot::Deselect(const bool _p1)
     else
     {
         RemoveShader("SH-OutlineP2");
+    }
+}
+
+void MenuItemPilot::HandleInput(const std::string &_playerType)
+{
+    MenuItem::HandleInput(_playerType);
+
+    if (orxInput_HasBeenActivated(("Downward" + _playerType).c_str()))
+    {
+        if (m_bIsCommitted)
+        {
+            Transition();
+        }
+        else if (m_bIsSelected)
+        {
+            m_bIsCommitted = true;
+        }
     }
 }

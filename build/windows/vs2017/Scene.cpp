@@ -1,6 +1,6 @@
 #include "Scene.h"
 #include "SceneArena.h"
-#include "SceneMenu2D.h"
+#include "SceneMenu.h"
 #include "AudioManager.h"
 #include <string>
 
@@ -44,7 +44,7 @@ std::map<std::string, std::function<void()>> Scene::m_transitionBehaviorMap =
                 }
                 else
                 {
-                    SceneMenu2D *pilotSelectScene = ScrollCast<SceneMenu2D*>(Hexpatriates::GetInstance().GetSceneMenu2D());
+                    SceneMenu *pilotSelectScene = ScrollCast<SceneMenu*>(Hexpatriates::GetInstance().GetScenePilotSelect());
                     std::string pilotBaseName = "O-Pilot";
                     std::string p1 = "P1";
                     std::string p2 = "P2";
@@ -59,13 +59,16 @@ std::map<std::string, std::function<void()>> Scene::m_transitionBehaviorMap =
         "O-ToSceneMain",
         []()
             {
-                // Reset arena music
+                // Reset arena music if arena is not null.
                 SceneArena *arena = dynamic_cast<SceneArena*>(Hexpatriates::GetInstance().GetArena());
-                orxSound_Stop(arena->m_pilotP1Music);
-                orxSound_SetTime(arena->m_pilotP1Music, 0);
-                orxSound_Stop(arena->m_pilotP2Music);
-                orxSound_SetTime(arena->m_pilotP2Music, 0);
-                Hexpatriates::GetInstance().PauseGame(false);
+                if (arena != nullptr)
+                {
+                    orxSound_Stop(arena->m_pilotP1Music);
+                    orxSound_SetTime(arena->m_pilotP1Music, 0);
+                    orxSound_Stop(arena->m_pilotP2Music);
+                    orxSound_SetTime(arena->m_pilotP2Music, 0);
+                    Hexpatriates::GetInstance().PauseGame(false);
+                }
             }
     },
     {
@@ -113,7 +116,7 @@ std::map<std::string, std::function<void()>> Scene::m_transitionBehaviorMap =
 
 void Scene::OnCreate()
 {
-    
+    m_cancelToScene = GetString("CancelToScene", GetModelName());
 }
 
 void Scene::OnDelete()
