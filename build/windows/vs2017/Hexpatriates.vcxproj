@@ -380,10 +380,10 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BeamPlacer.cpp" />
     <ClCompile Include="BeamSpouter.cpp" />
-    <ClCompile Include="Consideration.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LaserTeleportable.cpp" />
     <ClCompile Include="Legionnaire.cpp" />
+    <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuItemPilot.cpp" />
     <ClCompile Include="MenuItemTransitional.cpp" />
@@ -429,6 +429,7 @@
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Turret.cpp" />
+    <ClCompile Include="UBucket.cpp" />
     <ClCompile Include="Zone.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -444,10 +445,10 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BeamPlacer.h" />
     <ClInclude Include="BeamSpouter.h" />
-    <ClInclude Include="Consideration.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="LaserTeleportable.h" />
     <ClInclude Include="Legionnaire.h" />
+    <ClInclude Include="MathUtil.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="MenuItemPilot.h" />
     <ClInclude Include="MenuItemTransitional.h" />
@@ -493,6 +494,7 @@
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Turret.h" />
+    <ClInclude Include="UBucket.h" />
     <ClInclude Include="Zone.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

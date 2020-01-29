@@ -13,7 +13,12 @@ using namespace hexpatriates;
 void Pilot::OnCreate()
 {
     PlayerSpecific::OnCreate();
+    Agent::OnCreate();
 
+    // Set the Agent's action map.
+    SetActionMap();
+    // Set the Pilot's computer-controlled status.
+    m_bIsAutomated = GetBool("IsAutomated", GetModelName());
     // Set The iFrames.
     m_maxIFrames = GetFloat("MaxIFrames", GetModelName());
     // Set the construction timer to its default value.
@@ -67,7 +72,7 @@ void Pilot::OnCreate()
     m_parryInput = GetString("ParryInput", GetModelName());
     if (m_bIsP1)
     {
-        m_zone = (Zone*)CreateObject("O-ZoneP1");
+        m_zone = ScrollCast<Zone*>(CreateObject("O-ZoneP1"));
         m_neutralInput = "NeutralP1";
         m_upwardInput = "UpwardP1";
         m_downwardInput = "DownwardP1";
@@ -76,7 +81,7 @@ void Pilot::OnCreate()
     }
     else
     {
-        m_zone = (Zone*)CreateObject("O-ZoneP2");
+        m_zone = ScrollCast<Zone*>(CreateObject("O-ZoneP2"));
         m_neutralInput = "NeutralP2";
         m_upwardInput = "UpwardP2";
         m_downwardInput = "DownwardP2";
@@ -274,7 +279,33 @@ orxBOOL Pilot::OnSeparate(ScrollObject *_poCollider)
 
 void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    // Take damage as appropriate
+    // HANDLE ACTIONS.
+    if (m_bIsAutomated)
+    {
+        Agent::Update(_rstInfo);
+    }
+    else
+    {
+        // DASH INPUTS
+        HandleDash();
+        // REGULAR MOVEMENT INPUTS.
+        HandleMovement();
+        // ACTION INPUTS.
+        HandleParry();
+        if (m_ship->IsEnabled())
+        {
+            HandleNeutral();
+            HandleUpward();
+            HandleDownward();
+            HandleSuper();
+        }
+        else
+        {
+            HandleMelee();
+            HandleJump();
+        }
+    }
+    // TAKE DAMAGE AS APPROPRIATE
     if (m_iFrames <= 0)
     {
         // Arena electrification damage
@@ -287,7 +318,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
             }
         }
     }
-    // Deal damage as appropriate
+    // DEAL DAMAGE AS APPROPRIATE
     if ((m_bIsInDownstabRange &&
         m_bIsDownstabbing) ||
         (m_bIsInMeleeRange &&
@@ -298,24 +329,9 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
             m_opposingPilot->Die();
         }
     }
-    // Movement inputs.
-    Dash();
-    Move(true);
-    // Action inputs.
-    Parry();
-    if (m_ship->IsEnabled())
+    // HANDLE CONSTRUCTION AND CONTAMINATION DECREMENT AND RESPONSE
+    if (!m_ship->IsEnabled())
     {
-        Neutral();
-        Upward();
-        Downward();
-        Super();
-    }
-    else
-    {
-        Melee();
-        Jump(_rstInfo);
-
-        // Handle construction and contamination decrement and response
         if (IsInOwnZone())
         {
             m_constructionTimer -= _rstInfo.fDT;
@@ -336,7 +352,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         }
         SetHeadsUpText();
     }
-    // Zone interactions
+    // ZONE INTERACTIONS
     if (!IsInOwnZone())
     {
         if (m_ship->IsEnabled())
@@ -344,7 +360,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
             TakeDamage();
         }
     }
-    // Handle iFrames decrement
+    // HANDLE IFRAMES DECREMENT
     if (m_iFrames > 0)
     {
         m_iFrames -= _rstInfo.fDT;
@@ -359,7 +375,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         m_iFrames = 0;
         
     }
-    // Handle jump time decrement
+    // HANDLE JUMP TIME DECREMENT
     if (m_jumpTime > 0)
     {
         m_jumpTime -= _rstInfo.fDT;
@@ -368,7 +384,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_jumpTime = 0;
     }
-    // Handle wall jump time decrement
+    // HANDLE WALL JUMP TIME DECREMENT
     if (m_wallJumpTime > 0)
     {
         m_wallJumpTime -= _rstInfo.fDT;
@@ -377,7 +393,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     {
         m_wallJumpTime = 0;
     }
-    // Handle dash time decrement
+    // HANDLE DASH TIME DECREMENT
     if (m_dashTime > 0)
     {
         m_dashTime -= _rstInfo.fDT;
@@ -408,7 +424,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         m_dashTime = 0;
         m_noDashIcon->Enable(true);
     }
-    // Handle parry time decrement
+    // HANDLE PARRY TIME DECREMENT
     if (m_parryTime > 0)
     {
         m_parryTime -= _rstInfo.fDT;
@@ -428,7 +444,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         }
         m_bJustParried = false;
     }
-    // Handle melee time decrement
+    // HANDLE MELEE TIME DECREMENT
     if (m_meleeTime > 0)
     {
         m_meleeTime -= _rstInfo.fDT;
@@ -438,7 +454,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         m_meleeObject->Enable(orxFALSE);
         m_meleeTime = 0;
     }
-    // Handle cooldowns
+    // HANDLE COOLDOWNS
     if (m_cooldownDash > 0)
     {
         m_cooldownDash -= _rstInfo.fDT;
@@ -466,7 +482,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         m_cooldownMelee = 0;
     }
     HandleSuperCooldown(_rstInfo.fDT);
-    // Handle Waves
+    // HANDLE WAVES
     if (m_wavesIndexNeutral != 0 && m_wavesIndexNeutral < m_numWavesNeutral)
     {
         if (m_waveDelayNeutral > 0)
@@ -551,7 +567,7 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         m_wavesIndexSuper = 0;
         m_waveDelaySuper = 0;
     }
-    // Handle noDashIcon and noParryIcon scaling
+    // HANDLE NODASHICON AND NOPARRYICON SCALING
     float scaleRatio;
     orxVECTOR newScale = orxVECTOR_0;
     if (m_noDashIcon->IsEnabled())
@@ -564,6 +580,58 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
         scaleRatio = m_cooldownParry / m_maxCooldownParry;
         m_noParryIcon->SetScale(*orxVector_Mulf(&newScale, &m_noParryIconDefaultScale, scaleRatio));
     }
+}
+
+void Pilot::SetActionMap()
+{
+    // Set the Pilot's action map.
+    m_actionMap =
+    {
+        {
+            Action::ActionType::Move,
+            [this]() {}
+        },
+        {
+            Action::ActionType::Jump,
+            [this]() {}
+        },
+        {
+            Action::ActionType::Fall,
+            [this]() {}
+        },
+        {
+            Action::ActionType::Dash,
+            [this]() {}
+        },
+        {
+            Action::ActionType::Parry,
+            [this]() { Parry(); }
+        },
+        {
+            Action::ActionType::Melee,
+            [this]() { Melee(); }
+        },
+        {
+            Action::ActionType::Downstab,
+            [this]() { Downstab(true); }
+        },
+        {
+            Action::ActionType::FireNeutral,
+            [this]() { Neutral(); }
+        },
+        {
+            Action::ActionType::FireUpward,
+            [this]() { Upward(); }
+        },
+        {
+            Action::ActionType::FireDownward,
+            [this]() { Downward(); }
+        },
+        {
+            Action::ActionType::FireSuper,
+            [this]() { Super(); }
+        },
+    };
 }
 
 const float Pilot::GetPISD(const float &_angle) const
@@ -634,20 +702,18 @@ void Pilot::SetHeadsUpText()
     orxObject_SetColor(m_headsUpText->GetOrxObject(), &color);
 }
 
-void Pilot::Move(const bool &_bAllowVerticalMovement)
+void Pilot::HandleMovement()
 {
-    orxVECTOR movement = orxVECTOR_0;
-    
+    m_movement = orxVECTOR_0;
     // If dashing, execute dash movement.
     if (m_dashTime > 0)
     {
-        movement.fX = m_dashDirection.fX * m_dashSpeed;
-        movement.fY = m_dashDirection.fY * m_dashSpeed;
+        Move(m_dashDirection, m_dashSpeed);
     }
     // Else if downstabbing, execute downstab movement.
     else if (m_bIsDownstabbing)
     {
-        movement.fY = m_downstabSpeed;
+        Move({ 0, 1 }, m_downstabSpeed);
     }
     // Else execute regular movement
     else
@@ -658,19 +724,19 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
         {
             speed = m_flyingSpeed;
 
-            if (orxInput_IsActive(m_upDownInput.c_str()) && _bAllowVerticalMovement)
+            if (orxInput_IsActive(m_upDownInput.c_str()) && CanMoveVertically())
             {
-                movement.fY += speed * orxInput_GetValue(m_upDownInput.c_str());
+                Move({ 0, 1 }, speed * orxInput_GetValue(m_upDownInput.c_str()));
             }
-            else if (_bAllowVerticalMovement)
+            else if (CanMoveVertically())
             {
                 if (orxInput_IsActive(m_upInput.c_str()))
                 {
-                    movement.fY -= speed;
+                    Move({ 0, -1 }, speed);
                 }
                 if (orxInput_IsActive(m_downInput.c_str()))
                 {
-                    movement.fY += speed;
+                    Move({ 0, 1 }, speed);
                 }
             }
         }
@@ -681,19 +747,19 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 if (orxInput_IsActive(m_upDownInput.c_str()))
                 {
                     m_jumpTime = 0;
-                    movement.fY += m_jumpingSpeed * orxInput_GetValue(m_upDownInput.c_str());
+                    Move({ 0, 1 }, m_jumpingSpeed * orxInput_GetValue(m_upDownInput.c_str()));
                 }
                 else
                 {
                     if (orxInput_IsActive(m_upInput.c_str()))
                     {
                         m_jumpTime = 0;
-                        movement.fY -= m_jumpingSpeed;
+                        Move({ 0, -1 }, m_jumpingSpeed);
                     }
                     if (orxInput_IsActive(m_downInput.c_str()))
                     {
                         m_jumpTime = 0;
-                        movement.fY += m_jumpingSpeed;
+                        Move({ 0, 1 }, m_jumpingSpeed);
                     }
                 }
             }
@@ -701,13 +767,12 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
             if (m_jumpTime > 0)
             {
                 float proportionJumpCompleted = m_jumpTime / m_jumpDuration;
-                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted;
+                Move({ 0, 1 }, m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted);
             }
             if (m_wallJumpTime > 0)
             {
                 float proportionJumpCompleted = m_wallJumpTime / m_jumpDuration;
-                movement.fX = m_jumpDirection.fX * m_jumpingSpeed * proportionJumpCompleted;
-                movement.fY = m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted;
+                Move(m_jumpDirection, m_jumpingSpeed * proportionJumpCompleted);
             }
         }
         if (orxInput_IsActive(m_leftRightInput.c_str()))
@@ -726,7 +791,7 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                 }
             }
 
-            movement.fX += speed * leftRightValue;
+            Move({ 1, 0 }, speed * leftRightValue);
         }
         else
         {
@@ -737,7 +802,7 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                     SetTargetAnim("A-PilotRun");
                 }
 
-                movement.fX -= speed;
+                Move({ -1, 0 }, speed);
             }
             else if (orxInput_IsActive(m_rightInput.c_str()))
             {
@@ -746,7 +811,7 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
                     SetTargetAnim("A-PilotRun");
                 }
 
-                movement.fX += speed;
+                Move({ 1, 0 }, speed);
             }
             else
             {
@@ -754,7 +819,93 @@ void Pilot::Move(const bool &_bAllowVerticalMovement)
             }
         }
     }
-    SetSpeed(movement);
+    SetSpeed(m_movement);
+}
+
+void Pilot::HandleDash()
+{
+    if (orxInput_HasBeenActivated(m_dashInput.c_str()))
+    {
+        if (orxInput_GetValue(m_leftRightInput.c_str()) != 0 || orxInput_GetValue(m_upDownInput.c_str()) != 0)
+        {
+            Dash({ orxInput_GetValue(m_leftRightInput.c_str()), orxInput_GetValue(m_upDownInput.c_str()) });
+        }
+        else
+        {
+            Dash({ orxInput_GetValue(m_rightInput.c_str()) - orxInput_GetValue(m_leftInput.c_str()), orxInput_GetValue(m_downInput.c_str()) - orxInput_GetValue(m_upInput.c_str()), 0 });
+        }
+    }
+}
+
+void Pilot::HandleParry()
+{
+    if (orxInput_HasBeenActivated(m_parryInput.c_str()))
+    {
+        Parry();
+    }
+}
+
+void Pilot::HandleMelee()
+{
+    if (orxInput_HasBeenActivated(m_meleeInput.c_str()))
+    {
+        Melee();
+    }
+}
+
+void Pilot::HandleJump()
+{
+    if (orxInput_HasBeenActivated(m_jumpInput.c_str()))
+    {
+        Jump();
+    }
+    else if (orxInput_HasBeenDeactivated(m_jumpInput.c_str()))
+    {
+        Fall();
+    }
+}
+
+void Pilot::HandleNeutral()
+{
+    if (orxInput_HasBeenActivated(m_neutralInput.c_str()))
+    {
+        Neutral();
+    }
+}
+
+void Pilot::HandleUpward()
+{
+    if (orxInput_HasBeenActivated(m_upwardInput.c_str()))
+    {
+        Upward();
+    }
+}
+
+void Pilot::HandleDownward()
+{
+    if (orxInput_HasBeenActivated(m_downwardInput.c_str()))
+    {
+        Downward();
+    }
+}
+
+void Pilot::HandleSuper()
+{
+    if (orxInput_HasBeenActivated(m_superInput.c_str()))
+    {
+        Super();
+    }
+}
+
+void Pilot::Move(const orxVECTOR &_direction, const float &_speed)
+{
+    m_movement.fX += _direction.fX * _speed;
+    m_movement.fY += _direction.fY * _speed;
+}
+
+bool Pilot::CanMoveVertically()
+{
+    return true;
 }
 
 void Pilot::SpawnDashIcon()
@@ -800,99 +951,78 @@ void Pilot::TakeDamage()
     AddShader("SH-FlashIFrames");
 }
 
-void Pilot::Jump(const orxCLOCK_INFO &_rstInfo)
+void Pilot::Jump()
 {
-    if (orxInput_HasBeenActivated(m_jumpInput.c_str()))
+    if (m_bIsGrounded)
     {
-        if (m_bIsGrounded)
-        {
-            m_jumpDirection = { 0, -1, 0 };
-            m_jumpTime = m_jumpDuration;
-        }
-        else if (m_bIsAgainstLeftWall)
-        {
-            m_jumpDirection = { 1, -1, 0 };
-            m_wallJumpTime = m_jumpDuration;
-        }
-        else if (m_bIsAgainstRightWall)
-        {
-            m_jumpDirection = { -1, -1, 0 };
-            m_wallJumpTime = m_jumpDuration;
-        }
+        m_jumpDirection = { 0, -1, 0 };
+        m_jumpTime = m_jumpDuration;
     }
-    else if (orxInput_HasBeenDeactivated(m_jumpInput.c_str()))
+    else if (m_bIsAgainstLeftWall)
     {
-        // Only augment the jump time if it's greater than 2/3 of the maximum jump duration, so as to avoid immediate speed cutoff (this results in a more realistic jump that feels natural).
-        float twoThirdsJumpDuration = 2 * m_jumpDuration / 3.0f;
-        if (m_jumpTime > twoThirdsJumpDuration)
-        {
-            m_jumpTime = twoThirdsJumpDuration;
-        }
-        if (m_wallJumpTime > twoThirdsJumpDuration)
-        {
-            m_wallJumpTime = twoThirdsJumpDuration;
-        }
+        m_jumpDirection = { 1, -1, 0 };
+        m_wallJumpTime = m_jumpDuration;
+    }
+    else if (m_bIsAgainstRightWall)
+    {
+        m_jumpDirection = { -1, -1, 0 };
+        m_wallJumpTime = m_jumpDuration;
     }
 }
 
-void Pilot::Dash()
+void Pilot::Fall()
 {
-    if (orxInput_HasBeenActivated(m_dashInput.c_str()))
+    // Only augment the jump time if it's greater than 2/3 of the maximum jump duration, so as to avoid immediate speed cutoff (this results in a more realistic jump that feels natural).
+    float twoThirdsJumpDuration = 2 * m_jumpDuration / 3.0f;
+    if (m_jumpTime > twoThirdsJumpDuration)
     {
-        // Only execute dash input if the Character isn't currently dashing or waiting out a dash cooldown.
-        if (m_dashTime <= 0)
-        {
-            if (m_cooldownDash <= 0)
-            {
-                if (orxInput_GetValue(m_leftRightInput.c_str()) != 0 || orxInput_GetValue(m_upDownInput.c_str()) != 0)
-                {
-                    m_dashDirection = { orxInput_GetValue(m_leftRightInput.c_str()), orxInput_GetValue(m_upDownInput.c_str()) };
-                }
-                else
-                {
-                    m_dashDirection = { orxInput_GetValue(m_rightInput.c_str()) - orxInput_GetValue(m_leftInput.c_str()), orxInput_GetValue(m_downInput.c_str()) - orxInput_GetValue(m_upInput.c_str()), 0 };
-                }
+        m_jumpTime = twoThirdsJumpDuration;
+    }
+    if (m_wallJumpTime > twoThirdsJumpDuration)
+    {
+        m_wallJumpTime = twoThirdsJumpDuration;
+    }
+}
 
-                m_jumpTime = 0;
-                m_dashTime = m_dashDuration;
-
-                SpawnDashIcon();
-                AddSound("SFX-Dash");
-            }
-        }
-        else if (!m_bCanceledDash)
+void Pilot::Dash(const orxVECTOR &_direction)
+{
+    if (m_dashTime <= 0)
+    {
+        if (m_cooldownDash <= 0)
         {
-            m_bCanceledDash = true;
+            m_dashDirection = _direction;
+            m_jumpTime = 0;
+            m_dashTime = m_dashDuration;
+            SpawnDashIcon();
+            AddSound("SFX-Dash");
         }
+    }
+    else if (!m_bCanceledDash)
+    {
+        m_bCanceledDash = true;
     }
 }
 
 void Pilot::Parry()
 {
-    if (orxInput_HasBeenActivated(m_parryInput.c_str()))
+    if (m_cooldownParry <= 0 && m_parryTime <= 0)
     {
-        if (m_cooldownParry <= 0 && m_parryTime <= 0)
-        {
-            m_parryObject->Enable(orxTRUE);
-            m_parryTime = m_parryDuration;
-        }
+        m_parryObject->Enable(orxTRUE);
+        m_parryTime = m_parryDuration;
     }
 }
 
 void Pilot::Melee()
 {
-    if (orxInput_HasBeenActivated(m_meleeInput.c_str()))
+    if (orxInput_IsActive(m_downInput.c_str()) && !m_bIsGrounded)
     {
-        if (orxInput_IsActive(m_downInput.c_str()) && !m_bIsGrounded)
-        {
-            Downstab(true);
-        }
-        else if (m_cooldownMelee <= 0 && m_meleeTime <= 0)
-        {
-            m_meleeObject->Enable(orxTRUE);
-            m_meleeTime = m_meleeDuration;
-            m_cooldownMelee = m_maxCooldownMelee;
-        }
+        Downstab(true);
+    }
+    else if (m_cooldownMelee <= 0 && m_meleeTime <= 0)
+    {
+        m_meleeObject->Enable(orxTRUE);
+        m_meleeTime = m_meleeDuration;
+        m_cooldownMelee = m_maxCooldownMelee;
     }
 }
 
@@ -956,89 +1086,77 @@ void Pilot::Die()
 
 void Pilot::Neutral()
 {
-    if (orxInput_HasBeenActivated(m_neutralInput.c_str()))
+    if ((m_waveSizeNeutral == 1 && m_numWavesNeutral == 1) || m_ship->m_neutralGun->GetActiveObjectCount() == 0)
     {
-        if ((m_waveSizeNeutral == 1 && m_numWavesNeutral == 1) || m_ship->m_neutralGun->GetActiveObjectCount() == 0)
+        if (m_wavesIndexNeutral == 0)
         {
-            if (m_wavesIndexNeutral == 0)
+            for (int i = 0; i < m_waveSizeNeutral; i++)
             {
-                for (int i = 0; i < m_waveSizeNeutral; i++)
-                {
-                    FireNeutral(i);
-                }
-
-                m_waveDelayNeutral = m_maxWaveDelayNeutral;
-
-                m_wavesIndexNeutral++;
+                FireNeutral(i);
             }
+
+            m_waveDelayNeutral = m_maxWaveDelayNeutral;
+
+            m_wavesIndexNeutral++;
         }
     }
 }
 
 void Pilot::Upward()
 {
-    if (orxInput_HasBeenActivated(m_upwardInput.c_str()))
+    if ((m_waveSizeUpward == 1 && m_numWavesUpward == 1) || m_ship->m_upwardGun->GetActiveObjectCount() == 0)
     {
-        if ((m_waveSizeUpward == 1 && m_numWavesUpward == 1) || m_ship->m_upwardGun->GetActiveObjectCount() == 0)
+        if (m_wavesIndexUpward == 0)
         {
-            if (m_wavesIndexUpward == 0)
+            for (int i = 0; i < m_waveSizeUpward; i++)
             {
-                for (int i = 0; i < m_waveSizeUpward; i++)
-                {
-                    FireUpward(i);
-                }
-
-                m_waveDelayUpward = m_maxWaveDelayUpward;
-
-                m_wavesIndexUpward++;
+                FireUpward(i);
             }
+
+            m_waveDelayUpward = m_maxWaveDelayUpward;
+
+            m_wavesIndexUpward++;
         }
     }
 }
 
 void Pilot::Downward()
 {
-    if (orxInput_HasBeenActivated(m_downwardInput.c_str()))
+    if ((m_waveSizeDownward == 1 && m_numWavesDownward == 1) || m_ship->m_downwardGun->GetActiveObjectCount() == 0)
     {
-        if ((m_waveSizeDownward == 1 && m_numWavesDownward == 1) || m_ship->m_downwardGun->GetActiveObjectCount() == 0)
+        if (m_wavesIndexDownward == 0)
         {
-            if (m_wavesIndexDownward == 0)
+            for (int i = 0; i < m_waveSizeDownward; i++)
             {
-                for (int i = 0; i < m_waveSizeDownward; i++)
-                {
-                    FireDownward(i);
-                }
-
-                m_waveDelayDownward = m_maxWaveDelayDownward;
-
-                m_wavesIndexDownward++;
+                FireDownward(i);
             }
+
+            m_waveDelayDownward = m_maxWaveDelayDownward;
+
+            m_wavesIndexDownward++;
         }
     }
 }
 
 void Pilot::Super()
 {
-    if (orxInput_HasBeenActivated(m_superInput.c_str()))
+    if ((m_waveSizeSuper == 1 && m_numWavesSuper == 1) || m_ship->m_superGun->GetActiveObjectCount() == 0)
     {
-        if ((m_waveSizeSuper == 1 && m_numWavesSuper == 1) || m_ship->m_superGun->GetActiveObjectCount() == 0)
+        if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
         {
-            if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
+            for (int i = 0; i < m_waveSizeSuper; i++)
             {
-                for (int i = 0; i < m_waveSizeSuper; i++)
-                {
-                    FireSuper(i);
-                }
+                FireSuper(i);
+            }
 
-                m_waveDelaySuper = m_maxWaveDelaySuper;
+            m_waveDelaySuper = m_maxWaveDelaySuper;
 
-                m_wavesIndexSuper++;
+            m_wavesIndexSuper++;
 
-                // Only increase the super's cooldown if the Pilot isn't an instance of Pilot6.
-                if (dynamic_cast<Pilot6*>(this) == nullptr)
-                {
-                    m_cooldownSuper = m_maxCooldownSuper;
-                }
+            // Only increase the super's cooldown if the Pilot isn't an instance of Pilot6.
+            if (dynamic_cast<Pilot6*>(this) == nullptr)
+            {
+                m_cooldownSuper = m_maxCooldownSuper;
             }
         }
     }

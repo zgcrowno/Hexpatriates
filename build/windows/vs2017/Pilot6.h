@@ -22,7 +22,7 @@ namespace hexpatriates
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-        virtual void Move(const bool &_bAllowVerticalMovement);
+        virtual void HandleMovement();
     public:
         int m_maxFamiliars;
         std::vector<Familiar*> m_familiars;

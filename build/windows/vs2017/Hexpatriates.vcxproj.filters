@@ -49,6 +49,12 @@
     <Filter Include="src\Headers\AI">
       <UniqueIdentifier>{7992b9f3-80fd-43c6-9e0b-4147349a978c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CPP\Util">
+      <UniqueIdentifier>{6522668e-39ec-4f71-8a9d-eb6ea8da4e14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Headers\Util">
+      <UniqueIdentifier>{68259347-fd95-44b0-aabf-690a1b930de7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -221,9 +227,6 @@
     <ClCompile Include="InputHandler.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="Consideration.cpp">
-      <Filter>src\CPP\AI</Filter>
-    </ClCompile>
     <ClCompile Include="RCurve.cpp">
       <Filter>src\CPP\AI</Filter>
     </ClCompile>
@@ -232,6 +235,12 @@
     </ClCompile>
     <ClCompile Include="Agent.cpp">
       <Filter>src\CPP\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="UBucket.cpp">
+      <Filter>src\CPP\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtil.cpp">
+      <Filter>src\CPP\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,14 +400,17 @@
     <ClInclude Include="Action.h">
       <Filter>src\Headers\AI</Filter>
     </ClInclude>
-    <ClInclude Include="Consideration.h">
-      <Filter>src\Headers\AI</Filter>
-    </ClInclude>
     <ClInclude Include="RCurve.h">
       <Filter>src\Headers\AI</Filter>
     </ClInclude>
     <ClInclude Include="Agent.h">
       <Filter>src\Headers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="UBucket.h">
+      <Filter>src\Headers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>src\Headers\Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

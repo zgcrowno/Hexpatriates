@@ -1,7 +1,14 @@
-﻿  Action.cpp
-  Agent.cpp
-  Consideration.cpp
-  RCurve.cpp
+﻿  Pilot.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(43): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(50): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(51): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(52): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(53): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(54): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(55): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(56): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(915): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

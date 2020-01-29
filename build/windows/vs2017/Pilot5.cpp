@@ -46,7 +46,7 @@ void Pilot5::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot5::Move(const bool &_bAllowVerticalMovement)
+void Pilot5::HandleMovement()
 {
     if (m_bIsShipPounding)
     {
@@ -54,8 +54,13 @@ void Pilot5::Move(const bool &_bAllowVerticalMovement)
     }
     else
     {
-        Pilot::Move(m_stance != Grounded);
+        Pilot::HandleMovement();
     }
+}
+
+bool Pilot5::CanMoveVertically()
+{
+    return m_stance != Grounded;
 }
 
 void Pilot5::FireNeutral(int &_indexInWave)

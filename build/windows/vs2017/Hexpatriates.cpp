@@ -4,6 +4,8 @@
 // Scroll (as follows).
 #define __SCROLL_IMPL__
 #include "Hexpatriates.h"
+#include "Action.h"
+#include "Agent.h"
 #include "ArenaBound.h"
 #include "ArenaBounds.h"
 #include "AudioManager.h"
@@ -37,6 +39,7 @@
 #include "Pilot7.h"
 #include "Pilot8.h"
 #include "Prism.h"
+#include "RCurve.h"
 #include "Scene.h"
 #include "SceneArena.h"
 #include "SceneMenu.h"
@@ -47,6 +50,7 @@
 #include "Spacer.h"
 #include "Spawner.h"
 #include "Turret.h"
+#include "UBucket.h"
 #include "Zone.h"
 #undef __SCROLL_IMPL__
 #include <iostream>
@@ -76,6 +80,8 @@ orxSTATUS Hexpatriates::Init()
 
 void Hexpatriates::BindObjects()
 {
+    ScrollBindObject<Action>("O-Action");
+    ScrollBindObject<Agent>("O-Agent");
     ScrollBindObject<ArenaBound>("O-Wall");
     ScrollBindObject<ArenaBounds>("O-Walls");
     ScrollBindObject<Beam>("O-Beam");
@@ -109,6 +115,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Pilot7>("O-Pilot7");
     ScrollBindObject<Pilot8>("O-Pilot8");
     ScrollBindObject<Prism>("O-Prism");
+    ScrollBindObject<RCurve>("O-RCurve");
     ScrollBindObject<Scene>("O-Scene");
     ScrollBindObject<SceneArena>("O-SceneArena");
     ScrollBindObject<SceneMenu>("O-SceneMenu");
@@ -118,6 +125,7 @@ void Hexpatriates::BindObjects()
     ScrollBindObject<Shuttlecock>("O-Shuttlecock");
     ScrollBindObject<Spacer>("O-Spacer");
     ScrollBindObject<Turret>("O-Turret");
+    ScrollBindObject<UBucket>("O-UBucket");
     ScrollBindObject<Zone>("O-Zone");
 }
 

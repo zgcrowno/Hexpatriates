@@ -5,7 +5,7 @@
 
 namespace hexpatriates
 {
-    class PlayerSpecific : public ScrollMod
+    class PlayerSpecific : public virtual ScrollMod
     {
     protected:
         //! Called on object creation

@@ -2,14 +2,336 @@
 
 using namespace hexpatriates;
 
-float Action::Score()
+std::map<std::string, Action::ActionType> Action::M_ActionSerializationMap =
 {
-    float retVal = 0;
-
-    for (Consideration consideration : m_considerations)
     {
-        // Get the action's score by combining all considerations' scores.
-    }
+        "Move",
+        ActionType::Move
+    },
+    {
+        "Jump",
+        ActionType::Jump
+    },
+    {
+        "Fall",
+        ActionType::Fall
+    },
+    {
+        "Dash",
+        ActionType::Dash
+    },
+    {
+        "Parry",
+        ActionType::Parry
+    },
+    {
+        "Melee",
+        ActionType::Melee
+    },
+    {
+        "Downstab",
+        ActionType::Downstab
+    },
+    {
+        "FireNeutral",
+        ActionType::FireNeutral
+    },
+    {
+        "FireUpward",
+        ActionType::FireUpward
+    },
+    {
+        "FireDownward",
+        ActionType::FireDownward
+    },
+    {
+        "FireSuper",
+        ActionType::FireSuper
+    },
+};
 
-    return retVal;
+// TODO: This is used purely for my own bookkeeping at this point. Remove this map once I'm finished using it.
+std::map<Action::ActionType, std::vector<Action::ConsiderationType>> Action::M_ConsiderationMap =
+{
+    {
+        Move,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::ZoneInhabited,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ContaminationStatus,
+            ConsiderationType::ConstructionStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::FloorProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        Jump,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::NumLives,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        Fall,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::NumLives,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        Dash,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::ZoneInhabited,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ContaminationStatus,
+            ConsiderationType::ConstructionStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::FloorProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        Parry,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::FloorProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        Melee,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::ZoneInhabited,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ContaminationStatus,
+            ConsiderationType::ConstructionStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        Downstab,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::ZoneInhabited,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ContaminationStatus,
+            ConsiderationType::ConstructionStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::FloorProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        FireNeutral,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::NeutralAvailable,
+            ConsiderationType::UpwardAvailable,
+            ConsiderationType::DownwardAvailable,
+            ConsiderationType::SuperAvailable,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        FireUpward,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::NeutralAvailable,
+            ConsiderationType::UpwardAvailable,
+            ConsiderationType::DownwardAvailable,
+            ConsiderationType::SuperAvailable,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        FireDownward,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::NeutralAvailable,
+            ConsiderationType::UpwardAvailable,
+            ConsiderationType::DownwardAvailable,
+            ConsiderationType::SuperAvailable,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        FireSuper,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::NeutralAvailable,
+            ConsiderationType::UpwardAvailable,
+            ConsiderationType::DownwardAvailable,
+            ConsiderationType::SuperAvailable,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    }
+};
+
+void Action::OnCreate()
+{
+    m_actionType = M_ActionSerializationMap.at(GetString("ActionType", GetModelName()));
+    for (ConsiderationType considerationType : M_ConsiderationMap.at(m_actionType))
+    {
+        m_considerations.push_back(considerationType);
+    }
+}
+
+void Action::OnDelete()
+{
+
+}
+
+orxBOOL Action::OnCollide(
+    ScrollObject *_poCollider,
+    const orxSTRING _zPartName,
+    const orxSTRING _zColliderPartName,
+    const orxVECTOR &_rvPosition,
+    const orxVECTOR &_rvNormal)
+{
+
+    return orxTRUE;
+}
+
+void Action::Update(const orxCLOCK_INFO &_rstInfo)
+{
+
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Hexpatriates.h"
+#include "Agent.h"
 #include "PlayerSpecific.h"
 #include "Ship.h"
 #include "Zone.h"
@@ -8,7 +9,7 @@
 
 namespace hexpatriates
 {
-    class Pilot : public PlayerSpecific
+    class Pilot : public PlayerSpecific, public Agent
     {
     protected:
         //! Called on object creation
@@ -26,15 +27,30 @@ namespace hexpatriates
         virtual orxBOOL OnSeparate(ScrollObject *_poCollider);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+        virtual void SetActionMap();
         //! Sets the Pilot's heads up text
         void SetHeadsUpText();
-        //! Moves the Player based on user input and the passed speed
-        virtual void Move(const bool &_bAllowVerticalMovement);
+        //! Manages Pilot movement
+        virtual void HandleMovement();
+        virtual void HandleDash();
+        virtual void HandleParry();
+        virtual void HandleMelee();
+        virtual void HandleJump();
+        virtual void HandleNeutral();
+        virtual void HandleUpward();
+        virtual void HandleDownward();
+        virtual void HandleSuper();
+        //! Moves the Pilot based on the passed direction and speed
+        virtual void Move(const orxVECTOR &_direction, const float &_speed);
+        //! Returns a bool which represents whether or not the Pilot can move vertically
+        virtual bool CanMoveVertically();
     public:
         //! The amount of time, in seconds, the Pilot is currently invulnerable.
         float m_iFrames;
         //! The maximum amount of time, in seconds, the Pilot is invulnerable after taking damage.
         float m_maxIFrames;
+        //! Flag representing whether or not the Pilot is controlled by the computer.
+        bool m_bIsAutomated;
         //! Flag representing whether or not the Pilot is currently downstabbing
         bool m_bIsDownstabbing;
         //! Flag representing whether or not the Pilot has just successfully parried.
@@ -136,6 +152,8 @@ namespace hexpatriates
         std::string m_superInput;
         orxBOOL m_defaultFlipX;
         orxBOOL m_defaultFlipY;
+        //! The Pilot's movement vector
+        orxVECTOR m_movement;
         //! The Pilot's spawning position
         orxVECTOR m_defaultPosition;
         //! The direction in which the Pilot's jumping
@@ -172,9 +190,11 @@ namespace hexpatriates
         /// <summary>Spawns the appropriate dash icon behind the player.</summary>
         void SpawnDashIcon();
         /// <summary>Executes the Pilot's jump maneuver.</summary>
-        void Jump(const orxCLOCK_INFO &_rstInfo);
+        void Jump();
+        /// <summary>Stops the Pilot's jump maneuver.
+        void Fall();
         /// <summary>Executes the Pilot's dash maneuver.</summary>
-        void Dash();
+        void Dash(const orxVECTOR &_direction);
         /// <summary>Executes the Pilot's parry maneuver.</summary>
         void Parry();
         /// <summary>Executes the Pilot's melee attack.</summary>
