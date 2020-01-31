@@ -27,9 +27,16 @@ namespace hexpatriates
         // Enum representing the various actions a pilot can take.
         enum ActionType
         {
+            // Movement actions.
             Move,
+            DontMove,
+            // Jump actions.
             Jump,
+            DontJump,
+            // Fall actions
             Fall,
+            DontFall,
+            // Other actions.
             Dash,
             Parry,
             Melee,
@@ -37,7 +44,8 @@ namespace hexpatriates
             FireNeutral,
             FireUpward,
             FireDownward,
-            FireSuper
+            FireSuper,
+            DontAct
         };
 
         // TODO: This is used purely for my own bookkeeping at this point. Remove this enum once I'm finished using it.
@@ -72,6 +80,8 @@ namespace hexpatriates
             OpposingPilotPosition
         };
 
+        //The returned y-value of the logit function is 0 at x = 0.5, so we want logitX to always be equal to at least 0.5.
+        static float M_LogitXMin;
         static std::map<std::string, ActionType> M_ActionSerializationMap;
         // TODO: This is used purely for my own bookkeeping at this point. Remove this map once I'm finished using it.
         static std::map<ActionType, std::vector<ConsiderationType>> M_ConsiderationMap;
@@ -79,9 +89,7 @@ namespace hexpatriates
         // What type of action is this?
         ActionType m_actionType;
         // Number used to multiply function results in the Score method in order to guarantee greater differences in associated UBucket utilities.
-        int m_granularity;
-        //The returned y-value of the logit function is 0 at x = 0.5, so we want logitX to always be equal to at least 0.5.
-        const float m_logitXMin = 0.5f;
+        const int m_granularity = 100;
         // Generally speaking, how important is this action?
         float m_weight;
         // Generally speaking, how likely is an agent to deviate from this action once they're already engaged in it?

@@ -5,13 +5,13 @@
 #define __SCROLL_IMPL__
 #include "Hexpatriates.h"
 #include "Action.h"
-#include "Agent.h"
 #include "ArenaBound.h"
 #include "ArenaBounds.h"
 #include "AudioManager.h"
 #include "Beam.h"
 #include "BeamPlacer.h"
 #include "BeamSpouter.h"
+#include "Context.h"
 #include "Crosshairs.h"
 #include "Ember.h"
 #include "Explosion.h"
@@ -53,7 +53,6 @@
 #include "UBucket.h"
 #include "Zone.h"
 #undef __SCROLL_IMPL__
-#include <iostream>
 
 using namespace hexpatriates;
 
@@ -81,12 +80,12 @@ orxSTATUS Hexpatriates::Init()
 void Hexpatriates::BindObjects()
 {
     ScrollBindObject<Action>("O-Action");
-    ScrollBindObject<Agent>("O-Agent");
     ScrollBindObject<ArenaBound>("O-Wall");
     ScrollBindObject<ArenaBounds>("O-Walls");
     ScrollBindObject<Beam>("O-Beam");
     ScrollBindObject<BeamPlacer>("O-BeamPlacer");
     ScrollBindObject<BeamSpouter>("O-BeamSpouter");
+    ScrollBindObject<Context>("O-Context");
     ScrollBindObject<Crosshairs>("O-Crosshairs");
     ScrollBindObject<Ember>("O-Ember");
     ScrollBindObject<Explosion>("O-Explosion");
@@ -258,6 +257,30 @@ ScrollObject *Hexpatriates::GetCrosshairsByPlayerType(const std::string _str)
     }
 
     return nullptr;
+}
+
+ScrollObject *Hexpatriates::GetNearestProjectileByPlayerType(const ScrollObject *_obj, const std::string _type)
+{
+    ScrollObject *retVal = nullptr;
+    for (ScrollObject *scrollObject = GetNextObject();
+        scrollObject != nullptr;
+        scrollObject = GetNextObject(scrollObject))
+    {
+        Projectile *projectile = dynamic_cast<Projectile*>(scrollObject);
+        // Ensure scrollObject is an enemy projectile.
+        if (projectile != nullptr && orxString_SearchString(projectile->GetModelName().c_str(), _type.c_str()) != nullptr)
+        {
+            orxVECTOR objectPosition = _obj->GetPosition(objectPosition);
+            float shortestDistance = 0;
+            float distance = orxVector_GetDistance(&projectile->GetPosition(), &objectPosition);
+            if (retVal == nullptr || distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                retVal = projectile;
+            }
+        }
+    }
+    return retVal;
 }
 
 std::vector<ScrollObject*> Hexpatriates::GetFamiliarsByPlayerType(const std::string _str)

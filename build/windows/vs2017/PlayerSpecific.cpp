@@ -1,4 +1,5 @@
 #include "PlayerSpecific.h"
+#include "Projectile.h"
 
 using namespace hexpatriates;
 

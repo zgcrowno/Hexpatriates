@@ -33,6 +33,7 @@ namespace hexpatriates
         ScrollObject *GetScenePilotSelect();
         ScrollObject *GetPilotByPlayerType(const std::string _str);
         ScrollObject *GetCrosshairsByPlayerType(const std::string _str);
+        ScrollObject *GetNearestProjectileByPlayerType(const ScrollObject *_obj, const std::string _type);
         std::vector<ScrollObject*> GetFamiliarsByPlayerType(const std::string _str);
     };
 }

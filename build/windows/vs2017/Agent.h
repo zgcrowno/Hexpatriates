@@ -2,7 +2,7 @@
 
 #include "Hexpatriates.h"
 #include "ScrollMod.h"
-#include "RCurve.h"
+#include "Context.h"
 #include <functional>
 #include <vector>
 
@@ -24,16 +24,17 @@ namespace hexpatriates
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-        virtual void SetActionMap();
+        virtual void SetActionMap() = 0;
+        virtual void SetContext(Context *_context);
     public:
-        // A collection of all of the agent's non-mutually-exclusive RCurves.
-        std::vector<RCurve*> m_rCurves;
+        // The agent's currently set context.
+        Context *m_context;
         // A map of action types to actual actions/behaviors.
         std::map<Action::ActionType, std::function<void()>> m_actionMap;
 
         void CalculateUtilities();
         void Act();
         // Score the action by summing the scores of its associated considerations.
-        int ScoreAction(Action *_action);
+        virtual int ScoreAction(Action *_action) = 0;
     };
 }

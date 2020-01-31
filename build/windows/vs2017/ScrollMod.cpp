@@ -4,7 +4,7 @@ using namespace hexpatriates;
 
 void ScrollMod::OnCreate()
 {
-    
+
 }
 
 void ScrollMod::OnDelete()
@@ -14,7 +14,7 @@ void ScrollMod::OnDelete()
 
 void ScrollMod::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    
+
 }
 
 const std::vector<std::string> __fastcall ScrollMod::GetObjectSections()
@@ -141,7 +141,7 @@ ScrollMod *ScrollMod::CreateObject(
 
     for (auto it = _boolParamMap.begin(); it != _boolParamMap.end(); it++)
     {
-        initialBoolMap.insert({it->first, GetBool(it->first, _modelName) });
+        initialBoolMap.insert({ it->first, GetBool(it->first, _modelName) });
         SetBool(it->first, it->second, _modelName);
     }
     for (auto it = _floatParamMap.begin(); it != _floatParamMap.end(); it++)
@@ -374,7 +374,7 @@ const std::string __fastcall ScrollMod::GetListString(const std::string _key, co
     {
         orxConfig_PopSection();
     }
-    
+
     return retVal;
 }
 
@@ -597,7 +597,7 @@ orxAABOX __fastcall ScrollMod::GetAABB()
 orxSTRUCTURE *ScrollMod::GetStructure(orxSTRUCTURE_ID _structureID)
 {
     orxOBJECT *obj = GetOrxObject();
-    
+
     return _orxStructure_GetPointer(_orxObject_GetStructure(obj, _structureID), _structureID);
 }
 

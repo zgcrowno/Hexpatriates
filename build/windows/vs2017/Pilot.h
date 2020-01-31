@@ -176,6 +176,10 @@ namespace hexpatriates
         Ship *m_ship;
         //! The opposing pilot
         Pilot *m_opposingPilot;
+        //! Pilot contexts
+        Context *m_contextInShip;
+        Context *m_contextGrounded;
+        Context *m_contextJumping;
 
         // Player independent shot direction, where _angle is in radians.
         const float GetPISD(const float &_angle) const;
@@ -225,5 +229,7 @@ namespace hexpatriates
         virtual void FireSuper(int &_indexInWave) = 0;
         /// <summary>Handles the Pilot's super cooldown management, which may change marginally between Pilots.</summary>
         virtual void HandleSuperCooldown(const float &_fDT);
+        /// <summary>Scores the action by summing the scores of its associated considerations.</summary>
+        virtual int ScoreAction(Action *_action);
     };
 }

@@ -2,6 +2,8 @@
 
 using namespace hexpatriates;
 
+float Action::M_LogitXMin = 0.5f;
+
 std::map<std::string, Action::ActionType> Action::M_ActionSerializationMap =
 {
     {
@@ -9,12 +11,24 @@ std::map<std::string, Action::ActionType> Action::M_ActionSerializationMap =
         ActionType::Move
     },
     {
+        "DontMove",
+        ActionType::DontMove
+    },
+    {
         "Jump",
         ActionType::Jump
     },
     {
+        "DontJump",
+        ActionType::DontJump
+    },
+    {
         "Fall",
         ActionType::Fall
+    },
+    {
+        "DontFall",
+        ActionType::DontFall
     },
     {
         "Dash",
@@ -48,6 +62,10 @@ std::map<std::string, Action::ActionType> Action::M_ActionSerializationMap =
         "FireSuper",
         ActionType::FireSuper
     },
+    {
+        "DontAct",
+        ActionType::DontAct
+    }
 };
 
 // TODO: This is used purely for my own bookkeeping at this point. Remove this map once I'm finished using it.
@@ -55,6 +73,33 @@ std::map<Action::ActionType, std::vector<Action::ConsiderationType>> Action::M_C
 {
     {
         Move,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::ZoneInhabited,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ContaminationStatus,
+            ConsiderationType::ConstructionStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::FloorProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        DontMove,
         {
             ConsiderationType::Position,
             ConsiderationType::Trajectory,
@@ -103,7 +148,51 @@ std::map<Action::ActionType, std::vector<Action::ConsiderationType>> Action::M_C
         }
     },
     {
+        DontJump,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::NumLives,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
         Fall,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::Trajectory,
+            ConsiderationType::NumLives,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::MeleeAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::LeftWallProximity,
+            ConsiderationType::RightWallProximity,
+            ConsiderationType::CeilingProximity,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
+    },
+    {
+        DontFall,
         {
             ConsiderationType::Position,
             ConsiderationType::Trajectory,
@@ -303,12 +392,36 @@ std::map<Action::ActionType, std::vector<Action::ConsiderationType>> Action::M_C
             ConsiderationType::OpposingPilotTrajectory,
             ConsiderationType::OpposingPilotPosition
         }
+    },
+    {
+        DontAct,
+        {
+            ConsiderationType::Position,
+            ConsiderationType::NumLives,
+            ConsiderationType::DashAvailable,
+            ConsiderationType::ParryAvailable,
+            ConsiderationType::IFramesStatus,
+            ConsiderationType::ShipStatus,
+            ConsiderationType::GroundedStatus,
+            ConsiderationType::WallTouchStatus,
+            ConsiderationType::NeutralAvailable,
+            ConsiderationType::UpwardAvailable,
+            ConsiderationType::DownwardAvailable,
+            ConsiderationType::SuperAvailable,
+            ConsiderationType::ArenaElectrificationStatus,
+            ConsiderationType::OpposingProjectileTrajectories,
+            ConsiderationType::OpposingProjectilePositions,
+            ConsiderationType::OpposingPilotTrajectory,
+            ConsiderationType::OpposingPilotPosition
+        }
     }
 };
 
 void Action::OnCreate()
 {
     m_actionType = M_ActionSerializationMap.at(GetString("ActionType", GetModelName()));
+    m_weight = GetFloat("Weight", GetModelName());
+    m_momentum = GetFloat("Momentum", GetModelName());
     for (ConsiderationType considerationType : M_ConsiderationMap.at(m_actionType))
     {
         m_considerations.push_back(considerationType);

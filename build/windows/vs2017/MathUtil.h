@@ -1,5 +1,7 @@
 #pragma once
 
+#define EULER 2.71828182845904523536
+
 namespace hexpatriates
 {
     class MathUtil

@@ -242,6 +242,9 @@
     <ClCompile Include="MathUtil.cpp">
       <Filter>src\CPP\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Context.cpp">
+      <Filter>src\CPP\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -411,6 +414,9 @@
     </ClInclude>
     <ClInclude Include="MathUtil.h">
       <Filter>src\Headers\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Context.h">
+      <Filter>src\Headers\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

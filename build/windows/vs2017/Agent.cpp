@@ -4,15 +4,8 @@ using namespace hexpatriates;
 
 void Agent::OnCreate()
 {
-    for (ScrollObject *child = GetOwnedChild(); child; child = child->GetOwnedSibling())
-    {
-        RCurve *rCurve = dynamic_cast<RCurve*>(child);
-        if (rCurve != nullptr)
-        {
-            m_rCurves.push_back(rCurve);
-        }
-    }
     CalculateUtilities();
+    SetActionMap();
 }
 
 void Agent::OnDelete()
@@ -42,9 +35,14 @@ void Agent::SetActionMap()
 
 }
 
+void Agent::SetContext(Context *_context)
+{
+    m_context = _context;
+}
+
 void Agent::CalculateUtilities()
 {
-    for (RCurve *rCurve : m_rCurves)
+    for (RCurve *rCurve : m_context->m_rCurves)
     {
         for (UBucket *uBucket : rCurve->m_uBuckets)
         {
@@ -67,7 +65,7 @@ void Agent::CalculateUtilities()
 
 void Agent::Act()
 {
-    for (RCurve *rCurve : m_rCurves)
+    for (RCurve *rCurve : m_context->m_rCurves)
     {
         m_actionMap.at(rCurve->SelectAction()->m_actionType)();
     }
@@ -75,44 +73,5 @@ void Agent::Act()
 
 int Agent::ScoreAction(Action *_action)
 {
-    int retVal = 0;
-
-    switch (_action->m_actionType)
-    {
-    case Action::ActionType::Move:
-        retVal = 1;
-        break;
-    case Action::ActionType::Jump:
-        retVal = 1;
-        break;
-    case Action::ActionType::Fall:
-        retVal = 1;
-        break;
-    case Action::ActionType::Dash:
-        retVal = 1;
-        break;
-    case Action::ActionType::Parry:
-        retVal = 1;
-        break;
-    case Action::ActionType::Melee:
-        retVal = 1;
-        break;
-    case Action::ActionType::Downstab:
-        retVal = 1;
-        break;
-    case Action::ActionType::FireNeutral:
-        retVal = 1;
-        break;
-    case Action::ActionType::FireUpward:
-        retVal = 1;
-        break;
-    case Action::ActionType::FireDownward:
-        retVal = 1;
-        break;
-    case Action::ActionType::FireSuper:
-        retVal = 1;
-        break;
-    }
-
-    return retVal;
+    return 0;
 }

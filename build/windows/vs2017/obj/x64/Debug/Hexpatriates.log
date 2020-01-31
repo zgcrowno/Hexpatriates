@@ -1,14 +1,99 @@
-﻿  Pilot.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(43): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+﻿  Action.cpp
+  Agent.cpp
+  ArenaBound.cpp
+  ArenaBounds.cpp
+  Beam.cpp
+  BeamPlacer.cpp
+  BeamSpouter.cpp
+  Context.cpp
+  Crosshairs.cpp
+  Ember.cpp
+  Explosion.cpp
+  Familiar.cpp
+  Grenade.cpp
+  Hexpatriates.cpp
+  InputHandler.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\familiar.cpp(9): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  Laser.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\grenade.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  LaserGate.cpp
+  LaserHeatseeking.cpp
+  LaserPortalEntrance.cpp
+  LaserTeleportable.cpp
+  LaserWall.cpp
+  Legionnaire.cpp
+  MedussaHead.cpp
+  MenuItem.cpp
+  MenuItemPilot.cpp
+  MenuItemTransitional.cpp
+  Missile.cpp
+  MissileShield.cpp
+  Orb.cpp
+  Parryable.cpp
+  Pilot.cpp
+  Pilot1.cpp
+  Pilot2.cpp
+  Pilot3.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(41): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(47): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(48): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(50): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(51): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(52): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(53): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(54): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(55): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(56): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(915): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(949): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1257): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1285): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1308): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1331): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1349): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1366): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1387): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1408): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1429): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1450): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Pilot4.cpp
+  Pilot5.cpp
+  Pilot6.cpp
+  Pilot7.cpp
+  Pilot8.cpp
+  PlayerSpecific.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(11): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(141): warning C4267: '*=': conversion from 'size_t' to 'int', possible loss of data
+  Prism.cpp
+  Projectile.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\playerspecific.cpp(8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  RCurve.cpp
+  Scene.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\prism.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  SceneArena.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\projectile.cpp(14): warning C4244: '=': conversion from 'orxBOOL' to 'float', possible loss of data
+  SceneMenu.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\rcurve.cpp(45): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\rcurve.cpp(90): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  ScrollMod.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(98): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(99): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(100): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu.cpp(26): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu.cpp(27): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+  Ship.cpp
+  Shrapnel.cpp
+  Shuttlecock.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(23): warning C4018: '<': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(38): warning C4018: '<': signed/unsigned mismatch
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(643): warning C4700: uninitialized local variable 'result' used
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(658): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(672): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(692): warning C4715: 'hexpatriates::ScrollMod::GetBodyPartByName': not all control paths return a value
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Spacer.cpp
+  Spawner.cpp
+  Turret.cpp
+  UBucket.cpp
+  Zone.cpp
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

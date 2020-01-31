@@ -12,7 +12,7 @@ namespace hexpatriates
         //! Called on object creation
         virtual void OnCreate();
         //! Called on object deletion
-        virtual void OnDelete() = 0;
+        virtual void OnDelete();
         //! Called on object collision
         virtual orxBOOL OnCollide(
             ScrollObject *_poCollider,
