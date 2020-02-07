@@ -4,6 +4,7 @@ using namespace hexpatriates;
 
 void Agent::OnCreate()
 {
+    //CalculateUtilities(this);
     CalculateUtilities();
     SetActionMap();
 }
@@ -26,6 +27,7 @@ orxBOOL Agent::OnCollide(
 
 void Agent::Update(const orxCLOCK_INFO &_rstInfo)
 {
+    //orxThread_RunTask(&CalculateUtilities, nullptr, nullptr, this);
     CalculateUtilities();
     Act();
 }
@@ -39,6 +41,32 @@ void Agent::SetContext(Context *_context)
 {
     m_context = _context;
 }
+
+//orxSTATUS orxFASTCALL Agent::CalculateUtilities(void *_context)
+//{
+//    Agent *agent = static_cast<Agent*>(_context);
+//    for (RCurve *rCurve : agent->m_context->m_rCurves)
+//    {
+//        for (UBucket *uBucket : rCurve->m_uBuckets)
+//        {
+//            // Set size (and edge?) based upon value returned from m_action->Score().
+//            int actionScore = agent->ScoreAction(uBucket->m_action);
+//
+//            if (actionScore <= 0)
+//            {
+//                uBucket->m_size = 1;
+//            }
+//            else
+//            {
+//                uBucket->m_size = actionScore;
+//            }
+//        }
+//
+//        rCurve->RebuildEdges(0);
+//    }
+//
+//    return orxSTATUS_SUCCESS;
+//}
 
 void Agent::CalculateUtilities()
 {

@@ -388,6 +388,7 @@
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuItemPilot.cpp" />
     <ClCompile Include="MenuItemTransitional.cpp" />
+    <ClCompile Include="RaycastData.cpp" />
     <ClCompile Include="RCurve.cpp" />
     <ClCompile Include="SceneArena.cpp" />
     <ClCompile Include="ArenaBound.cpp" />
@@ -454,6 +455,7 @@
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="MenuItemPilot.h" />
     <ClInclude Include="MenuItemTransitional.h" />
+    <ClInclude Include="RaycastData.h" />
     <ClInclude Include="RCurve.h" />
     <ClInclude Include="SceneArena.h" />
     <ClInclude Include="ArenaBound.h" />

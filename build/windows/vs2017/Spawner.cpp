@@ -78,19 +78,23 @@ int Spawner::SpawnAtRaycast(const float _direction)
     if (activeObjectLimit == 0 || GetOwnedChildrenCount() < activeObjectLimit)
     {
         const std::string spawnObjectModelName = GetString("Object", GetString("Spawner", GetModelName()));
-        std::vector<orxVECTOR> raycastData = Raycast(
+        const RaycastData *rd = Raycast(
             GetPosition(true),
             _direction,
             orxPhysics_GetCollisionFlagValue("geometry"));
+        /*std::vector<orxVECTOR> raycastData = Raycast(
+            GetPosition(true),
+            _direction,
+            orxPhysics_GetCollisionFlagValue("geometry"));*/
         // TODO: Keep an eye on this, as I'll likely not want to add 90 degrees to every object spawned this way.
-        float initialRotation = ScrollMod::VectorToRadians(raycastData.at(1)) + orxMATH_KF_PI_BY_2;
+        float initialRotation = ScrollMod::VectorToRadians(rd->m_hitNormal) + orxMATH_KF_PI_BY_2;
         orxVECTOR initialSpeed = { orxMath_Cos(initialRotation), orxMath_Sin(initialRotation) };
 
         ScrollMod *projectile = CreateObject(
             spawnObjectModelName,
             { {"Tethered", false} },
             { { "Rotation", initialRotation * orxMATH_KF_RAD_TO_DEG } },
-            { { "Position", &raycastData.at(0) }, { "Speed", &initialSpeed } });
+            { { "Position", &rd->m_hitPosition }, { "Speed", &initialSpeed } });
         projectile->SetOwner(this);
         result++;
     }

@@ -111,7 +111,7 @@ const orxVECTOR ScrollMod::ReflectionVector(const orxVECTOR &_hit, const orxVECT
     return { _hit.fX - subtrahend.fX, _hit.fY - subtrahend.fY };
 }
 
-const std::vector<orxVECTOR> ScrollMod::Raycast(
+const RaycastData *ScrollMod::Raycast(
     const orxVECTOR &_begin,
     const float &_direction,
     const int &_checkMask,
@@ -122,9 +122,15 @@ const std::vector<orxVECTOR> ScrollMod::Raycast(
     orxVECTOR endingPos = { _begin.fX + orxMath_Cos(_direction) * _distance, _begin.fY + orxMath_Sin(_direction) * _distance };
     orxVECTOR hitPos;
     orxVECTOR hitNormal;
-    orxObject_Raycast(&_begin, &endingPos, _selfFlags, _checkMask, _bEarlyExit, &hitPos, &hitNormal);
+    orxOBJECT *hitObject = orxObject_Raycast(&_begin, &endingPos, _selfFlags, _checkMask, _bEarlyExit, &hitPos, &hitNormal);
 
-    return std::vector<orxVECTOR> { hitPos, hitNormal };
+    if (hitObject != nullptr)
+    {
+        RaycastData retVal(hitObject, hitPos, hitNormal);
+        return &retVal;
+    }
+
+    return nullptr;
 }
 
 ScrollMod *ScrollMod::CreateObject(
@@ -281,6 +287,23 @@ orxFLOAT __fastcall ScrollMod::GetFloat(const std::string _key, const std::strin
         orxConfig_PushSection(_sectionName.c_str());
     }
     orxFLOAT retVal = orxConfig_GetFloat(_key.c_str());
+    if (sectionPassed)
+    {
+        orxConfig_PopSection();
+    }
+
+    return retVal;
+}
+
+orxU32 __fastcall ScrollMod::GetU32(const std::string _key, const std::string _sectionName)
+{
+    orxBOOL sectionPassed = orxString_Compare(_sectionName.c_str(), "") != 0;
+
+    if (sectionPassed)
+    {
+        orxConfig_PushSection(_sectionName.c_str());
+    }
+    orxU32 retVal = orxConfig_GetU32(_key.c_str());
     if (sectionPassed)
     {
         orxConfig_PopSection();

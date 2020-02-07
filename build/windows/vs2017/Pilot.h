@@ -6,6 +6,7 @@
 #include "Ship.h"
 #include "Zone.h"
 #include "ArenaBound.h"
+#include "Projectile.h"
 
 namespace hexpatriates
 {
@@ -40,8 +41,8 @@ namespace hexpatriates
         virtual void HandleUpward();
         virtual void HandleDownward();
         virtual void HandleSuper();
-        //! Moves the Pilot based on the passed direction and speed
-        virtual void Move(const orxVECTOR &_direction, const float &_speed);
+        //! Moves the Pilot based on the passed movement vector, direction and speed
+        virtual void Move(orxVECTOR &_movementVec, const orxVECTOR &_direction, const float &_speed);
         //! Returns a bool which represents whether or not the Pilot can move vertically
         virtual bool CanMoveVertically();
     public:
@@ -154,12 +155,20 @@ namespace hexpatriates
         orxBOOL m_defaultFlipY;
         //! The Pilot's movement vector
         orxVECTOR m_movement;
+        //! The Pilot's aggressive movement vector
+        orxVECTOR m_movementAggressive;
+        //! The Pilot's defensive movement vector
+        orxVECTOR m_movementDefensive;
         //! The Pilot's spawning position
         orxVECTOR m_defaultPosition;
         //! The direction in which the Pilot's jumping
         orxVECTOR m_jumpDirection;
         //! The direction in which the Pilot's dashing
         orxVECTOR m_dashDirection;
+        //! The direction in which the Pilot's aggressively dashing.
+        orxVECTOR m_dashDirectionAggressive;
+        //! The direction in which the Pilot's defensively dashing.
+        orxVECTOR m_dashDirectionDefensive;
         orxVECTOR m_noDashIconDefaultScale;
         orxVECTOR m_noParryIconDefaultScale;
         ScrollMod *m_noDashIcon;
@@ -185,6 +194,14 @@ namespace hexpatriates
         const float GetPISD(const float &_angle) const;
         // This modified version of ScrollObject's SetFlip method is necessary for Pilot, so we can apply selectively recursive flipping.
         void SetFlip(orxBOOL _bFlipX, orxBOOL _vFlipY);
+        virtual bool NeutralIsAvailable();
+        virtual bool UpwardIsAvailable();
+        virtual bool DownwardIsAvailable();
+        virtual bool SuperIsAvailable();
+        float GetMaxMatchTime();
+        float GetRemainingMatchTime();
+        ScrollMod *GetPartition();
+        Projectile *GetMostPressingProjectile();
         void PositionIcons();
         /// <summary>Returns a bool representing whether or not the Pilot is in their own zone.</summary>
         /// <returns>A bool representing whether or not the Pilot is in their own zone.</returns>
@@ -198,7 +215,7 @@ namespace hexpatriates
         /// <summary>Stops the Pilot's jump maneuver.
         void Fall();
         /// <summary>Executes the Pilot's dash maneuver.</summary>
-        void Dash(const orxVECTOR &_direction);
+        void Dash(orxVECTOR &_dashVec, const orxVECTOR &_direction);
         /// <summary>Executes the Pilot's parry maneuver.</summary>
         void Parry();
         /// <summary>Executes the Pilot's melee attack.</summary>
@@ -229,7 +246,7 @@ namespace hexpatriates
         virtual void FireSuper(int &_indexInWave) = 0;
         /// <summary>Handles the Pilot's super cooldown management, which may change marginally between Pilots.</summary>
         virtual void HandleSuperCooldown(const float &_fDT);
-        /// <summary>Scores the action by summing the scores of its associated considerations.</summary>
+        /// <summary>Scores the action in terms of various factors.</summary>
         virtual int ScoreAction(Action *_action);
     };
 }

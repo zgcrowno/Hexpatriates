@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Hexpatriates.h"
+#include "RaycastData.h"
 #include <map>
 #include <vector>
 
@@ -65,8 +66,8 @@ namespace hexpatriates
         /// <param name="_selfFlags">The self flags used for filtering.</param>
         /// <param name="_distance">The distance the raycast should cover.</param>
         /// <param name="_bEarlyExit">Bool determining whether or not the raycast should cease once a hit has been achieved.</param>
-        /// <returns>A std::vector containing at its first position the position of the raycast hit, and at its second position the normal of the raycast hit.</returns>
-        static const std::vector<orxVECTOR> Raycast(
+        /// <returns>The raycast data.</returns>
+        static const RaycastData *Raycast(
             const orxVECTOR &_begin,
             const float &_direction,
             const int &_checkMask,
@@ -129,6 +130,7 @@ namespace hexpatriates
         /// <param name="_sectionName">The section, if any, from which we wish to retrieve <paramref name="_key"/>.</param>
         /// <returns>The float value named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</returns>
         static orxFLOAT __fastcall GetFloat(const std::string _key, const std::string _sectionName = "");
+        static orxU32 __fastcall GetU32(const std::string _key, const std::string _sectionName = "");
         /// <summary>Gets the float value at index <paramref name="_index"/> in the list named <paramref name="_key"/> (and optionally associated with the section named <paramref name="_sectionName"/>) from config.</summary>
         /// <param name="_key">The name of the list from which we wish to retrieve a float in config.</param>
         /// <param name="_index">The index of the list named <paramref name="_key"/> at which we wish to retrieve a float.</param>

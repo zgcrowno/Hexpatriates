@@ -8,6 +8,7 @@
 #include "MissileShield.h"
 #include "Orb.h"
 #include <string>
+#include <utility>
 
 using namespace hexpatriates;
 
@@ -604,8 +605,12 @@ void Pilot::SetActionMap()
     m_actionMap =
     {
         {
-            Action::ActionType::Move,
-            [this]() { SetSpeed(m_movement); }
+            Action::ActionType::MoveAggressively,
+            [this]() { SetSpeed(m_movementAggressive); }
+        },
+        {
+            Action::ActionType::MoveDefensively,
+            [this]() { SetSpeed(m_movementDefensive); }
         },
         {
             Action::ActionType::DontMove,
@@ -628,7 +633,11 @@ void Pilot::SetActionMap()
             [this]() {}
         },
         {
-            Action::ActionType::Dash,
+            Action::ActionType::DashAggressively,
+            [this]() {}
+        },
+        {
+            Action::ActionType::DashDefensively,
             [this]() {}
         },
         {
@@ -675,6 +684,46 @@ void Pilot::SetFlip(orxBOOL _bFlipX, orxBOOL _bFlipY)
 {
     ScrollObject::SetFlip(_bFlipX, _bFlipY, orxFALSE);
     m_headsUpText->SetFlip(orxFALSE, orxFALSE, orxFALSE);
+}
+
+bool Pilot::NeutralIsAvailable()
+{
+    return (m_waveSizeNeutral == 1 && m_numWavesNeutral == 1) || m_ship->m_neutralGun->GetActiveObjectCount() == 0;
+}
+
+bool Pilot::UpwardIsAvailable()
+{
+    return (m_waveSizeUpward == 1 && m_numWavesUpward == 1) || m_ship->m_upwardGun->GetActiveObjectCount() == 0;
+}
+
+bool Pilot::DownwardIsAvailable()
+{
+    return (m_waveSizeDownward == 1 && m_numWavesDownward == 1) || m_ship->m_downwardGun->GetActiveObjectCount() == 0;
+}
+
+bool Pilot::SuperIsAvailable()
+{
+    return m_cooldownSuper <= 0 && ((m_waveSizeSuper == 1 && m_numWavesSuper == 1) || m_ship->m_superGun->GetActiveObjectCount() == 0);
+}
+
+float Pilot::GetMaxMatchTime()
+{
+    return Hexpatriates::GetInstance().GetMaxMatchTime();
+}
+
+float Pilot::GetRemainingMatchTime()
+{
+    return Hexpatriates::GetInstance().GetRemainingMatchTime();
+}
+
+ScrollMod *Pilot::GetPartition()
+{
+    return ScrollCast<ScrollMod*>(Hexpatriates::GetInstance().GetPartition());
+}
+
+Projectile *Pilot::GetMostPressingProjectile()
+{
+    return ScrollCast<Projectile*>(Hexpatriates::GetInstance().GetMostPressingProjectileByPlayerType(this, m_typeName, m_otherTypeName));
 }
 
 void Pilot::PositionIcons()
@@ -742,12 +791,12 @@ void Pilot::HandleMovement()
     // If dashing, execute dash movement.
     if (m_dashTime > 0)
     {
-        Move(m_dashDirection, m_dashSpeed);
+        Move(m_movement, m_dashDirection, m_dashSpeed);
     }
     // Else if downstabbing, execute downstab movement.
     else if (m_bIsDownstabbing)
     {
-        Move({ 0, 1 }, m_downstabSpeed);
+        Move(m_movement, { 0, 1 }, m_downstabSpeed);
     }
     // Else execute regular movement
     else
@@ -760,17 +809,17 @@ void Pilot::HandleMovement()
 
             if (orxInput_IsActive(m_upDownInput.c_str()) && CanMoveVertically())
             {
-                Move({ 0, 1 }, speed * orxInput_GetValue(m_upDownInput.c_str()));
+                Move(m_movement, { 0, 1 }, speed * orxInput_GetValue(m_upDownInput.c_str()));
             }
             else if (CanMoveVertically())
             {
                 if (orxInput_IsActive(m_upInput.c_str()))
                 {
-                    Move({ 0, -1 }, speed);
+                    Move(m_movement, { 0, -1 }, speed);
                 }
                 if (orxInput_IsActive(m_downInput.c_str()))
                 {
-                    Move({ 0, 1 }, speed);
+                    Move(m_movement, { 0, 1 }, speed);
                 }
             }
         }
@@ -781,19 +830,19 @@ void Pilot::HandleMovement()
                 if (orxInput_IsActive(m_upDownInput.c_str()))
                 {
                     m_jumpTime = 0;
-                    Move({ 0, 1 }, m_jumpingSpeed * orxInput_GetValue(m_upDownInput.c_str()));
+                    Move(m_movement, { 0, 1 }, m_jumpingSpeed * orxInput_GetValue(m_upDownInput.c_str()));
                 }
                 else
                 {
                     if (orxInput_IsActive(m_upInput.c_str()))
                     {
                         m_jumpTime = 0;
-                        Move({ 0, -1 }, m_jumpingSpeed);
+                        Move(m_movement, { 0, -1 }, m_jumpingSpeed);
                     }
                     if (orxInput_IsActive(m_downInput.c_str()))
                     {
                         m_jumpTime = 0;
-                        Move({ 0, 1 }, m_jumpingSpeed);
+                        Move(m_movement, { 0, 1 }, m_jumpingSpeed);
                     }
                 }
             }
@@ -801,12 +850,12 @@ void Pilot::HandleMovement()
             if (m_jumpTime > 0)
             {
                 float proportionJumpCompleted = m_jumpTime / m_jumpDuration;
-                Move({ 0, 1 }, m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted);
+                Move(m_movement, { 0, 1 }, m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted);
             }
             if (m_wallJumpTime > 0)
             {
                 float proportionJumpCompleted = m_wallJumpTime / m_jumpDuration;
-                Move(m_jumpDirection, m_jumpingSpeed * proportionJumpCompleted);
+                Move(m_movement, m_jumpDirection, m_jumpingSpeed * proportionJumpCompleted);
             }
         }
         if (orxInput_IsActive(m_leftRightInput.c_str()))
@@ -825,7 +874,7 @@ void Pilot::HandleMovement()
                 }
             }
 
-            Move({ 1, 0 }, speed * leftRightValue);
+            Move(m_movement, { 1, 0 }, speed * leftRightValue);
         }
         else
         {
@@ -836,7 +885,7 @@ void Pilot::HandleMovement()
                     SetTargetAnim("A-PilotRun");
                 }
 
-                Move({ -1, 0 }, speed);
+                Move(m_movement, { -1, 0 }, speed);
             }
             else if (orxInput_IsActive(m_rightInput.c_str()))
             {
@@ -845,7 +894,7 @@ void Pilot::HandleMovement()
                     SetTargetAnim("A-PilotRun");
                 }
 
-                Move({ 1, 0 }, speed);
+                Move(m_movement, { 1, 0 }, speed);
             }
             else
             {
@@ -862,11 +911,11 @@ void Pilot::HandleDash()
     {
         if (orxInput_GetValue(m_leftRightInput.c_str()) != 0 || orxInput_GetValue(m_upDownInput.c_str()) != 0)
         {
-            Dash({ orxInput_GetValue(m_leftRightInput.c_str()), orxInput_GetValue(m_upDownInput.c_str()) });
+            Dash(m_dashDirection, { orxInput_GetValue(m_leftRightInput.c_str()), orxInput_GetValue(m_upDownInput.c_str()) });
         }
         else
         {
-            Dash({ orxInput_GetValue(m_rightInput.c_str()) - orxInput_GetValue(m_leftInput.c_str()), orxInput_GetValue(m_downInput.c_str()) - orxInput_GetValue(m_upInput.c_str()), 0 });
+            Dash(m_dashDirection, { orxInput_GetValue(m_rightInput.c_str()) - orxInput_GetValue(m_leftInput.c_str()), orxInput_GetValue(m_downInput.c_str()) - orxInput_GetValue(m_upInput.c_str()), 0 });
         }
     }
 }
@@ -931,10 +980,10 @@ void Pilot::HandleSuper()
     }
 }
 
-void Pilot::Move(const orxVECTOR &_direction, const float &_speed)
+void Pilot::Move(orxVECTOR &_movementVec, const orxVECTOR &_direction, const float &_speed)
 {
-    m_movement.fX += _direction.fX * _speed;
-    m_movement.fY += _direction.fY * _speed;
+    _movementVec.fX += _direction.fX * _speed;
+    _movementVec.fY += _direction.fY * _speed;
 }
 
 bool Pilot::CanMoveVertically()
@@ -1018,13 +1067,13 @@ void Pilot::Fall()
     }
 }
 
-void Pilot::Dash(const orxVECTOR &_direction)
+void Pilot::Dash(orxVECTOR &_dashVec, const orxVECTOR &_direction)
 {
     if (m_dashTime <= 0)
     {
         if (m_cooldownDash <= 0)
         {
-            m_dashDirection = _direction;
+            _dashVec = _direction;
             m_jumpTime = 0;
             m_dashTime = m_dashDuration;
             SpawnDashIcon();
@@ -1127,7 +1176,7 @@ void Pilot::Die()
 
 void Pilot::Neutral()
 {
-    if ((m_waveSizeNeutral == 1 && m_numWavesNeutral == 1) || m_ship->m_neutralGun->GetActiveObjectCount() == 0)
+    if (NeutralIsAvailable())
     {
         if (m_wavesIndexNeutral == 0)
         {
@@ -1145,7 +1194,7 @@ void Pilot::Neutral()
 
 void Pilot::Upward()
 {
-    if ((m_waveSizeUpward == 1 && m_numWavesUpward == 1) || m_ship->m_upwardGun->GetActiveObjectCount() == 0)
+    if (UpwardIsAvailable())
     {
         if (m_wavesIndexUpward == 0)
         {
@@ -1163,7 +1212,7 @@ void Pilot::Upward()
 
 void Pilot::Downward()
 {
-    if ((m_waveSizeDownward == 1 && m_numWavesDownward == 1) || m_ship->m_downwardGun->GetActiveObjectCount() == 0)
+    if (DownwardIsAvailable())
     {
         if (m_wavesIndexDownward == 0)
         {
@@ -1181,9 +1230,9 @@ void Pilot::Downward()
 
 void Pilot::Super()
 {
-    if ((m_waveSizeSuper == 1 && m_numWavesSuper == 1) || m_ship->m_superGun->GetActiveObjectCount() == 0)
+    if (SuperIsAvailable())
     {
-        if (m_cooldownSuper <= 0 && m_wavesIndexSuper == 0)
+        if (m_wavesIndexSuper == 0)
         {
             for (int i = 0; i < m_waveSizeSuper; i++)
             {
@@ -1217,255 +1266,602 @@ void Pilot::HandleSuperCooldown(const float &_fDT)
 
 int Pilot::ScoreAction(Action *_action)
 {
-    int retVal = 0;
+    float factorsCurrentSum = 0;
+    float factorsMaxSum = 0;
+    std::vector<std::pair<float, float>> factorsCurrentAndMax;
 
+    // For each case, we get a normalized value by summing all factors, and dividing that sum by the sum of said factors' maximum possible values.
     switch (_action->m_actionType)
     {
-    case Action::ActionType::Move:
+    /*Factors: m_numLives,
+               iFrames,
+               number of projectiles,
+               number of opposing projectiles,
+               the most pressing opposing projectile (its speed, distance, and whether or not it's parryable),
+               the pilot's inhabited zone (and the distance from the pilot to the partition),
+               m_contaminationTimer,
+               m_constructionTimer,
+               round time.*/
+    case Action::ActionType::MoveAggressively:
         {
-            if (m_ship->IsEnabled())
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            orxVECTOR position = GetPosition();
+            ScrollMod *partition = GetPartition();
+            float partitionDistanceX = fabsf(position.fX - partition->GetPosition().fX);
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            factorsCurrentAndMax.push_back({ m_lives, m_maxLives });
+            factorsCurrentAndMax.push_back({ m_iFrames, m_maxIFrames });
+            // TODO: Use actual projectile max numbers instead of 100.
+            factorsCurrentAndMax.push_back({ Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size(), 100 });
+            factorsCurrentAndMax.push_back({ -Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size(), 100 });
+            if (mostPressingProjectile != nullptr)
             {
-                Projectile *nearestProjectile = dynamic_cast<Projectile*>(Hexpatriates::GetInstance().GetNearestProjectileByPlayerType(this, m_otherTypeName));
-                if (nearestProjectile != nullptr)
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                // TODO: Take most pressing projectile's speed and parryability into account
+                factorsCurrentAndMax.push_back({ -mostPressingProjectileDistance, maxProjectileDistance });
+            }
+            // TODO: Use actual arena dimensions instead of (1920 / 2).
+            factorsCurrentAndMax.push_back({ -partitionDistanceX, 960 });
+            if (!IsInOwnZone())
+            {
+                // TODO: Use config constants instead of 10.
+                factorsCurrentAndMax.push_back({ -m_contaminationTimer, 10 });
+                factorsCurrentAndMax.push_back({ m_constructionTimer, 10 });
+            }
+            factorsCurrentAndMax.push_back({ -GetRemainingMatchTime(), GetMaxMatchTime() });
+
+            // Initially set movement vector to 0 so we don't keep stacking speeds upon the agent, resulting in far-too-fast movement.
+            m_movementAggressive = orxVECTOR_0;
+            float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
+            float flavorAngle = orxMath_GetRandomFloat(angleBetweenEnemyAndSelf - orxMATH_KF_PI_BY_2, angleBetweenEnemyAndSelf + orxMATH_KF_PI_BY_2);
+            orxVECTOR normalizedSpeed = RadiansToVector(flavorAngle);
+            if (!m_ship->IsEnabled())
+            {
+                if (normalizedSpeed.fX > 0)
                 {
-                    orxVECTOR pos = GetPosition();
-                    orxVECTOR projectilePos = nearestProjectile->GetPosition();
-                    orxVECTOR normalizedProjectileSpeed = NormalizeVector(nearestProjectile->GetSpeed());
-                    orxVECTOR projectileTrajectoryRaycastNormal = Raycast(projectilePos,
-                        VectorToRadians(normalizedProjectileSpeed),
-                        orxPhysics_GetCollisionFlagValue(("pilot" + m_typeName).c_str())).at(1);
-
-                    // Initially set speed to 0 so we don't keep stacking speeds upon the agent, resulting in far-too-fast movement.
-                    m_movement = orxVECTOR_0;
-                    if (projectileTrajectoryRaycastNormal.fX != orxVECTOR_0.fX && projectileTrajectoryRaycastNormal.fY != orxVECTOR_0.fY)
-                    {
-                        Move({ projectileTrajectoryRaycastNormal.fY, -projectileTrajectoryRaycastNormal.fX }, m_flyingSpeed);
-                    }
-                    else
-                    {
-                        float angleBetweenTargetAndSelf = AngleBetweenPoints(projectilePos, pos);
-                        orxVECTOR normalizedSpeed = RadiansToVector(angleBetweenTargetAndSelf);
-                        Move(normalizedSpeed, m_flyingSpeed);
-                    }
-
-                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                    float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                    float normalizedProjectileDistance = orxVector_GetDistance(&pos, &projectilePos) / maxProjectileDistance;
-                    // Dividing normalizedProjectileDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = Action::M_LogitXMin + (normalizedProjectileDistance / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-                    retVal = ceilf(logitResult * _action->m_granularity);
+                    normalizedSpeed = { 0, 1 };
                 }
+                else
+                {
+                    normalizedSpeed = { 0, -1 };
+                }
+            }
+            Move(m_movementAggressive, normalizedSpeed, m_ship->IsEnabled() ? m_flyingSpeed : m_walkingSpeed);
+        }
+        }
+        break;
+    /*Factors: m_numLives,
+               iFrames,
+               number of projectiles,
+               number of opposing projectiles,
+               the most pressing opposing projectile (its relative position, and whether or not it's parryable),
+               the pilot's inhabited zone (and the distance from the pilot to the partition),
+               m_contaminationTimer,
+               m_constructionTimer,
+               round time.*/
+    case Action::ActionType::MoveDefensively:
+        {
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            orxVECTOR position = GetPosition();
+            ScrollMod *partition = GetPartition();
+            float partitionDistanceX = fabsf(position.fX - partition->GetPosition().fX);
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            factorsCurrentAndMax.push_back({ -m_lives, m_maxLives });
+            factorsCurrentAndMax.push_back({ -m_iFrames, m_maxIFrames });
+            // TODO: Use actual projectile max numbers instead of 100.
+            factorsCurrentAndMax.push_back({ -Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size(), 100 });
+            factorsCurrentAndMax.push_back({ Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size(), 100 });
+            // TODO: Use actual arena dimensions instead of (1920 / 2).
+            factorsCurrentAndMax.push_back({ partitionDistanceX, 960 });
+            if (!IsInOwnZone())
+            {
+                // TODO: Use config constants instead of 10.
+                factorsCurrentAndMax.push_back({ m_contaminationTimer, 10 });
+                factorsCurrentAndMax.push_back({ -m_constructionTimer, 10 });
+            }
+            factorsCurrentAndMax.push_back({ GetRemainingMatchTime(), GetMaxMatchTime() });
+
+            // Initially set movement vector to 0 so we don't keep stacking speeds upon the agent, resulting in far-too-fast movement.
+            m_movementDefensive = orxVECTOR_0;
+            float flavorAngle = 0;
+            orxVECTOR normalizedSpeed = orxVECTOR_0;
+            if (mostPressingProjectile != nullptr)
+            {
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                // TODO: Take most pressing projectile's and parryability into account
+                factorsCurrentAndMax.push_back({ mostPressingProjectileDistance, maxProjectileDistance });
+
+                float angleBetweenProjectileAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
+                flavorAngle = orxMath_GetRandomFloat(angleBetweenProjectileAndSelf - orxMATH_KF_PI_BY_4, angleBetweenProjectileAndSelf + orxMATH_KF_PI_BY_4);
             }
             else
             {
-
+                float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
+                flavorAngle = orxMath_GetRandomFloat(angleBetweenEnemyAndSelf - orxMATH_KF_PI_BY_2, angleBetweenEnemyAndSelf + orxMATH_KF_PI_BY_2);
             }
+            normalizedSpeed = RadiansToVector(flavorAngle);
+            if (!m_ship->IsEnabled())
+            {
+                if (normalizedSpeed.fX > 0)
+                {
+                    normalizedSpeed = { 0, 1 };
+                }
+                else
+                {
+                    normalizedSpeed = { 0, -1 };
+                }
+            }
+            Move(m_movementDefensive, normalizedSpeed, m_ship->IsEnabled() ? m_flyingSpeed : m_walkingSpeed);
+        }
         }
         break;
+    /*Factors: the most pressing opposing projectile (its relative position, and whether or not it's parryable),
+               m_contaminationTimer,
+               round time.*/
     case Action::ActionType::DontMove:
         {
-            retVal = _action->m_granularity;
+        orxVECTOR position = GetPosition();
+        Projectile *mostPressingProjectile = GetMostPressingProjectile();
+        if (mostPressingProjectile != nullptr)
+        {
+            // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+            float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+            float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+            // TODO: Take most pressing projectile's parryability into account
+            factorsCurrentAndMax.push_back({ -mostPressingProjectileDistance, maxProjectileDistance });
+        }
+        if (!IsInOwnZone())
+        {
+            // TODO: Use config constants instead of 10.
+            factorsCurrentAndMax.push_back({ -m_contaminationTimer, 10 });
+            factorsCurrentAndMax.push_back({ m_constructionTimer, 10 });
+        }
+        factorsCurrentAndMax.push_back({ GetRemainingMatchTime(), GetMaxMatchTime() });
         }
         break;
+    /*Factors: m_opposingPilot (its relative position),
+               The most pressing opposing projectile (its relative position, and whether or not it's parryable)*/
     case Action::ActionType::Jump:
         {
-            Projectile *nearestProjectile = dynamic_cast<Projectile*>(Hexpatriates::GetInstance().GetNearestProjectileByPlayerType(this, m_otherTypeName));
-            if (nearestProjectile != nullptr)
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            orxVECTOR position = GetPosition();
+            orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            // Only jump if it's beneficial to do so.
+            if ((m_parryTime <= 0 || m_meleeTime <= 0) && opposingPilotPosition.fY < position.fY)
             {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR projectilePos = nearestProjectile->GetPosition();
-
-                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                float normalizedProjectileDistance = orxVector_GetDistance(&pos, &projectilePos) / maxProjectileDistance;
-                // Dividing normalizedProjectileDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                float logitX = Action::M_LogitXMin + (normalizedProjectileDistance / 2.0f);
-                float logitResult = MathUtil::Logit(logitX, EULER, false);
-                retVal = ceilf(logitResult * _action->m_granularity);
-            }
-        }
-        break;
-    case Action::ActionType::DontJump:
-        {
-            retVal = _action->m_granularity;
-        }
-        break;
-    case Action::ActionType::Fall:
-        {
-            Projectile *nearestProjectile = dynamic_cast<Projectile*>(Hexpatriates::GetInstance().GetNearestProjectileByPlayerType(this, m_otherTypeName));
-            if (nearestProjectile != nullptr)
-            {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR projectilePos = nearestProjectile->GetPosition();
-
-                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                float normalizedProjectileDistance = orxVector_GetDistance(&pos, &projectilePos) / maxProjectileDistance;
-                // Dividing normalizedProjectileDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                float logitX = Action::M_LogitXMin + (normalizedProjectileDistance / 2.0f);
-                float logitResult = MathUtil::Logit(logitX, EULER, false);
-                retVal = ceilf(logitResult * _action->m_granularity);
-            }
-        }
-        break;
-    case Action::ActionType::DontFall:
-        {
-            retVal = _action->m_granularity;
-        }
-        break;
-    case Action::ActionType::Dash:
-        {
-            Projectile *nearestProjectile = dynamic_cast<Projectile*>(Hexpatriates::GetInstance().GetNearestProjectileByPlayerType(this, m_otherTypeName));
-            if (nearestProjectile != nullptr)
-            {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR projectilePos = nearestProjectile->GetPosition();
-
-                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                float normalizedProjectileDistance = orxVector_GetDistance(&pos, &projectilePos) / maxProjectileDistance;
-                // Dividing normalizedProjectileDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                float logitX = Action::M_LogitXMin + (normalizedProjectileDistance / 2.0f);
-                float logitResult = MathUtil::Logit(logitX, EULER, false);
-                retVal = ceilf(logitResult * _action->m_granularity);
-            }
-        }
-        break;
-    case Action::ActionType::Parry:
-        {
-            Parryable *nearestParryable = dynamic_cast<Parryable*>(Hexpatriates::GetInstance().GetNearestProjectileByPlayerType(this, m_otherTypeName));
-            if (nearestParryable != nullptr)
-            {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR projectilePos = nearestParryable->GetPosition();
-
-                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                float normalizedProjectileDistance = orxVector_GetDistance(&pos, &projectilePos) / maxProjectileDistance;
-                // Dividing normalizedProjectileDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                float logitX = Action::M_LogitXMin + (normalizedProjectileDistance / 2.0f);
-                float logitResult = MathUtil::Logit(logitX, EULER, false);
-                retVal = ceilf(logitResult * _action->m_granularity);
-            }
-        }
-        break;
-    case Action::ActionType::Melee:
-        {
-            if (m_opposingPilot != nullptr)
-            {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR opponentPos = m_opposingPilot->GetPosition();
-
                 // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                 float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                float normalizedPilotDistance = orxVector_GetDistance(&pos, &opponentPos) / maxPilotDistance;
-                // Dividing normalizedPilotDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                float logitX = Action::M_LogitXMin + (normalizedPilotDistance / 2.0f);
-                float logitResult = MathUtil::Logit(logitX, EULER, false);
-                retVal = ceilf(logitResult * _action->m_granularity);
+                float pilotDistance = orxVector_GetDistance(&position, &m_opposingPilot->GetPosition());
+                factorsCurrentAndMax.push_back({ -pilotDistance, maxPilotDistance });
+            }
+            if (mostPressingProjectile != nullptr)
+            {
+                orxVECTOR mostPressingProjectilePosition = mostPressingProjectile->GetPosition();
+                if (mostPressingProjectilePosition.fY >= position.fY)
+                {
+                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                    float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                    float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                    // TODO: Take most pressing projectile's parryability into account
+                    factorsCurrentAndMax.push_back({ -mostPressingProjectileDistance, maxProjectileDistance });
+                }
             }
         }
+        }
         break;
+    /*Factors: m_opposingPilot (its relative position),
+               The most pressing opposing projectile (its relative position, and whether or not it's parryable)*/
+    case Action::ActionType::DontJump:
+        {
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            orxVECTOR position = GetPosition();
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+            float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+            float pilotDistance = orxVector_GetDistance(&position, &m_opposingPilot->GetPosition());
+            factorsCurrentAndMax.push_back({ pilotDistance, maxPilotDistance });
+            if (mostPressingProjectile != nullptr)
+            {
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                // TODO: Take most pressing projectile's parryability into account
+                factorsCurrentAndMax.push_back({ mostPressingProjectileDistance, maxProjectileDistance });
+            }
+        }
+        }
+        break;
+    /*Factors: m_opposingPilot (its speed and relative position),
+               The most pressing opposing projectile (its speed, relative position, and whether or not it's parryable)*/
+    case Action::ActionType::Fall:
+        {
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            orxVECTOR position = GetPosition();
+            orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            // Only jump if it's beneficial to do so.
+            if ((m_parryTime <= 0 || m_meleeTime <= 0) && opposingPilotPosition.fY > position.fY)
+            {
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float pilotDistance = orxVector_GetDistance(&position, &m_opposingPilot->GetPosition());
+                factorsCurrentAndMax.push_back({ -pilotDistance, maxPilotDistance });
+            }
+            if (mostPressingProjectile != nullptr)
+            {
+                orxVECTOR mostPressingProjectilePosition = mostPressingProjectile->GetPosition();
+                if (mostPressingProjectilePosition.fY <= position.fY)
+                {
+                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                    float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                    float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                    // TODO: Take most pressing projectile's parryability into account
+                    factorsCurrentAndMax.push_back({ -mostPressingProjectileDistance, maxProjectileDistance });
+                }
+            }
+        }
+        }
+        break;
+    /*Factors: m_opposingPilot (its speed and relative position),
+               The most pressing opposing projectile (its speed, relative position, and whether or not it's parryable)*/
+    case Action::ActionType::DontFall:
+        {
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            orxVECTOR position = GetPosition();
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+            float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+            float pilotDistance = orxVector_GetDistance(&position, &m_opposingPilot->GetPosition());
+            factorsCurrentAndMax.push_back({ pilotDistance, maxPilotDistance });
+            if (mostPressingProjectile != nullptr)
+            {
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                // TODO: Take most pressing projectile's parryability into account
+                factorsCurrentAndMax.push_back({ mostPressingProjectileDistance, maxProjectileDistance });
+            }
+        }
+        }
+        break;
+    /*Factors: m_numLives,
+               iFrames,
+               number of projectiles,
+               number of opposing projectiles,
+               the most pressing opposing projectile (its speed, distance, and whether or not it's parryable),
+               the pilot's inhabited zone (and the distance from the pilot to the partition),
+               m_contaminationTimer,
+               m_constructionTimer,
+               round time.*/
+    case Action::ActionType::DashAggressively:
+        {
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // Dashing is only relevant if its available.
+            if (m_dashTime <= 0)
+            {
+                orxVECTOR position = GetPosition();
+                ScrollMod *partition = GetPartition();
+                float partitionDistanceX = fabsf(position.fX - partition->GetPosition().fX);
+                Projectile *mostPressingProjectile = GetMostPressingProjectile();
+                factorsCurrentAndMax.push_back({ m_lives, m_maxLives });
+                factorsCurrentAndMax.push_back({ m_iFrames, m_maxIFrames });
+                // TODO: Use actual projectile max numbers instead of 100.
+                factorsCurrentAndMax.push_back({ Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size(), 100 });
+                factorsCurrentAndMax.push_back({ -Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size(), 100 });
+                if (mostPressingProjectile != nullptr)
+                {
+                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                    float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                    float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                    // TODO: Take most pressing projectile's speed and parryability into account
+                    factorsCurrentAndMax.push_back({ -mostPressingProjectileDistance, maxProjectileDistance });
+                }
+                // TODO: Use actual arena dimensions instead of (1920 / 2).
+                factorsCurrentAndMax.push_back({ -partitionDistanceX, 960 });
+                if (!IsInOwnZone())
+                {
+                    // TODO: Use config constants instead of 10.
+                    factorsCurrentAndMax.push_back({ -m_contaminationTimer, 10 });
+                    factorsCurrentAndMax.push_back({ m_constructionTimer, 10 });
+                }
+                factorsCurrentAndMax.push_back({ -GetRemainingMatchTime(), GetMaxMatchTime() });
+
+                float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
+                float flavorAngle = orxMath_GetRandomFloat(angleBetweenEnemyAndSelf - orxMATH_KF_PI_BY_8, angleBetweenEnemyAndSelf + orxMATH_KF_PI_BY_8);
+                m_dashDirectionAggressive = RadiansToVector(flavorAngle);
+            }
+        }
+        }
+        break;
+    /*Factors: m_numLives,
+               iFrames,
+               number of projectiles,
+               number of opposing projectiles,
+               the most pressing opposing projectile (its relative position, and whether or not it's parryable),
+               the pilot's inhabited zone (and the distance from the pilot to the partition),
+               m_contaminationTimer,
+               m_constructionTimer,
+               round time.*/
+    case Action::ActionType::DashDefensively:
+        {
+        // Movement is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // Dashing is only relevant if its available.
+            if (m_dashTime <= 0)
+            {
+                orxVECTOR position = GetPosition();
+                ScrollMod *partition = GetPartition();
+                float partitionDistanceX = fabsf(position.fX - partition->GetPosition().fX);
+                Projectile *mostPressingProjectile = GetMostPressingProjectile();
+                factorsCurrentAndMax.push_back({ -m_lives, m_maxLives });
+                factorsCurrentAndMax.push_back({ -m_iFrames, m_maxIFrames });
+                // TODO: Use actual projectile max numbers instead of 100.
+                factorsCurrentAndMax.push_back({ -Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size(), 100 });
+                factorsCurrentAndMax.push_back({ Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size(), 100 });
+                // TODO: Use actual arena dimensions instead of (1920 / 2).
+                factorsCurrentAndMax.push_back({ partitionDistanceX, 960 });
+                if (!IsInOwnZone())
+                {
+                    // TODO: Use config constants instead of 10.
+                    factorsCurrentAndMax.push_back({ m_contaminationTimer, 10 });
+                    factorsCurrentAndMax.push_back({ -m_constructionTimer, 10 });
+                }
+                factorsCurrentAndMax.push_back({ GetRemainingMatchTime(), GetMaxMatchTime() });
+
+                float flavorAngle = 0;
+                if (mostPressingProjectile != nullptr)
+                {
+                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                    float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                    float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
+                    // TODO: Take most pressing projectile's and parryability into account
+                    factorsCurrentAndMax.push_back({ mostPressingProjectileDistance, maxProjectileDistance });
+
+                    float angleBetweenProjectileAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
+                    flavorAngle = orxMath_GetRandomFloat(angleBetweenProjectileAndSelf - orxMATH_KF_PI_BY_16, angleBetweenProjectileAndSelf + orxMATH_KF_PI_BY_16);
+                }
+                else
+                {
+                    float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
+                    flavorAngle = orxMath_GetRandomFloat(angleBetweenEnemyAndSelf - orxMATH_KF_PI_BY_8, angleBetweenEnemyAndSelf + orxMATH_KF_PI_BY_8);
+                }
+
+                m_dashDirectionDefensive = RadiansToVector(flavorAngle);
+            }
+        }
+        }
+        break;
+    /*Factors: m_numLives,
+               m_iFrames,
+               the most pressing opposing projectile (its relative position, and whether or not it's parryable)*/
+    case Action::ActionType::Parry:
+        {
+        // Parrying is only relevant if its available.
+        if (m_parryTime <= 0)
+        {
+            // TODO: Take into account parrying m_opposingPilot's melee attacks.
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            if (mostPressingProjectile != nullptr && dynamic_cast<Parryable*>(mostPressingProjectile) != nullptr)
+            {
+                orxVECTOR pos = GetPosition();
+                orxVECTOR projectilePos = mostPressingProjectile->GetPosition();
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float projectileDistance = orxVector_GetDistance(&pos, &projectilePos);
+                factorsCurrentAndMax.push_back({ -m_lives, m_maxLives });
+                factorsCurrentAndMax.push_back({ -m_iFrames, m_maxIFrames });
+                factorsCurrentAndMax.push_back({ projectileDistance, maxProjectileDistance });
+            }
+        }
+        }
+        break;
+    /*Factors: m_numLives,
+               m_iFrames,
+               m_opposingPilot (its relative position)*/
+    case Action::ActionType::Melee:
+        {
+        // Melee is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // Melee is only relevant if its available.
+            if (m_meleeTime <= 0)
+            {
+                orxVECTOR position = GetPosition();
+                orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float pilotDistance = orxVector_GetDistance(&position, &opposingPilotPosition);
+                factorsCurrentAndMax.push_back({ m_lives, m_maxLives });
+                factorsCurrentAndMax.push_back({ m_iFrames, m_maxIFrames });
+                factorsCurrentAndMax.push_back({ pilotDistance, maxPilotDistance });
+            }
+        }
+        }
+        break;
+    /*Factors: m_numLives,
+               m_iFrames,
+               m_opposingPilot (its relative position),
+               number of opposing projectiles*/
     case Action::ActionType::Downstab:
         {
-            // If the agent is grounded, return the minimum value.
-            if (m_opposingPilot != nullptr)
+        // Downstab is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // Downstab is only relevant if its available.
+            if (m_meleeTime <= 0)
+            {
+                orxVECTOR position = GetPosition();
+                orxVECTOR opposingPilotPosition = m_opposingPilot->GetPosition();
+                if (position.fY < opposingPilotPosition.fY)
+                {
+                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                    float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                    float pilotDistance = orxVector_GetDistance(&position, &opposingPilotPosition);
+                    factorsCurrentAndMax.push_back({ m_lives, m_maxLives });
+                    factorsCurrentAndMax.push_back({ m_iFrames, m_maxIFrames });
+                    factorsCurrentAndMax.push_back({ pilotDistance, maxPilotDistance });
+                    // TODO: Use actual projectile max numbers instead of 100.
+                    factorsCurrentAndMax.push_back({ -Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size(), 100 });
+                }
+            }
+        }
+        }
+        break;
+    /*Factors: m_opposingPilot (its relative position)*/
+    case Action::ActionType::FireNeutral:
+        {
+        // FireNeutral is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // FireNeutral is only relevant if it's available.
+            if (NeutralIsAvailable())
             {
                 orxVECTOR pos = GetPosition();
                 orxVECTOR opponentPos = m_opposingPilot->GetPosition();
 
-                // If the player is above the agent, return the minimum value.
+                if (opponentPos.fX <= pos.fX)
+                {
+                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                    float maxPilotDistanceX = 1920;
+                    float maxPilotDistanceY = 1080;
+                    float pilotDistanceX = fabsf(pos.fX - opponentPos.fX);
+                    float pilotDistanceY = fabsf(pos.fY - opponentPos.fY);
+                    factorsCurrentAndMax.push_back({ pilotDistanceX, maxPilotDistanceX });
+                    factorsCurrentAndMax.push_back({ pilotDistanceY, maxPilotDistanceY });
+                }
+            }
+        }
+        }
+        break;
+    /*Factors: m_opposingPilot (its relative position)*/
+    case Action::ActionType::FireUpward:
+        {
+        // FireUpward is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // FireUpward is only relevant if it's available.
+            if (UpwardIsAvailable())
+            {
+                orxVECTOR pos = GetPosition();
+                orxVECTOR opponentPos = m_opposingPilot->GetPosition();
+
+                if (opponentPos.fY <= pos.fY)
+                {
+                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                    float maxPilotDistanceX = 1920;
+                    float maxPilotDistanceY = 1080;
+                    float pilotDistanceX = fabsf(pos.fX - opponentPos.fX);
+                    float pilotDistanceY = fabsf(pos.fY - opponentPos.fY);
+                    factorsCurrentAndMax.push_back({ pilotDistanceX, maxPilotDistanceX });
+                    factorsCurrentAndMax.push_back({ pilotDistanceY, maxPilotDistanceY });
+                }
+            }
+        }
+        }
+        break;
+    /*Factors: m_opposingPilot (its relative position)*/
+    case Action::ActionType::FireDownward:
+        {
+        // FireDownward is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // FireDownward is only relevant if it's available.
+            if (DownwardIsAvailable())
+            {
+                orxVECTOR pos = GetPosition();
+                orxVECTOR opponentPos = m_opposingPilot->GetPosition();
+
                 if (opponentPos.fY >= pos.fY)
                 {
                     // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                     float maxPilotDistanceX = 1920;
-                    float normalizedPilotDistanceX = fabsf(pos.fX - opponentPos.fX) / maxPilotDistanceX;
-                    // Dividing normalizedPilotDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = Action::M_LogitXMin + (normalizedPilotDistanceX / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-                    retVal = ceilf(logitResult * _action->m_granularity);
+                    float maxPilotDistanceY = 1080;
+                    float pilotDistanceX = fabsf(pos.fX - opponentPos.fX);
+                    float pilotDistanceY = fabsf(pos.fY - opponentPos.fY);
+                    factorsCurrentAndMax.push_back({ pilotDistanceX, maxPilotDistanceX });
+                    factorsCurrentAndMax.push_back({ pilotDistanceY, maxPilotDistanceY });
                 }
             }
         }
-        break;
-    case Action::ActionType::FireNeutral:
-        {
-            if (m_opposingPilot != nullptr)
-            {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR opponentPos = m_opposingPilot->GetPosition();
-
-                // If the player is to the right of the agent, return the minimum value.
-                if (opponentPos.fX <= pos.fX)
-                {
-                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                    float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                    float normalizedPilotDistance = orxVector_GetDistance(&pos, &opponentPos) / maxPilotDistance;
-                    // Dividing normalizedPilotDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = Action::M_LogitXMin + (normalizedPilotDistance / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-                    retVal = ceilf(logitResult * _action->m_granularity);
-                }
-            }
         }
         break;
-    case Action::ActionType::FireUpward:
-        {
-            if (m_opposingPilot != nullptr)
-            {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR opponentPos = m_opposingPilot->GetPosition();
-
-                // If the player is below the agent, return the minimum value.
-                if (opponentPos.fY <= pos.fY)
-                {
-                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                    float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                    float normalizedPilotDistance = orxVector_GetDistance(&pos, &opponentPos) / maxPilotDistance;
-                    // Dividing normalizedPilotDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = Action::M_LogitXMin + (normalizedPilotDistance / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-                    retVal = ceilf(logitResult * _action->m_granularity);
-                }
-            }
-        }
-        break;
-    case Action::ActionType::FireDownward:
-        {
-            if (m_opposingPilot != nullptr)
-            {
-                orxVECTOR pos = GetPosition();
-                orxVECTOR opponentPos = m_opposingPilot->GetPosition();
-
-                // If the player is above the agent, return the minimum value.
-                if (opponentPos.fY >= pos.fY)
-                {
-                    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
-                    float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
-                    float normalizedPilotDistance = orxVector_GetDistance(&pos, &opponentPos) / maxPilotDistance;
-                    // Dividing normalizedPilotDistance by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = Action::M_LogitXMin + (normalizedPilotDistance / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-                    retVal = ceilf(logitResult * _action->m_granularity);
-                }
-            }
-        }
-        break;
+    /*Factors: m_opposingPilot (its relative position)*/
     case Action::ActionType::FireSuper:
         {
-            if (m_cooldownSuper <= 0)
+        // FireSuper is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // FireSuper is only relevant if it's available.
+            if (SuperIsAvailable())
             {
-                retVal = _action->m_granularity;
+                orxVECTOR pos = GetPosition();
+                orxVECTOR opponentPos = m_opposingPilot->GetPosition();
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float pilotDistance = orxVector_GetDistance(&pos, &opponentPos);
+                factorsCurrentAndMax.push_back({ pilotDistance, maxPilotDistance });
             }
         }
+        }
         break;
+    /*Factors: number of opposing projectiles,
+               m_opposingPilot (its relative position),
+               The most pressing opposing projectile (its relative position)*/
     case Action::ActionType::DontAct:
         {
-            retVal = _action->m_granularity;
+        // DontAct is only relevant if the opposing pilot is extant.
+        if (m_opposingPilot != nullptr)
+        {
+            // TODO: Use actual projectile max numbers instead of 100.
+            factorsCurrentAndMax.push_back({ -Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size(), 100 });
+            orxVECTOR pos = GetPosition();
+            orxVECTOR opponentPos = m_opposingPilot->GetPosition();
+            // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+            float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+            float pilotDistance = orxVector_GetDistance(&pos, &opponentPos);
+            factorsCurrentAndMax.push_back({ pilotDistance, maxPilotDistance });
+            Projectile *mostPressingProjectile = GetMostPressingProjectile();
+            if (mostPressingProjectile != nullptr)
+            {
+                orxVECTOR projectilePos = mostPressingProjectile->GetPosition();
+                // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+                float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+                float projectileDistance = orxVector_GetDistance(&pos, &projectilePos);
+                factorsCurrentAndMax.push_back({ projectileDistance, maxProjectileDistance });
+            }
+        }
         }
         break;
     }
 
-    return retVal;
+    // Sum up the current and maximum factors, respectively.
+    for (std::pair<float, float> pair : factorsCurrentAndMax)
+    {
+        factorsCurrentSum += pair.first;
+        factorsMaxSum += pair.second;
+    }
+    // Set the action's normalized utility.
+    float normalizedUtility = factorsMaxSum != 0 ? factorsCurrentSum / factorsMaxSum : 0;
+
+    return _action->m_function(normalizedUtility);
 }

@@ -245,6 +245,9 @@
     <ClCompile Include="Context.cpp">
       <Filter>src\CPP\AI</Filter>
     </ClCompile>
+    <ClCompile Include="RaycastData.cpp">
+      <Filter>src\CPP\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexpatriates.h">
@@ -417,6 +420,9 @@
     </ClInclude>
     <ClInclude Include="Context.h">
       <Filter>src\Headers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastData.h">
+      <Filter>src\Headers\Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

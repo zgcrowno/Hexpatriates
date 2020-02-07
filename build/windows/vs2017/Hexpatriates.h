@@ -28,12 +28,17 @@ namespace hexpatriates
     public:
         virtual orxSTATUS PauseGame(orxBOOL _bPause);
         void PauseAction(orxBOOL _bPause);
+        float GetMaxMatchTime();
+        float GetRemainingMatchTime();
         ScrollObject *GetArena();
         ScrollObject *GetArenaBounds();
+        ScrollObject *GetPartition();
         ScrollObject *GetScenePilotSelect();
         ScrollObject *GetPilotByPlayerType(const std::string _str);
         ScrollObject *GetCrosshairsByPlayerType(const std::string _str);
         ScrollObject *GetNearestProjectileByPlayerType(const ScrollObject *_obj, const std::string _type);
+        ScrollObject *GetMostPressingProjectileByPlayerType(const ScrollObject *_obj, const std::string _type, const std::string _otherType);
+        std::vector<ScrollObject*> GetProjectilesByPlayerType(const std::string _type);
         std::vector<ScrollObject*> GetFamiliarsByPlayerType(const std::string _str);
     };
 }

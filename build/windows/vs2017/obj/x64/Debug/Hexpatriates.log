@@ -1,41 +1,82 @@
 ﻿  Action.cpp
   Agent.cpp
-  ArenaBound.cpp
-  ArenaBounds.cpp
-  Beam.cpp
-  BeamPlacer.cpp
-  BeamSpouter.cpp
   Context.cpp
-  Crosshairs.cpp
-  Ember.cpp
-  Explosion.cpp
-  Familiar.cpp
   Grenade.cpp
-  Hexpatriates.cpp
-  InputHandler.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\familiar.cpp(9): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-  Laser.cpp
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\grenade.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-  LaserGate.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\action.cpp(212): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(16707566): warning C4244: 'return': conversion from 'float' to '_Rx', possible loss of data
+          with
+          [
+              _Rx=int
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(16707566): note: see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,_Ty>(_Callable &,_Ty &&)' being compiled
+          with
+          [
+              _Rx=int,
+              _Callable=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,
+              _Ty=float
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(16707566): note: see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,_Ty>(_Callable &,_Ty &&)' being compiled
+          with
+          [
+              _Rx=int,
+              _Callable=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,
+              _Ty=float
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(15732480): note: while compiling class template member function '_Rx std::_Func_impl_no_alloc<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,_Rx,float>::_Do_call(float &&)'
+          with
+          [
+              _Rx=int
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1061): note: see reference to class template instantiation 'std::_Func_impl_no_alloc<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,_Ret,float>' being compiled
+          with
+          [
+              _Ret=int
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1320): note: see reference to class template instantiation 'std::_Is_large<_Impl>' being compiled (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1502): note: see reference to function template instantiation 'void std::_Func_class<_Ret,float>::_Reset<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=int,
+              _Fx=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1502): note: see reference to function template instantiation 'void std::_Func_class<_Ret,float>::_Reset<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=int,
+              _Fx=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1564): note: see reference to function template instantiation 'std::function<int (float)>::function<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,void>(_Fx)' being compiled
+          with
+          [
+              _Fx=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>
+          ] (compiling source file Action.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1564): note: see reference to function template instantiation 'std::function<int (float)>::function<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,void>(_Fx)' being compiled
+          with
+          [
+              _Fx=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>
+          ] (compiling source file Action.cpp)
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\action.cpp(24): note: see reference to function template instantiation 'std::function<int (float)> &std::function<int (float)>::operator =<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,void>(_Fx &&)' being compiled
+          with
+          [
+              _Fx=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>
+          ]
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\action.cpp(17): note: see reference to function template instantiation 'std::function<int (float)> &std::function<int (float)>::operator =<hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>,void>(_Fx &&)' being compiled
+          with
+          [
+              _Fx=hexpatriates::Action::OnCreate::<lambda_b218bd88fff0daf62a0bbe877402d2d0>
+          ]
+  Hexpatriates.cpp
   LaserHeatseeking.cpp
-  LaserPortalEntrance.cpp
-  LaserTeleportable.cpp
   LaserWall.cpp
-  Legionnaire.cpp
-  MedussaHead.cpp
   MenuItem.cpp
-  MenuItemPilot.cpp
-  MenuItemTransitional.cpp
-  Missile.cpp
   MissileShield.cpp
-  Orb.cpp
   Parryable.cpp
   Pilot.cpp
   Pilot1.cpp
   Pilot2.cpp
   Pilot3.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(41): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(47): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(42): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(48): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(50): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
@@ -43,57 +84,105 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(52): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(53): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(54): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(949): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1257): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1285): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1308): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1331): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1349): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1366): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1387): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1408): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1429): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1450): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(55): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(998): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1298): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1358): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1569): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1619): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1724): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1836): warning C4146: unary minus operator applied to unsigned type, result still unsigned
   Pilot4.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from 'int' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=float
+          ] (compiling source file Pilot.cpp)
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1294): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=int &,
+              _Other2=int &
+          ]
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1294): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=int &,
+              _Other2=int &
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from 'int' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=float
+          ] (compiling source file Pilot.cpp)
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=unsigned __int64
+          ]
+          and
+          [
+              _Ty1=float
+          ] (compiling source file Pilot.cpp)
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1297): note: see reference to function template instantiation 'std::pair<float,float>::pair<unsigned __int64,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=unsigned __int64,
+              _Other2=int
+          ]
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1297): note: see reference to function template instantiation 'std::pair<float,float>::pair<unsigned __int64,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=unsigned __int64,
+              _Other2=int
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ] (compiling source file Pilot.cpp)
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ] (compiling source file Pilot.cpp)
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1355): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int&,0>(_Other1 &&,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int &
+          ]
+  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1355): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int&,0>(_Other1 &&,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int &
+          ]
   Pilot5.cpp
   Pilot6.cpp
   Pilot7.cpp
   Pilot8.cpp
-  PlayerSpecific.cpp
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(11): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(141): warning C4267: '*=': conversion from 'size_t' to 'int', possible loss of data
-  Prism.cpp
   Projectile.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\playerspecific.cpp(8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   RCurve.cpp
   Scene.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\prism.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
   SceneArena.cpp
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\projectile.cpp(14): warning C4244: '=': conversion from 'orxBOOL' to 'float', possible loss of data
-  SceneMenu.cpp
+  UBucket.cpp
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\rcurve.cpp(45): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\rcurve.cpp(90): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  ScrollMod.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(98): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(99): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(100): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu.cpp(26): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenemenu.cpp(27): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-  Ship.cpp
-  Shrapnel.cpp
-  Shuttlecock.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(23): warning C4018: '<': signed/unsigned mismatch
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(38): warning C4018: '<': signed/unsigned mismatch
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(643): warning C4700: uninitialized local variable 'result' used
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(658): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(672): warning C4715: 'hexpatriates::ScrollMod::GetChildByName': not all control paths return a value
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scrollmod.cpp(692): warning C4715: 'hexpatriates::ScrollMod::GetBodyPartByName': not all control paths return a value
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\ship.cpp(9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Spacer.cpp
-  Spawner.cpp
-  Turret.cpp
-  UBucket.cpp
-  Zone.cpp
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(101): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

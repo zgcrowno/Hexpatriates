@@ -48,6 +48,7 @@ namespace hexpatriates
         ArenaBounds *m_bounds;
         Pilot *m_pilotP1;
         Pilot *m_pilotP2;
+        ScrollMod *m_partition;
         ScrollMod *m_livesMeterP1;
         ScrollMod *m_superMeterP1;
         ScrollMod *m_livesMeterP2;

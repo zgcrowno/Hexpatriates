@@ -32,9 +32,10 @@ namespace hexpatriates
         // A map of action types to actual actions/behaviors.
         std::map<Action::ActionType, std::function<void()>> m_actionMap;
 
+        //static orxSTATUS orxFASTCALL CalculateUtilities(void *_context);
         void CalculateUtilities();
         void Act();
-        // Score the action by summing the scores of its associated considerations.
+        // Scores the action in terms of various factors.
         virtual int ScoreAction(Action *_action) = 0;
     };
 }

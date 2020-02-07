@@ -2,8 +2,8 @@
 
 #include "Hexpatriates.h"
 #include "ScrollMod.h"
+#include <functional>
 #include <vector>
-#include <map>
 
 namespace hexpatriates
 {
@@ -28,7 +28,8 @@ namespace hexpatriates
         enum ActionType
         {
             // Movement actions.
-            Move,
+            MoveAggressively,
+            MoveDefensively,
             DontMove,
             // Jump actions.
             Jump,
@@ -37,7 +38,8 @@ namespace hexpatriates
             Fall,
             DontFall,
             // Other actions.
-            Dash,
+            DashAggressively,
+            DashDefensively,
             Parry,
             Melee,
             Downstab,
@@ -48,43 +50,10 @@ namespace hexpatriates
             DontAct
         };
 
-        // TODO: This is used purely for my own bookkeeping at this point. Remove this enum once I'm finished using it.
-        // Enum representing the various considerations that inform an action's utility score.
-        enum ConsiderationType
-        {
-            Position,
-            Trajectory,
-            ZoneInhabited,
-            NumLives,
-            DashAvailable,
-            ParryAvailable,
-            MeleeAvailable,
-            IFramesStatus,
-            ContaminationStatus,
-            ConstructionStatus,
-            ShipStatus,
-            GroundedStatus,
-            WallTouchStatus,
-            NeutralAvailable,
-            UpwardAvailable,
-            DownwardAvailable,
-            SuperAvailable,
-            LeftWallProximity,
-            RightWallProximity,
-            CeilingProximity,
-            FloorProximity,
-            ArenaElectrificationStatus,
-            OpposingProjectileTrajectories,
-            OpposingProjectilePositions,
-            OpposingPilotTrajectory,
-            OpposingPilotPosition
-        };
-
         //The returned y-value of the logit function is 0 at x = 0.5, so we want logitX to always be equal to at least 0.5.
         static float M_LogitXMin;
-        static std::map<std::string, ActionType> M_ActionSerializationMap;
-        // TODO: This is used purely for my own bookkeeping at this point. Remove this map once I'm finished using it.
-        static std::map<ActionType, std::vector<ConsiderationType>> M_ConsiderationMap;
+
+        static const float Compensate(const float &_score, const int _numFactors);
 
         // What type of action is this?
         ActionType m_actionType;
@@ -94,7 +63,7 @@ namespace hexpatriates
         float m_weight;
         // Generally speaking, how likely is an agent to deviate from this action once they're already engaged in it?
         float m_momentum;
-        // What considerations inform the importance of this action?
-        std::vector<ConsiderationType> m_considerations;
+        // The function to which we feed the action's normalized utility at the end of an agent's ScoreAction method.
+        std::function<int(float)> m_function;
     };
 }

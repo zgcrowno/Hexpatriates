@@ -46,7 +46,12 @@ void Pilot4::FireUpward(int &_indexInWave)
     ScrollMod *projectile = CreateObject(spawnObjectModelName);
     if (m_upwardOrigin.fY == orxVECTOR_0.fY)
     {
-        m_upwardOrigin = Raycast(GetPosition(), GetPISD(-orxMATH_KF_PI_BY_2), orxPhysics_GetCollisionFlagValue("geometry")).at(0);
+        const RaycastData *rd = Raycast(GetPosition(), GetPISD(-orxMATH_KF_PI_BY_2), orxPhysics_GetCollisionFlagValue("geometry"));
+        if (rd != nullptr)
+        {
+            m_upwardOrigin = rd->m_hitPosition;
+        }
+        //m_upwardOrigin = Raycast(GetPosition(), GetPISD(-orxMATH_KF_PI_BY_2), orxPhysics_GetCollisionFlagValue("geometry")).at(0);
     }
     else
     {

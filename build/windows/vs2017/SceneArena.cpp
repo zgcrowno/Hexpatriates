@@ -34,6 +34,7 @@ void SceneArena::OnCreate()
     m_targetScale3PilotP2 = { m_targetScalePilotP2.fX + 1.8f, m_targetScalePilotP2.fY + 1.8f, m_targetScalePilotP2.fZ };
     m_pilotP1Music = AudioManager::GetInstance()->m_pilotMusicMap.at(m_pilotP1->m_genericName);
     m_pilotP2Music = AudioManager::GetInstance()->m_pilotMusicMap.at(m_pilotP2->m_genericName);
+    m_partition = ScrollCast<ScrollMod*>(GetChildByName("O-Partition"));
     m_livesMeterP1 = ScrollCast<ScrollMod*>(GetChildByName("O-LivesMeterP1"));
     m_superMeterP1 = ScrollCast<ScrollMod*>(GetChildByName("O-SuperMeterP1"));
     m_livesMeterP2 = ScrollCast<ScrollMod*>(GetChildByName("O-LivesMeterP2"));

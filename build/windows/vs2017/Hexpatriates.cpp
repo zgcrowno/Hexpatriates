@@ -160,6 +160,16 @@ void Hexpatriates::PauseAction(orxBOOL _bPause)
     orxPhysics_EnableSimulation(!_bPause);
 }
 
+float Hexpatriates::GetMaxMatchTime()
+{
+    return ScrollCast<SceneArena*>(GetArena())->m_matchTime;
+}
+
+float Hexpatriates::GetRemainingMatchTime()
+{
+    return ScrollCast<SceneArena*>(GetArena())->m_timer;
+}
+
 ScrollObject *Hexpatriates::GetArena()
 {
     return GetNextObject<SceneArena>();
@@ -168,6 +178,11 @@ ScrollObject *Hexpatriates::GetArena()
 ScrollObject *Hexpatriates::GetArenaBounds()
 {
     return GetNextObject<ArenaBounds>();
+}
+
+ScrollObject *Hexpatriates::GetPartition()
+{
+    return ScrollCast<SceneArena*>(GetArena())->m_partition;
 }
 
 ScrollObject *Hexpatriates::GetScenePilotSelect()
@@ -278,6 +293,54 @@ ScrollObject *Hexpatriates::GetNearestProjectileByPlayerType(const ScrollObject 
                 shortestDistance = distance;
                 retVal = projectile;
             }
+        }
+    }
+    return retVal;
+}
+
+ScrollObject *Hexpatriates::GetMostPressingProjectileByPlayerType(const ScrollObject *_obj, const std::string _type, const std::string _otherType)
+{
+    ScrollObject *retVal = nullptr;
+    orxVECTOR objectPosition = _obj->GetPosition(objectPosition);
+    orxVECTOR objectSpeed = _obj->GetSpeed(objectSpeed);
+    // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
+    float shortestDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
+    for (ScrollObject *scrollObject : GetProjectilesByPlayerType(_otherType))
+    {
+        Projectile *projectile = dynamic_cast<Projectile*>(scrollObject);
+        if (projectile != nullptr)
+        {
+            orxVECTOR projectilePosition = projectile->GetPosition();
+            orxVECTOR projectileSpeed = projectile->GetSpeed();
+            float distance = orxVector_GetDistance(&objectPosition, &projectilePosition);
+            const RaycastData *projectileToObjectData = ScrollMod::Raycast(projectilePosition,
+                ScrollMod::VectorToRadians(projectileSpeed),
+                orxPhysics_GetCollisionFlagValue(("pilot" + _type).c_str()));
+            const RaycastData *objectToProjectileData = ScrollMod::Raycast(objectPosition,
+                ScrollMod::VectorToRadians(objectSpeed),
+                orxPhysics_GetCollisionFlagValue(("projectile" + _otherType).c_str()));
+            if ((projectileToObjectData != nullptr || objectToProjectileData != nullptr) && distance < shortestDistance)
+            {
+                retVal = projectile;
+                shortestDistance = distance;
+            }
+        }
+    }
+    return retVal;
+}
+
+std::vector<ScrollObject*> Hexpatriates::GetProjectilesByPlayerType(const std::string _type)
+{
+    std::vector<ScrollObject*> retVal;
+    for (ScrollObject *scrollObject = GetNextObject();
+        scrollObject != nullptr;
+        scrollObject = GetNextObject(scrollObject))
+    {
+        Projectile *projectile = dynamic_cast<Projectile*>(scrollObject);
+        // Ensure scrollObject has the passed type.
+        if (projectile != nullptr && orxString_SearchString(projectile->GetModelName().c_str(), _type.c_str()) != nullptr)
+        {
+            retVal.push_back(projectile);
         }
     }
     return retVal;

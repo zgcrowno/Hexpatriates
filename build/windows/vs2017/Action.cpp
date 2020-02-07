@@ -1,430 +1,188 @@
 #include "Action.h"
+#include "MathUtil.h"
 
 using namespace hexpatriates;
 
 float Action::M_LogitXMin = 0.5f;
 
-std::map<std::string, Action::ActionType> Action::M_ActionSerializationMap =
-{
-    {
-        "Move",
-        ActionType::Move
-    },
-    {
-        "DontMove",
-        ActionType::DontMove
-    },
-    {
-        "Jump",
-        ActionType::Jump
-    },
-    {
-        "DontJump",
-        ActionType::DontJump
-    },
-    {
-        "Fall",
-        ActionType::Fall
-    },
-    {
-        "DontFall",
-        ActionType::DontFall
-    },
-    {
-        "Dash",
-        ActionType::Dash
-    },
-    {
-        "Parry",
-        ActionType::Parry
-    },
-    {
-        "Melee",
-        ActionType::Melee
-    },
-    {
-        "Downstab",
-        ActionType::Downstab
-    },
-    {
-        "FireNeutral",
-        ActionType::FireNeutral
-    },
-    {
-        "FireUpward",
-        ActionType::FireUpward
-    },
-    {
-        "FireDownward",
-        ActionType::FireDownward
-    },
-    {
-        "FireSuper",
-        ActionType::FireSuper
-    },
-    {
-        "DontAct",
-        ActionType::DontAct
-    }
-};
-
-// TODO: This is used purely for my own bookkeeping at this point. Remove this map once I'm finished using it.
-std::map<Action::ActionType, std::vector<Action::ConsiderationType>> Action::M_ConsiderationMap =
-{
-    {
-        Move,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::ZoneInhabited,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ContaminationStatus,
-            ConsiderationType::ConstructionStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::FloorProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        DontMove,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::ZoneInhabited,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ContaminationStatus,
-            ConsiderationType::ConstructionStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::FloorProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        Jump,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::NumLives,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        DontJump,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::NumLives,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        Fall,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::NumLives,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        DontFall,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::NumLives,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        Dash,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::ZoneInhabited,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ContaminationStatus,
-            ConsiderationType::ConstructionStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::FloorProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        Parry,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::LeftWallProximity,
-            ConsiderationType::RightWallProximity,
-            ConsiderationType::CeilingProximity,
-            ConsiderationType::FloorProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        Melee,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::Trajectory,
-            ConsiderationType::ZoneInhabited,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ContaminationStatus,
-            ConsiderationType::ConstructionStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        Downstab,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::ZoneInhabited,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::MeleeAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ContaminationStatus,
-            ConsiderationType::ConstructionStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::FloorProximity,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        FireNeutral,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::NeutralAvailable,
-            ConsiderationType::UpwardAvailable,
-            ConsiderationType::DownwardAvailable,
-            ConsiderationType::SuperAvailable,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        FireUpward,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::NeutralAvailable,
-            ConsiderationType::UpwardAvailable,
-            ConsiderationType::DownwardAvailable,
-            ConsiderationType::SuperAvailable,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        FireDownward,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::NeutralAvailable,
-            ConsiderationType::UpwardAvailable,
-            ConsiderationType::DownwardAvailable,
-            ConsiderationType::SuperAvailable,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        FireSuper,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::NeutralAvailable,
-            ConsiderationType::UpwardAvailable,
-            ConsiderationType::DownwardAvailable,
-            ConsiderationType::SuperAvailable,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    },
-    {
-        DontAct,
-        {
-            ConsiderationType::Position,
-            ConsiderationType::NumLives,
-            ConsiderationType::DashAvailable,
-            ConsiderationType::ParryAvailable,
-            ConsiderationType::IFramesStatus,
-            ConsiderationType::ShipStatus,
-            ConsiderationType::GroundedStatus,
-            ConsiderationType::WallTouchStatus,
-            ConsiderationType::NeutralAvailable,
-            ConsiderationType::UpwardAvailable,
-            ConsiderationType::DownwardAvailable,
-            ConsiderationType::SuperAvailable,
-            ConsiderationType::ArenaElectrificationStatus,
-            ConsiderationType::OpposingProjectileTrajectories,
-            ConsiderationType::OpposingProjectilePositions,
-            ConsiderationType::OpposingPilotTrajectory,
-            ConsiderationType::OpposingPilotPosition
-        }
-    }
-};
-
 void Action::OnCreate()
 {
-    m_actionType = M_ActionSerializationMap.at(GetString("ActionType", GetModelName()));
+    m_actionType = static_cast<ActionType>(GetU32(GetModelName(), "O-ActionType"));
     m_weight = GetFloat("Weight", GetModelName());
     m_momentum = GetFloat("Momentum", GetModelName());
-    for (ConsiderationType considerationType : M_ConsiderationMap.at(m_actionType))
+    // TODO: Alter m_function's behavior as appropriate.
+    switch (m_actionType)
     {
-        m_considerations.push_back(considerationType);
+    case MoveAggressively:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case MoveDefensively:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case DontMove:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case Jump:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case DontJump:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case Fall:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case DontFall:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case DashAggressively:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case DashDefensively:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case Parry:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case Melee:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case Downstab:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case FireNeutral:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case FireUpward:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case FireDownward:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case FireSuper:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
+    case DontAct:
+        m_function = [this](float _normalizedUtility)
+        {
+            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+            float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
+        };
+        break;
     }
 }
 
@@ -447,4 +205,11 @@ orxBOOL Action::OnCollide(
 void Action::Update(const orxCLOCK_INFO &_rstInfo)
 {
 
+}
+
+const float Compensate(const float &_score, const int _numFactors)
+{
+    float modificationFactor = 1 - (1 / _numFactors);
+    float makeUpValue = (1 - _score) * modificationFactor;
+    return _score + (makeUpValue * _score);
 }
