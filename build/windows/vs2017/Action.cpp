@@ -10,178 +10,846 @@ void Action::OnCreate()
     m_actionType = static_cast<ActionType>(GetU32(GetModelName(), "O-ActionType"));
     m_weight = GetFloat("Weight", GetModelName());
     m_momentum = GetFloat("Momentum", GetModelName());
-    // TODO: Alter m_function's behavior as appropriate.
+    for (int i = 0; i < GetListCount("Factors", GetModelName()); i++)
+    {
+        m_factors.push_back(static_cast<Factor>(GetU32(GetListString("Factors", i, GetModelName()), "O-Factor")));
+    }
+    // TODO: Alter utilityFunction's behavior as appropriate.
+    std::function<int(float)> utilityFunction;
     switch (m_actionType)
     {
     case MoveAggressively:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case NumLives:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case IFrames:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ContaminationTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ConstructionTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case PartitionDistanceX:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumOpposingProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case RemainingMatchTime:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case MoveDefensively:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case NumLives:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case IFrames:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ContaminationTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ConstructionTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case PartitionDistanceX:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumOpposingProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case RemainingMatchTime:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case DontMove:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case ContaminationTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case ConstructionTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case RemainingMatchTime:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case Jump:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case DontJump:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case Fall:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case DontFall:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case DashAggressively:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case NumLives:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case IFrames:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ContaminationTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ConstructionTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case PartitionDistanceX:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumOpposingProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case RemainingMatchTime:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case DashDefensively:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case NumLives:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case IFrames:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ContaminationTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case ConstructionTimer:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case PartitionDistanceX:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumOpposingProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case RemainingMatchTime:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case Parry:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case NumLives:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case IFrames:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case Melee:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case NumLives:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case IFrames:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case OpposingPilotDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case Downstab:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case NumLives:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case IFrames:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumOpposingProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case FireNeutral:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistanceX:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case OpposingPilotDistanceY:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case FireUpward:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistanceX:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case OpposingPilotDistanceY:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case FireDownward:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistanceX:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case OpposingPilotDistanceY:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case FireSuper:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case OpposingPilotDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     case DontAct:
-        m_function = [this](float _normalizedUtility)
+        for (Factor factor : m_factors)
         {
-            // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-            float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-            float logitResult = MathUtil::Logit(logitX, EULER, false);
+            switch (factor)
+            {
+            case MostPressingProjectileDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
 
-            return ceilf(logitResult * m_weight * m_momentum * m_granularity);
-        };
+                    return Compensate(logitResult);
+                };
+                break;
+            case OpposingPilotDistance:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            case NumOpposingProjectiles:
+                utilityFunction = [this](float _normalizedUtility)
+                {
+                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
+                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
+                    float logitResult = MathUtil::Logit(logitX, EULER, false);
+
+                    return Compensate(logitResult);
+                };
+                break;
+            }
+            m_utilityFunctionMap.insert(std::pair<Factor, std::function<int(float)>>(factor, utilityFunction));
+        }
         break;
     }
 }
@@ -207,9 +875,10 @@ void Action::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-const float Compensate(const float &_score, const int _numFactors)
+const float Action::Compensate(const float &_score)
 {
-    float modificationFactor = 1 - (1 / _numFactors);
+    int numFactors = m_factors.size();
+    float modificationFactor = 1 - (1 / numFactors);
     float makeUpValue = (1 - _score) * modificationFactor;
     return _score + (makeUpValue * _score);
 }

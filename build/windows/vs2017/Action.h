@@ -49,11 +49,25 @@ namespace hexpatriates
             FireSuper,
             DontAct
         };
+        // Enum representing the various factors that go into scoring an action.
+        enum Factor
+        {
+            NumLives,
+            IFrames,
+            ContaminationTimer,
+            ConstructionTimer,
+            NumProjectiles,
+            PartitionDistanceX,
+            MostPressingProjectileDistance,
+            OpposingPilotDistance,
+            OpposingPilotDistanceX,
+            OpposingPilotDistanceY,
+            NumOpposingProjectiles,
+            RemainingMatchTime
+        };
 
-        //The returned y-value of the logit function is 0 at x = 0.5, so we want logitX to always be equal to at least 0.5.
+        // The returned y-value of the logit function is 0 at x = 0.5, so we want logitX to always be equal to at least 0.5.
         static float M_LogitXMin;
-
-        static const float Compensate(const float &_score, const int _numFactors);
 
         // What type of action is this?
         ActionType m_actionType;
@@ -63,7 +77,12 @@ namespace hexpatriates
         float m_weight;
         // Generally speaking, how likely is an agent to deviate from this action once they're already engaged in it?
         float m_momentum;
-        // The function to which we feed the action's normalized utility at the end of an agent's ScoreAction method.
-        std::function<int(float)> m_function;
+        // The factors by which the action will be scored.
+        std::vector<Factor> m_factors;
+        // Map of the action's factors to their respective utility functions.
+        std::map<Factor, std::function<int(float)>> m_utilityFunctionMap;
+
+        // Returns the compensation value of the passed score (See David Mark's 2015 GDC talk).
+        const float Compensate(const float &_score);
     };
 }
