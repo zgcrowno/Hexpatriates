@@ -21,28 +21,36 @@ float MathUtil::Linear(
 float MathUtil::Quadratic(
     const float &_x,
     const float &_exponent,
+    const bool &_flip,
+    const bool &_unidirectional,
     const float &_verticalShift,
     const float &_horizontalShift,
-    const float &_tilt,
-    const bool &_leftOfVertexPositive)
+    const float &_tilt)
 {
-    float regularReturn = powf(_x - _horizontalShift, _exponent) + _verticalShift + (_tilt * _x);
+    float retVal = powf(_x - _horizontalShift, _exponent) + _verticalShift + (_tilt * _x);
 
-    if (_leftOfVertexPositive)
+    if (_unidirectional)
     {
-        return fabsf(regularReturn);
+        retVal = fabsf(retVal);
     }
 
-    return regularReturn;
+    if (_flip)
+    {
+        return 1 - retVal;
+    }
+
+    return retVal;
 }
 
 float MathUtil::Logistic(
     const float &_x,
+    const bool &_flip,
+    const float &_l,
     const float &_logBase,
-    const float &_horizontalShift,
-    const bool &_flip)
+    const float &_k,
+    const float &_horizontalShift)
 {
-    float unflippedReturn = (1 / (1 + powf(_logBase, -_x + _horizontalShift)));
+    float unflippedReturn = (_l / (1 + powf(_logBase, -_k * (_x - _horizontalShift))));
 
     if (_flip)
     {
@@ -54,15 +62,24 @@ float MathUtil::Logistic(
 
 float MathUtil::Logit(
     const float &_x,
-    const float &_logBase,
-    const bool &_shiftUp)
+    const bool &_flip,
+    const bool &_shiftUp,
+    const float &_compressionFactor,
+    const float &_logBase)
 {
-    float unshiftedReturn = Log(_x / (1 - _x), _logBase);
+    float retVal = Log(_x / (1 - _x), _logBase);
 
     if (_shiftUp)
     {
-        return unshiftedReturn + 5;
+        retVal += 5;
     }
 
-    return unshiftedReturn;
+    retVal /= _compressionFactor;
+
+    if (_flip)
+    {
+        return 1 - retVal;
+    }
+
+    return retVal;
 }

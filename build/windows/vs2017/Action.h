@@ -66,9 +66,6 @@ namespace hexpatriates
             RemainingMatchTime
         };
 
-        // The returned y-value of the logit function is 0 at x = 0.5, so we want logitX to always be equal to at least 0.5.
-        static float M_LogitXMin;
-
         // What type of action is this?
         ActionType m_actionType;
         // Number used to multiply function results in the Score method in order to guarantee greater differences in associated UBucket utilities.

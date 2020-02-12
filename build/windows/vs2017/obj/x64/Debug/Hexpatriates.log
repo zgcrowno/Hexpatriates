@@ -1,99 +1,4 @@
-﻿  Action.cpp
-  Agent.cpp
-  Context.cpp
-  MenuItem.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\action.cpp(880): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\action.cpp(881): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  RCurve.cpp
-  SceneArena.cpp
-  Grenade.cpp
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(16707566): warning C4244: 'return': conversion from 'float' to '_Rx', possible loss of data
-          with
-          [
-              _Rx=int
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(16707566): note: see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,_Ty>(_Callable &,_Ty &&)' being compiled
-          with
-          [
-              _Rx=int,
-              _Callable=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,
-              _Ty=float
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(16707566): note: see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,_Ty>(_Callable &,_Ty &&)' being compiled
-          with
-          [
-              _Rx=int,
-              _Callable=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,
-              _Ty=float
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(15732480): note: while compiling class template member function '_Rx std::_Func_impl_no_alloc<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,_Rx,float>::_Do_call(float &&)'
-          with
-          [
-              _Rx=int
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1061): note: see reference to class template instantiation 'std::_Func_impl_no_alloc<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,_Ret,float>' being compiled
-          with
-          [
-              _Ret=int
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1320): note: see reference to class template instantiation 'std::_Is_large<_Impl>' being compiled (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1502): note: see reference to function template instantiation 'void std::_Func_class<_Ret,float>::_Reset<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>>(_Fx &&)' being compiled
-          with
-          [
-              _Ret=int,
-              _Fx=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1502): note: see reference to function template instantiation 'void std::_Func_class<_Ret,float>::_Reset<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>>(_Fx &&)' being compiled
-          with
-          [
-              _Ret=int,
-              _Fx=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1564): note: see reference to function template instantiation 'std::function<int (float)>::function<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,void>(_Fx)' being compiled
-          with
-          [
-              _Fx=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>
-          ] (compiling source file Action.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional(1564): note: see reference to function template instantiation 'std::function<int (float)>::function<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,void>(_Fx)' being compiled
-          with
-          [
-              _Fx=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>
-          ] (compiling source file Action.cpp)
-  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\action.cpp(34): note: see reference to function template instantiation 'std::function<int (float)> &std::function<int (float)>::operator =<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,void>(_Fx &&)' being compiled
-          with
-          [
-              _Fx=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>
-          ]
-  c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\action.cpp(27): note: see reference to function template instantiation 'std::function<int (float)> &std::function<int (float)>::operator =<hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>,void>(_Fx &&)' being compiled
-          with
-          [
-              _Fx=hexpatriates::Action::OnCreate::<lambda_352c33ff91fb5d500f346d0448ef0236>
-          ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\rcurve.cpp(45): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\rcurve.cpp(90): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(99): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(100): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\scenearena.cpp(101): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\grenade.cpp(10): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-  LaserHeatseeking.cpp
-  LaserWall.cpp
-  Scene.cpp
-  MissileShield.cpp
-  Parryable.cpp
-  Pilot1.cpp
-  Pilot2.cpp
-  Pilot3.cpp
-  Pilot4.cpp
-  Pilot5.cpp
-  Pilot6.cpp
-  Pilot7.cpp
-  Pilot8.cpp
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(11): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot6.cpp(141): warning C4267: '*=': conversion from 'size_t' to 'int', possible loss of data
-  Hexpatriates.cpp
-  Pilot.cpp
-  Projectile.cpp
-  UBucket.cpp
+﻿  Pilot.cpp
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(42): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(48): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(49): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
@@ -103,9 +8,17 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(53): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(54): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(55): warning C4244: '=': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\projectile.cpp(14): warning C4244: '=': conversion from 'orxBOOL' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(998): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1293): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1292): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1292): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+          with
+          [
+              _Ret=int
+          ]
+          and
+          [
+              _Ty=float
+          ]
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1293): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
@@ -115,7 +28,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1294): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1295): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1295): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -134,9 +48,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1297): warning C4146: unary minus operator applied to unsigned type, result still unsigned
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1297): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1297): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1303): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -145,7 +57,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1304): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1306): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -154,7 +66,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1307): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1310): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -172,7 +84,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1312): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1313): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -181,7 +93,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1314): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1353): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1353): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -190,7 +103,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1354): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1354): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
@@ -200,7 +112,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1355): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1356): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1356): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -209,7 +122,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1357): warning C4146: unary minus operator applied to unsigned type, result still unsigned
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1357): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1357): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
@@ -220,8 +132,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1358): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1358): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1359): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -230,7 +141,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1360): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1363): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -248,7 +159,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1365): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1366): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -257,7 +168,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1367): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1378): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -266,7 +177,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1379): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1417): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -275,7 +186,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1418): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1422): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -293,7 +204,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1424): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1425): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -302,7 +213,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1426): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1444): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -311,7 +222,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1445): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1455): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -320,7 +231,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1456): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1473): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -329,7 +240,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1474): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1480): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -338,7 +249,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1481): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1501): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -347,7 +258,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1502): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1512): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -356,7 +267,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1513): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1530): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -365,7 +276,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1531): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1537): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -374,7 +285,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1538): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1563): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1563): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -383,7 +295,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1564): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1564): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
@@ -393,7 +304,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1565): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1566): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1566): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -412,9 +324,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1568): warning C4146: unary minus operator applied to unsigned type, result still unsigned
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1568): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1568): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1574): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -423,7 +333,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1575): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1577): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -432,7 +342,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1578): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1581): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -450,7 +360,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1583): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1584): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -459,7 +369,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1585): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1614): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1614): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -468,7 +379,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1615): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1615): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
@@ -478,7 +388,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1616): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1617): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1617): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -487,7 +398,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1618): warning C4146: unary minus operator applied to unsigned type, result still unsigned
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1618): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1618): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
@@ -498,8 +408,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1619): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1619): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1620): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -508,7 +417,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1621): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1624): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -526,7 +435,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1626): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1627): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -535,7 +444,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1628): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1636): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -544,7 +453,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1637): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1669): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1669): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -553,7 +463,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1670): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1670): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
@@ -572,7 +481,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1672): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1692): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1692): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -581,7 +491,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1693): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1693): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
@@ -600,7 +509,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1695): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1718): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1718): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -609,7 +519,6 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1719): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1719): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
@@ -628,7 +537,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1721): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1722): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1722): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -637,9 +547,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1723): warning C4146: unary minus operator applied to unsigned type, result still unsigned
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1723): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1723): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1747): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -657,7 +565,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1749): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1773): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -675,7 +583,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1775): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1799): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -693,7 +601,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1801): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1820): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -702,7 +610,8 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1821): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1834): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1834): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -711,9 +620,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1835): warning C4146: unary minus operator applied to unsigned type, result still unsigned
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1835): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1835): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1840): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -722,7 +629,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1841): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1848): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
           with
           [
               _Ret=int
@@ -731,16 +638,7 @@ c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.
           [
               _Ty=float
           ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1849): warning C4244: 'argument': conversion from '_Ret' to '_Ty', possible loss of data
-          with
-          [
-              _Ret=int
-          ]
-          and
-          [
-              _Ty=float
-          ]
-c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1863): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\hexpatriates\build\windows\vs2017\pilot.cpp(1862): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   Hexpatriates.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Hexpatriates\build\windows\vs2017\..\..\..\bin\Hexpatriatesd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

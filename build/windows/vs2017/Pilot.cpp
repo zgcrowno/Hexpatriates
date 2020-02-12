@@ -614,7 +614,7 @@ void Pilot::SetActionMap()
         },
         {
             Action::ActionType::DontMove,
-            [this]() {}
+            [this]() { SetSpeed(orxVECTOR_0); }
         },
         {
             Action::ActionType::Jump,
@@ -634,11 +634,11 @@ void Pilot::SetActionMap()
         },
         {
             Action::ActionType::DashAggressively,
-            [this]() {}
+            [this]() { Dash(m_dashDirectionAggressive, m_dashDirectionAggressive); }
         },
         {
             Action::ActionType::DashDefensively,
-            [this]() {}
+            [this]() { Dash(m_dashDirectionDefensive, m_dashDirectionDefensive); }
         },
         {
             Action::ActionType::Parry,
@@ -1269,7 +1269,6 @@ int Pilot::ScoreAction(Action *_action)
     float actionScore = 0;
     std::vector<float> factorScores;
 
-    // For each case, we get a normalized value by summing all factors, and dividing that sum by the sum of said factors' maximum possible values.
     switch (_action->m_actionType)
     {
     /*Factors: m_numLives,
@@ -1294,24 +1293,24 @@ int Pilot::ScoreAction(Action *_action)
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)(m_iFrames / m_maxIFrames));
             // TODO: Use actual projectile max numbers instead of 100.
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumProjectiles)(Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size() / 100));
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)(-Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size() / 100));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size()) / 100));
             if (mostPressingProjectile != nullptr)
             {
                 // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                 float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                 float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
                 // TODO: Take most pressing projectile's speed and parryability into account
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)(-mostPressingProjectileDistance / maxProjectileDistance));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)((maxProjectileDistance - mostPressingProjectileDistance) / maxProjectileDistance));
             }
             // TODO: Use actual arena dimensions instead of (1920 / 2).
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)(-partitionDistanceX / 960));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)((960 - partitionDistanceX) / 960));
             if (!IsInOwnZone())
             {
                 // TODO: Use config constants instead of 10.
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)(-m_contaminationTimer / 10));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)((10 - m_contaminationTimer) / 10));
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ConstructionTimer)(m_constructionTimer / 10));
             }
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)(-GetRemainingMatchTime() / GetMaxMatchTime()));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)((GetMaxMatchTime() - GetRemainingMatchTime()) / GetMaxMatchTime()));
 
             // Initially set movement vector to 0 so we don't keep stacking speeds upon the agent, resulting in far-too-fast movement.
             m_movementAggressive = orxVECTOR_0;
@@ -1351,10 +1350,10 @@ int Pilot::ScoreAction(Action *_action)
             ScrollMod *partition = GetPartition();
             float partitionDistanceX = fabsf(position.fX - partition->GetPosition().fX);
             Projectile *mostPressingProjectile = GetMostPressingProjectile();
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)(-m_lives / m_maxLives));
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)(-m_iFrames / m_maxIFrames));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)((m_maxLives - m_lives) / m_maxLives));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)((m_maxIFrames - m_iFrames) / m_maxIFrames));
             // TODO: Use actual projectile max numbers instead of 100.
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumProjectiles)(-Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size() / 100));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumProjectiles)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size()) / 100));
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)(Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size() / 100));
             // TODO: Use actual arena dimensions instead of (1920 / 2).
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)(partitionDistanceX / 960));
@@ -1362,7 +1361,7 @@ int Pilot::ScoreAction(Action *_action)
             {
                 // TODO: Use config constants instead of 10.
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)(m_contaminationTimer / 10));
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ConstructionTimer)(-m_constructionTimer / 10));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ConstructionTimer)((10 - m_constructionTimer) / 10));
             }
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)(GetRemainingMatchTime() / GetMaxMatchTime()));
 
@@ -1415,12 +1414,12 @@ int Pilot::ScoreAction(Action *_action)
             float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
             float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
             // TODO: Take most pressing projectile's parryability into account
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)(-mostPressingProjectileDistance / maxProjectileDistance));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)(mostPressingProjectileDistance / maxProjectileDistance));
         }
         if (!IsInOwnZone())
         {
             // TODO: Use config constants instead of 10.
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)(-m_contaminationTimer / 10));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)((10 - m_contaminationTimer) / 10));
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ConstructionTimer)(m_constructionTimer / 10));
         }
         factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)(GetRemainingMatchTime() / GetMaxMatchTime()));
@@ -1442,7 +1441,7 @@ int Pilot::ScoreAction(Action *_action)
                 // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                 float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                 float pilotDistance = orxVector_GetDistance(&position, &m_opposingPilot->GetPosition());
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)(-pilotDistance / maxPilotDistance));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)((maxPilotDistance - pilotDistance) / maxPilotDistance));
             }
             if (mostPressingProjectile != nullptr)
             {
@@ -1453,7 +1452,7 @@ int Pilot::ScoreAction(Action *_action)
                     float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                     float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
                     // TODO: Take most pressing projectile's parryability into account
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)(-mostPressingProjectileDistance / maxProjectileDistance));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)((maxProjectileDistance - mostPressingProjectileDistance) / maxProjectileDistance));
                 }
             }
         }
@@ -1499,7 +1498,7 @@ int Pilot::ScoreAction(Action *_action)
                 // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                 float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                 float pilotDistance = orxVector_GetDistance(&position, &m_opposingPilot->GetPosition());
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)(-pilotDistance / maxPilotDistance));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)((maxPilotDistance - pilotDistance) / maxPilotDistance));
             }
             if (mostPressingProjectile != nullptr)
             {
@@ -1510,7 +1509,7 @@ int Pilot::ScoreAction(Action *_action)
                     float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                     float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
                     // TODO: Take most pressing projectile's parryability into account
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)(-mostPressingProjectileDistance / maxProjectileDistance));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)((maxProjectileDistance - mostPressingProjectileDistance) / maxProjectileDistance));
                 }
             }
         }
@@ -1565,24 +1564,24 @@ int Pilot::ScoreAction(Action *_action)
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)(m_iFrames / m_maxIFrames));
                 // TODO: Use actual projectile max numbers instead of 100.
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumProjectiles)(Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size() / 100));
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)(-Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size() / 100));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size()) / 100));
                 if (mostPressingProjectile != nullptr)
                 {
                     // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                     float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                     float mostPressingProjectileDistance = orxVector_GetDistance(&position, &mostPressingProjectile->GetPosition());
                     // TODO: Take most pressing projectile's speed and parryability into account
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)(-mostPressingProjectileDistance / maxProjectileDistance));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)((maxProjectileDistance - mostPressingProjectileDistance) / maxProjectileDistance));
                 }
                 // TODO: Use actual arena dimensions instead of (1920 / 2).
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)(-partitionDistanceX / 960));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)((960 - partitionDistanceX) / 960));
                 if (!IsInOwnZone())
                 {
                     // TODO: Use config constants instead of 10.
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)(-m_contaminationTimer / 10));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)((10 - m_contaminationTimer) / 10));
                     factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ConstructionTimer)(m_constructionTimer / 10));
                 }
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)(-GetRemainingMatchTime() / GetMaxMatchTime()));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)((GetMaxMatchTime() - GetRemainingMatchTime()) / GetMaxMatchTime()));
 
                 float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
                 float flavorAngle = orxMath_GetRandomFloat(angleBetweenEnemyAndSelf - orxMATH_KF_PI_BY_8, angleBetweenEnemyAndSelf + orxMATH_KF_PI_BY_8);
@@ -1612,10 +1611,10 @@ int Pilot::ScoreAction(Action *_action)
                 ScrollMod *partition = GetPartition();
                 float partitionDistanceX = fabsf(position.fX - partition->GetPosition().fX);
                 Projectile *mostPressingProjectile = GetMostPressingProjectile();
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)(-m_lives / m_maxLives));
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)(-m_iFrames / m_maxIFrames));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)((m_maxLives - m_lives) / m_maxLives));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)((m_maxIFrames - m_iFrames) / m_maxIFrames));
                 // TODO: Use actual projectile max numbers instead of 100.
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumProjectiles)(-Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size() / 100));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumProjectiles)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size()) / 100));
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)(Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size() / 100));
                 // TODO: Use actual arena dimensions instead of (1920 / 2).
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)(partitionDistanceX / 960));
@@ -1623,7 +1622,7 @@ int Pilot::ScoreAction(Action *_action)
                 {
                     // TODO: Use config constants instead of 10.
                     factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ContaminationTimer)(m_contaminationTimer / 10));
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ConstructionTimer)(-m_constructionTimer / 10));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::ConstructionTimer)((10 - m_constructionTimer) / 10));
                 }
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)(GetRemainingMatchTime() / GetMaxMatchTime()));
 
@@ -1667,8 +1666,8 @@ int Pilot::ScoreAction(Action *_action)
                 // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                 float maxProjectileDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                 float projectileDistance = orxVector_GetDistance(&pos, &projectilePos);
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)(-m_lives / m_maxLives));
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)(-m_iFrames / m_maxIFrames));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)((m_maxLives - m_lives) / m_maxLives));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)((m_maxIFrames - m_iFrames) / m_maxIFrames));
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)(projectileDistance / maxProjectileDistance));
             }
         }
@@ -1720,7 +1719,7 @@ int Pilot::ScoreAction(Action *_action)
                     factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)(m_iFrames / m_maxIFrames));
                     factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)(pilotDistance / maxPilotDistance));
                     // TODO: Use actual projectile max numbers instead of 100.
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)(-Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size() / 100));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size()) / 100));
                 }
             }
         }
@@ -1745,8 +1744,8 @@ int Pilot::ScoreAction(Action *_action)
                     float maxPilotDistanceY = 1080;
                     float pilotDistanceX = fabsf(pos.fX - opponentPos.fX);
                     float pilotDistanceY = fabsf(pos.fY - opponentPos.fY);
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceX)(pilotDistanceX / maxPilotDistanceX));
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceY)(pilotDistanceY / maxPilotDistanceY));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceX)((maxPilotDistanceX - pilotDistanceX) / maxPilotDistanceX));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceY)((maxPilotDistanceY - pilotDistanceY) / maxPilotDistanceY));
                 }
             }
         }
@@ -1771,8 +1770,8 @@ int Pilot::ScoreAction(Action *_action)
                     float maxPilotDistanceY = 1080;
                     float pilotDistanceX = fabsf(pos.fX - opponentPos.fX);
                     float pilotDistanceY = fabsf(pos.fY - opponentPos.fY);
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceX)(pilotDistanceX / maxPilotDistanceX));
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceY)(pilotDistanceY / maxPilotDistanceY));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceX)((maxPilotDistanceX - pilotDistanceX) / maxPilotDistanceX));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceY)((maxPilotDistanceY - pilotDistanceY) / maxPilotDistanceY));
                 }
             }
         }
@@ -1797,8 +1796,8 @@ int Pilot::ScoreAction(Action *_action)
                     float maxPilotDistanceY = 1080;
                     float pilotDistanceX = fabsf(pos.fX - opponentPos.fX);
                     float pilotDistanceY = fabsf(pos.fY - opponentPos.fY);
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceX)(pilotDistanceX / maxPilotDistanceX));
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceY)(pilotDistanceY / maxPilotDistanceY));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceX)((maxPilotDistanceX - pilotDistanceX) / maxPilotDistanceX));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistanceY)((maxPilotDistanceY - pilotDistanceY) / maxPilotDistanceY));
                 }
             }
         }
@@ -1818,7 +1817,7 @@ int Pilot::ScoreAction(Action *_action)
                 // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
                 float maxPilotDistance = sqrtf(powf(1080, 2) + powf(1920, 2));
                 float pilotDistance = orxVector_GetDistance(&pos, &opponentPos);
-                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)(pilotDistance / maxPilotDistance));
+                factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)((maxPilotDistance - pilotDistance) / maxPilotDistance));
             }
         }
         }
@@ -1832,7 +1831,7 @@ int Pilot::ScoreAction(Action *_action)
         if (m_opposingPilot != nullptr)
         {
             // TODO: Use actual projectile max numbers instead of 100.
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)(-Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size() / 100));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size()) / 100));
             orxVECTOR pos = GetPosition();
             orxVECTOR opponentPos = m_opposingPilot->GetPosition();
             // TODO: Replace 1920 and 1080 with actual arena dimensions at some point.
@@ -1854,7 +1853,7 @@ int Pilot::ScoreAction(Action *_action)
     }
 
     // Multiply the factors by each other's compensated values.
-    actionScore = factorScores.at(0);
+    actionScore = factorScores.size() > 0 ? factorScores.at(0) : 1;
     for (int i = 1; i < factorScores.size(); i++)
     {
         actionScore *= factorScores.at(i);

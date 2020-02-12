@@ -3,8 +3,6 @@
 
 using namespace hexpatriates;
 
-float Action::M_LogitXMin = 0.5f;
-
 void Action::OnCreate()
 {
     m_actionType = static_cast<ActionType>(GetU32(GetModelName(), "O-ActionType"));
@@ -24,93 +22,57 @@ void Action::OnCreate()
             switch (factor)
             {
             case NumLives:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Linear(_normalizedValue));
                 };
                 break;
             case IFrames:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ContaminationTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ConstructionTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case NumProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case PartitionDistanceX:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case NumOpposingProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case RemainingMatchTime:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -123,93 +85,57 @@ void Action::OnCreate()
             switch (factor)
             {
             case NumLives:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Linear(_normalizedValue));
                 };
                 break;
             case IFrames:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ContaminationTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ConstructionTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case NumProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case PartitionDistanceX:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case NumOpposingProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case RemainingMatchTime:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -222,43 +148,27 @@ void Action::OnCreate()
             switch (factor)
             {
             case ContaminationTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ConstructionTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case RemainingMatchTime:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -271,23 +181,15 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -300,23 +202,15 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -329,23 +223,15 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -358,23 +244,15 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -387,93 +265,57 @@ void Action::OnCreate()
             switch (factor)
             {
             case NumLives:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Linear(_normalizedValue));
                 };
                 break;
             case IFrames:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ContaminationTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ConstructionTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case NumProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case PartitionDistanceX:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case NumOpposingProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case RemainingMatchTime:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -486,93 +328,57 @@ void Action::OnCreate()
             switch (factor)
             {
             case NumLives:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Linear(_normalizedValue));
                 };
                 break;
             case IFrames:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ContaminationTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case ConstructionTimer:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case NumProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case PartitionDistanceX:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case NumOpposingProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case RemainingMatchTime:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -585,33 +391,21 @@ void Action::OnCreate()
             switch (factor)
             {
             case NumLives:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Linear(_normalizedValue));
                 };
                 break;
             case IFrames:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -624,33 +418,21 @@ void Action::OnCreate()
             switch (factor)
             {
             case NumLives:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Linear(_normalizedValue));
                 };
                 break;
             case IFrames:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case OpposingPilotDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -663,43 +445,27 @@ void Action::OnCreate()
             switch (factor)
             {
             case NumLives:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Linear(_normalizedValue));
                 };
                 break;
             case IFrames:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case NumOpposingProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -712,23 +478,15 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistanceX:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case OpposingPilotDistanceY:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -741,23 +499,15 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistanceX:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case OpposingPilotDistanceY:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -770,23 +520,15 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistanceX:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             case OpposingPilotDistanceY:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
             }
@@ -799,13 +541,9 @@ void Action::OnCreate()
             switch (factor)
             {
             case OpposingPilotDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
@@ -818,33 +556,21 @@ void Action::OnCreate()
             switch (factor)
             {
             case MostPressingProjectileDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             case OpposingPilotDistance:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logit(_normalizedValue));
                 };
                 break;
             case NumOpposingProjectiles:
-                utilityFunction = [this](float _normalizedUtility)
+                utilityFunction = [this](float _normalizedValue)
                 {
-                    // Dividing _normalizedUtility by 2 so as to prevent logitX from exceeding a value of 1.
-                    float logitX = M_LogitXMin + (_normalizedUtility / 2.0f);
-                    float logitResult = MathUtil::Logit(logitX, EULER, false);
-
-                    return Compensate(logitResult);
+                    return Compensate(MathUtil::Logistic(_normalizedValue));
                 };
                 break;
             }
