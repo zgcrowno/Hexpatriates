@@ -32,6 +32,8 @@ namespace hexpatriates
         // TODO: At some point, I may want to add a parameter that allows us to optimize our search (see Payload/ResponseCurve.GetBucketIndexByValue and page 314 of Behavior Mathematics for Game AI).
         int GetBucketIndexByValue(int _value);
     public:
+        float m_calculationInterval;
+        float m_calculationTime;
         std::vector<UBucket*> m_uBuckets;
 
         void RebuildEdges(int _iStartBucket);

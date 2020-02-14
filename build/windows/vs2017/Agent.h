@@ -34,6 +34,7 @@ namespace hexpatriates
 
         //static orxSTATUS orxFASTCALL CalculateUtilities(void *_context);
         void CalculateUtilities();
+        void CalculateUtility(RCurve *_rCurve);
         void Act();
         // Scores the action in terms of various factors.
         virtual int ScoreAction(Action *_action) = 0;

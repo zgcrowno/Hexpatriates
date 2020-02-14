@@ -300,28 +300,25 @@ void Pilot::Update(const orxCLOCK_INFO &_rstInfo)
     }
     else
     {
-        // DASH INPUTS
-        HandleDash();
-        // REGULAR MOVEMENT INPUTS.
-        if (!m_bIsAutomated)
-        {
-            HandleMovement();
-        }
+        // DASH INPUTS.
+        HandleDashInput();
         // ACTION INPUTS.
-        HandleParry();
+        HandleParryInput();
         if (m_ship->IsEnabled())
         {
-            HandleNeutral();
-            HandleUpward();
-            HandleDownward();
-            HandleSuper();
+            HandleNeutralInput();
+            HandleUpwardInput();
+            HandleDownwardInput();
+            HandleSuperInput();
         }
         else
         {
-            HandleMelee();
-            HandleJump();
+            HandleMeleeInput();
+            HandleJumpInput();
         }
     }
+    // EXECUTE MOVEMENT.
+    ExecuteMovement();
     // TAKE DAMAGE AS APPROPRIATE
     if (m_iFrames <= 0)
     {
@@ -606,15 +603,15 @@ void Pilot::SetActionMap()
     {
         {
             Action::ActionType::MoveAggressively,
-            [this]() { SetSpeed(m_movementAggressive); }
+            [this]() { m_movementType = Action::ActionType::MoveAggressively; }
         },
         {
             Action::ActionType::MoveDefensively,
-            [this]() { SetSpeed(m_movementDefensive); }
+            [this]() { m_movementType = Action::ActionType::MoveDefensively; }
         },
         {
             Action::ActionType::DontMove,
-            [this]() { SetSpeed(orxVECTOR_0); }
+            [this]() { m_movementType = Action::ActionType::DontMove; }
         },
         {
             Action::ActionType::Jump,
@@ -785,9 +782,24 @@ void Pilot::SetHeadsUpText()
     orxObject_SetColor(m_headsUpText->GetOrxObject(), &color);
 }
 
-void Pilot::HandleMovement()
+void Pilot::ExecuteMovement()
 {
-    m_movement = orxVECTOR_0;
+    if (!m_bIsAutomated || m_movementType == Action::ActionType::DontMove)
+    {
+        m_movement = orxVECTOR_0;
+    }
+    else
+    {
+        switch (m_movementType)
+        {
+        case Action::ActionType::MoveAggressively:
+            m_movement = m_movementAggressive;
+            break;
+        case Action::ActionType::MoveDefensively:
+            m_movement = m_movementDefensive;
+            break;
+        }
+    }
     // If dashing, execute dash movement.
     if (m_dashTime > 0)
     {
@@ -801,111 +813,126 @@ void Pilot::HandleMovement()
     // Else execute regular movement
     else
     {
-        float speed = m_walkingSpeed;
-
-        if (m_ship->IsEnabled())
+        if (!m_bIsAutomated)
         {
-            speed = m_flyingSpeed;
-
-            if (orxInput_IsActive(m_upDownInput.c_str()) && CanMoveVertically())
-            {
-                Move(m_movement, { 0, 1 }, speed * orxInput_GetValue(m_upDownInput.c_str()));
-            }
-            else if (CanMoveVertically())
-            {
-                if (orxInput_IsActive(m_upInput.c_str()))
-                {
-                    Move(m_movement, { 0, -1 }, speed);
-                }
-                if (orxInput_IsActive(m_downInput.c_str()))
-                {
-                    Move(m_movement, { 0, 1 }, speed);
-                }
-            }
+            HandleMovementInput();
         }
-        else
-        {
-            if (m_bIsAgainstLeftWall || m_bIsAgainstRightWall)
-            {
-                if (orxInput_IsActive(m_upDownInput.c_str()))
-                {
-                    m_jumpTime = 0;
-                    Move(m_movement, { 0, 1 }, m_jumpingSpeed * orxInput_GetValue(m_upDownInput.c_str()));
-                }
-                else
-                {
-                    if (orxInput_IsActive(m_upInput.c_str()))
-                    {
-                        m_jumpTime = 0;
-                        Move(m_movement, { 0, -1 }, m_jumpingSpeed);
-                    }
-                    if (orxInput_IsActive(m_downInput.c_str()))
-                    {
-                        m_jumpTime = 0;
-                        Move(m_movement, { 0, 1 }, m_jumpingSpeed);
-                    }
-                }
-            }
-
-            if (m_jumpTime > 0)
-            {
-                float proportionJumpCompleted = m_jumpTime / m_jumpDuration;
-                Move(m_movement, { 0, 1 }, m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted);
-            }
-            if (m_wallJumpTime > 0)
-            {
-                float proportionJumpCompleted = m_wallJumpTime / m_jumpDuration;
-                Move(m_movement, m_jumpDirection, m_jumpingSpeed * proportionJumpCompleted);
-            }
-        }
-        if (orxInput_IsActive(m_leftRightInput.c_str()))
-        {
-            float leftRightValue = orxInput_GetValue(m_leftRightInput.c_str());
-
-            if (!m_ship->IsEnabled())
-            {
-                if (leftRightValue > 0)
-                {
-                    SetTargetAnim("A-PilotRun");
-                }
-                else if (leftRightValue < 0)
-                {
-                    SetTargetAnim("A-PilotRun");
-                }
-            }
-
-            Move(m_movement, { 1, 0 }, speed * leftRightValue);
-        }
-        else
-        {
-            if (orxInput_IsActive(m_leftInput.c_str()))
-            {
-                if (!m_ship->IsEnabled())
-                {
-                    SetTargetAnim("A-PilotRun");
-                }
-
-                Move(m_movement, { -1, 0 }, speed);
-            }
-            else if (orxInput_IsActive(m_rightInput.c_str()))
-            {
-                if (!m_ship->IsEnabled())
-                {
-                    SetTargetAnim("A-PilotRun");
-                }
-
-                Move(m_movement, { 1, 0 }, speed);
-            }
-            else
-            {
-                SetTargetAnim("A-PilotIdle");
-            }
-        }
+        ExecuteJump();
     }
     SetSpeed(m_movement);
 }
 
-void Pilot::HandleDash()
+void Pilot::ExecuteJump()
+{
+    if (!m_ship->IsEnabled())
+    {
+        if (m_jumpTime > 0)
+        {
+            float proportionJumpCompleted = m_jumpTime / m_jumpDuration;
+            Move(m_movement, { 0, 1 }, m_jumpDirection.fY * m_jumpingSpeed * proportionJumpCompleted);
+        }
+        if (m_wallJumpTime > 0)
+        {
+            float proportionJumpCompleted = m_wallJumpTime / m_jumpDuration;
+            Move(m_movement, m_jumpDirection, m_jumpingSpeed * proportionJumpCompleted);
+        }
+    }
+}
+
+void Pilot::HandleMovementInput()
+{
+    float speed = m_walkingSpeed;
+
+    if (m_ship->IsEnabled())
+    {
+        speed = m_flyingSpeed;
+
+        if (orxInput_IsActive(m_upDownInput.c_str()) && CanMoveVertically())
+        {
+            Move(m_movement, { 0, 1 }, speed * orxInput_GetValue(m_upDownInput.c_str()));
+        }
+        else if (CanMoveVertically())
+        {
+            if (orxInput_IsActive(m_upInput.c_str()))
+            {
+                Move(m_movement, { 0, -1 }, speed);
+            }
+            if (orxInput_IsActive(m_downInput.c_str()))
+            {
+                Move(m_movement, { 0, 1 }, speed);
+            }
+        }
+    }
+    else
+    {
+        if (m_bIsAgainstLeftWall || m_bIsAgainstRightWall)
+        {
+            if (orxInput_IsActive(m_upDownInput.c_str()))
+            {
+                m_jumpTime = 0;
+                Move(m_movement, { 0, 1 }, m_jumpingSpeed * orxInput_GetValue(m_upDownInput.c_str()));
+            }
+            else
+            {
+                if (orxInput_IsActive(m_upInput.c_str()))
+                {
+                    m_jumpTime = 0;
+                    Move(m_movement, { 0, -1 }, m_jumpingSpeed);
+                }
+                if (orxInput_IsActive(m_downInput.c_str()))
+                {
+                    m_jumpTime = 0;
+                    Move(m_movement, { 0, 1 }, m_jumpingSpeed);
+                }
+            }
+        }
+    }
+    if (orxInput_IsActive(m_leftRightInput.c_str()))
+    {
+        float leftRightValue = orxInput_GetValue(m_leftRightInput.c_str());
+
+        if (!m_ship->IsEnabled())
+        {
+            if (leftRightValue > 0)
+            {
+                SetTargetAnim("A-PilotRun");
+            }
+            else if (leftRightValue < 0)
+            {
+                SetTargetAnim("A-PilotRun");
+            }
+        }
+
+        Move(m_movement, { 1, 0 }, speed * leftRightValue);
+    }
+    else
+    {
+        if (orxInput_IsActive(m_leftInput.c_str()))
+        {
+            if (!m_ship->IsEnabled())
+            {
+                SetTargetAnim("A-PilotRun");
+            }
+
+            Move(m_movement, { -1, 0 }, speed);
+        }
+        else if (orxInput_IsActive(m_rightInput.c_str()))
+        {
+            if (!m_ship->IsEnabled())
+            {
+                SetTargetAnim("A-PilotRun");
+            }
+
+            Move(m_movement, { 1, 0 }, speed);
+        }
+        else
+        {
+            SetTargetAnim("A-PilotIdle");
+        }
+    }
+}
+
+void Pilot::HandleDashInput()
 {
     if (orxInput_HasBeenActivated(m_dashInput.c_str()))
     {
@@ -920,7 +947,7 @@ void Pilot::HandleDash()
     }
 }
 
-void Pilot::HandleParry()
+void Pilot::HandleParryInput()
 {
     if (orxInput_HasBeenActivated(m_parryInput.c_str()))
     {
@@ -928,7 +955,7 @@ void Pilot::HandleParry()
     }
 }
 
-void Pilot::HandleMelee()
+void Pilot::HandleMeleeInput()
 {
     if (orxInput_HasBeenActivated(m_meleeInput.c_str()))
     {
@@ -936,7 +963,7 @@ void Pilot::HandleMelee()
     }
 }
 
-void Pilot::HandleJump()
+void Pilot::HandleJumpInput()
 {
     if (orxInput_HasBeenActivated(m_jumpInput.c_str()))
     {
@@ -948,7 +975,7 @@ void Pilot::HandleJump()
     }
 }
 
-void Pilot::HandleNeutral()
+void Pilot::HandleNeutralInput()
 {
     if (orxInput_HasBeenActivated(m_neutralInput.c_str()))
     {
@@ -956,7 +983,7 @@ void Pilot::HandleNeutral()
     }
 }
 
-void Pilot::HandleUpward()
+void Pilot::HandleUpwardInput()
 {
     if (orxInput_HasBeenActivated(m_upwardInput.c_str()))
     {
@@ -964,7 +991,7 @@ void Pilot::HandleUpward()
     }
 }
 
-void Pilot::HandleDownward()
+void Pilot::HandleDownwardInput()
 {
     if (orxInput_HasBeenActivated(m_downwardInput.c_str()))
     {
@@ -972,7 +999,7 @@ void Pilot::HandleDownward()
     }
 }
 
-void Pilot::HandleSuper()
+void Pilot::HandleSuperInput()
 {
     if (orxInput_HasBeenActivated(m_superInput.c_str()))
     {
@@ -1303,7 +1330,7 @@ int Pilot::ScoreAction(Action *_action)
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::MostPressingProjectileDistance)((maxProjectileDistance - mostPressingProjectileDistance) / maxProjectileDistance));
             }
             // TODO: Use actual arena dimensions instead of (1920 / 2).
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)((960 - partitionDistanceX) / 960));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)(partitionDistanceX / 960));
             if (!IsInOwnZone())
             {
                 // TODO: Use config constants instead of 10.
@@ -1314,18 +1341,18 @@ int Pilot::ScoreAction(Action *_action)
 
             // Initially set movement vector to 0 so we don't keep stacking speeds upon the agent, resulting in far-too-fast movement.
             m_movementAggressive = orxVECTOR_0;
-            float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
-            float flavorAngle = orxMath_GetRandomFloat(angleBetweenEnemyAndSelf - orxMATH_KF_PI_BY_2, angleBetweenEnemyAndSelf + orxMATH_KF_PI_BY_2);
+            float angleBetweenSelfAndEnemy = AngleBetweenPoints(position, m_opposingPilot->GetPosition());
+            float flavorAngle = orxMath_GetRandomFloat(angleBetweenSelfAndEnemy - orxMATH_KF_PI_BY_2, angleBetweenSelfAndEnemy + orxMATH_KF_PI_BY_2);
             orxVECTOR normalizedSpeed = RadiansToVector(flavorAngle);
             if (!m_ship->IsEnabled())
             {
                 if (normalizedSpeed.fX > 0)
                 {
-                    normalizedSpeed = { 0, 1 };
+                    normalizedSpeed = { 1, 0 };
                 }
                 else
                 {
-                    normalizedSpeed = { 0, -1 };
+                    normalizedSpeed = { -1, 0 };
                 }
             }
             Move(m_movementAggressive, normalizedSpeed, m_ship->IsEnabled() ? m_flyingSpeed : m_walkingSpeed);
@@ -1356,7 +1383,7 @@ int Pilot::ScoreAction(Action *_action)
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumProjectiles)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_typeName).size()) / 100));
             factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)(Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size() / 100));
             // TODO: Use actual arena dimensions instead of (1920 / 2).
-            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)(partitionDistanceX / 960));
+            factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::PartitionDistanceX)((960 - partitionDistanceX) / 960));
             if (!IsInOwnZone())
             {
                 // TODO: Use config constants instead of 10.
@@ -1380,6 +1407,10 @@ int Pilot::ScoreAction(Action *_action)
                 float angleBetweenProjectileAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
                 flavorAngle = orxMath_GetRandomFloat(angleBetweenProjectileAndSelf - orxMATH_KF_PI_BY_4, angleBetweenProjectileAndSelf + orxMATH_KF_PI_BY_4);
             }
+            else if (!IsInOwnZone() && m_contaminationTimer < 3)
+            {
+                normalizedSpeed = { 1, 0 };
+            }
             else
             {
                 float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
@@ -1390,11 +1421,11 @@ int Pilot::ScoreAction(Action *_action)
             {
                 if (normalizedSpeed.fX > 0)
                 {
-                    normalizedSpeed = { 0, 1 };
+                    normalizedSpeed = { 1, 0 };
                 }
                 else
                 {
-                    normalizedSpeed = { 0, -1 };
+                    normalizedSpeed = { -1, 0 };
                 }
             }
             Move(m_movementDefensive, normalizedSpeed, m_ship->IsEnabled() ? m_flyingSpeed : m_walkingSpeed);
@@ -1583,8 +1614,8 @@ int Pilot::ScoreAction(Action *_action)
                 }
                 factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::RemainingMatchTime)((GetMaxMatchTime() - GetRemainingMatchTime()) / GetMaxMatchTime()));
 
-                float angleBetweenEnemyAndSelf = AngleBetweenPoints(m_opposingPilot->GetPosition(), position);
-                float flavorAngle = orxMath_GetRandomFloat(angleBetweenEnemyAndSelf - orxMATH_KF_PI_BY_8, angleBetweenEnemyAndSelf + orxMATH_KF_PI_BY_8);
+                float angleBetweenSelfAndEnemy = AngleBetweenPoints(position, m_opposingPilot->GetPosition());
+                float flavorAngle = orxMath_GetRandomFloat(angleBetweenSelfAndEnemy - orxMATH_KF_PI_BY_8, angleBetweenSelfAndEnemy + orxMATH_KF_PI_BY_8);
                 m_dashDirectionAggressive = RadiansToVector(flavorAngle);
             }
         }
@@ -1717,7 +1748,7 @@ int Pilot::ScoreAction(Action *_action)
                     float pilotDistance = orxVector_GetDistance(&position, &opposingPilotPosition);
                     factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumLives)(m_lives / m_maxLives));
                     factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::IFrames)(m_iFrames / m_maxIFrames));
-                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)(pilotDistance / maxPilotDistance));
+                    factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::OpposingPilotDistance)((maxPilotDistance - pilotDistance) / maxPilotDistance));
                     // TODO: Use actual projectile max numbers instead of 100.
                     factorScores.push_back(_action->m_utilityFunctionMap.at(Action::Factor::NumOpposingProjectiles)((100 - Hexpatriates::GetInstance().GetProjectilesByPlayerType(m_otherTypeName).size()) / 100));
                 }

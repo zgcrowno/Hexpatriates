@@ -28,7 +28,6 @@ orxBOOL Agent::OnCollide(
 void Agent::Update(const orxCLOCK_INFO &_rstInfo)
 {
     //orxThread_RunTask(&CalculateUtilities, nullptr, nullptr, this);
-    CalculateUtilities();
     Act();
 }
 
@@ -91,11 +90,36 @@ void Agent::CalculateUtilities()
     }
 }
 
+void Agent::CalculateUtility(RCurve *_rCurve)
+{
+    for (UBucket *uBucket : _rCurve->m_uBuckets)
+    {
+        // Set size (and edge?) based upon value returned from m_action->Score().
+        int actionScore = ScoreAction(uBucket->m_action);
+
+        if (actionScore <= 0)
+        {
+            uBucket->m_size = 1;
+        }
+        else
+        {
+            uBucket->m_size = actionScore;
+        }
+    }
+
+    _rCurve->RebuildEdges(0);
+}
+
 void Agent::Act()
 {
     for (RCurve *rCurve : m_context->m_rCurves)
     {
-        m_actionMap.at(rCurve->SelectAction()->m_actionType)();
+        if (rCurve->m_calculationTime <= 0)
+        {
+            CalculateUtility(rCurve);
+            m_actionMap.at(rCurve->SelectAction()->m_actionType)();
+            rCurve->m_calculationTime = rCurve->m_calculationInterval;
+        }
     }
 }
 

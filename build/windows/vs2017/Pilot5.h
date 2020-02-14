@@ -21,7 +21,7 @@ namespace hexpatriates
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-        virtual void HandleMovement();
+        virtual void ExecuteMovement();
         //! Returns a bool which represents whether or not the Pilot can move vertically
         virtual bool CanMoveVertically();
     public:

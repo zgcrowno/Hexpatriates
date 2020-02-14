@@ -60,9 +60,9 @@ void Pilot6::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot6::HandleMovement()
+void Pilot6::ExecuteMovement()
 {
-    Pilot::HandleMovement();
+    Pilot::ExecuteMovement();
 
     orxVECTOR speedVector = GetSpeed();
     if (speedVector.fX != orxVECTOR_0.fX || speedVector.fY != orxVECTOR_0.fY)

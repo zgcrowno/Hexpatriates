@@ -32,20 +32,23 @@ namespace hexpatriates
         //! Sets the Pilot's heads up text
         void SetHeadsUpText();
         //! Manages Pilot movement
-        virtual void HandleMovement();
-        virtual void HandleDash();
-        virtual void HandleParry();
-        virtual void HandleMelee();
-        virtual void HandleJump();
-        virtual void HandleNeutral();
-        virtual void HandleUpward();
-        virtual void HandleDownward();
-        virtual void HandleSuper();
+        virtual void ExecuteMovement();
+        virtual void ExecuteJump();
+        virtual void HandleMovementInput();
+        virtual void HandleDashInput();
+        virtual void HandleParryInput();
+        virtual void HandleMeleeInput();
+        virtual void HandleJumpInput();
+        virtual void HandleNeutralInput();
+        virtual void HandleUpwardInput();
+        virtual void HandleDownwardInput();
+        virtual void HandleSuperInput();
         //! Moves the Pilot based on the passed movement vector, direction and speed
         virtual void Move(orxVECTOR &_movementVec, const orxVECTOR &_direction, const float &_speed);
         //! Returns a bool which represents whether or not the Pilot can move vertically
         virtual bool CanMoveVertically();
     public:
+        Action::ActionType m_movementType;
         //! The amount of time, in seconds, the Pilot is currently invulnerable.
         float m_iFrames;
         //! The maximum amount of time, in seconds, the Pilot is invulnerable after taking damage.

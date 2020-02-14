@@ -5,6 +5,8 @@ using namespace hexpatriates;
 
 void RCurve::OnCreate()
 {
+    m_calculationInterval = GetFloat("CalculationInterval", GetModelName());
+    m_calculationTime = m_calculationInterval;
     for (UBucket *uBucket = ScrollCast<UBucket*>(GetOwnedChild()); uBucket; uBucket = ScrollCast<UBucket*>(uBucket->GetOwnedSibling()))
     {
         m_uBuckets.push_back(uBucket);
@@ -29,7 +31,7 @@ orxBOOL RCurve::OnCollide(
 
 void RCurve::Update(const orxCLOCK_INFO &_rstInfo)
 {
-
+    m_calculationTime -= _rstInfo.fDT;
 }
 
 void RCurve::AddBucket(UBucket *_bucket)

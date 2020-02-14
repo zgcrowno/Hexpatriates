@@ -46,7 +46,7 @@ void Pilot5::Update(const orxCLOCK_INFO &_rstInfo)
     Pilot::Update(_rstInfo);
 }
 
-void Pilot5::HandleMovement()
+void Pilot5::ExecuteMovement()
 {
     if (m_bIsShipPounding)
     {
@@ -54,7 +54,7 @@ void Pilot5::HandleMovement()
     }
     else
     {
-        Pilot::HandleMovement();
+        Pilot::ExecuteMovement();
     }
 }
 

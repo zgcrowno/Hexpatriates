@@ -456,7 +456,7 @@ void Action::OnCreate()
                     return Compensate(MathUtil::Quadratic(_normalizedValue));
                 };
                 break;
-            case MostPressingProjectileDistance:
+            case OpposingPilotDistance:
                 utilityFunction = [this](float _normalizedValue)
                 {
                     return Compensate(MathUtil::Logistic(_normalizedValue));
